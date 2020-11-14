@@ -1,0 +1,24 @@
+(kicad_sch (version 20200714) (host eeschema "(5.99.0-2358-g6d8fb94d8)")
+
+  (page 1 2)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 49.53 33.02) (size 35.56 21.59)
+    (stroke (width 0.001) (type solid) (color 132 0 132 1))
+    (fill (color 255 255 255 0.0000))    (uuid 8a3ff3d4-637d-4bf8-9413-4e6c3e0b3e82)
+    (property "Sheet name" "Bus Control" (id 0) (at 49.53 32.3841 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "BusControl.kicad_sch" (id 1) (at 49.53 55.1189 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (symbol_instances
+  )
+)
