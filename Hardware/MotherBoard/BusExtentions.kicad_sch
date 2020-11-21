@@ -1,6 +1,6 @@
 (kicad_sch (version 20201015) (generator eeschema)
 
-  (page 1 4)
+  (page 1 1)
 
   (paper "A4")
 
@@ -623,6 +623,8 @@
   (junction (at 165.1 99.06) (diameter 1.016) (color 0 0 0 0))
 
   (no_connect (at 170.815 65.405))
+  (no_connect (at 72.39 156.845))
+  (no_connect (at 156.21 155.575))
 
   (bus_entry (at 114.935 34.925) (size 2.54 2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
@@ -2047,6 +2049,67 @@
     )
     (property "Datasheet" "http://www.ti.com/lit/gpn/sn74HCT541" (id 3) (at 165.1 119.38 0)
       (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+
+  (symbol_instances
+    (path "/aae262a5-980b-4be4-a85e-c2cf7b799405"
+      (reference "#PWR0125") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/6a470757-4358-44cd-82a5-db2d64fa6f54"
+      (reference "#PWR0126") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/8ce2b343-39c5-4211-9032-d8a415207f99"
+      (reference "#PWR0127") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/a4357a5a-e4dd-4f1a-80a8-1ac3bdfec736"
+      (reference "#PWR0128") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/be3c90d2-460f-475a-b8d5-c0fa479568d2"
+      (reference "#PWR0129") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/f15ea47b-eb16-4e14-b8e7-e5d42077b88a"
+      (reference "#PWR0130") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/a9ee1bb1-999b-4256-98ad-699c35645a30"
+      (reference "#PWR0131") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/590f7ac6-3605-40fb-97be-8ffdd6cd7ecd"
+      (reference "#PWR0132") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/a33e05e8-4a0b-4de9-82f3-216a64ed2403"
+      (reference "J3") (unit 1) (value "ISA00") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical")
+    )
+    (path "/ad97b31a-c5ce-4faa-a2d0-e001fa0cc350"
+      (reference "J4") (unit 1) (value "ISA10") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical")
+    )
+    (path "/fa838b97-f421-46fa-ac1e-9a2f6ddd7e0c"
+      (reference "J7") (unit 1) (value "ISA01") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical")
+    )
+    (path "/19cc7f8e-7a0d-4fe2-9625-721aeb7bd93d"
+      (reference "J8") (unit 1) (value "ISA11") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x15_P2.54mm_Vertical")
+    )
+    (path "/1e640dc0-9a9b-4e78-97a7-c4c4fba75621"
+      (reference "U9") (unit 1) (value "74HCT541") (footprint "Package_DIP:DIP-20_W7.62mm")
+    )
+    (path "/87eea902-e28a-40ef-a5ce-0c008a75322f"
+      (reference "U10") (unit 1) (value "74HCT541") (footprint "Package_DIP:DIP-20_W7.62mm")
+    )
+    (path "/e8617ace-d039-40cf-88f5-54844f714e69"
+      (reference "U11") (unit 1) (value "SN74LVC245AN") (footprint "Package_DIP:DIP-20_W7.62mm")
+    )
+    (path "/3cca239b-f779-41bf-b799-10b7e05ec0c1"
+      (reference "U12") (unit 1) (value "SN74LVC245AN") (footprint "Package_DIP:DIP-20_W7.62mm")
+    )
+    (path "/307f46a0-ac22-48e0-8f31-60c6b44a6ba9"
+      (reference "U13") (unit 1) (value "74HCT541") (footprint "Package_DIP:DIP-20_W7.62mm")
+    )
+    (path "/a0cfc135-bc69-4e94-b73e-3f2d947b9990"
+      (reference "U14") (unit 1) (value "74HCT541") (footprint "Package_DIP:DIP-20_W7.62mm")
     )
   )
 )
