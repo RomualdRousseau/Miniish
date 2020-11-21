@@ -66,7 +66,7 @@ every 4 VGA frames. It means with a 60Hz frame rate, the image is generated at a
 
 The sprite generator generates the picture in a interlaced mode described as follow:
 
-![PPU signals](Material/PPU signals.png)
+![PPU signals](https://github.com/RomualdRousseau/Miniish/blob/main/Material/PPU%20signals.png)
 
 Main parts of the code are in assembler to provide greater control of the timings.
 And this part is entirely based on timings.
