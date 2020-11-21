@@ -50,7 +50,7 @@ explanations). The Sprite generator is using a ATMEGA1284P clocked at 20MHz.
 
 The overall spec of the sprite generator is:
 
-* 2 nametables for the background composed of 20 * 12 tiles. Each tile is a 8x8
+* 2 nametables for the background composed of 20 * 12 tiles. Each tile is 8x8
 pixels. Scrolling vertical and horizontal modes are supported.
 
 * 2 attributes tables to set the palette of each tiles of the background.
@@ -62,18 +62,11 @@ pixels. Scrolling vertical and horizontal modes are supported.
 * Collision support (to come)
 
 Because of the limited power of the micro controller. A full image is generated
-every 4 VGA frames. It means with a 60Hz frame rate, the image is generated
-at a rate of 15Hz.
+every 4 VGA frames. It means with a 60Hz frame rate, the image is generated at a rate of 15Hz.
 
-The sprite generator generates the picture in 4 times:
+The sprite generator generates the picture in a interlaced mode described as follow:
 
-1. The first 30 lines of the image
-
-2. The second 30 lines of the image
-
-3. The third 30 lines of the image
-
-4. A time for the CPU to prepare the next image signaled by the non maskable interrupt.
+![PPU signals](Material/PPU signals.png)
 
 Main parts of the code are in assembler to provide greater control of the timings.
 And this part is entirely based on timings.
