@@ -728,11 +728,6 @@
       (property "ki_fp_filters" "DIP*W15.24mm*" (id 6) (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "HM62256BLP_0_1"
-        (rectangle (start -10.16 20.32) (end 10.16 -20.32)
-          (stroke (width 0.254)) (fill (type background))
-        )
-      )
       (symbol "HM62256BLP_0_0"
         (pin power_in line (at 0 -22.86 90) (length 2.54)
           (name "GND" (effects (font (size 1.27 1.27))))
@@ -741,6 +736,11 @@
         (pin power_in line (at 0 22.86 270) (length 2.54)
           (name "VCC" (effects (font (size 1.27 1.27))))
           (number "28" (effects (font (size 1.27 1.27))))
+        )
+      )
+      (symbol "HM62256BLP_0_1"
+        (rectangle (start -10.16 20.32) (end 10.16 -20.32)
+          (stroke (width 0.254)) (fill (type background))
         )
       )
       (symbol "HM62256BLP_1_1"
@@ -1048,6 +1048,7 @@
 
   (bus_alias "D" (members "D0" "D1" "D2"))
   (bus_alias "A" (members "A0" "A1" "A2" "A3" "A4" "A5" "A6" "A7"))
+
   (junction (at 107.315 147.955) (diameter 1.016) (color 0 0 0 0))
   (junction (at 137.16 112.395) (diameter 1.016) (color 0 0 0 0))
   (junction (at 200.025 114.935) (diameter 1.016) (color 0 0 0 0))
@@ -1068,11 +1069,11 @@
   (junction (at 128.905 92.71) (diameter 1.016) (color 0 0 0 0))
   (junction (at 194.31 86.995) (diameter 1.016) (color 0 0 0 0))
 
-  (no_connect (at 148.59 125.095))
+  (no_connect (at 148.59 114.935))
   (no_connect (at 181.61 112.395))
+  (no_connect (at 148.59 125.095))
   (no_connect (at 148.59 120.015))
   (no_connect (at 148.59 109.855))
-  (no_connect (at 148.59 114.935))
 
   (bus_entry (at 48.26 29.21) (size 2.54 -2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
@@ -1699,9 +1700,6 @@
   (wire (pts (xy 237.49 64.77) (xy 237.49 67.31))
     (stroke (width 0) (type solid) (color 0 0 0 0))
   )
-  (wire (pts (xy 242.57 76.2) (xy 252.73 76.2))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
   (wire (pts (xy 245.11 57.15) (xy 252.73 57.15))
     (stroke (width 0) (type solid) (color 0 0 0 0))
   )
@@ -1721,6 +1719,9 @@
     (stroke (width 0) (type solid) (color 0 0 0 0))
   )
   (wire (pts (xy 252.73 68.58) (xy 252.73 76.2))
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+  )
+  (wire (pts (xy 252.73 76.2) (xy 267.97 76.2))
     (stroke (width 0) (type solid) (color 0 0 0 0))
   )
   (wire (pts (xy 258.445 28.575) (xy 269.875 28.575))
@@ -2327,16 +2328,6 @@
     (effects (font (size 1.27 1.27)) (justify right bottom))
   )
 
-  (global_label "ECLOCK" (shape input) (at 242.57 76.2 180)
-    (effects (font (size 1.27 1.27)) (justify right))
-  )
-  (global_label "CLOCK" (shape input) (at 267.97 66.04 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-  )
-  (global_label "RESET" (shape input) (at 268.605 107.95 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-  )
-
   (hierarchical_label "D[0..7]" (shape bidirectional) (at 26.035 86.995 180)
     (effects (font (size 1.27 1.27)) (justify right))
   )
@@ -2434,6 +2425,15 @@
     (effects (font (size 1.27 1.27)) (justify left))
   )
   (hierarchical_label "RW" (shape input) (at 181.61 125.095 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+  )
+  (hierarchical_label "CLOCK" (shape input) (at 267.97 66.04 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+  )
+  (hierarchical_label "ECLOCK" (shape input) (at 267.97 76.2 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+  )
+  (hierarchical_label "RESET" (shape input) (at 268.605 107.95 0)
     (effects (font (size 1.27 1.27)) (justify left))
   )
 
