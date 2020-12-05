@@ -1,129 +1,129 @@
 {
-"DesignRules": [
-{
-"Layers": "Outer",
-"MinLineWidth": 1.0,
-"PadToPad": 0.2,
-"PadToTrack": 0.2,
-"RegionToRegion": 0.508,
-"TrackToRegion": 0.508,
-"TrackToTrack": 0.2
-}
-],
-"FilesAttributes": [
-{
-"FileFunction": "Copper,L1,Top",
-"FilePolarity": "Positive",
-"Path": "MotherBoard-F_Cu.gbr"
-},
-{
-"FileFunction": "Copper,L2,Bot",
-"FilePolarity": "Positive",
-"Path": "MotherBoard-B_Cu.gbr"
-},
-{
-"FileFunction": "SolderPaste,Top",
-"FilePolarity": "Positive",
-"Path": "MotherBoard-F_Paste.gbr"
-},
-{
-"FileFunction": "SolderPaste,Bot",
-"FilePolarity": "Positive",
-"Path": "MotherBoard-B_Paste.gbr"
-},
-{
-"FileFunction": "Legend,Top",
-"FilePolarity": "Positive",
-"Path": "MotherBoard-F_SilkS.gbr"
-},
-{
-"FileFunction": "Legend,Bot",
-"FilePolarity": "Positive",
-"Path": "MotherBoard-B_SilkS.gbr"
-},
-{
-"FileFunction": "SolderMask,Top",
-"FilePolarity": "Negative",
-"Path": "MotherBoard-F_Mask.gbr"
-},
-{
-"FileFunction": "SolderMask,Bot",
-"FilePolarity": "Negative",
-"Path": "MotherBoard-B_Mask.gbr"
-},
-{
-"FileFunction": "Profile",
-"FilePolarity": "Positive",
-"Path": "MotherBoard-Edge_Cuts.gbr"
-}
-],
-"GeneralSpecs": {
-"BoardThickness": 1.6,
-"Finish": "None",
-"LayerNumber": 2,
-"ProjectId": {
-"GUID": "52657472-6f36-4353-9032-2e6b69636164",
-"Name": "Retro6502",
-"Revision": "rev?"
-},
-"Size": {
-"X": 233.78,
-"Y": 165.2
-}
-},
-"Header": {
-"CreationDate": "2020-10-18T12:13:38+08:00",
-"GenerationSoftware": {
-"Application": "Pcbnew",
-"Vendor": "KiCad",
-"Version": "(5.99.0-2358-g6d8fb94d8)"
-}
-},
-"MaterialStackup": [
-{
-"Name": "Top Silk Screen",
-"Type": "Legend"
-},
-{
-"Name": "Top Solder Paste",
-"Type": "SolderPaste"
-},
-{
-"Color": "Green",
-"Name": "Top Solder Mask",
-"Thickness": 0.01,
-"Type": "SolderMask"
-},
-{
-"Name": "F.Cu",
-"Thickness": 0.035,
-"Type": "Copper"
-},
-{
-"Material": "FR4",
-"Name": "F.Cu/B.Cu",
-"Notes": "Type: dielectric layer 1 (from F.Cu to B.Cu)",
-"Thickness": 1.51,
-"Type": "Dielectric"
-},
-{
-"Name": "B.Cu",
-"Thickness": 0.035,
-"Type": "Copper"
-},
-{
-"Color": "Green",
-"Name": "Bottom Solder Mask",
-"Thickness": 0.01,
-"Type": "SolderMask"
-},
-{
-"Name": "Bottom Solder Paste",
-"Type": "SolderPaste"
-},
-{
-"Name": "Bottom Silk Screen",
-"Type": "Legend"
-}
-]
+  "Header": {
+    "GenerationSoftware": {
+      "Vendor": "KiCad",
+      "Application": "Pcbnew",
+      "Version": "(5.99.0-7129-g2932fe1e64)"
+    },
+    "CreationDate": "2020-11-22T16:30:13+08:00"
+  },
+  "GeneralSpecs": {
+    "ProjectId": {
+      "Name": "MotherBoard",
+      "GUID": "4d6f7468-6572-4426-9f61-72642e6b6963",
+      "Revision": "rev?"
+    },
+    "Size": {
+      "X": 145.1,
+      "Y": 160.1
+    },
+    "LayerNumber": 2,
+    "BoardThickness": 1.6,
+    "Finish": "None"
+  },
+  "DesignRules": [
+    {
+      "Layers": "Outer",
+      "PadToPad": 0.0,
+      "PadToTrack": 0.0,
+      "TrackToTrack": 0.2,
+      "MinLineWidth": 0.3,
+      "TrackToRegion": 0.508,
+      "RegionToRegion": 0.508
+    }
+  ],
+  "FilesAttributes": [
+    {
+      "Path": "MotherBoard-F_Cu.gbr",
+      "FileFunction": "Copper,L1,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "MotherBoard-B_Cu.gbr",
+      "FileFunction": "Copper,L2,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "MotherBoard-F_Paste.gbr",
+      "FileFunction": "SolderPaste,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "MotherBoard-B_Paste.gbr",
+      "FileFunction": "SolderPaste,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "MotherBoard-F_Silkscreen.gbr",
+      "FileFunction": "Legend,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "MotherBoard-B_Silkscreen.gbr",
+      "FileFunction": "Legend,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "MotherBoard-F_Mask.gbr",
+      "FileFunction": "SolderMask,Top",
+      "FilePolarity": "Negative"
+    },
+    {
+      "Path": "MotherBoard-B_Mask.gbr",
+      "FileFunction": "SolderMask,Bot",
+      "FilePolarity": "Negative"
+    },
+    {
+      "Path": "MotherBoard-Edge_Cuts.gbr",
+      "FileFunction": "Profile",
+      "FilePolarity": "Positive"
+    }
+  ],
+  "MaterialStackup": [
+    {
+      "Type": "Legend",
+      "Name": "Top Silk Screen"
+    },
+    {
+      "Type": "SolderPaste",
+      "Name": "Top Solder Paste"
+    },
+    {
+      "Type": "SolderMask",
+      "Color": "Green",
+      "Thickness": 0.01,
+      "Name": "Top Solder Mask"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "F.Cu"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 1.51,
+      "Material": "FR4",
+      "Name": "F.Cu/B.Cu",
+      "Notes": "Type: dielectric layer 1 (from F.Cu to B.Cu)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "B.Cu"
+    },
+    {
+      "Type": "SolderMask",
+      "Color": "Green",
+      "Thickness": 0.01,
+      "Name": "Bottom Solder Mask"
+    },
+    {
+      "Type": "SolderPaste",
+      "Name": "Bottom Solder Paste"
+    },
+    {
+      "Type": "Legend",
+      "Name": "Bottom Silk Screen"
+    }
+  ]
 }

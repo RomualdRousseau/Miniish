@@ -105,6 +105,7 @@
         "max_error": 0.005,
         "min_clearance": 0.0,
         "min_copper_edge_clearance": 0.0,
+        "min_hole_clearance": 0.0,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.19999999999999998,
         "min_microvia_drill": 0.09999999999999999,
@@ -414,7 +415,7 @@
   },
   "sheets": [
     [
-      "262fd1f8-cc24-4487-9703-47c27aafda0a",
+      "d32e1707-2f83-4955-a40b-40719bacd17d",
       ""
     ],
     [
@@ -427,7 +428,7 @@
     ],
     [
       "61215041-7d34-4941-9afc-8a556d19a10e",
-      "CPU\n"
+      "Main\n"
     ]
   ],
   "text_variables": {}

@@ -11,7 +11,7 @@
   )
 
   (lib_symbols
-    (symbol "65xx:WD65C02" (in_bom yes) (on_board yes)
+    (symbol "65xx:WD65C02" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
       (property "Reference" "U" (id 0) (at 0 -29.21 0)
         (effects (font (size 1.524 1.524)))
       )
@@ -198,7 +198,7 @@
         )
       )
     )
-    (symbol "65xx:WD65C22" (in_bom yes) (on_board yes)
+    (symbol "65xx:WD65C22" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
       (property "Reference" "U" (id 0) (at 0 -29.21 0)
         (effects (font (size 1.524 1.524)))
       )
@@ -385,7 +385,7 @@
         )
       )
     )
-    (symbol "Connector_Generic:Conn_02x02_Odd_Even" (pin_names hide) (in_bom yes) (on_board yes)
+    (symbol "Connector_Generic:Conn_02x02_Odd_Even" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (id 0) (at 1.27 2.54 0)
         (effects (font (size 1.27 1.27)))
       )
@@ -725,9 +725,6 @@
       (property "ki_description" "32,768-word × 8-bit High Speed CMOS Static RAM, 70ns, DIP-28" (id 5) (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_fp_filters" "DIP*W15.24mm*" (id 6) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
       (symbol "HM62256BLP_0_0"
         (pin power_in line (at 0 -22.86 90) (length 2.54)
           (name "GND" (effects (font (size 1.27 1.27))))
@@ -869,9 +866,6 @@
       (property "ki_description" "HCMOS Crystal Clock Oscillator, DIP14-style metal package" (id 5) (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_fp_filters" "Oscillator*DIP*14*" (id 6) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
       (symbol "ACO-xxxMHz_0_1"
         (rectangle (start -5.08 5.08) (end 5.08 -5.08)
           (stroke (width 0.254)) (fill (type background))
@@ -910,7 +904,7 @@
         )
       )
     )
-    (symbol "Switch:SW_Push" (pin_numbers hide) (pin_names hide) (in_bom yes) (on_board yes)
+    (symbol "Switch:SW_Push" (pin_numbers hide) (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "SW" (id 0) (at 1.27 2.54 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -1048,7 +1042,6 @@
 
   (bus_alias "D" (members "D0" "D1" "D2"))
   (bus_alias "A" (members "A0" "A1" "A2" "A3" "A4" "A5" "A6" "A7"))
-
   (junction (at 107.315 147.955) (diameter 1.016) (color 0 0 0 0))
   (junction (at 137.16 112.395) (diameter 1.016) (color 0 0 0 0))
   (junction (at 200.025 114.935) (diameter 1.016) (color 0 0 0 0))
@@ -1069,11 +1062,11 @@
   (junction (at 128.905 92.71) (diameter 1.016) (color 0 0 0 0))
   (junction (at 194.31 86.995) (diameter 1.016) (color 0 0 0 0))
 
-  (no_connect (at 148.59 114.935))
-  (no_connect (at 181.61 112.395))
   (no_connect (at 148.59 125.095))
-  (no_connect (at 148.59 120.015))
   (no_connect (at 148.59 109.855))
+  (no_connect (at 181.61 112.395))
+  (no_connect (at 148.59 114.935))
+  (no_connect (at 148.59 120.015))
 
   (bus_entry (at 48.26 29.21) (size 2.54 -2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
