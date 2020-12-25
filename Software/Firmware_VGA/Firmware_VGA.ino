@@ -8,13 +8,12 @@
 #define CTRL_HLINE_PIN   3  // PIN 11 (PB3)
 #define CTRL_VBLANK_PIN  4  // PIN 12 (PB4)
 
-#define VSYNC_PULSE      127   // 64us
-#define VSYNC_LENGTH     33326 // 16.666ms
+#define VSYNC_PULSE      159    // 63.6us
+#define VSYNC_LENGTH     41719  // 16.687ms
 #define VSYNC_START_LINE -80
 
-#define HSYNC_PULSE      6    // 3.8us
-#define HSYNC_START_LINE 15   // 6.5us
-#define HSYNC_LENGTH     62   // 31.7us
+#define HSYNC_PULSE      9      // 3.6us
+#define HSYNC_LENGTH     79     // 31.6us
 
 static volatile int vline = 0;
 
@@ -112,6 +111,7 @@ ISR (TIMER2_COMPB_vect)
   }
 
   // Initialize line address counter 
+  
   asm volatile(
     //PORTB = HIGH(vline >> 2);
     "    sbrc %[vline], 6\n"
@@ -130,82 +130,64 @@ ISR (TIMER2_COMPB_vect)
      [outp] "i" (VADDR7_PIN),
      [vline] "r" (vline >> 2)
     :"r20"
-   );
+  );
 
-  
   // Sync and stabilize signal
+
+  #define DEJITTER_OFFSET 1
+  #define DEJITTER_SYNC   -2
   asm volatile(
-    "    nop\n"
-    "    nop\n"
-    "    nop\n"
-    "    lds r20, %[tcnt2]\n"
-    "    subi r20, %[tsync]\n"
-    "    brpl nojitter\n"
-    "    nop\n"
-    "    nop\n"
-    "nojitter:"
+    "     nop\n"
+    "     lds r16, %[tcnt2]\n"
+    "     subi r16, %[tsync]\n"
+    "     andi r16, 7\n"
+    "     call TL\n"
+    "TL:\n"
+    "     pop r31\n"
+    "     pop r30\n"
+    "     adiw r30, (LW-TL-5)\n"
+    "     add r30, r16\n"
+    "     ijmp\n"
+    "LW:\n"
+    "     nop\n"
+    "     nop\n"
+    "     nop\n"
+    "     nop\n"
+    "     nop\n"
+    "     nop\n"
+    "     nop\n"
+    "     nop\n"
     :
-    :[tcnt2] "i" (&TCNT2),
-     [tsync] "i" (HSYNC_START_LINE)
-    :"r20"
-   );
+    : [tcnt2] "i" (&TCNT2),
+      [toffset] "i" ((uint8_t)DEJITTER_OFFSET),
+      [tsync] "i" ((uint8_t)DEJITTER_SYNC)
+    : "r30", "r31", "r16", "r17");
 
   //
   // Visible Section
   //
 
   // Notify HLINE start
+  
   asm volatile("cbi %[portb], %[outp]\n"::[portb] "I" (_SFR_IO_ADDR(CONTROL_PORT)), [outp] "i" (CTRL_HLINE_PIN):);
 
   // Output pixels by incrementing the line address counter
+  
   asm volatile(
       "    ldi r20, 1\n"
-      ".rept 10\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
+      ".rept 159\n"
       "    out %[portd], r20\n"
       "    nop\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    nop\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    nop\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    nop\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    nop\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
-      "    inc r20\n"
-      "    out %[portd], r20\n"
       "    inc r20\n"
       ".endr\n"
-      //"    out %[portd], __zero_reg__\n"
+      "    out %[portd], r20\n"
       :
       :[portd] "I" (_SFR_IO_ADDR(HADDR_PORT))
       :"r20"
     );
 
   // Notify HLINE stop
+  
   asm volatile("sbi %[portb], %[outp]\n"::[portb] "I" (_SFR_IO_ADDR(CONTROL_PORT)), [outp] "i" (CTRL_HLINE_PIN):);
 
   //
@@ -213,8 +195,9 @@ ISR (TIMER2_COMPB_vect)
   //
   
   // Sync and stabilize signal
+  
   asm volatile(
-      ".rept 8\n"
+      ".rept 1\n"
       "    nop\n"
       ".endr\n"
     );

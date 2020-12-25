@@ -1,8 +1,13 @@
 #include "pgmutil.h"
 #include "data.h"
 
-#define VBLANK    (1 << PORTB2)
-#define WRITE_RAM (1 << PORTB1)
+#define READ_ROM    (1 << PORTB0)
+#define WRITE_RAM   (1 << PORTB1)
+#define VBLANK      (1 << PORTB2)
+#define RW          (1 << PORTB3)
+#define ENABLE      (1 << PORTB4)
+#define NMI         (1 << PORTB5)
+#define CLOCK       (1 << PORTB6)
 
 #define BLOCK_SIZE  (8 * 4)
 
@@ -59,12 +64,8 @@ void setup() {
 
   // Configure the Control Port
 
-  DDRB  = ~VBLANK;
-  PORTB = WRITE_RAM;
-
-  load_data_from_eeprom();
-  
-  build_new_block();
+  DDRB = ~(VBLANK | RW | ENABLE | CLOCK);
+  PORTB = READ_ROM | WRITE_RAM | NMI;
 
   // Configure the Address and Data Bus
 
@@ -72,6 +73,12 @@ void setup() {
   DDRD = 0b00000000;
   DDRC = 0b00000000;
 
+  // Load and prepare data
+ 
+  load_data_from_eeprom();
+  
+  build_new_block();
+  
   cli();
 
   // Clear and stop all timers

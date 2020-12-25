@@ -1,7 +1,5 @@
 (kicad_sch (version 20201015) (generator eeschema)
 
-  (page 1 4)
-
   (paper "A4")
 
   (lib_symbols
@@ -1866,9 +1864,9 @@
   (junction (at 153.67 60.325) (diameter 1.016) (color 0 0 0 0))
   (junction (at 165.1 99.06) (diameter 1.016) (color 0 0 0 0))
 
+  (no_connect (at 156.21 155.575))
   (no_connect (at 170.815 65.405))
   (no_connect (at 72.39 156.845))
-  (no_connect (at 156.21 155.575))
 
   (bus_entry (at 114.935 34.925) (size 2.54 2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
@@ -3165,7 +3163,7 @@
     (property "Value" "SN74LVC245AN" (id 1) (at 78.105 34.29 0)
       (effects (font (size 1.524 1.524)))
     )
-    (property "Footprint" "digikey-footprints:DIP-20_W7.62mm" (id 2) (at 101.6 31.115 0)
+    (property "Footprint" "Package_DIP:DIP-20_W7.62mm" (id 2) (at 101.6 31.115 0)
       (effects (font (size 1.524 1.524)) (justify left) hide)
     )
     (property "Datasheet" "http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=http%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Fsn74lvc245a" (id 3) (at 101.6 28.575 0)
@@ -3209,7 +3207,7 @@
     (property "Value" "SN74LVC245AN" (id 1) (at 151.765 33.02 0)
       (effects (font (size 1.524 1.524)))
     )
-    (property "Footprint" "digikey-footprints:DIP-20_W7.62mm" (id 2) (at 128.27 29.845 0)
+    (property "Footprint" "Package_DIP:DIP-20_W7.62mm" (id 2) (at 128.27 29.845 0)
       (effects (font (size 1.524 1.524)) (justify left) hide)
     )
     (property "Datasheet" "http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=http%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Fsn74lvc245a" (id 3) (at 128.27 27.305 0)
