@@ -1,71 +1,13 @@
-#include "pgmutil.h"
-#include "data.h"
-
-#define READ_ROM    (1 << PORTB0)
-#define WRITE_RAM   (1 << PORTB1)
-#define VBLANK      (1 << PORTB2)
-#define RW          (1 << PORTB3)
-#define ENABLE      (1 << PORTB4)
-#define NMI         (1 << PORTB5)
-#define CLOCK       (1 << PORTB6)
-
-#define BLOCK_SIZE  (8 * 4)
-
-struct gmem_t
-{
-  // bank 0 and 1
-  byte nametables[2][12][20];
-  byte reserved1[32];
-  // bank 2
-  byte attributes[2][6][10];
-  byte palettes[8][4];
-  byte reserved2[104];
-  // Bank 3 and 4
-  byte patterns[16][32];
-};
-struct gmem_t gmem;
-
-byte vram_block[160 * BLOCK_SIZE];
-byte curr_block = 0;
-volatile byte spinlock = 0;
-
-void load_data_from_eeprom() {
-  memcpy_P(gmem.nametables, nametable, 2 * 12 * 20);
-  memcpy_P(gmem.attributes, attributes, 2 * 6 * 10);
-  memcpy_P(gmem.palettes, palettes, 8 * 4);
-  memcpy_P_T(gmem.patterns, patterns, 32, 16);
-}
-
-void build_new_block() {
-  const int b = curr_block * BLOCK_SIZE;
-  byte* vram = vram_block;
-
-  for (int y = b; y < b + BLOCK_SIZE; y++) {
-    const byte* n_y = gmem.nametables[0][y >> 3];
-    const byte* p_y = gmem.patterns[y & 7];
-    const byte* a_y = gmem.attributes[0][y >> 4];
-   
-    for (int x = 0; x < (160 / 8); x++) {
-      const byte* p = gmem.palettes[a_y[x >> 1]];
-      const byte* s = &p_y[n_y[x]];
-      byte s1 = s[0];
-      byte s2 = s[8 * 32];
-      
-      for (int xx = 0; xx < 8; xx++) {
-        *(vram++) = p[((s2 & 1) << 1) | (s1 & 1)];
-        s1 >>= 1;
-        s2 >>= 1;
-      }
-    }
-  }
-}
+#include "globals.h"
+#include "utils.h"
+#include "events.h"
 
 void setup() {
 
   // Configure the Control Port
 
-  DDRB = ~(VBLANK | RW | ENABLE | CLOCK);
-  PORTB = READ_ROM | WRITE_RAM | NMI;
+  DDRB = ~(PIN_VBLANK | PIN_RW | PIN_ENABLE | PIN_CLOCK);
+  PORTB = PIN_RROM | PIN_WRAM | PIN_NMI;
 
   // Configure the Address and Data Bus
 
@@ -77,70 +19,88 @@ void setup() {
  
   load_data_from_eeprom();
   
-  build_new_block();
+  build_next_block();
   
   cli();
 
   // Clear and stop all timers
 
-  //TCCR0A = 0;
-  //TCCR0B = 0;
+  TCCR0A = 0;
+  TCCR0B = 0;
   TCCR1A = 0;
   TCCR1B = 0;
   TCCR2A = 0;
   TCCR2B = 0;
 
-  // Configure VBLANK interrupt on INT2 (PB2)
+  // Configure PIN_VBLANK interrupt on INT2 (PB2)
 
   EICRA |= (1 << ISC21) | (1 << ISC20); // Rising level
   EIMSK |= (1 << INT2);
   
   sei();
-}
 
-void loop() {
-  static int spr_x = 0;
-  static int spr_y = 0;
-  static int spr_dx = 1;
-  static int spr_dy = 1;
-
-  if (!spinlock) {
-    return; 
-  }
-
-  gmem.nametables[0][spr_y][spr_x] = 0;
-  gmem.attributes[0][spr_y >> 1][spr_x >> 1] = 0;
-
-  spr_x+=spr_dx;
-  if (spr_x <= 0 || spr_x >= 19) {
-    spr_dx=-spr_dx;
-  }
-  
-  spr_y+=spr_dy;
-  if (spr_y <= 0 || spr_y >= 11) {
-    spr_dy=-spr_dy;
-  }
-
-  gmem.nametables[0][spr_y][spr_x] = 1;
-  gmem.attributes[0][spr_y >> 1][spr_x >> 1] = 1;
-
-  delay(25);
+  status = STATUS_DMA;
 }
 
 ISR (INT2_vect)
 {
-  if (spinlock > 0) {
-    if (--spinlock > 0) {
-      return;
+  if (vram_block == 3) {
+    if (status & STATUS_DMA) {
+
+      // Acquire the Address and Data Bus
+
+      DDRA = 0b11111111;
+      DDRD = 0b11111111;
+
+      // Load data from rom
+      
+      load_data_from_rom();
+
+      // Release the Address and Data Bus
+
+      DDRA = 0b00000000;
+      DDRD = 0b00000000;
+
+      // Reset status
+
+      status &= ~STATUS_DMA;
+    } else {
+
+      // Notify the CPU to start read commands
+
+      status |= STATUS_NMI;
+      PORTB &= ~PIN_NMI;
+  
+      // Read commands
+      
+      read_commands();
+
+      // Notify the CPU to stop read commands
+
+      PORTB |= PIN_NMI;
+      status &= ~STATUS_NMI;
+
+      if (!(status & STATUS_DMA)) {
+  
+        // Process the commands
+        
+        process_commands();
+  
+        // Prepare first block
+        
+        vram_block = 0;
+        build_next_block();
+      }
     }
+    return;
   }
   
   // Acquire the Address and Data Bus
-  
+
   DDRA = 0b11111111;
   DDRD = 0b11111111;
   DDRC = 0b11111111;
-
+  
   // Write pixels
 
   asm volatile(
@@ -170,11 +130,6 @@ ISR (INT2_vect)
     
     "    inc %[x]\n"
     
-    // Check if vblank is cleared, continue otherwise
-    
-//    "    sbis %[pinb], %[vblank]\n"
-//    "    rjmp end_frame\n"
-
     // Cehck if end of line, continue otherwise
 
     "    cpi %[x], 160\n"
@@ -204,9 +159,9 @@ ISR (INT2_vect)
        [portd]  "I" (_SFR_IO_ADDR(PORTD)),
        [pinb]   "I" (_SFR_IO_ADDR(PINB)),
        [x]      "r" (0),
-       [y]      "r" (curr_block * BLOCK_SIZE),
-       [h]      "r" (curr_block * BLOCK_SIZE + BLOCK_SIZE),
-       [vram]   "l" (vram_block),
+       [y]      "r" (vram_block * BLOCK_SIZE),
+       [h]      "r" (vram_block * BLOCK_SIZE + BLOCK_SIZE),
+       [vram]   "l" (vram_data),
        [wram]   "i" (PINB1),
        [vblank] "i" (PINB2)
       : "r20"
@@ -217,14 +172,14 @@ ISR (INT2_vect)
   DDRA = 0b00000000;
   DDRD = 0b00000000;
   DDRC = 0b00000000;
-
+  
   // Prepare next block
 
-  curr_block++;
-  if(curr_block == 3) {
-    curr_block = 0;
-    spinlock = 2;
+  vram_block++;
+  if(vram_block < 3) {
+    build_next_block();
   }
+}
 
-  build_new_block();
+void loop() {
 }

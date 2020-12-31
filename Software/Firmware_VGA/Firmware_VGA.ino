@@ -8,24 +8,25 @@
 #define CTRL_HLINE_PIN   3  // PIN 11 (PB3)
 #define CTRL_VBLANK_PIN  4  // PIN 12 (PB4)
 
-#define VSYNC_PULSE      159    // 63.6us
+#define VSYNC_PULSE      158    // 63.6us
 #define VSYNC_LENGTH     41719  // 16.687ms
 #define VSYNC_START_LINE -80
 
-#define HSYNC_PULSE      9      // 3.6us
+#define HSYNC_PULSE      8      // 3.6us
 #define HSYNC_LENGTH     79     // 31.6us
 
 static volatile int vline = 0;
 
 void setup() {
-  cli();
-
-  // Setup outputs
+  
+  // Initialize pins directions and values
   
   DDRB = 0b00001111;
   DDRC = 0b00000000;
   DDRD = 0b00000000;
   PORTB  = 0;
+
+  cli();
 
   // Clear and stop all timers
 
@@ -37,6 +38,13 @@ void setup() {
   
   TCCR2A = 0;
   TCCR2B = 0;
+
+  // Setup Anti jitter on TIMER0
+
+  TIMSK0=0;
+  OCR0A=0;
+  OCR0B=0;
+  TCNT0=0;
 
   // Setup VSYNC pulse on TIMER1
 
@@ -58,6 +66,7 @@ void setup() {
 
   // Start all timers with a prescaler of 1/8
 
+  TCCR0B |= (1 << CS00);
   TCCR1B |= (1 << CS11);
   TCCR2B |= (1 << CS21);
 }
@@ -99,13 +108,14 @@ ISR (TIMER2_COMPB_vect)
       DDRD = 0b00000000;
       // Notify VBLANK start
       PORTB |= (1 << CTRL_VBLANK_PIN);
-    } else if (vline == -6) {
+    } else if (vline == -10) {
+      // Notify VBLANK stop
+      PORTB &= ~(1 << CTRL_VBLANK_PIN);
+    } else if (vline == -1) {
       // Enable data outputs
       DDRB = 0b00011111;
       DDRC = 0b00111111;
       DDRD = 0b11111111;
-      // Notify VBLANK stop
-      PORTB &= ~(1 << CTRL_VBLANK_PIN);
     }
     return;
   }
@@ -134,11 +144,9 @@ ISR (TIMER2_COMPB_vect)
 
   // Sync and stabilize signal
 
-  #define DEJITTER_OFFSET 1
-  #define DEJITTER_SYNC   -2
+  #define DEJITTER_SYNC -4
   asm volatile(
-    "     nop\n"
-    "     lds r16, %[tcnt2]\n"
+    "     lds r16, %[timer]\n"
     "     subi r16, %[tsync]\n"
     "     andi r16, 7\n"
     "     call TL\n"
@@ -149,19 +157,14 @@ ISR (TIMER2_COMPB_vect)
     "     add r30, r16\n"
     "     ijmp\n"
     "LW:\n"
+    ".rept 9\n"
     "     nop\n"
-    "     nop\n"
-    "     nop\n"
-    "     nop\n"
-    "     nop\n"
-    "     nop\n"
-    "     nop\n"
-    "     nop\n"
+    ".endr\n"
     :
-    : [tcnt2] "i" (&TCNT2),
-      [toffset] "i" ((uint8_t)DEJITTER_OFFSET),
-      [tsync] "i" ((uint8_t)DEJITTER_SYNC)
-    : "r30", "r31", "r16", "r17");
+    : [timer] "i" (&TCNT0),
+      [tsync] "i" ((uint8_t) DEJITTER_SYNC)
+    : "r30", "r31", "r16", "r17"
+  );
 
   //
   // Visible Section
@@ -174,18 +177,17 @@ ISR (TIMER2_COMPB_vect)
   // Output pixels by incrementing the line address counter
   
   asm volatile(
-      "    ldi r20, 1\n"
+      "    ldi r20, 0\n"
       ".rept 159\n"
+      "    inc r20\n"
       "    out %[portd], r20\n"
       "    nop\n"
-      "    inc r20\n"
       ".endr\n"
-      "    out %[portd], r20\n"
       :
       :[portd] "I" (_SFR_IO_ADDR(HADDR_PORT))
       :"r20"
     );
-
+    
   // Notify HLINE stop
   
   asm volatile("sbi %[portb], %[outp]\n"::[portb] "I" (_SFR_IO_ADDR(CONTROL_PORT)), [outp] "i" (CTRL_HLINE_PIN):);
@@ -193,14 +195,6 @@ ISR (TIMER2_COMPB_vect)
   //
   // Front Porch Section
   //
-  
-  // Sync and stabilize signal
-  
-  asm volatile(
-      ".rept 1\n"
-      "    nop\n"
-      ".endr\n"
-    );
 }
 
 void loop() {
