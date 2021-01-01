@@ -98,6 +98,11 @@ def add_patterns(patterns, out_file):
 						acc = acc << 1
 				out_file.write(chr(acc))
 	return 1024
+
+def add_bytes(bytes, out_file):
+	for byte in bytes:
+		out_file.write(chr(byte))
+	return len(bytes)
 	
 def fill_spaces(count, out_file):
 	for i in range(32768 - count):

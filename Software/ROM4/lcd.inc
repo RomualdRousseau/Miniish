@@ -28,7 +28,7 @@ LCD_HOME
 LCD_PRINT
 			ldy #0
 LCD_PRINT_LOOP
-			lda (LCD_DATA), y
+			lda (LCD_PTR), y
 			beq LCD_PRINT_END
 			jsr LCD_SEND_CHAR
 			iny

@@ -1,37 +1,27 @@
+COW_INIT
+			lda #9
+			sta COW_X
+			lda #5
+			sta COW_Y
+			lda #0
+			sta COW_T
+			jsr COW_REFRESH
+			rts
+			
 COW_DRAW
+			; Reset
 			lda PPU_STATUS
-			; Draw COW BG
+			; Set OAM to start
 			lda #0
-			sta PPU_ADDR
-			lda COW_BG+0
-			sta PPU_ADDR
-			lda #0
-			sta PPU_DATA
-			sta PPU_DATA
-			lda #0
-			sta PPU_ADDR
-			lda COW_BG+4
-			sta PPU_ADDR
-			lda #0
-			sta PPU_DATA
-			sta PPU_DATA
-			; Draw COW FG
-			lda #0
-			sta PPU_ADDR
-			lda COW_FG+0
-			sta PPU_ADDR
-			lda COW_FG+1
-			sta PPU_DATA
-			lda COW_FG+3
-			sta PPU_DATA
-			lda #0
-			sta PPU_ADDR
-			lda COW_FG+4
-			sta PPU_ADDR
-			lda COW_FG+5
-			sta PPU_DATA
-			lda COW_FG+7
-			sta PPU_DATA
+			sta OAM_ADDR
+			; Load OAM
+			ldx #0
+COW_DRAW_LOAD_OAM
+			lda COW_FG,x
+			sta OAM_DATA
+			inx
+			cpx #16
+			bne COW_DRAW_LOAD_OAM
 			rts
 			
 COW_UPDATE
@@ -52,7 +42,7 @@ COW_UPDATE_TEST_KEY_UP
 			and #%00000100
 			beq COW_UPDATE_TEST_KEY_LEFT
 			lda COW_Y
-			cmp #10
+			cmp #80
 			beq COW_UPDATE_TEST_KEY_LEFT
 			inc	COW_Y
 COW_UPDATE_TEST_KEY_LEFT
@@ -68,7 +58,7 @@ COW_UPDATE_TEST_KEY_RIGHT
 			and #%00000001
 			beq COW_UPDATE_INC_TIME
 			lda COW_X
-			cmp #18
+			cmp #176
 			beq COW_UPDATE_INC_TIME
 			inc	COW_X
 COW_UPDATE_INC_TIME
@@ -79,32 +69,23 @@ COW_UPDATE_INC_TIME
 			jsr COW_REFRESH
 			rts
 			
-COW_REFRESH			
-			; Save COW_FG -> COW_BG
-			lda COW_FG+0
-			sta COW_BG+0
-			lda COW_FG+2
-			sta COW_BG+2
-			lda COW_FG+4
-			sta COW_BG+4
-			lda COW_FG+6
-			sta COW_BG+6
-			; Calculate position = COW_X + COW_Y * 20
+COW_REFRESH
+			; Refresh X positions
 			lda COW_X
-			ldx #20
-			clc	
-COW_REFRESH_CALC_POS			
-			adc COW_Y
-			dex
-			bne COW_REFRESH_CALC_POS
-			; Refresh next positions in OAM
+			sta COW_FG+3
+			sta COW_FG+11
+			clc
+			adc #8
+			sta COW_FG+7
+			sta COW_FG+15
+			; Refresh Y positions
+			lda COW_Y
 			sta COW_FG+0
-			adc #1
-			sta COW_FG+2
-			adc #19
 			sta COW_FG+4
-			adc #1
-			sta COW_FG+6
+			clc
+			adc #8
+			sta COW_FG+8
+			sta COW_FG+12
 			; Refresh next animations in OAM
 			lda COW_T
 			and #%00000010
@@ -114,12 +95,18 @@ COW_REFRESH_CALC_POS
 			sta COW_FG+1
 			inx
 			lda ANIMATIONS, x
-			sta COW_FG+3
-			inx
-			lda ANIMATIONS, x
 			sta COW_FG+5
 			inx
 			lda ANIMATIONS, x
-			sta COW_FG+7
+			sta COW_FG+9
+			inx
+			lda ANIMATIONS, x
+			sta COW_FG+13
+			; Show sprite with palette 0
+			lda #%00000100
+			sta COW_FG+2
+			sta COW_FG+6
+			sta COW_FG+10
+			sta COW_FG+14
 			rts
 			

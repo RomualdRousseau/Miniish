@@ -11,11 +11,22 @@ PPU_CTRL	= $7800
 PPU_STATUS	= $7802
 PPU_ADDR	= $7803
 PPU_DATA	= $7804
+OAM_ADDR	= $7806
+OAM_DATA	= $7807
+DMA_ADDR	= $7808
+DMA_DATA	= $7809
+
+DMA_NAMETABLE = $00
+DMA_ATTRIBUTE = $01
+DMA_PALETTE	  = $02
+DMA_PATTERN	  = $03
 
 			.dsect			; BSS ==============================================
 			.org ZERO_START
-OAM_DATA 	.word $0000
-LCD_DATA	.word $0000
+OAM_PTR 	.word $0000
+LCD_PTR		.word $0000
+
+STATE		.byte $00
 
 JOYPAD		.byte $00
 
@@ -30,51 +41,45 @@ R3			.byte $00
 
 			.dsect			; OAM =============================================
 			.org OAM_START
-COW_FG		.byte $00, $00
-			.byte $00, $00
-			.byte $00, $00
-			.byte $00, $00
-COW_BG		.byte $00, $00
-			.byte $00, $00
-			.byte $00, $00
-			.byte $00, $00
+COW_FG		.byte $00, $00, $00, $00
+			.byte $00, $00, $00, $00
+			.byte $00, $00, $00, $00
+			.byte $00, $00, $00, $00
 			.dend
 
 			.org $8000		; CODE =============================================
 SETUP
+			; INIT STACK
 			ldx #$FF
 			txs
 			; INIT OAM_DATA
 			lda #<OAM_START
-			sta OAM_DATA
+			sta OAM_PTR
 			lda #>OAM_START
-			sta OAM_DATA + 1
-			; INIT COW
-			lda #9
-			sta COW_X
-			lda #5
-			sta COW_Y
+			sta OAM_PTR + 1
+			; INIT GAME STATE
 			lda #0
-			sta COW_T
-			jsr COW_REFRESH
+			sta STATE
+			; INIT JOYPAD
+			jsr JOYPAD_INIT
 		 	; INIT LCD
 			jsr LCD_INIT
 			jsr LCD_CLEAR
 			; PRINT MESSAGE1
 			lda #<MESSAGE1
-			sta LCD_DATA
+			sta LCD_PTR
 			lda #>MESSAGE1
-			sta LCD_DATA + 1
+			sta LCD_PTR + 1
 		 	jsr LCD_PRINT
 		 	; PRINT MESSAGE2
 		 	lda #<MESSAGE2
-			sta LCD_DATA
+			sta LCD_PTR
 			lda #>MESSAGE2
-			sta LCD_DATA + 1
+			sta LCD_PTR + 1
 		 	jsr LCD_PRINT
 		 	
 LOOP
-			jsr READ_JOYPAD
+			jsr JOYPAD_READ
 			jmp LOOP
 			
 DRAW
@@ -83,10 +88,49 @@ DRAW
 			pha
 			lda R1
 			pha
+			; RUN STATE MACHINE
+			lda STATE
+			cmp #0
+			beq STATE_INIT
+			cmp #1
+			beq STATE_GAME
+			jmp STATE_END
+STATE_INIT
+			; RESET
+			lda PPU_STATUS
+			; LOAD PALETTES
+			lda #$00
+			sta DMA_ADDR
+			lda #$00
+			sta DMA_ADDR
+			lda #DMA_PALETTE
+			sta DMA_DATA
+			; LOAD PATTERNS
+			lda #$00
+			sta DMA_ADDR
+			lda #$20
+			sta DMA_ADDR
+			lda #DMA_PATTERN
+			sta DMA_DATA
+			; LOAD NAMETABLE
+			lda #$04
+			sta DMA_ADDR
+			lda #$20
+			sta DMA_ADDR
+			lda #DMA_NAMETABLE
+			sta DMA_DATA
+			; INIT COW
+			jsr COW_INIT
+			lda #1
+			sta STATE
+			jmp STATE_END
+STATE_GAME
 			; Draw all
 			jsr COW_DRAW
 			; Update all
 			jsr COW_UPDATE
+			jmp STATE_END
+STATE_END
 			pla
 			sta R1
 			pla
@@ -106,7 +150,7 @@ MESSAGE1
 MESSAGE2
 			.asciiz "Hello the world ^-^ "
 ANIMATIONS
-			.byte 4, 5, 12, 13, 4, 5, 14, 15
+			.byte 2, 3, 4, 5, 2, 3, 6, 7
 
 			.org $FFFA		; INTERRUPT VECTORS ================================
 			.word DRAW
