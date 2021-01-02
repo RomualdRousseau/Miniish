@@ -67,6 +67,7 @@
 
 #define STATUS_DMA     0b00000001
 #define STATUS_NMI     0b00000010
+#define STATUS_CLEAR   0b00000100
 
 // OAM ATTRIBUTE MASK
 
@@ -82,8 +83,14 @@
 
 // DMA STATE
 
-#define DMA_INIT       0
+#define DMA_START      0
 #define DMA_TRANSFER   1
+
+
+// USEFUL MACROS
+
+#define STRINGIFY_(a) #a
+#define STRINGIFY(a) STRINGIFY_(a)
 
 // GRAPHIC MEMORY
 
@@ -114,27 +121,16 @@ struct oam_t oam[OAM_COUNT];
 
 // DMA QUEUE
 
-struct dmaq_t
+struct dma_queue_t
 {
   word addr;
   byte type;
 };
-struct dmaq_t dmaq[DMAQ_COUNT];
-
-struct dma_info_t
-{
-  byte state;
-  byte index;
-  word source;
-  byte* destination;
-  word size_curr;
-  word size_total;
-};
-struct dma_info_t dma_info;
+struct dma_queue_t dma_queue[DMAQ_COUNT];
 
 // VIDEO RAM
 
-byte vram_data[SCREEN_REAL_WIDTH * BLOCK_SIZE];
+byte vram_data[SCREEN_WIDTH * BLOCK_SIZE];
 
 // REGISTERS
 
@@ -145,5 +141,5 @@ byte gmem_incr  = 1;
 word oam_addr   = 0;
 word dma_addr   = 0;
 byte dma_type   = 0;
-byte dmaq_curr  = 0;
+byte dma_curr   = 0;
 byte vram_block = 0;

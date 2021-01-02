@@ -1,3 +1,12 @@
+/*
+    Welcome to VGA v1.0 firmware
+
+    To upload this firmware, select the following board:
+    Board: "ATMEGA 328P"
+    Clock: "20MHz"
+    Bootloader: "Empty"
+*/
+
 #define CONTROL_PORT     PORTB
 #define VADDR_PORT       PORTC
 #define HADDR_PORT       PORTD
@@ -8,11 +17,11 @@
 #define CTRL_HLINE_PIN   3  // PIN 11 (PB3)
 #define CTRL_VBLANK_PIN  4  // PIN 12 (PB4)
 
-#define VSYNC_PULSE      158    // 63.6us
-#define VSYNC_LENGTH     41719  // 16.687ms
-#define VSYNC_START_LINE -80
+#define VSYNC_PULSE      27     // 86.4us rather larger than 64us
+#define VSYNC_LENGTH     5209   // 16.668ms
+#define VSYNC_START_LINE -76
 
-#define HSYNC_PULSE      8      // 3.6us
+#define HSYNC_PULSE      9      // 3.6us
 #define HSYNC_LENGTH     79     // 31.6us
 
 static volatile int vline = 0;
@@ -64,11 +73,11 @@ void setup() {
   
   sei();
 
-  // Start all timers with a prescaler of 1/8
+  // Start all timers
 
-  TCCR0B |= (1 << CS00);
-  TCCR1B |= (1 << CS11);
-  TCCR2B |= (1 << CS21);
+  TCCR0B |= (1 << CS00); // Prescaler 1/1
+  TCCR1B |= (1 << CS11) | (1 << CS10); // Prescaler 1/64
+  TCCR2B |= (1 << CS21); // Prescaler 1/8
 }
 
 // VSync Interrupts
@@ -82,6 +91,7 @@ ISR (TIMER1_COMPB_vect)
 {   
   asm volatile("cbi %[portb], %[outp]\n"::[portb] "I" (_SFR_IO_ADDR(CONTROL_PORT)), [outp] "i" (CTRL_VSYNC_PIN):);
   vline = VSYNC_START_LINE;
+  TCNT0 = 0;
 }
 
 // HSync Interrupts
@@ -95,20 +105,20 @@ ISR (TIMER2_COMPB_vect)
 {
   asm volatile("sbi %[portb], %[outp]\n"::[portb] "I" (_SFR_IO_ADDR(CONTROL_PORT)), [outp] "i" (CTRL_HSYNC_PIN):);
   vline++;
-  
+
   //
   // Back Porch Section
   //
   
-  if (((unsigned) vline) >= 384) {
-    if (vline == 384) {
+  if (((unsigned) vline) >= 389) {
+    if (vline == 389) {
       // Disable data outputs
       DDRB = 0b00011110;
       DDRC = 0b00000000;
       DDRD = 0b00000000;
       // Notify VBLANK start
       PORTB |= (1 << CTRL_VBLANK_PIN);
-    } else if (vline == -10) {
+    } else if (vline == -5) {
       // Notify VBLANK stop
       PORTB &= ~(1 << CTRL_VBLANK_PIN);
     } else if (vline == -1) {
@@ -119,6 +129,7 @@ ISR (TIMER2_COMPB_vect)
     }
     return;
   }
+
 
   // Initialize line address counter 
   
@@ -144,24 +155,27 @@ ISR (TIMER2_COMPB_vect)
 
   // Sync and stabilize signal
 
-  #define DEJITTER_SYNC -4
+  #define DEJITTER_OFFSET 2
+  #define DEJITTER_SYNC   -2
   asm volatile(
     "     lds r16, %[timer]\n"
+    "     add r16, %[toff]\n"
     "     subi r16, %[tsync]\n"
-    "     andi r16, 7\n"
-    "     call TL\n"
-    "TL:\n"
+    "     andi r16, 3\n"
+    "     call TLH\n"
+    "TLH:\n"
     "     pop r31\n"
     "     pop r30\n"
-    "     adiw r30, (LW-TL-5)\n"
+    "     adiw r30, (LWH-TLH-2)\n"
     "     add r30, r16\n"
     "     ijmp\n"
-    "LW:\n"
-    ".rept 9\n"
+    "LWH:\n"
+    ".rept 8\n"
     "     nop\n"
     ".endr\n"
     :
     : [timer] "i" (&TCNT0),
+      [toff] "i" ((uint8_t) DEJITTER_OFFSET),
       [tsync] "i" ((uint8_t) DEJITTER_SYNC)
     : "r30", "r31", "r16", "r17"
   );
@@ -171,7 +185,7 @@ ISR (TIMER2_COMPB_vect)
   //
 
   // Notify HLINE start
-  
+
   asm volatile("cbi %[portb], %[outp]\n"::[portb] "I" (_SFR_IO_ADDR(CONTROL_PORT)), [outp] "i" (CTRL_HLINE_PIN):);
 
   // Output pixels by incrementing the line address counter
@@ -191,11 +205,18 @@ ISR (TIMER2_COMPB_vect)
   // Notify HLINE stop
   
   asm volatile("sbi %[portb], %[outp]\n"::[portb] "I" (_SFR_IO_ADDR(CONTROL_PORT)), [outp] "i" (CTRL_HLINE_PIN):);
-
+  
   //
   // Front Porch Section
   //
+
+  asm volatile(
+      ".rept 4\n"
+      "    nop\n"
+      ".endr\n"
+    );
 }
 
 void loop() {
+  // Do nothing
 }

@@ -1,7 +1,7 @@
 COW_INIT
-			lda #9
+			lda #72
 			sta COW_X
-			lda #5
+			lda #45
 			sta COW_Y
 			lda #0
 			sta COW_T
@@ -58,7 +58,7 @@ COW_UPDATE_TEST_KEY_RIGHT
 			and #%00000001
 			beq COW_UPDATE_INC_TIME
 			lda COW_X
-			cmp #176
+			cmp #112
 			beq COW_UPDATE_INC_TIME
 			inc	COW_X
 COW_UPDATE_INC_TIME

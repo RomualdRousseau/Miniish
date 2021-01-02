@@ -1364,9 +1364,9 @@
   (junction (at 245.11 131.445) (diameter 1.016) (color 0 0 0 0))
   (junction (at 251.46 123.825) (diameter 1.016) (color 0 0 0 0))
 
+  (no_connect (at 270.51 128.905))
   (no_connect (at 71.755 124.46))
   (no_connect (at 59.055 124.46))
-  (no_connect (at 270.51 128.905))
 
   (bus_entry (at 30.48 127) (size -2.54 -2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
@@ -3417,22 +3417,22 @@
       (reference "J6") (unit 1) (value "VGA_OUT") (footprint "Connector_Dsub:DSUB-15-HD_Female_Horizontal_P2.29x1.98mm_EdgePinOffset8.35mm_Housed_MountingHolesOffset10.89mm")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/2b21e16d-4e6f-4f0b-a2d7-5161e5678050"
-      (reference "R12") (unit 1) (value "680") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+      (reference "R12") (unit 1) (value "1.5K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/36938685-a870-45ff-b6a7-5145f71b541c"
-      (reference "R13") (unit 1) (value "1.5K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+      (reference "R13") (unit 1) (value "680") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/1ae9f49d-90e0-4544-9e30-aa2d7499c0aa"
-      (reference "R14") (unit 1) (value "680") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+      (reference "R14") (unit 1) (value "1.5K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/7b002693-a744-487b-bbc7-dd4e28273494"
-      (reference "R15") (unit 1) (value "1.5K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+      (reference "R15") (unit 1) (value "680") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/ce254f39-f799-4105-a50b-3edfa002ae69"
-      (reference "R16") (unit 1) (value "680") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+      (reference "R16") (unit 1) (value "1.5K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/26cc50a6-4504-4278-84da-e2d5c7e1f51b"
-      (reference "R17") (unit 1) (value "1.5K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+      (reference "R17") (unit 1) (value "680") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/17187b0d-0055-4cbc-9ab3-81cdff23434f"
       (reference "U2") (unit 1) (value "ATmega1284P-PU") (footprint "Package_DIP:DIP-40_W15.24mm")
