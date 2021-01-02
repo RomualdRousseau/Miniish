@@ -50,12 +50,12 @@ explanations). The Sprite generator is using a ATMEGA1284P clocked at 20MHz.
 
 The overall spec of the sprite generator is:
 
-* 2 nametables for the background composed of 20 * 12 tiles. Each tile is 8x8
+* 2 nametables for the background composed of 16 * 12 tiles. Each tile is 8x8
 pixels. Scrolling vertical and horizontal modes are supported.
 
 * 2 attributes tables to set the palette of each tiles of the background.
 
-* 8 palettes of 4 colors each to asign to the background or the sprite
+* 8 palettes of 4 colors each to asign to the background or the sprites
 
 * 32 sprites with tansparency support. Each sprite is also a tile of 8x8 pixels.
 
@@ -69,7 +69,6 @@ The sprite generator generates the picture in a interlaced mode described as fol
 ![PPU signals](https://github.com/RomualdRousseau/Miniish/blob/main/Material/PPU%20signals.png)
 
 Main parts of the code are in assembler to provide greater control of the timings.
-And this part is entirely based on timings.
 
 ## Sound Card
 

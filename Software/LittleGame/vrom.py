@@ -1,8 +1,8 @@
-from ppu import add_palettes, add_patterns, add_bytes, fill_spaces
+from lib.ppu import add_palettes, add_patterns, add_bytes, fill_spaces
 
 count = 0;
 
-out_file = open("rom.bin", "wb")
+out_file = open("vrom.bin", "wb")
 
 print "0x{:04x}".format(count)
 count += add_palettes([
@@ -17,7 +17,7 @@ count += add_palettes([
 ], out_file)
 
 print "0x{:04x}".format(count)
-count += add_patterns("cow.png", out_file)
+count += add_patterns("data/cow.png", out_file)
 
 print "0x{:04x}".format(count)
 count += add_bytes([

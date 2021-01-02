@@ -139,10 +139,10 @@ STATE_END
 			rti
 			
 							; IMPORTS ==========================================	  	
-			.include "sys.inc"
-			.include "lcd.inc"	
-			.include "joypad.inc"
-			.include "cow.inc"
+			.include "include/sys.inc"
+			.include "include/lcd.inc"	
+			.include "include/joypad.inc"
+			.include "include/cow.inc"
 			
 							; DATA =============================================
 MESSAGE1
