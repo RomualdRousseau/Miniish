@@ -1,5 +1,7 @@
 .PHONY: burn_brom burn_vrom all clean
 
+default: burn_brom
+
 brom.bin: include/*.inc brom.s
 	vasm6502_oldstyle -Fbin -dotdir -o brom.bin brom.s
 

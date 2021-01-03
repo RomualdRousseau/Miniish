@@ -33,7 +33,7 @@ void setup() {
   DDRB = 0b00001111;
   DDRC = 0b00000000;
   DDRD = 0b00000000;
-  PORTB  = 0;
+  PORTB = 0;
 
   cli();
 

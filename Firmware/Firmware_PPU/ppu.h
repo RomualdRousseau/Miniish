@@ -55,6 +55,12 @@ void PPU_t::do_instructions() {
           PORTC = poam[oam_addr];
           break;
       }
+
+      while (!(PINB & PIN_ENABLE))
+      {
+        ; // wait to the end of the command
+      }
+    
     } else {
 
       // Command is a write
@@ -65,6 +71,11 @@ void PPU_t::do_instructions() {
         ; // wait to receive the data
       }
       const byte data = PINC;
+
+      while (!(PINB & PIN_ENABLE))
+      {
+        ; // wait to the end of the command
+      }
 
       // Process the command
 
@@ -100,11 +111,6 @@ void PPU_t::do_instructions() {
           dma_queue[dma_curr++].type = data;
           break;
       }
-    }
-
-    while (!(PINB & PIN_ENABLE))
-    {
-      ; // wait to the end of the command
     }
   }
 

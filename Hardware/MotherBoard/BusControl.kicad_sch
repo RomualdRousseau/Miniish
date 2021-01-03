@@ -3125,8 +3125,8 @@
   (junction (at 196.215 73.025) (diameter 1.016) (color 0 0 0 0))
   (junction (at 233.045 69.215) (diameter 1.016) (color 0 0 0 0))
 
-  (no_connect (at 90.805 44.45))
   (no_connect (at 90.805 58.42))
+  (no_connect (at 90.805 44.45))
 
   (bus_entry (at 125.095 98.425) (size 2.54 2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))

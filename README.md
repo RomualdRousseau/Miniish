@@ -21,11 +21,15 @@ The address plan is:
 
 7400 --------------------------------
 
-//   Sound Generator (PORT1B)
+//   AUDIO PROCESSING UNIT (PORT1B)
 
 7800 --------------------------------
 
-//   Sprite Generator (PORT2B)
+//   PICTURE PROCESSING UNIT (PORT2B)
+
+7C00 --------------------------------
+
+//   RESERVED
 
 8000 --------------------------------
 
@@ -33,7 +37,9 @@ The address plan is:
 
 FFFF --------------------------------
 
-## VGA Card
+## Picture Processing Unit (PPU)
+
+### VGA Card
 
 The card is again inspired by Ben Eater "worst video card" But I replaced the
 counter logic by a ATMEGA328P (First I built using an arduino uno). The micro
@@ -70,7 +76,7 @@ The sprite generator generates the picture in a interlaced mode described as fol
 
 Main parts of the code are in assembler to provide greater control of the timings.
 
-## Sound Card
+## Audio Procesing Unit (APU)
 
 4 channels; 3 square + 1 noise
 

@@ -2,25 +2,6 @@ ZERO_START  = $0000
 STCK_START	= $0100
 OAM_START	= $0200
 
-PORTB		= $7000
-PORTA		= $7001
-DDRB		= $7002
-DDRA		= $7003
-
-PPU_CTRL	= $7800
-PPU_STATUS	= $7802
-PPU_ADDR	= $7803
-PPU_DATA	= $7804
-OAM_ADDR	= $7806
-OAM_DATA	= $7807
-DMA_ADDR	= $7808
-DMA_DATA	= $7809
-
-DMA_NAMETABLE = $00
-DMA_ATTRIBUTE = $01
-DMA_PALETTE	  = $02
-DMA_PATTERN	  = $03
-
 			.dsect			; BSS ==============================================
 			.org ZERO_START
 OAM_PTR 	.word $0000
@@ -33,6 +14,9 @@ JOYPAD		.byte $00
 COW_X		.byte $00
 COW_Y		.byte $00
 COW_T		.byte $00
+
+NOTE		.byte $00
+SEQ			.byte $00
 
 R1			.byte $00
 R2			.byte $00
@@ -60,9 +44,7 @@ SETUP
 			; INIT GAME STATE
 			lda #0
 			sta STATE
-			; INIT JOYPAD
-			jsr JOYPAD_INIT
-		 	; INIT LCD
+			; INIT LCD
 			jsr LCD_INIT
 			jsr LCD_CLEAR
 			; PRINT MESSAGE1
@@ -77,6 +59,10 @@ SETUP
 			lda #>MESSAGE2
 			sta LCD_PTR + 1
 		 	jsr LCD_PRINT
+			; INIT JOYPAD
+			jsr JOYPAD_INIT
+			; START AUDIO HANDLER
+			cli
 		 	
 LOOP
 			jsr JOYPAD_READ
@@ -85,8 +71,6 @@ LOOP
 DRAW
 			pha
 			txa
-			pha
-			lda R1
 			pha
 			; RUN STATE MACHINE
 			lda STATE
@@ -119,6 +103,8 @@ STATE_INIT
 			sta DMA_ADDR
 			lda #DMA_NAMETABLE
 			sta DMA_DATA
+			; INIT AUDIO
+			jsr AUDIO_INIT
 			; INIT COW
 			jsr COW_INIT
 			lda #1
@@ -132,16 +118,28 @@ STATE_GAME
 			jmp STATE_END
 STATE_END
 			pla
-			sta R1
-			pla
 			tax
+			pla
+			rti
+			
+AUDIO
+			pha
+			bit T1CL
+			lda JOYPAD
+			beq AUDIO_END
+			jsr AUDIO_PLAY
+AUDIO_END
 			pla
 			rti
 			
 							; IMPORTS ==========================================	  	
 			.include "include/sys.inc"
+			.include "include/via.inc"
+			.include "include/ppu.inc"
+			.include "include/apu.inc"
 			.include "include/lcd.inc"	
 			.include "include/joypad.inc"
+			.include "include/audio.inc"
 			.include "include/cow.inc"
 			
 							; DATA =============================================
@@ -155,5 +153,5 @@ ANIMATIONS
 			.org $FFFA		; INTERRUPT VECTORS ================================
 			.word DRAW
 			.word SETUP
-			.word $0000
+			.word AUDIO
 
