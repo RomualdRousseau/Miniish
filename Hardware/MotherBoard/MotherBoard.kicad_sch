@@ -978,6 +978,47 @@
         )
       )
     )
+    (symbol "Switch:SW_SPST" (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
+      (property "Reference" "SW" (id 0) (at 0 3.175 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Value" "SW_SPST" (id 1) (at 0 -2.54 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (id 2) (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "~" (id 3) (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_keywords" "switch lever" (id 4) (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Single Pole Single Throw (SPST) switch" (id 5) (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "SW_SPST_0_0"
+        (circle (center -2.032 0) (radius 0.508) (stroke (width 0)) (fill (type none)))
+        (circle (center 2.032 0) (radius 0.508) (stroke (width 0)) (fill (type none)))
+        (polyline
+          (pts
+            (xy -1.524 0.254)
+            (xy 1.524 1.778)
+          )
+          (stroke (width 0)) (fill (type none))
+        )
+      )
+      (symbol "SW_SPST_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54)
+          (name "A" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at 5.08 0 180) (length 2.54)
+          (name "B" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
     (symbol "power:+5V" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
       (property "Reference" "#PWR" (id 0) (at 0 -3.81 0)
         (effects (font (size 1.27 1.27)) hide)
@@ -1107,8 +1148,8 @@
     )
   )
 
-  (bus_alias "A11" (members "A11"))
   (bus_alias "A12" (members "A12"))
+  (bus_alias "A11" (members "A11"))
   (junction (at 76.835 47.625) (diameter 1.016) (color 0 0 0 0))
   (junction (at 76.835 57.785) (diameter 1.016) (color 0 0 0 0))
   (junction (at 89.535 57.785) (diameter 1.016) (color 0 0 0 0))
@@ -1137,10 +1178,13 @@
   (wire (pts (xy 43.815 52.705) (xy 43.815 57.785))
     (stroke (width 0) (type solid) (color 0 0 0 0))
   )
-  (wire (pts (xy 43.815 57.785) (xy 76.835 57.785))
+  (wire (pts (xy 43.815 57.785) (xy 51.435 57.785))
     (stroke (width 0) (type solid) (color 0 0 0 0))
   )
   (wire (pts (xy 53.975 47.625) (xy 61.595 47.625))
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+  )
+  (wire (pts (xy 61.595 57.785) (xy 76.835 57.785))
     (stroke (width 0) (type solid) (color 0 0 0 0))
   )
   (wire (pts (xy 66.675 47.625) (xy 76.835 47.625))
@@ -1977,6 +2021,19 @@
     )
   )
 
+  (symbol (lib_id "Switch:SW_SPST") (at 56.515 57.785 0) (unit 1)
+    (in_bom yes) (on_board yes)
+    (uuid "ff7dba36-e011-4018-9878-20ec48c66f8c")
+    (property "Reference" "SW2" (id 0) (at 57.15 51.435 0))
+    (property "Value" "SW_SPST" (id 1) (at 57.15 53.975 0))
+    (property "Footprint" "Button_Switch_THT:SW_E-Switch_EG1224_SPDT_Angled" (id 2) (at 56.515 57.785 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (id 3) (at 56.515 57.785 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
   (symbol (lib_id "Connector:Conn_01x04_Male") (at 113.03 119.38 180) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid "1a8244c3-34e8-41f2-ab83-b933d6d71726")
@@ -2314,6 +2371,9 @@
     (path "/f35affe6-b73d-44f1-aa77-ffcd84d510fb"
       (reference "R4") (unit 1) (value "220") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
+    (path "/ff7dba36-e011-4018-9878-20ec48c66f8c"
+      (reference "SW2") (unit 1) (value "SW_SPST") (footprint "Button_Switch_THT:SW_E-Switch_EG1224_SPDT_Angled")
+    )
     (path "/4bb875c6-ec17-489d-8848-a58782a512d1"
       (reference "U1") (unit 1) (value "AMS1117-5.0") (footprint "Package_TO_SOT_THT:TO-220-3_Horizontal_TabDown")
     )
@@ -2371,6 +2431,12 @@
     (path "/61215041-7d34-4941-9afc-8a556d19a10e/94965567-ea85-4d02-a912-3e4ca48652e3"
       (reference "#PWR0120") (unit 1) (value "GND") (footprint "")
     )
+    (path "/61215041-7d34-4941-9afc-8a556d19a10e/fa8f244d-8541-48fd-8737-6f2ca9b67fa3"
+      (reference "#PWR0133") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/61215041-7d34-4941-9afc-8a556d19a10e/a07bb74b-eddd-4abc-a5b3-41726b4489b6"
+      (reference "#PWR0134") (unit 1) (value "+5V") (footprint "")
+    )
     (path "/61215041-7d34-4941-9afc-8a556d19a10e/f636ab65-9304-4605-a863-9df3dd0ac4b4"
       (reference "C3") (unit 1) (value "10uF") (footprint "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm")
     )
@@ -2392,6 +2458,12 @@
     (path "/61215041-7d34-4941-9afc-8a556d19a10e/5f605064-7be9-45b9-8513-c446abc5141e"
       (reference "J9") (unit 1) (value "Conn_02x02_Odd_Even") (footprint "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical")
     )
+    (path "/61215041-7d34-4941-9afc-8a556d19a10e/0b60bde2-4a50-4611-bec5-b23ac5b9a520"
+      (reference "J11") (unit 1) (value "RDY_PULLUP") (footprint "")
+    )
+    (path "/61215041-7d34-4941-9afc-8a556d19a10e/6014f801-bb1a-4e11-b189-6e0f7a468124"
+      (reference "J12") (unit 1) (value "NMI_PULLUP") (footprint "")
+    )
     (path "/61215041-7d34-4941-9afc-8a556d19a10e/296fe1d1-b4f3-406e-be74-c856810e239d"
       (reference "R1") (unit 1) (value "10K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
@@ -2401,8 +2473,11 @@
     (path "/61215041-7d34-4941-9afc-8a556d19a10e/b0c7fb92-0a71-4d85-b13b-9678b50d75e8"
       (reference "R3") (unit 1) (value "10K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
+    (path "/61215041-7d34-4941-9afc-8a556d19a10e/faba855d-d503-4563-a655-ff79b24d55c8"
+      (reference "R5") (unit 1) (value "10K") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+    )
     (path "/61215041-7d34-4941-9afc-8a556d19a10e/25f68c31-273a-4a47-b1bc-310d19fac600"
-      (reference "SW1") (unit 1) (value "RESET_SW") (footprint "Button_Switch_THT:SW_PUSH_6mm_H5mm")
+      (reference "SW1") (unit 1) (value "RESET_SW") (footprint "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx83-2LFS")
     )
     (path "/61215041-7d34-4941-9afc-8a556d19a10e/6cd92b81-0135-4e6c-929c-13ce504ee354"
       (reference "U2") (unit 1) (value "28C256") (footprint "Package_DIP:DIP-28_W15.24mm")
@@ -2509,11 +2584,11 @@
     (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/19cc7f8e-7a0d-4fe2-9625-721aeb7bd93d"
       (reference "J8") (unit 1) (value "ISA11") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x16_P2.54mm_Vertical")
     )
-    (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/1e640dc0-9a9b-4e78-97a7-c4c4fba75621"
-      (reference "U9") (unit 1) (value "74HCT541") (footprint "Package_DIP:DIP-20_W7.62mm")
+    (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/3e3baca0-beca-49b0-b567-bf7be578d698"
+      (reference "U9") (unit 1) (value "SN74LVC245AN") (footprint "Package_DIP:DIP-20_W7.62mm")
     )
-    (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/87eea902-e28a-40ef-a5ce-0c008a75322f"
-      (reference "U10") (unit 1) (value "74HCT541") (footprint "Package_DIP:DIP-20_W7.62mm")
+    (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/b9a3a795-f7ea-4f67-9322-90ba34134211"
+      (reference "U10") (unit 1) (value "SN74LVC245AN") (footprint "Package_DIP:DIP-20_W7.62mm")
     )
     (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/e8617ace-d039-40cf-88f5-54844f714e69"
       (reference "U11") (unit 1) (value "SN74LVC245AN") (footprint "Package_DIP:DIP-20_W7.62mm")

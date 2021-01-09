@@ -448,9 +448,9 @@
   (junction (at 231.775 118.745) (diameter 1.016) (color 0 0 0 0))
   (junction (at 231.775 121.285) (diameter 1.016) (color 0 0 0 0))
 
-  (no_connect (at 187.96 90.805))
   (no_connect (at 187.96 95.885))
   (no_connect (at 187.96 78.105))
+  (no_connect (at 187.96 90.805))
 
   (bus_entry (at 198.755 100.965) (size 2.54 -2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
