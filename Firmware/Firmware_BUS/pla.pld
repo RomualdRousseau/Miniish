@@ -1,0 +1,25 @@
+GAL16V8
+PLA
+
+Clock	A15		A14		A13		A12		A11		A10		A9		A8		GND
+/RDY	NC		NC		/ROM	/RAM	/IRQ	/PPU	/APU	/IO		VCC
+
+ROM		= A15 * /A14
+		+ A15 * A13
+		+ A15 * /A12
+		
+RAM		= /A15 * Clock
+		+ /A15 * RDY
+		
+IRQ		= A15 * A14 * /A13 * A12 * /A11 * /A10 * /A9 * /A8
+
+PPU		= A15 * A14 * /A13 * A12 * /A11 * /A10 * /A9 * A8
+		+ RDY
+
+APU		= A15 * A14 * /A13 * A12 * /A11 * /A10 * A9 * /A8
+     
+IO		= A15 * A14 * /A13 * A12 * /A11 * /A10 * A9 * A8
+		
+DESCRIPTION
+Miniish PLA
+

@@ -1,8 +1,8 @@
-# Miniish
+# Miniish - Homebrew 6502 Computer
 
-The goal of this project is to build a 8bit game console. The entire project is
-strongly inspired by the work and videos of Ben Eater, but also Javidx9 and his
-emulator.
+The goal of this project is to build a 8bit game console based on 6502 CPU.
+The entire project is strongly inspired by the work and videos of Ben Eater, but
+also Javidx9 and his emulator.
 
 ## Mother Board
 
@@ -15,21 +15,25 @@ The address plan is:
 
 //   RAM
 
-7000 --------------------------------
+D000 --------------------------------
+
+//   IRQ Status
+
+D100 --------------------------------
+
+//   PICTURE PROCESSING UNIT (PORT1B)
+
+D200 --------------------------------
+
+//   AUDIO PROCESSING UNIT (PORT2B)
+
+D300 --------------------------------
 
 //   I/O
 
-7400 --------------------------------
+E000 --------------------------------
 
-//   AUDIO PROCESSING UNIT (PORT1B)
-
-7800 --------------------------------
-
-//   PICTURE PROCESSING UNIT (PORT2B)
-
-7C00 --------------------------------
-
-//   RESERVED
+//   RAM
 
 8000 --------------------------------
 

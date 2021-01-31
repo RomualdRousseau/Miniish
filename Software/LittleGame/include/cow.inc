@@ -25,6 +25,10 @@ COW_DRAW_LOAD_OAM
 			rts
 			
 COW_UPDATE
+			lda COW_X
+			sta R3
+			lda COW_Y
+			sta R4
 			lda JOYPAD
 			cmp #0
 			bne COW_UPDATE_TEST_KEY_DOWN
@@ -62,11 +66,131 @@ COW_UPDATE_TEST_KEY_RIGHT
 			beq COW_UPDATE_INC_TIME
 			inc	COW_X
 COW_UPDATE_INC_TIME
-			lda COW_T
-			clc
-			adc #1
-			sta COW_T
+			inc COW_T
+			jsr COW_COLLIDE
 			jsr COW_REFRESH
+			rts
+
+COW_COLLIDE
+			; Check top, left corner
+			lda COW_X
+			sta R1
+			lda COW_Y
+			sta R2
+			jsr COW_POINT_COLLIDE
+			; Check top, middle corner
+			lda R1
+			clc
+			adc #7
+			sta R1
+			lda R3
+			clc
+			adc #7
+			sta R3
+			jsr COW_POINT_COLLIDE
+			; Check top, right corner
+			lda R1
+			clc
+			adc #8
+			sta R1
+			lda R3
+			clc
+			adc #8
+			sta R3
+			jsr COW_POINT_COLLIDE
+			; Check middle, right corner
+			lda R2
+			clc			
+			adc #7
+			sta R2
+			lda R4
+			clc
+			adc #7
+			sta R4
+			jsr COW_POINT_COLLIDE
+			; Check bottom, right corner
+			lda R2
+			clc			
+			adc #8
+			sta R2
+			lda R4
+			clc
+			adc #8
+			sta R4
+			jsr COW_POINT_COLLIDE
+			; Check bottom, middle corner
+			lda R1
+			clc
+			adc #-8
+			sta R1
+			lda R3
+			clc
+			adc #-8
+			sta R3
+			jsr COW_POINT_COLLIDE
+			; Check bottom, left corner
+			lda R1
+			clc
+			adc #-7
+			sta R1
+			lda R3
+			clc
+			adc #-7
+			sta R3
+			jsr COW_POINT_COLLIDE
+			rts
+			
+COW_POINT_COLLIDE
+			lda R1
+			lsr
+			lsr
+			lsr
+			sta R5
+			lda R2
+			and #%11111000
+			asl
+			clc
+			adc R5
+			tax
+			lda BOARD, X
+			cmp #00
+			bne COW_ADJUST_POSITION
+			rts
+COW_ADJUST_POSITION
+			; COW_X = COW_X - (R1 / 8 - R3 / 8)
+			lda R3
+			lsr
+			lsr
+			lsr
+			sta R5
+			lda R1
+			lsr
+			lsr
+			lsr
+			clc
+			sbc R5
+			sta R5
+			lda COW_X
+			clc
+			sbc R5
+			sta COW_X
+			; COW_Y = COW_Y - (R2 / 8 - R4 / 8)
+			lda R4
+			lsr
+			lsr
+			lsr
+			sta R5
+			lda R2
+			lsr
+			lsr
+			lsr
+			clc
+			sbc R5
+			sta R5
+			lda COW_Y
+			clc
+			sbc R5
+			sta COW_Y
 			rts
 			
 COW_REFRESH
