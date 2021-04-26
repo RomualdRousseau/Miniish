@@ -420,7 +420,7 @@
   },
   "sheets": [
     [
-      "3dbf5d6e-f511-463d-9e74-d45d359cbb2f",
+      "753d9fd6-c11b-458d-8f63-9d920f367d06",
       ""
     ],
     [
@@ -428,8 +428,20 @@
       "SoundCard"
     ],
     [
+      "dcb4ff7d-1710-4da6-ab6f-80103dace224",
+      "Dual Port RAM A"
+    ],
+    [
+      "86f05ebb-a2e4-411c-b97f-1eecad184441",
+      "VGA Signal Generator"
+    ],
+    [
       "cb82a93f-9f06-4181-ab04-fa51c9c11d3d",
       "VGA Card"
+    ],
+    [
+      "a76b41aa-1447-4268-83ca-9c8e36e78415",
+      "Dual Port RAM B"
     ]
   ],
   "text_variables": {}

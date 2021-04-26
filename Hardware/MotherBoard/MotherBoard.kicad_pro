@@ -33,9 +33,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 3.2,
-          "height": 3.2,
-          "width": 3.2
+          "drill": 1.0,
+          "height": 1.7,
+          "width": 1.7
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -415,7 +415,7 @@
   },
   "sheets": [
     [
-      "79754a97-1400-47e0-96e6-7e138bd09f59",
+      "3dae15a4-59fa-4f46-b91c-1ec2dd5bd7cc",
       ""
     ],
     [
@@ -424,11 +424,11 @@
     ],
     [
       "5ef0a811-3f5b-468e-a256-eb6480f9432e",
-      "Bus Control"
+      "North Bridge"
     ],
     [
       "6cbd16f3-a1f6-4857-8623-5a6775377a9a",
-      "Ports"
+      "South Bridge"
     ]
   ],
   "text_variables": {}
