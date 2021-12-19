@@ -1,0 +1,50 @@
+module cu_top (
+    input clk,                // 100MHz clock
+    input rst_n,
+    input write_address[15],
+    input write_data[6],
+    input write_en,
+    output hsync,
+    output vsync,
+    output hblank,
+    output vblank,
+    output rgb[6]
+  ) {
+  
+  sig rst;
+  
+  .clk(clk) {
+    reset_conditioner this_reset_cond;
+    .rst(rst) {
+      vga_signals this_vga_signals;
+    }
+  }
+  
+  simple_dual_ram this_vram (.rclk(clk), .wclk(clk), #SIZE(6), #DEPTH(160 * 120));
+
+  always {
+    this_reset_cond.in = ~rst_n;
+    rst = this_reset_cond.out;
+    
+    // Read/write vram
+    
+    this_vram.raddr = this_vga_signals.address;
+    this_vram.waddr = write_address;
+    this_vram.write_data = write_data;
+    this_vram.write_en = write_en;
+    
+    // Output VGA sync signals
+    
+    hsync = this_vga_signals.hsync;
+    vsync = this_vga_signals.vsync;
+    hblank = this_vga_signals.hblank;
+    vblank = this_vga_signals.vblank;
+    
+    // Output VGA color signals
+    
+    rgb = 6bzzzzzz;
+    if (!this_vga_signals.hblank && !this_vga_signals.vblank) {
+      rgb = this_vram.read_data;
+    }
+  }
+}

@@ -440,8 +440,8 @@
   (junction (at 139.192 32.512) (diameter 1.016) (color 0 0 0 0))
   (junction (at 139.192 42.672) (diameter 1.016) (color 0 0 0 0))
 
-  (no_connect (at 80.264 54.61))
   (no_connect (at 80.264 36.83))
+  (no_connect (at 80.264 54.61))
 
   (bus_entry (at 90.932 59.69) (size 2.54 -2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))

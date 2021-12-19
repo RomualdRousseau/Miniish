@@ -1,0 +1,73 @@
+%SIGNAL
+PIN   9 =  A8 
+PIN   8 =  A9 
+PIN   7 =  A10 
+PIN   6 =  A11 
+PIN   5 =  A12 
+PIN   4 =  A13 
+PIN   3 =  A14 
+PIN   2 =  A15 
+PIN  22 = !APU 
+PIN   1 =  Clock 
+PIN  11 = !DMA 
+PIN  17 =  DMARW 
+PIN  23 = !IO 
+PIN  20 = !IRQ 
+PIN  21 = !PPU 
+PIN  19 = !RAM 
+PIN  18 = !ROM 
+PIN  10 = !RW 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+APU =>
+    !A8 & A9 & !A10 & !A11 & A12 & !A13 & A14 & A15
+
+DMARW =>
+    !DMA & !RW
+  # DMA & RW
+
+IO =>
+    A8 & A9 & !A10 & !A11 & A12 & !A13 & A14 & A15
+
+IRQ =>
+    !A8 & !A9 & !A10 & !A11 & A12 & !A13 & A14 & A15
+
+PPU =>
+    A8 & !A9 & !A10 & !A11 & A12 & !A13 & A14 & A15
+  # !DMA
+
+RAM =>
+    !A15 & Clock
+  # !A15 & !DMA
+
+ROM =>
+    !A14 & A15
+  # A13 & A15
+  # !A12 & A15
+
+APU.oe  =>
+    1 
+
+DMARW.oe  =>
+    1 
+
+IO.oe  =>
+    1 
+
+IRQ.oe  =>
+    1 
+
+PPU.oe  =>
+    1 
+
+RAM.oe  =>
+    1 
+
+ROM.oe  =>
+    1 
+
+%END

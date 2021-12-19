@@ -1263,10 +1263,10 @@
   (junction (at 176.276 107.95) (diameter 1.016) (color 0 0 0 0))
 
   (no_connect (at 170.18 35.052))
-  (no_connect (at 170.18 57.15))
   (no_connect (at 170.18 54.61))
   (no_connect (at 170.18 32.512))
   (no_connect (at 200.406 46.482))
+  (no_connect (at 170.18 57.15))
 
   (bus_entry (at 89.662 80.01) (size 2.54 -2.54)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
@@ -3467,13 +3467,13 @@
       (reference "U2") (unit 1) (value "ATmega1284P-PU") (footprint "Package_DIP:DIP-40_W15.24mm")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/2ed9e92c-2ab1-4a25-897a-80334e8ea6cd"
-      (reference "U14") (unit 1) (value "74LS02") (footprint "")
+      (reference "U14") (unit 1) (value "74HC00") (footprint "")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/fea54903-393d-4b6f-981c-bd0fbe267096"
-      (reference "U14") (unit 2) (value "74LS02") (footprint "")
+      (reference "U14") (unit 2) (value "74HC00") (footprint "")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/f201bb6c-ef7e-4980-ab62-5ae6a237fee8"
-      (reference "U14") (unit 5) (value "74LS02") (footprint "")
+      (reference "U14") (unit 5) (value "74HC00") (footprint "")
     )
     (path "/cb82a93f-9f06-4181-ab04-fa51c9c11d3d/ae8dea0e-4930-4c8c-b1ff-f50f068915c0"
       (reference "U15") (unit 1) (value "74HC541") (footprint "Package_DIP:DIP-20_W7.62mm")

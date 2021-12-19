@@ -1,0 +1,40 @@
+pin clk CLOCK;
+clock clk 100MHz;
+
+pin rst_n RESET;
+
+pin hsync A2;
+pin vsync A5;
+pin hblank A8;
+pin vblank A11;
+pin write_en A14;
+
+pin rgb[0] A3;
+pin rgb[1] A6;
+pin rgb[2] A9;
+pin rgb[3] A12;
+pin rgb[4] A15;
+pin rgb[5] A18;
+
+pin write_address[0] B2;
+pin write_address[1] B5;
+pin write_address[2] B8;
+pin write_address[3] B11;
+pin write_address[4] B14;
+pin write_address[5] B17;
+pin write_address[6] B20;
+pin write_address[7] B23;
+pin write_address[8] B3;
+pin write_address[9] B6;
+pin write_address[10] B9;
+pin write_address[11] B12;
+pin write_address[12] B15;
+pin write_address[13] B18;
+pin write_address[14] B21;
+
+pin write_data[0] B49;
+pin write_data[1] B46;
+pin write_data[2] B43;
+pin write_data[3] B40;
+pin write_data[2] B37;
+pin write_data[3] B34;

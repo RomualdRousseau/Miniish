@@ -1,0 +1,81 @@
+Synopsys HDL Compiler, version comp2016q3p1, Build 141R, built Dec  5 2016
+@N|Running in 64-bit mode
+Copyright (C) 1994-2016 Synopsys, Inc. All rights reserved. This Synopsys software and all associated documentation are proprietary to Synopsys, Inc. and may only be used pursuant to the terms and conditions of a written license agreement with Synopsys, Inc. All other use, reproduction, modification, or distribution of the Synopsys software or the associated documentation is strictly prohibited.
+
+Synopsys Verilog Compiler, version comp2016q3p1, Build 141R, built Dec  5 2016
+@N|Running in 64-bit mode
+Copyright (C) 1994-2016 Synopsys, Inc. All rights reserved. This Synopsys software and all associated documentation are proprietary to Synopsys, Inc. and may only be used pursuant to the terms and conditions of a written license agreement with Synopsys, Inc. All other use, reproduction, modification, or distribution of the Synopsys software or the associated documentation is strictly prohibited.
+
+Running on host :computer.workshop
+@I::"/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v" (library work)
+@I::"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/hypermods.v" (library __hyper__lib__)
+@I::"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/umr_capim.v" (library snps_haps)
+@I::"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/scemi_objects.v" (library snps_haps)
+@I::"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/scemi_pipes.svh" (library snps_haps)
+@I::"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v" (library work)
+@I::"/home/romuald/Projects/alchitry/PPU/work/verilog/reset_conditioner_1.v" (library work)
+@I::"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v" (library work)
+@I::"/home/romuald/Projects/alchitry/PPU/work/verilog/simple_dual_ram_3.v" (library work)
+Verilog syntax check successful!
+Selecting top level module cu_top_0
+@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/reset_conditioner_1.v":11:7:11:25|Synthesizing module reset_conditioner_1 in library work.
+
+@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":7:7:7:19|Synthesizing module vga_signals_2 in library work.
+
+@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/simple_dual_ram_3.v":48:7:48:23|Synthesizing module simple_dual_ram_3 in library work.
+
+	SIZE=3'b110
+	DEPTH=15'b100101100000000
+   Generated name = simple_dual_ram_3_6_19200
+
+@N: CL134 :"/home/romuald/Projects/alchitry/PPU/work/verilog/simple_dual_ram_3.v":67:2:67:7|Found RAM mem, depth=19200, width=6
+@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
+
+@N: CL201 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|Trying to extract state machine for register M_vstate_q.
+Extracted state machine for register M_vstate_q
+State machine has 4 reachable states with original encodings of:
+   00
+   01
+   10
+   11
+@W: CL249 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|Initial value is not supported on state machine M_vstate_q
+@N: CL201 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|Trying to extract state machine for register M_hstate_q.
+Extracted state machine for register M_hstate_q
+State machine has 4 reachable states with original encodings of:
+   00
+   01
+   10
+   11
+@W: CL249 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|Initial value is not supported on state machine M_hstate_q
+
+At c_ver Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 80MB peak: 96MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Sun Jun 20 15:52:14 2021
+
+###########################################################]
+Synopsys Netlist Linker, version comp2016q3p1, Build 141R, built Dec  5 2016
+@N|Running in 64-bit mode
+@N: NF107 :"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
+@N: NF107 :"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 67MB peak: 68MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Sun Jun 20 15:52:14 2021
+
+###########################################################]
+@END
+
+At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 3MB peak: 4MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Sun Jun 20 15:52:14 2021
+
+###########################################################]

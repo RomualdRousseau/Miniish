@@ -33,9 +33,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 1.0,
-          "height": 1.7,
-          "width": 1.7
+          "drill": 3.2,
+          "height": 3.2,
+          "width": 3.2
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -133,6 +133,10 @@
         {
           "diameter": 0.6,
           "drill": 0.3
+        },
+        {
+          "diameter": 0.8,
+          "drill": 0.4
         }
       ],
       "zones_allow_external_fillets": false,
@@ -355,11 +359,12 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "5V",
+        "name": "Power",
         "nets": [
-          "+5V"
+          "+5V",
+          "GND"
         ],
-        "pcb_color": "rgb(255, 0, 20)",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.5,
         "via_diameter": 0.8,
@@ -415,7 +420,7 @@
   },
   "sheets": [
     [
-      "3dae15a4-59fa-4f46-b91c-1ec2dd5bd7cc",
+      "3045fb3a-b9ae-4fce-8762-eb91e0acaa70",
       ""
     ],
     [

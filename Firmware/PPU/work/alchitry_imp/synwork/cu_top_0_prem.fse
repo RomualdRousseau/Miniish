@@ -1,0 +1,24 @@
+
+fsm_encoding {712121211} sequential
+
+fsm_state_encoding {712121211} VVA_vstate {00}
+
+fsm_state_encoding {712121211} VFP_vstate {01}
+
+fsm_state_encoding {712121211} VSP_vstate {10}
+
+fsm_state_encoding {712121211} VBP_vstate {11}
+
+fsm_registers {712121211} {M_vstate_q[1]}  {M_vstate_q[0]} 
+
+fsm_encoding {712121212} sequential
+
+fsm_state_encoding {712121212} HVA_hstate {00}
+
+fsm_state_encoding {712121212} HFP_hstate {01}
+
+fsm_state_encoding {712121212} HSP_hstate {10}
+
+fsm_state_encoding {712121212} HBP_hstate {11}
+
+fsm_registers {712121212} {M_hstate_q[1]}  {M_hstate_q[0]} 

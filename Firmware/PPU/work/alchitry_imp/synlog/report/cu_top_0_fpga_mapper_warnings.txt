@@ -1,0 +1,5 @@
+@W: FX1039 :"/home/romuald/Projects/alchitry/PPU/work/verilog/reset_conditioner_1.v":29:2:29:7|User-specified initial value defined for instance this_reset_cond.M_stage_q[3:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|User-specified initial value defined for instance this_vga_signals.M_vcounter_q[9:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|User-specified initial value defined for instance this_vga_signals.M_hcounter_q[11:0] is being ignored. 
+@W: FX107 :"/home/romuald/Projects/alchitry/PPU/work/verilog/simple_dual_ram_3.v":67:2:67:7|RAM this_vram.mem[5:0] (in view: work.cu_top_0(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX708 |Found invalid parameter 4 

@@ -7,31 +7,31 @@ OAM_START	= $0200
 OAM_PTR 	.word $0000
 LCD_PTR		.word $0000
 
-STATE		.byte $00
+STATE		  .byte $00
 
-JOYPAD		.byte $00
+JOYPAD	  .byte $00
 
-COW_X		.byte $00
-COW_Y		.byte $00
-COW_T		.byte $00
+COW_X		  .byte $00
+COW_Y		  .byte $00
+COW_T		  .byte $00
 
-NOTE		.byte $00
-SEQ			.byte $00
+NOTE		  .byte $00
+SEQ			  .byte $00
 
-R1			.byte $00
-R2			.byte $00
-R3			.byte $00
-R4			.byte $00
-R5			.byte $00
-			.dend
+R1			  .byte $00
+R2			  .byte $00
+R3			  .byte $00
+R4			  .byte $00
+R5			  .byte $00
+	    .dend
 
 			.dsect			; OAM =============================================
 			.org OAM_START
 COW_FG		.byte $00, $00, $00, $00
-			.byte $00, $00, $00, $00
-			.byte $00, $00, $00, $00
-			.byte $00, $00, $00, $00
-			.dend
+			    .byte $00, $00, $00, $00
+			    .byte $00, $00, $00, $00
+			    .byte $00, $00, $00, $00
+	    .dend
 
 			.org $8000		; CODE =============================================
 SETUP
@@ -68,6 +68,7 @@ SETUP
 		 	
 LOOP
 			jsr JOYPAD_READ
+			jsr JOYPAD_PRINT
 			jmp LOOP
 			
 DRAW

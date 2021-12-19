@@ -1,0 +1,14 @@
+/opt/lscc/iCEcube2.2020.12/synpbase/bin/m_generic  -prodtype  synplify_pro   -encrypt  -pro  -rundir  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp   -part iCE40HX8K  -package CB132    -maxfan 10000 -RWCheckOnRam 0 -pipe -fixgatedclocks 1 -fixgeneratedclocks 1 -summaryfile /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap.xml  -oedif  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0.edf  -conchk_prepass  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0_cck.rpt   -autoconstraint  -freq 1.000   -tcl  /home/romuald/Projects/alchitry/PPU/work/constraint/merged_constraint.sdc  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synwork/cu_top_0_mult.srs  -flow prepass  -gcc_prepass  -osrd  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synwork/cu_top_0_prem.srd  -qsap  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0.sap  -devicelib  /opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v  -ologparam  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/syntmp/cu_top_0.plg  -osyn  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synwork/cu_top_0_prem.srd  -prjdir  /home/romuald/Projects/alchitry/PPU/work/  -prjname  alchitry_syn  -log  /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/cu_top_0_premap.srr 
+rc:0 success:1 runtime:1
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0.edf|io:o|time:0|size:0|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0_cck.rpt|io:o|time:1624175536|size:2582|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/constraint/merged_constraint.sdc|io:i|time:1624175533|size:76|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synwork/cu_top_0_mult.srs|io:i|time:1624175535|size:3528|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synwork/cu_top_0_prem.srd|io:o|time:1624175536|size:9803|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0.sap|io:o|time:1624175536|size:791|exec:0
+file:/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v|io:i|time:1623495849|size:220434|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/syntmp/cu_top_0.plg|io:o|time:1624175536|size:0|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synwork/cu_top_0_prem.srd|io:o|time:1624175536|size:9803|exec:0
+file:/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/cu_top_0_premap.srr|io:o|time:1624175536|size:3854|exec:0
+file:/opt/lscc/iCEcube2.2020.12/synpbase/linux_a_64/m_generic|io:i|time:1623495851|size:32925640|exec:1
+file:/opt/lscc/iCEcube2.2020.12/synpbase/bin/m_generic|io:i|time:1623495849|size:345|exec:1

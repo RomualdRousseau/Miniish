@@ -1,0 +1,298 @@
+set_location IN_MUX_bfv_14_18_0_ 14 18 0 #ICE_CARRY_IN_MUX
+set_location IN_MUX_bfv_14_19_0_ 14 19 0 #ICE_CARRY_IN_MUX
+set_location IN_MUX_bfv_14_20_0_ 14 20 0 #ICE_CARRY_IN_MUX
+set_location IN_MUX_bfv_14_15_0_ 14 15 0 #ICE_CARRY_IN_MUX
+set_location IN_MUX_bfv_14_16_0_ 14 16 0 #ICE_CARRY_IN_MUX
+set_location IN_MUX_bfv_13_15_0_ 13 15 0 #ICE_CARRY_IN_MUX
+set_location IN_MUX_bfv_13_17_0_ 13 17 0 #ICE_CARRY_IN_MUX
+set_location IN_MUX_bfv_13_18_0_ 13 18 0 #ICE_CARRY_IN_MUX
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c_THRU_CRY_6 14 19 7 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c_THRU_CRY_5 14 19 6 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c_THRU_CRY_4 14 19 5 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c_THRU_CRY_3 14 19 4 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c_THRU_CRY_2 14 19 3 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c_THRU_CRY_1 14 19 2 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c_THRU_CRY_0 14 19 1 #SB_CARRY
+set_location CONSTANT_ONE_LUT4 22 5 3 #SB_LUT4
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_2_THRU_LUT4_0 14 18 3 #SB_LUT4
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_1_THRU_LUT4_0 14 18 2 #SB_LUT4
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_0_THRU_LUT4_0 14 18 1 #SB_LUT4
+set_location this_vga_signals.address_1_0_8_THRU_LUT4_0 13 18 0 #SB_LUT4
+set_location this_vram.mem_radreg_RNIVVA72[12] 7 17 5 #SB_LUT4
+set_location this_vram.mem_radreg_RNIVVA72_0[12] 7 18 6 #SB_LUT4
+set_location this_vram.mem_radreg_RNIU5NC[13] 9 17 5 #SB_LUT4
+set_location this_vram.mem_radreg_RNIRVA72[12] 7 15 5 #SB_LUT4
+set_location this_vram.mem_radreg_RNIRVA72_0[12] 7 16 7 #SB_LUT4
+set_location this_vram.mem_radreg_RNIPOEJ4[13] 7 17 6 #SB_LUT4
+set_location this_vram.mem_radreg_RNIPOEJ4_0[13] 7 18 7 #SB_LUT4
+set_location this_vram.mem_radreg_RNINVA72[12] 9 13 4 #SB_LUT4
+set_location this_vram.mem_radreg_RNINVA72_0[12] 7 13 1 #SB_LUT4
+set_location this_vram.mem_radreg_RNIN7E66[14] 9 18 5 #SB_LUT4
+set_location this_vram.mem_radreg_RNIN7E66_0[14] 7 15 3 #SB_LUT4
+set_location this_vram.mem_radreg_RNIHOEJ4[13] 7 16 3 #SB_LUT4
+set_location this_vram.mem_radreg_RNIHOEJ4_0[13] 9 16 0 #SB_LUT4
+set_location this_vram.mem_radreg_RNIG1S72[11] 17 16 5 #SB_LUT4
+set_location this_vram.mem_radreg_RNIG1S72_0[11] 9 18 0 #SB_LUT4
+set_location this_vram.mem_radreg_RNIC1S72[11] 7 16 2 #SB_LUT4
+set_location this_vram.mem_radreg_RNIC1S72_0[11] 10 16 1 #SB_LUT4
+set_location this_vram.mem_radreg_RNIB8E66[14] 7 20 1 #SB_LUT4
+set_location this_vram.mem_radreg_RNIB8E66_0[14] 7 21 0 #SB_LUT4
+set_location this_vram.mem_radreg_RNI9OEJ4[13] 9 18 4 #SB_LUT4
+set_location this_vram.mem_radreg_RNI9OEJ4_0[13] 7 15 2 #SB_LUT4
+set_location this_vram.mem_radreg_RNI81S72[11] 9 20 7 #SB_LUT4
+set_location this_vram.mem_radreg_RNI81S72_0[11] 9 15 7 #SB_LUT4
+set_location this_vram.mem_radreg_RNI18E66[14] 7 21 6 #SB_LUT4
+set_location this_vram.mem_radreg_RNI18E66_0[14] 9 17 6 #SB_LUT4
+set_location this_vram.mem_radreg[14] 13 15 7 #SB_DFF
+set_location this_vram.mem_radreg[13] 13 15 6 #SB_DFF
+set_location this_vram.mem_radreg[12] 13 15 5 #SB_DFF
+set_location this_vram.mem_radreg[11] 13 15 4 #SB_DFF
+set_location this_vram.mem_mem_9_2 25 27 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_9_1 25 25 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_9_0_wclke_0_a2 24 20 1 #SB_LUT4
+set_location this_vram.mem_mem_9_0 25 23 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_8_2_RNI9H021_0 23 21 4 #SB_LUT4
+set_location this_vram.mem_mem_8_2_RNI9H021 24 21 5 #SB_LUT4
+set_location this_vram.mem_mem_8_2 25 21 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_8_1_RNI7H021_0 24 21 2 #SB_LUT4
+set_location this_vram.mem_mem_8_1_RNI7H021 24 19 7 #SB_LUT4
+set_location this_vram.mem_mem_8_1 25 19 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_8_0_wclke_0_a2_0 24 20 6 #SB_LUT4
+set_location this_vram.mem_mem_8_0_wclke_0_a2 24 20 7 #SB_LUT4
+set_location this_vram.mem_mem_8_0_RNI5H021_0 24 18 6 #SB_LUT4
+set_location this_vram.mem_mem_8_0_RNI5H021 24 17 1 #SB_LUT4
+set_location this_vram.mem_mem_8_0 25 17 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_7_2 25 15 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_7_1 25 13 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_7_0_wclke_0_a2 24 15 6 #SB_LUT4
+set_location this_vram.mem_mem_7_0 25 11 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_6_2 25 9 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_6_1 25 7 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_6_0_wclke_0_a2 24 15 0 #SB_LUT4
+set_location this_vram.mem_mem_6_0 25 5 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_5_2_RNI58R11_0 24 15 2 #SB_LUT4
+set_location this_vram.mem_mem_5_2_RNI58R11 24 15 1 #SB_LUT4
+set_location this_vram.mem_mem_5_2 25 3 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_5_1_RNI38R11_0 24 13 3 #SB_LUT4
+set_location this_vram.mem_mem_5_1_RNI38R11 24 13 2 #SB_LUT4
+set_location this_vram.mem_mem_5_1 25 1 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_5_0_wclke_0_a2 19 18 7 #SB_LUT4
+set_location this_vram.mem_mem_5_0_RNI18R11_0 9 20 6 #SB_LUT4
+set_location this_vram.mem_mem_5_0_RNI18R11 9 15 6 #SB_LUT4
+set_location this_vram.mem_mem_5_0 8 31 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_4_2_RNI34P11_0 17 16 4 #SB_LUT4
+set_location this_vram.mem_mem_4_2_RNI34P11 9 19 0 #SB_LUT4
+set_location this_vram.mem_mem_4_2 8 29 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_4_1_RNI14P11_0 7 16 1 #SB_LUT4
+set_location this_vram.mem_mem_4_1_RNI14P11 10 16 0 #SB_LUT4
+set_location this_vram.mem_mem_4_1 8 27 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_4_0_wclke_0_a2_1 24 20 0 #SB_LUT4
+set_location this_vram.mem_mem_4_0_wclke_0_a2 10 21 1 #SB_LUT4
+set_location this_vram.mem_mem_4_0_RNIV3P11_0 9 20 3 #SB_LUT4
+set_location this_vram.mem_mem_4_0_RNIV3P11 9 15 1 #SB_LUT4
+set_location this_vram.mem_mem_4_0 8 25 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_3_2 8 23 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_3_1 8 21 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_3_0_wclke_0_a2 9 19 1 #SB_LUT4
+set_location this_vram.mem_mem_3_0 8 19 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_2_2_RNITOJ11_0 7 17 4 #SB_LUT4
+set_location this_vram.mem_mem_2_2_RNITOJ11 7 18 5 #SB_LUT4
+set_location this_vram.mem_mem_2_2 8 17 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_2_1_RNIROJ11_0 7 15 4 #SB_LUT4
+set_location this_vram.mem_mem_2_1_RNIROJ11 7 16 6 #SB_LUT4
+set_location this_vram.mem_mem_2_1 8 15 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_2_0_wclke_0_a2 9 17 7 #SB_LUT4
+set_location this_vram.mem_mem_2_0_RNIPOJ11_0 9 13 3 #SB_LUT4
+set_location this_vram.mem_mem_2_0_RNIPOJ11 7 13 0 #SB_LUT4
+set_location this_vram.mem_mem_2_0 8 13 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_1_2 8 11 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_1_1 8 9 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_1_0_wclke_0_a2 10 15 5 #SB_LUT4
+set_location this_vram.mem_mem_1_0 8 7 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_0_2_RNIPGF11_0 7 11 5 #SB_LUT4
+set_location this_vram.mem_mem_0_2_RNIPGF11 7 11 4 #SB_LUT4
+set_location this_vram.mem_mem_0_2 8 5 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_0_1_RNINGF11_0 7 9 7 #SB_LUT4
+set_location this_vram.mem_mem_0_1_RNINGF11 7 9 2 #SB_LUT4
+set_location this_vram.mem_mem_0_1 8 3 0 #SB_RAM40_4K
+set_location this_vram.mem_mem_0_0_wclke_0_a2 9 15 5 #SB_LUT4
+set_location this_vram.mem_mem_0_0_RNILGF11_0 9 7 7 #SB_LUT4
+set_location this_vram.mem_mem_0_0_RNILGF11 7 7 2 #SB_LUT4
+set_location this_vram.mem_mem_0_0 8 1 0 #SB_RAM40_4K
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_8_c 14 19 0 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_7_c 14 18 7 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_6_c 14 18 6 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_5_c 14 18 5 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_4_c 14 18 4 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_3_c 14 18 3 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_2_c 14 18 2 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_1_c 14 18 1 #SB_CARRY
+set_location this_vga_signals.un1_M_vcounter_q_6_cry_0_c 14 18 0 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_9_c 14 16 0 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_8_c 14 15 7 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_7_c 14 15 6 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_6_c 14 15 5 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_5_c 14 15 4 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_4_c 14 15 3 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_3_c 14 15 2 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_2_c 14 15 1 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_1_c 14 15 0 #SB_CARRY
+set_location this_vga_signals.un1_M_hcounter_d_cry_10_c 14 16 1 #SB_CARRY
+set_location this_vga_signals.address_1_cry_6_c_RNI3CIF 13 15 7 #SB_LUT4
+set_location this_vga_signals.address_1_cry_6_c 13 15 6 #SB_CARRY
+set_location this_vga_signals.address_1_cry_5_c_RNIUC2V 13 15 6 #SB_LUT4
+set_location this_vga_signals.address_1_cry_5_c 13 15 5 #SB_CARRY
+set_location this_vga_signals.address_1_cry_4_c_RNIHV4D1 13 15 5 #SB_LUT4
+set_location this_vga_signals.address_1_cry_4_c 13 15 4 #SB_CARRY
+set_location this_vga_signals.address_1_cry_3_c_RNIDP2D1 13 15 4 #SB_LUT4
+set_location this_vga_signals.address_1_cry_3_c 13 15 3 #SB_CARRY
+set_location this_vga_signals.address_1_cry_2_c_RNI9J0D1 13 15 3 #SB_LUT4
+set_location this_vga_signals.address_1_cry_2_c 13 15 2 #SB_CARRY
+set_location this_vga_signals.address_1_cry_1_c_RNI5DUC1 13 15 2 #SB_LUT4
+set_location this_vga_signals.address_1_cry_1_c 13 15 1 #SB_CARRY
+set_location this_vga_signals.address_1_cry_0_c_RNI17SC1 13 15 1 #SB_LUT4
+set_location this_vga_signals.address_1_cry_0_c 13 15 0 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_7_c 13 17 7 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_6_c_RNIIPKT 13 17 7 #SB_LUT4
+set_location this_vga_signals.address_1_0_cry_6_c 13 17 6 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_5_c_RNIGMJT 13 17 6 #SB_LUT4
+set_location this_vga_signals.address_1_0_cry_5_c 13 17 5 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_4_c_RNIEJIT 13 17 5 #SB_LUT4
+set_location this_vga_signals.address_1_0_cry_4_c 13 17 4 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_3_c_RNICGHT 13 17 4 #SB_LUT4
+set_location this_vga_signals.address_1_0_cry_3_c 13 17 3 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_2_c_RNIADGT 13 17 3 #SB_LUT4
+set_location this_vga_signals.address_1_0_cry_2_c 13 17 2 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_1_c_RNIP6O91 13 17 2 #SB_LUT4
+set_location this_vga_signals.address_1_0_cry_1_c 13 17 1 #SB_CARRY
+set_location this_vga_signals.address_1_0_cry_0_c_RNIM2N91 13 17 1 #SB_LUT4
+set_location this_vga_signals.address_1_0_cry_0_c 13 17 0 #SB_CARRY
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m27_0_o2_1 12 17 2 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m27_0_o2_0_3 13 18 1 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m27_0_o2_0 12 18 7 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m27_0_a2_1_5 13 18 2 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m27_0_a2_1_4 13 18 5 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m27_0_0 12 18 4 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m27_0 12 18 5 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m24_0_o2 12 17 1 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m24_0_1_0 12 18 3 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m24_0_1 12 18 0 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m24_0_0 13 18 7 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_ns_1_0_.m24_0 12 18 1 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_RNO[1] 12 18 6 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_RNO[0] 12 18 2 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_RNIVAHF[0] 13 18 6 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_RNITHP2_0[0] 1 18 7 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_RNITHP2[0] 2 18 4 #SB_LUT4
+set_location this_vga_signals.M_vstate_q_RNICG7G4[1] 13 18 3 #SB_LUT4
+set_location this_vga_signals.M_vstate_q[1] 12 18 6 #SB_DFF
+set_location this_vga_signals.M_vstate_q[0] 12 18 2 #SB_DFF
+set_location this_vga_signals.M_vcounter_q_RNO[9] 14 20 0 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[8] 14 19 0 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[7] 14 18 7 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[6] 14 18 6 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[5] 14 18 5 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[4] 14 18 4 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[3] 13 16 5 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[2] 13 16 0 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[1] 13 18 4 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNO[0] 14 17 1 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q_RNI8NSN1[2] 13 15 0 #SB_LUT4
+set_location this_vga_signals.M_vcounter_q[9] 14 20 0 #SB_DFF
+set_location this_vga_signals.M_vcounter_q[8] 14 19 0 #SB_DFFSR
+set_location this_vga_signals.M_vcounter_q[7] 14 18 7 #SB_DFFSR
+set_location this_vga_signals.M_vcounter_q[6] 14 18 6 #SB_DFFSR
+set_location this_vga_signals.M_vcounter_q[5] 14 18 5 #SB_DFFSR
+set_location this_vga_signals.M_vcounter_q[4] 14 18 4 #SB_DFFSR
+set_location this_vga_signals.M_vcounter_q[3] 13 16 5 #SB_DFF
+set_location this_vga_signals.M_vcounter_q[2] 13 16 0 #SB_DFF
+set_location this_vga_signals.M_vcounter_q[1] 13 18 4 #SB_DFF
+set_location this_vga_signals.M_vcounter_q[0] 14 17 1 #SB_DFF
+set_location this_vga_signals.M_hstate_q_RNO_4[0] 15 17 0 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNO_3[0] 15 17 1 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNO_2[0] 14 17 2 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNO_1[0] 14 17 5 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNO[1] 15 17 5 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNO_0[1] 15 17 7 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNO_0[0] 14 17 6 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNO[0] 14 17 7 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNIUAUT[0] 1 18 0 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNID7PV[0] 15 16 6 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNI1P4R_0[0] 1 16 2 #SB_LUT4
+set_location this_vga_signals.M_hstate_q_RNI1P4R[0] 1 17 4 #SB_LUT4
+set_location this_vga_signals.M_hstate_q[1] 15 17 5 #SB_DFF
+set_location this_vga_signals.M_hstate_q[0] 14 17 7 #SB_DFF
+set_location this_vga_signals.M_hcounter_q_RNO[9] 14 16 0 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[8] 14 15 7 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[7] 14 15 6 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[6] 14 15 5 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[5] 14 15 4 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[4] 14 15 3 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[3] 14 15 2 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[2] 14 15 1 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[11] 14 16 2 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[10] 14 16 1 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[1] 15 15 1 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNO[0] 15 15 6 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNITMFU[9] 15 16 7 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNITMFU_0[9] 15 16 3 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNIQFS22[11] 15 17 2 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNIPU1C1[11] 15 17 3 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNINV7N[9] 13 17 0 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNI5RNE4[11] 15 17 4 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q_RNI2UC41[1] 15 16 0 #SB_LUT4
+set_location this_vga_signals.M_hcounter_q[9] 14 16 0 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[8] 14 15 7 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[7] 14 15 6 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[6] 14 15 5 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[5] 14 15 4 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[4] 14 15 3 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[3] 14 15 2 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[2] 14 15 1 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[11] 14 16 2 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[10] 14 16 1 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[1] 15 15 1 #SB_DFFSR
+set_location this_vga_signals.M_hcounter_q[0] 15 15 6 #SB_DFFSR
+set_location this_reset_cond.M_stage_q_RNO[3] 16 17 4 #SB_LUT4
+set_location this_reset_cond.M_stage_q_RNO[2] 16 17 5 #SB_LUT4
+set_location this_reset_cond.M_stage_q_RNO[1] 16 17 2 #SB_LUT4
+set_location this_reset_cond.M_stage_q_RNO[0] 16 17 7 #SB_LUT4
+set_location this_reset_cond.M_stage_q[3] 16 17 4 #SB_DFF
+set_location this_reset_cond.M_stage_q[2] 16 17 5 #SB_DFF
+set_location this_reset_cond.M_stage_q[1] 16 17 2 #SB_DFF
+set_location this_reset_cond.M_stage_q[0] 16 17 7 #SB_DFF
+set_location GND -1 -1 -1 #GND
+set_io write_en C1
+set_io write_data[5] G4
+set_io write_data[4] P1
+set_io write_data[3] E11
+set_io write_data[2] D11
+set_io write_data[1] D6
+set_io write_data[0] C6
+set_io write_address[9] A11
+set_io write_address[8] A7
+set_io write_address[7] H12
+set_io write_address[6] F14
+set_io write_address[5] E14
+set_io write_address[4] C14
+set_io write_address[3] A12
+set_io write_address[2] C9
+set_io write_address[14] G14
+set_io write_address[13] E12
+set_io write_address[12] D14
+set_io write_address[11] B14
+set_io write_address[10] C10
+set_io write_address[1] A10
+set_io write_address[0] A6
+set_io vsync J1
+set_io vblank E1
+set_io rst_n P8
+set_io rgb[5] C3
+set_io rgb[4] B1
+set_io rgb[3] D1
+set_io rgb[2] G3
+set_io rgb[1] J3
+set_io rgb[0] L1
+set_io hsync M1
+set_io hblank G1
+set_io clk P7
