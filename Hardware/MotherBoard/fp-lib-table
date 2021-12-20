@@ -1,4 +1,6 @@
 (fp_lib_table
-  (lib (name "Logos")(type "KiCad")(uri "/home/romuald/Projects/KiCad/library/Logos.pretty")(options "")(descr ""))
-  (lib (name "digikey-footprints")(type "KiCad")(uri "/home/romuald/Projects/KiCad/library/digikey-footprints.pretty")(options "")(descr ""))
+  (lib (name "Connector_TheRLab")(type "KiCad")(uri "/home/romuald/Projects/Kicad/library/Connector_TheRLab.pretty")(options "")(descr ""))
+  (lib (name "digikey-footprints")(type "KiCad")(uri "/home/romuald/Projects/Kicad/library/digikey-footprints.pretty")(options "")(descr ""))
+  (lib (name "Logic_LevelTranslator")(type "KiCad")(uri "/home/romuald/Projects/Kicad/library/Logic_LevelTranslator.pretty")(options "")(descr ""))
+  (lib (name "Logos")(type "KiCad")(uri "/home/romuald/Projects/Kicad/library/Logos.pretty")(options "")(descr ""))
 )
