@@ -5,7 +5,7 @@ The file contains the job information from mapper to be displayed as part of the
 *******************************************************************************************-->
 <job_run_status name="Mapper">
 <report_link name="Detailed report">
-<data>/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/cu_top_0_premap.srr</data>
+<data>/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_premap.srr</data>
 <title>Synopsys Lattice Technology Pre-mapping</title>
 </report_link>
 <job_status>
@@ -13,21 +13,21 @@ The file contains the job information from mapper to be displayed as part of the
 </job_status>
 <job_info>
 <info name="Notes">
-<data>5</data>
+<data>6</data>
 <report_link name="more">
-<data>/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap_notes.txt</data>
+<data>/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap_notes.txt</data>
 </report_link>
 </info>
 <info name="Warnings">
 <data>0</data>
 <report_link name="more">
-<data>/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap_warnings.txt</data>
+<data>/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap_warnings.txt</data>
 </report_link>
 </info>
 <info name="Errors">
 <data>0</data>
 <report_link name="more">
-<data>/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap_errors.txt</data>
+<data>/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap_errors.txt</data>
 </report_link>
 </info>
 <info name="CPU Time">
@@ -40,7 +40,7 @@ The file contains the job information from mapper to be displayed as part of the
 <data>133MB</data>
 </info>
 <info name="Date &amp; Time">
-<data type="timestamp">1624175536</data>
+<data type="timestamp">1651548890</data>
 </info>
 </job_info>
 </job_run_status>

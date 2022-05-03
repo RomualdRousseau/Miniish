@@ -1,25 +1,30 @@
 #--  Synopsys, Inc.
 #--  Version L-2016.09L+ice40
-#--  Project file /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/scratchproject.prs
+#--  Project file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/scratchproject.prs
 
 #project files
-add_file -verilog "/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v"
-add_file -verilog "/home/romuald/Projects/alchitry/PPU/work/verilog/reset_conditioner_1.v"
-add_file -verilog "/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v"
-add_file -verilog "/home/romuald/Projects/alchitry/PPU/work/verilog/simple_dual_ram_3.v"
-add_file -constraint "/home/romuald/Projects/alchitry/PPU/work/constraint/merged_constraint.sdc"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_2.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_3.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_5.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_6.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_7.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_8.v"
+add_file -constraint "/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc"
 
 
 
 #implementation: "alchitry_imp"
-impl -add /home/romuald/Projects/alchitry/PPU/work/alchitry_imp -type fpga
+impl -add /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp -type fpga
 
 #
 #implementation attributes
 
 set_option -vlog_std v2001
 set_option -project_relative_includes 1
-set_option -include_path {/home/romuald/Projects/alchitry/PPU/work/}
+set_option -include_path {/home/romuald/Projects/Miniish/Firmware/PPU/work/}
 
 #device options
 set_option -technology SBTiCE40
@@ -68,5 +73,5 @@ set_option -auto_infer_blackbox 0
 set_option -write_apr_constraint 1
 
 #set result format/file last
-project -result_file "/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0.edf"
+project -result_file "/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.edf"
 impl -active "alchitry_imp"

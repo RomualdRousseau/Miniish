@@ -1,1 +1,1 @@
-CKID0001:@|S:clk_ibuf_gb_io@|E:this_vram.mem_radreg[11]@|F:@syn_sample_clock_path==CKID0001@|M:ClockId0001 
+CKID0001:@|S:clk_ibuf_gb_io@|E:M_current_address_q[10]@|F:@syn_sample_clock_path==CKID0001@|M:ClockId0001 

@@ -1,13 +1,19 @@
 @N|Running in 64-bit mode
 @N|Running in 64-bit mode
-@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/reset_conditioner_1.v":11:7:11:25|Synthesizing module reset_conditioner_1 in library work.
-@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":7:7:7:19|Synthesizing module vga_signals_2 in library work.
-@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/simple_dual_ram_3.v":48:7:48:23|Synthesizing module simple_dual_ram_3 in library work.
-@N: CL134 :"/home/romuald/Projects/alchitry/PPU/work/verilog/simple_dual_ram_3.v":67:2:67:7|Found RAM mem, depth=19200, width=6
-@N: CG364 :"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
-@N: CL201 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|Trying to extract state machine for register M_vstate_q.
-@N: CL201 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|Trying to extract state machine for register M_hstate_q.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":11:7:11:25|Synthesizing module reset_conditioner_1 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_6.v":12:7:12:21|Synthesizing module edge_detector_6 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_7.v":11:7:11:16|Synthesizing module pipeline_7 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_2.v":13:7:13:32|Synthesizing module edge_detector_with_delay_2 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_8.v":12:7:12:21|Synthesizing module edge_detector_8 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_3.v":13:7:13:32|Synthesizing module edge_detector_with_delay_3 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":7:7:7:19|Synthesizing module vga_signals_4 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_5.v":48:7:48:23|Synthesizing module simple_dual_ram_5 in library work.
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_5.v":67:2:67:7|Found RAM mem, depth=16384, width=4
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":163:2:163:7|Trying to extract state machine for register M_state_q.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|Trying to extract state machine for register M_vstate_q.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|Trying to extract state machine for register M_hstate_q.
 @N|Running in 64-bit mode
-@N: NF107 :"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
-@N: NF107 :"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
+@N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
+@N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
 

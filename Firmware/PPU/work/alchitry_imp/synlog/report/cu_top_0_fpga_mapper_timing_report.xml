@@ -5,7 +5,7 @@ Max Top 5 critical clocks will be reported. For rest user needs to refer to Deta
 *******************************************************************************************-->
 <report_table display_priority="2" name="Timing Summary">
 <report_link name="Detailed report">
-<data>/home/romuald/Projects/alchitry/PPU/work/alchitry_imp/synlog/cu_top_0_fpga_mapper.srr</data>
+<data>/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_fpga_mapper.srr</data>
 <title>START OF TIMING REPORT</title>
 </report_link>
 <row>
@@ -17,7 +17,7 @@ Max Top 5 critical clocks will be reported. For rest user needs to refer to Deta
 <row>
 <data>clk_0</data>
 <data>100.0 MHz</data>
-<data>90.5 MHz</data>
-<data>-1.052</data>
+<data>32.6 MHz</data>
+<data>-20.673</data>
 </row>
 </report_table>

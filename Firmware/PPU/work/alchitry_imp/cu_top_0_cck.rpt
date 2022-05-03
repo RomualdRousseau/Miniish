@@ -1,13 +1,13 @@
 # Synopsys Constraint Checker, version maplat, Build 1612R, built Dec  5 2016
 # Copyright (C) 1994-2016 Synopsys, Inc. All rights reserved. This Synopsys software and all associated documentation are proprietary to Synopsys, Inc. and may only be used pursuant to the terms and conditions of a written license agreement with Synopsys, Inc. All other use, reproduction, modification, or distribution of the Synopsys software or the associated documentation is strictly prohibited.
 
-# Written on Sun Jun 20 15:52:16 2021
+# Written on Tue May  3 11:34:50 2022
 
 
 ##### DESIGN INFO #######################################################
 
 Top View:                "cu_top_0"
-Constraint File(s):      "/home/romuald/Projects/alchitry/PPU/work/constraint/merged_constraint.sdc"
+Constraint File(s):      "/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc"
 
 
 
@@ -35,8 +35,39 @@ clk_0        clk_0      |     10.000           |     No paths         |     No p
 Unconstrained Start/End Points
 ******************************
 
+p:debug
 p:hblank
 p:hsync
+p:port_address[0]
+p:port_address[1]
+p:port_address[2]
+p:port_address[3]
+p:port_address[4]
+p:port_address[5]
+p:port_address[6]
+p:port_address[7]
+p:port_address[8]
+p:port_address[9]
+p:port_address[10]
+p:port_address[11]
+p:port_address[12]
+p:port_address[13]
+p:port_address[14]
+p:port_address[15]
+p:port_clk
+p:port_data[0]
+p:port_data[1]
+p:port_data[2]
+p:port_data[3]
+p:port_data[4]
+p:port_data[5]
+p:port_data[6]
+p:port_data[7]
+p:port_data_rw
+p:port_dmab
+p:port_enb
+p:port_nmib
+p:port_rw
 p:rgb[0]
 p:rgb[1]
 p:rgb[2]
@@ -46,28 +77,6 @@ p:rgb[5]
 p:rst_n
 p:vblank
 p:vsync
-p:write_address[0]
-p:write_address[1]
-p:write_address[2]
-p:write_address[3]
-p:write_address[4]
-p:write_address[5]
-p:write_address[6]
-p:write_address[7]
-p:write_address[8]
-p:write_address[9]
-p:write_address[10]
-p:write_address[11]
-p:write_address[12]
-p:write_address[13]
-p:write_address[14]
-p:write_data[0]
-p:write_data[1]
-p:write_data[2]
-p:write_data[3]
-p:write_data[4]
-p:write_data[5]
-p:write_en
 
 
 Inapplicable constraints

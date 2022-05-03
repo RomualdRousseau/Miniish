@@ -1,16 +1,25 @@
 @N: MF248 |Running in 64-bit mode.
 @N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
 @N: MT204 |Auto Constrain mode is disabled because clocks are defined in the SDC file
-@N: MF794 |RAM this_vram.mem[5:0] required 4 registers during mapping 
-@N: MO225 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|There are no possible illegal states for state machine M_vstate_q[3:0] (in view: work.vga_signals_2(verilog)); safe FSM implementation is not required.
-@N: MO225 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|There are no possible illegal states for state machine M_hstate_q[3:0] (in view: work.vga_signals_2(verilog)); safe FSM implementation is not required.
-@N: MF794 |RAM this_vram.mem[5:0] required 4 registers during mapping 
-@N: MF794 |RAM this_vram.mem[5:0] required 4 registers during mapping 
-@N: FX1016 :"/home/romuald/Projects/alchitry/PPU/work/verilog/cu_top_0.v":8:10:8:12|SB_GB_IO inserted on the port clk.
-@N: FX1017 :"/home/romuald/Projects/alchitry/PPU/work/verilog/vga_signals_2.v":121:2:121:7|SB_GB inserted on the net N_112.
+@N: MO106 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":157:12:157:51|Found ROM .delname. (in view: work.cu_top_0(verilog)) with 48 words by 6 bits.
+@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":84:25:84:57|Generating a type div divider 
+@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":83:25:83:55|Generating a type div divider 
+@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":163:2:163:7|There are no possible illegal states for state machine M_state_q[3:0] (in view: work.cu_top_0(verilog)); safe FSM implementation is not required.
+@N: MF794 |RAM this_vram.mem[3:0] required 3 registers during mapping 
+@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|There are no possible illegal states for state machine M_vstate_q[3:0] (in view: work.vga_signals_4(verilog)); safe FSM implementation is not required.
+@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|There are no possible illegal states for state machine M_hstate_q[3:0] (in view: work.vga_signals_4(verilog)); safe FSM implementation is not required.
+@N: MF794 |RAM this_vram.mem[3:0] required 3 registers during mapping 
+@N: MF794 |RAM this_vram.mem[3:0] required 3 registers during mapping 
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|Replicating instance this_vga_signals.M_vcounter_q[7] (in view: work.cu_top_0(verilog)) with 13 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|Replicating instance this_vga_signals.M_vcounter_q[8] (in view: work.cu_top_0(verilog)) with 11 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|Replicating instance this_vga_signals.M_vcounter_q[9] (in view: work.cu_top_0(verilog)) with 12 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|Replicating instance this_vga_signals.M_vcounter_q[5] (in view: work.cu_top_0(verilog)) with 11 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|Replicating instance this_vga_signals.M_vcounter_q[4] (in view: work.cu_top_0(verilog)) with 13 loads 1 time to improve timing.
+@N: FX1016 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":8:10:8:12|SB_GB_IO inserted on the port clk.
+@N: FX1017 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":163:2:163:7|SB_GB inserted on the net N_339.
 @N: BW103 |The default time unit for the Synopsys Constraint File (SDC or FDC) is 1ns.
 @N: BW107 |Synopsys Constraint File capacitance units using default value of 1pF 
-@N: FX1056 |Writing EDF file: /home/romuald/Projects/alchitry/PPU/work/alchitry_imp/cu_top_0.edf
+@N: FX1056 |Writing EDF file: /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.edf
 @N: MT615 |Found clock clk_0 with period 10.00ns 
 @N: MT320 |This timing report is an estimate of place and route data. For final timing results, use the FPGA vendor place and route report.
 @N: MT322 |Clock constraints include only register-to-register paths associated with each individual clock.

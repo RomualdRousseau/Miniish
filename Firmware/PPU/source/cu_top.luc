@@ -1,38 +1,127 @@
 module cu_top (
     input clk,                // 100MHz clock
     input rst_n,
-    input write_address[15],
-    input write_data[6],
-    input write_en,
+    
+    input port_enb,
+    input port_rw,
+    input port_clk,
+    
+    input port_address[16],
+    input port_data[8],
+    
+    output port_data_rw,
+    output port_dmab,
+    output port_nmib,
+   
     output hsync,
     output vsync,
     output hblank,
     output vblank,
-    output rgb[6]
+    output rgb[6],
+    
+    output debug
   ) {
   
-  sig rst;
+  const PALETTE = $reverse({
+      6b000000,
+      6b000011,
+      6b001100,
+      6b110000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000,
+      6b000000
+    });
   
+  sig rst;
+
   .clk(clk) {
     reset_conditioner this_reset_cond;
+    edge_detector_with_delay this_start_address_delay(#RISE(0), #FALL(1), #DEPTH(20));
+    edge_detector_with_delay this_start_data_delay(#RISE(1), #FALL(0), #DEPTH(20));
     .rst(rst) {
       vga_signals this_vga_signals;
+      dff current_address[14];
+      fsm state = {WAIT, WRITE_HIGH_ADDRESS, WRITE_LOW_ADDRESS, WRITE_DATA};
     }
   }
   
-  simple_dual_ram this_vram (.rclk(clk), .wclk(clk), #SIZE(6), #DEPTH(160 * 120));
+  simple_dual_ram this_vram (.rclk(clk), .wclk(clk), #SIZE(4), #DEPTH(128 * 128));
 
   always {
+    
+    // Initialize components
+    
     this_reset_cond.in = ~rst_n;
     rst = this_reset_cond.out;
     
-    // Read/write vram
+    this_start_address_delay.in = port_clk || port_enb;
+    this_start_data_delay.in = port_clk || port_enb;
     
     this_vram.raddr = this_vga_signals.address;
-    this_vram.waddr = write_address;
-    this_vram.write_data = write_data;
-    this_vram.write_en = write_en;
+    this_vram.waddr = current_address.q;
+    this_vram.write_en = 0;
+    this_vram.write_data = 0;
     
+    debug = 0;
+    
+    // Receive commands
+    
+    case (state.q) {
+      state.WAIT:
+        if (this_start_address_delay.out && !port_enb) {
+          case (port_address[7:0]) {
+              8h00:
+                if (!port_rw) {
+                  state.d = state.WRITE_HIGH_ADDRESS;
+                }
+              8h01:
+                if (!port_rw) {
+                  state.d = state.WRITE_LOW_ADDRESS;
+                }
+              8h02:
+                if (!port_rw) {
+                  state.d = state.WRITE_DATA;
+                }
+            }
+        }
+        
+      state.WRITE_HIGH_ADDRESS:
+        if (this_start_data_delay.out) {
+          current_address.d[13:7] = port_data[6:0];
+          state.d = state.WAIT;
+        }
+        
+      state.WRITE_LOW_ADDRESS:
+        debug = 1;
+        if (this_start_data_delay.out) {
+          current_address.d[6:0] = port_data[6:0];
+          state.d = state.WAIT;
+        }
+        
+      state.WRITE_DATA:
+        if (this_start_data_delay.out) {
+          this_vram.write_en = 1;
+          this_vram.write_data = port_data[3:0];
+          current_address.d = current_address.q + 1;
+          state.d = state.WAIT;
+        }
+    }
+    
+    // Output control signals
+  
+    port_data_rw = (!port_rw & 1) | (port_rw & 0);
+    port_dmab = 1;
+    port_nmib = !this_vga_signals.vblank;
+
     // Output VGA sync signals
     
     hsync = this_vga_signals.hsync;
@@ -41,10 +130,12 @@ module cu_top (
     vblank = this_vga_signals.vblank;
     
     // Output VGA color signals
-    
-    rgb = 6bzzzzzz;
+
     if (!this_vga_signals.hblank && !this_vga_signals.vblank) {
-      rgb = this_vram.read_data;
+      rgb = PALETTE[this_vram.read_data];
+    } else {
+      rgb = 6b000000;
     }
+
   }
 }

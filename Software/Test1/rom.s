@@ -8,18 +8,21 @@ INTE_START	= $FFEA
 			.org ZERO_START		; ZERO ==============================================
 LCD_PTR		.word $0000
 
-JOYPAD	  .byte $00
+JOYPAD	    .byte $00
 
-TIMER			.byte $00
+TIMER		.byte $00
 
 COUNTER		.byte $00
 
-R1			  .byte $00
-R2			  .byte $00
-R3			  .byte $00
-R4			  .byte $00
-R5			  .byte $00
-	    .dend
+BALL_X      .byte $00
+BALL_Y      .byte $00
+
+R1			.byte $00
+R2			.byte $00
+R3			.byte $00
+R4			.byte $00
+R5			.byte $00
+	        .dend
 
 			.org CODE_START		; CODE =============================================
 MAIN
@@ -41,6 +44,10 @@ SETUP
 		 	
 		 	lda #0
 		 	sta COUNTER
+
+            lda #64
+            sta BALL_X
+            sta BALL_Y
 			
 			; INIT LCD
 			
@@ -109,6 +116,8 @@ LOOP
 			lda #>MESSAGE2
 			sta LCD_PTR + 1
 		 	jsr LCD_PRINT
+
+            ;inc COORD + 1
 			
 			jmp LOOP
 
@@ -123,7 +132,15 @@ IRQ1_FUNC
 			rti
 				
 NMI_FUNC
+            pha
 			inc COUNTER
+            lda BALL_Y
+            sta PORT_PPU + $00
+            lda BALL_X
+            sta PORT_PPU + $01
+            lda #3
+            sta PORT_PPU + $02
+            pla
 			rti
 	
 			.org DATA_START	; DATA =============================================		
@@ -135,13 +152,13 @@ MESSAGE2
 			.org INTE_START	; INTERRUPT VECTORS ================================
 TABLE_IRQ
 			.word IRQ0_FUNC
-      .word IRQ1_FUNC
-      .word $0000
-      .word $0000
-      .word $0000
-      .word $0000
-      .word IRQ1_FUNC
-      .word IRQ0_FUNC
+            .word IRQ1_FUNC
+            .word $0000
+            .word $0000
+            .word $0000
+            .word $0000
+            .word IRQ1_FUNC
+            .word IRQ0_FUNC
 TABLE_VEC
 			.word NMI_FUNC
 			.word MAIN
