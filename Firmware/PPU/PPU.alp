@@ -7,7 +7,7 @@
     <component>simple_dual_ram.v</component>
     <src>vga_signals.luc</src>
     <src top="true">cu_top.luc</src>
-    <src>edge_detector_with_delay.luc</src>
+    <src>pixel_clock.luc</src>
     <constraint>alchitry.acf</constraint>
   </files>
 </project>

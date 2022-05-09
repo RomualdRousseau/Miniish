@@ -3,7 +3,7 @@ clock clk 100MHz;
 
 pin rst_n RESET;
 
-pin debug C49;
+pin debug C46;
 
 pin port_enb A42;
 pin port_rw A36;

@@ -1,7 +1,7 @@
 ZERO_START  = $0000
 STCK_START	= $0100
 CODE_START	= $8000
-DATA_START  = $E000
+DATA_START  = $D000
 INTE_START	= $FFEA
 
 			.dsect						
@@ -116,8 +116,6 @@ LOOP
 			lda #>MESSAGE2
 			sta LCD_PTR + 1
 		 	jsr LCD_PRINT
-
-            ;inc COORD + 1
 			
 			jmp LOOP
 
@@ -138,17 +136,28 @@ NMI_FUNC
             sta PORT_PPU + $00
             lda BALL_X
             sta PORT_PPU + $01
+            lda #0
+            sta PORT_PPU + $02
+            inc BALL_X
+            inc BALL_Y
+            lda BALL_Y
+            sta PORT_PPU + $00
+            lda BALL_X
+            sta PORT_PPU + $01
             lda #3
             sta PORT_PPU + $02
             pla
 			rti
 	
-			.org DATA_START	; DATA =============================================		
+			.org DATA_START	; DATA =============================================
+
+            .incbin "cow.bin"
+
 MESSAGE1
 			.asciiz "I am XiaoNiuNiu"
 MESSAGE2
 			.asciiz "Wo ai ni (521 1314)"
-			
+
 			.org INTE_START	; INTERRUPT VECTORS ================================
 TABLE_IRQ
 			.word IRQ0_FUNC

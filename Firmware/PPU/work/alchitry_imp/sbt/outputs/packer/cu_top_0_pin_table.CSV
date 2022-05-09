@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:24:17
 
-* File Generated:     May 3 2022 11:35:41
+* File Generated:     May 9 2022 09:54:12
 
 * Purpose:            Detailed IO and package pin info
 
@@ -138,9 +138,9 @@ M14, TRST_B, not used, , , , , , rightBank
 N1, PIO, port_dmab, Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
 N14, PIO, not used, , , , , , rightBank
 P1, PIO, not used, , , , , , leftBank
-P2, PIO, debug, Output, , SB_LVCMOS, No Pull Up, Simple Output, bottomBank
+P2, PIO, not used, , , , , , bottomBank
 P3, PIO, not used, , , , , , bottomBank
-P4, PIO, not used, , , , , , bottomBank
+P4, PIO, debug, Output, , SB_LVCMOS, No Pull Up, Simple Output, bottomBank
 P5, PIO, not used, , , , , , bottomBank
 P6, GND, not used, , , , , , UnknownBank
 P7, PIO_GBIN, clk, Input, glb Buff, SB_LVCMOS, No Pull Up, Simple Input, bottomBank

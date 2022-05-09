@@ -1,6 +1,4 @@
 @N: MF248 |Running in 64-bit mode.
 @N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
 @N: BN225 |Writing default property annotation file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap.
-@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|There are no possible illegal states for state machine M_vstate_q[3:0] (in view: work.vga_signals_4(verilog)); safe FSM implementation is not required.
-@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":142:2:142:7|There are no possible illegal states for state machine M_hstate_q[3:0] (in view: work.vga_signals_4(verilog)); safe FSM implementation is not required.
-@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":163:2:163:7|There are no possible illegal states for state machine M_state_q[3:0] (in view: work.cu_top_0(verilog)); safe FSM implementation is not required.
+@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":180:2:180:7|There are no possible illegal states for state machine M_state_q[3:0] (in view: work.cu_top_0(verilog)); safe FSM implementation is not required.

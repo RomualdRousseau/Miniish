@@ -25,38 +25,59 @@ module cu_top_0 (
   
   
   
-  localparam PALETTE = 96'h000000000000000000c0c0c0;
+  localparam PALETTE = 96'hfb698b33ce31fea564252040;
   
   reg rst;
   
+  wire [1-1:0] M_this_pixel_clock_out;
+  pixel_clock_1 this_pixel_clock (
+    .clk(clk),
+    .rst(rst),
+    .out(M_this_pixel_clock_out)
+  );
+  localparam WAIT_state = 2'd0;
+  localparam WRITE_HIGH_ADDRESS_state = 2'd1;
+  localparam WRITE_LOW_ADDRESS_state = 2'd2;
+  localparam WRITE_DATA_state = 2'd3;
+  
+  reg [1:0] M_state_d, M_state_q = WAIT_state;
+  reg [13:0] M_current_address_d, M_current_address_q = 1'h0;
   wire [1-1:0] M_this_reset_cond_out;
   reg [1-1:0] M_this_reset_cond_in;
-  reset_conditioner_1 this_reset_cond (
+  reset_conditioner_2 this_reset_cond (
     .clk(clk),
     .in(M_this_reset_cond_in),
     .out(M_this_reset_cond_out)
   );
+  wire [1-1:0] M_this_delay_clk_out;
+  reg [1-1:0] M_this_delay_clk_in;
+  pipeline_3 this_delay_clk (
+    .clk(clk),
+    .in(M_this_delay_clk_in),
+    .out(M_this_delay_clk_out)
+  );
   wire [1-1:0] M_this_start_address_delay_out;
   reg [1-1:0] M_this_start_address_delay_in;
-  edge_detector_with_delay_2 this_start_address_delay (
+  edge_detector_4 this_start_address_delay (
     .clk(clk),
     .in(M_this_start_address_delay_in),
     .out(M_this_start_address_delay_out)
   );
   wire [1-1:0] M_this_start_data_delay_out;
   reg [1-1:0] M_this_start_data_delay_in;
-  edge_detector_with_delay_3 this_start_data_delay (
+  edge_detector_5 this_start_data_delay (
     .clk(clk),
     .in(M_this_start_data_delay_in),
     .out(M_this_start_data_delay_out)
   );
+  
   wire [1-1:0] M_this_vga_signals_hsync;
   wire [1-1:0] M_this_vga_signals_hblank;
   wire [1-1:0] M_this_vga_signals_vsync;
   wire [1-1:0] M_this_vga_signals_vblank;
   wire [14-1:0] M_this_vga_signals_address;
-  vga_signals_4 this_vga_signals (
-    .clk(clk),
+  vga_signals_6 this_vga_signals (
+    .clk(M_this_pixel_clock_out),
     .rst(rst),
     .hsync(M_this_vga_signals_hsync),
     .hblank(M_this_vga_signals_hblank),
@@ -64,20 +85,13 @@ module cu_top_0 (
     .vblank(M_this_vga_signals_vblank),
     .address(M_this_vga_signals_address)
   );
-  reg [13:0] M_current_address_d, M_current_address_q = 1'h0;
-  localparam WAIT_state = 2'd0;
-  localparam WRITE_HIGH_ADDRESS_state = 2'd1;
-  localparam WRITE_LOW_ADDRESS_state = 2'd2;
-  localparam WRITE_DATA_state = 2'd3;
-  
-  reg [1:0] M_state_d, M_state_q = WAIT_state;
   
   wire [4-1:0] M_this_vram_read_data;
   reg [14-1:0] M_this_vram_waddr;
   reg [4-1:0] M_this_vram_write_data;
   reg [1-1:0] M_this_vram_write_en;
   reg [14-1:0] M_this_vram_raddr;
-  simple_dual_ram_5 #(.SIZE(3'h4), .DEPTH(16'h4000)) this_vram (
+  simple_dual_ram_7 #(.SIZE(3'h4), .DEPTH(16'h4000)) this_vram (
     .rclk(clk),
     .wclk(clk),
     .waddr(M_this_vram_waddr),
@@ -93,17 +107,18 @@ module cu_top_0 (
     
     M_this_reset_cond_in = ~rst_n;
     rst = M_this_reset_cond_out;
-    M_this_start_address_delay_in = port_clk || port_enb;
-    M_this_start_data_delay_in = port_clk || port_enb;
+    M_this_delay_clk_in = port_clk;
+    M_this_start_address_delay_in = M_this_delay_clk_out || port_enb;
+    M_this_start_data_delay_in = M_this_delay_clk_out || port_enb;
     M_this_vram_raddr = M_this_vga_signals_address;
     M_this_vram_waddr = M_current_address_q;
     M_this_vram_write_en = 1'h0;
     M_this_vram_write_data = 1'h0;
-    debug = 1'h0;
+    debug = M_this_delay_clk_out || port_enb;
     
     case (M_state_q)
       WAIT_state: begin
-        if (M_this_start_address_delay_out && !port_enb) begin
+        if (M_this_start_address_delay_out) begin
           
           case (port_address[0+7-:8])
             8'h00: begin
@@ -131,7 +146,6 @@ module cu_top_0 (
         end
       end
       WRITE_LOW_ADDRESS_state: begin
-        debug = 1'h1;
         if (M_this_start_data_delay_out) begin
           M_current_address_d[0+6-:7] = port_data[0+6-:7];
           M_state_d = WAIT_state;
@@ -154,7 +168,10 @@ module cu_top_0 (
     hblank = M_this_vga_signals_hblank;
     vblank = M_this_vga_signals_vblank;
     if (!M_this_vga_signals_hblank && !M_this_vga_signals_vblank) begin
-      rgb = PALETTE[(M_this_vram_read_data)*6+5-:6];
+      rgb = PALETTE[((M_this_vga_signals_address[3+0-:1] ^ M_this_vga_signals_address[10+0-:1]) * (M_this_vga_signals_address[7+6-:7] >> 2'h3))*6+5-:6];
+      if (M_this_vram_read_data > 1'h0) begin
+        rgb = PALETTE[(M_this_vram_read_data)*6+5-:6];
+      end
     end else begin
       rgb = 6'h00;
     end

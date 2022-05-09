@@ -1,36 +1,12 @@
 
-fsm_encoding {516321631} sequential
+fsm_encoding {518021801} sequential
 
-fsm_state_encoding {516321631} WAIT_state {00}
+fsm_state_encoding {518021801} WAIT_state {00}
 
-fsm_state_encoding {516321631} WRITE_HIGH_ADDRESS_state {01}
+fsm_state_encoding {518021801} WRITE_HIGH_ADDRESS_state {01}
 
-fsm_state_encoding {516321631} WRITE_LOW_ADDRESS_state {10}
+fsm_state_encoding {518021801} WRITE_LOW_ADDRESS_state {10}
 
-fsm_state_encoding {516321631} WRITE_DATA_state {11}
+fsm_state_encoding {518021801} WRITE_DATA_state {11}
 
-fsm_registers {516321631} {M_state_q[1]}  {M_state_q[0]} 
-
-fsm_encoding {914221422} sequential
-
-fsm_state_encoding {914221422} VVA_vstate {00}
-
-fsm_state_encoding {914221422} VFP_vstate {01}
-
-fsm_state_encoding {914221422} VSP_vstate {10}
-
-fsm_state_encoding {914221422} VBP_vstate {11}
-
-fsm_registers {914221422} {M_vstate_q[1]}  {M_vstate_q[0]} 
-
-fsm_encoding {914221423} sequential
-
-fsm_state_encoding {914221423} HVA_hstate {00}
-
-fsm_state_encoding {914221423} HFP_hstate {01}
-
-fsm_state_encoding {914221423} HSP_hstate {10}
-
-fsm_state_encoding {914221423} HBP_hstate {11}
-
-fsm_registers {914221423} {M_hstate_q[1]}  {M_hstate_q[0]} 
+fsm_registers {518021801} {M_state_q[1]}  {M_state_q[0]} 

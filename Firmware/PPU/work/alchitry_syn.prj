@@ -1,13 +1,12 @@
 #project files
 add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_2.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_3.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_5.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_6.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_7.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_8.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_1.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_2.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_3.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_5.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_7.v"
 add_file -constraint -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc"
 #options
 impl -add alchitry_imp -type fpga

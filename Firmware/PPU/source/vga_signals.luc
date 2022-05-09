@@ -22,85 +22,53 @@ module vga_signals (
   const VSP_T = VFP_T + 2;
   const VBP_T = VSP_T + 33;
 
-  const HMIN = (HVA_T - WIDTH * PIXEL_SIZE) / 2;
-  const HMAX =  HMIN + WIDTH * PIXEL_SIZE;
-  const VMIN = (VVA_T - HEIGHT * PIXEL_SIZE) / 2;
-  const VMAX =  VMIN + HEIGHT * PIXEL_SIZE;
-  
-  const FREQ_DIV = 4;
-  
-  var hvisible;
-  var vvisible;
+  const HMIN_T = (HVA_T - WIDTH * PIXEL_SIZE) / 2;
+  const HMAX_T =  HMIN_T + WIDTH * PIXEL_SIZE;
+  const VMIN_T = (VVA_T - HEIGHT * PIXEL_SIZE) / 2;
+  const VMAX_T =  VMIN_T + HEIGHT * PIXEL_SIZE;
   
   .clk(clk) {
     .rst(rst) {
-      fsm hstate = {HVA, HFP, HSP, HBP};
       dff hcounter[12];
-      fsm vstate = {VVA, VFP, VSP, VBP};
       dff vcounter[10];
     }
   }
   
+  var hvisibility;
+  var vvisibility;
+  
   always {
-    hvisible = hcounter.q >= (HMIN * FREQ_DIV - 1) && hcounter.q < (HMAX * FREQ_DIV - 1);
-    vvisible = vcounter.q >= VMIN && vcounter.q < VMAX;
+
+    hsync = hcounter.q >= HFP_T && hcounter.q < HSP_T ? 0 : 1;
+    vsync = vcounter.q >= VFP_T && vcounter.q  < VSP_T ? 0 : 1;
     
-    hsync = 1;
-    vsync = 0;
+    hvisibility = hcounter.q >= HMIN_T && hcounter.q < HMAX_T ? 1 : 0;
+    vvisibility = vcounter.q >= VMIN_T && vcounter.q < VMAX_T ? 1 : 0;
     
-    hblank = !hvisible;
-    vblank = !vvisible;
+    hblank = ~hvisibility;
+    vblank = ~vvisibility;
     
-    if (hvisible && vvisible) {
-      address[13:7] = (vcounter.q - VMIN) / PIXEL_SIZE;
-      address[6:0] = (hcounter.q - (HMIN * FREQ_DIV - 1)) / (PIXEL_SIZE * FREQ_DIV);
-    } else {
+    if (hvisibility && vvisibility) {
+      address[0+:7] = (hcounter.q - HMIN_T) / PIXEL_SIZE;
+      address[7+:7] = (vcounter.q - VMIN_T) / PIXEL_SIZE;
+    }
+    else {
       address = 0;
     }
+}
+  
+ always {
     
-    hcounter.d = hcounter.q + 1;
-    
-    case (hstate.q) {
-      hstate.HVA:
-        if (hcounter.q == HVA_T * FREQ_DIV - 1)
-          hstate.d = hstate.HFP;
-      
-      hstate.HFP:
-        if (hcounter.q == HFP_T * FREQ_DIV - 1)
-          hstate.d = hstate.HSP;
-      
-      hstate.HSP:
-        hsync = 0;
-        if (hcounter.q == HSP_T * FREQ_DIV - 1)
-          hstate.d = hstate.HBP;
-      
-      hstate.HBP:
-        if (hcounter.q == HBP_T * FREQ_DIV - 1) {
-          hstate.d = hstate.HVA;
-          hcounter.d = 0;
-          vcounter.d = vcounter.q + 1;
-        }
-    }
-    
-    case (vstate.q) {
-      vstate.VVA:
-        if (vcounter.q == VVA_T)
-          vstate.d = vstate.VFP;
-      
-      vstate.VFP:
-        if (vcounter.q == VFP_T)
-          vstate.d = vstate.VSP;
-      
-      vstate.VSP:
-        vsync = 1;
-        if (vcounter.q == VSP_T)
-          vstate.d = vstate.VBP;
-      
-      vstate.VBP:
-        if (vcounter.q == VBP_T) {
-          vstate.d = vstate.VVA;
-          vcounter.d = 0;
-        }
+  if (hcounter.q < HBP_T) {
+      hcounter.d = hcounter.q + 1; 
+  }
+  else {
+    hcounter.d = 0;
+
+    if (vcounter.q < VBP_T) {
+      vcounter.d = vcounter.q + 1;
+    } else {
+      vcounter.d = 0;
     }
   }
 }

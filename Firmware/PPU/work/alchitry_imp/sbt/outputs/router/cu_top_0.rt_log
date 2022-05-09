@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:31:11
 
-* File Generated:     May 3 2022 11:35:41
+* File Generated:     May 9 2022 09:54:13
 
 * Purpose:            Router runtime info
 
@@ -18,13 +18,15 @@ Executing : /opt/lscc/iCEcube2.2020.12/sbt_backend/bin/linux/opt/sbrouter /opt/l
 I1203: Reading Design cu_top_0
 I1202: Reading Architecture of device iCE40HX8K
 I1209: Started routing
-I1223: Total Nets : 570 
-I1212: Iteration  1 :    91 unrouted : 1 seconds
-I1212: Iteration  2 :    28 unrouted : 0 seconds
-I1212: Iteration  3 :    16 unrouted : 0 seconds
-I1212: Iteration  4 :    10 unrouted : 0 seconds
+I1223: Total Nets : 557 
+I1212: Iteration  1 :   122 unrouted : 1 seconds
+I1212: Iteration  2 :    13 unrouted : 1 seconds
+I1212: Iteration  3 :     8 unrouted : 0 seconds
+I1212: Iteration  4 :     7 unrouted : 0 seconds
 I1212: Iteration  5 :     2 unrouted : 0 seconds
-I1212: Iteration  6 :     0 unrouted : 0 seconds
+I1212: Iteration  6 :     2 unrouted : 0 seconds
+I1212: Iteration  7 :     2 unrouted : 0 seconds
+I1212: Iteration  8 :     0 unrouted : 0 seconds
 I1215: Routing is successful
 I1206: Completed routing
 I1204: Writing Design cu_top_0
