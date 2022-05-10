@@ -1,0 +1,133 @@
+module vga_signals (
+    input clk,        // clock
+    input rst,        // reset
+    output hsync,
+    output hblank,
+    output vsync,
+    output vblank,
+    output address[14]
+  ) {
+  
+  const WIDTH = 128;
+  const HEIGHT = 128;
+  const PIXEL_SIZE = 3;
+  
+  const HVA_T = 640;
+  const HFP_T = HVA_T + 16;
+  const HSP_T = HFP_T + 96;
+  const HBP_T = HSP_T + 48;
+  
+  const VVA_T = 480;
+  const VFP_T = VVA_T + 10;
+  const VSP_T = VFP_T + 2;
+  const VBP_T = VSP_T + 33;
+
+  const HMIN_T = (HVA_T - WIDTH * PIXEL_SIZE) / 2;
+  const HMAX_T =  HMIN_T + WIDTH * PIXEL_SIZE;
+  const VMIN_T = (VVA_T - HEIGHT * PIXEL_SIZE) / 2;
+  const VMAX_T =  VMIN_T + HEIGHT * PIXEL_SIZE;
+  
+  const FREQ_DIV = 4;
+  
+  .clk(clk) {
+    .rst(rst) {
+      fsm hstate(#INIT(HMIN)) = {HMIN, HMAX, HVA, HFP, HSP, HBP};
+      fsm vstate(#INIT(VMIN)) = {VMIN, VMAX, VVA, VFP, VSP, VBP};
+      dff hcounter[12](#INIT(0));
+      dff haddress[12](#INIT(0));
+      dff vcounter[10](#INIT(0));
+      dff vaddress[10](#INIT(0));
+    }
+  }
+  
+  always {
+
+    hsync = 1;
+    vsync = 0;
+    
+    hblank = 1;
+    vblank = 1;
+    
+    address[0+:7] = haddress.q / FREQ_DIV / PIXEL_SIZE;
+    address[7+:7] = vaddress.q / PIXEL_SIZE;
+    
+    hcounter.d = hcounter.q + 1;
+    
+    case (hstate.q) {
+      
+      hstate.HMIN:
+        if (hcounter.q == HMIN_T * FREQ_DIV - 1) {
+          hstate.d = hstate.HMAX;
+        }
+      
+      hstate.HMAX:
+        hblank = 0;
+        haddress.d = haddress.q + 1;
+        if (hcounter.q == HMAX_T * FREQ_DIV - 1) {
+          hstate.d = hstate.HVA;
+        }
+      
+      hstate.HVA:
+        if (hcounter.q == HVA_T * FREQ_DIV - 1) {
+          hstate.d = hstate.HFP;
+        }
+      
+      hstate.HFP:
+        if (hcounter.q == HFP_T * FREQ_DIV - 1) {
+          hstate.d = hstate.HSP;
+        }
+      
+      hstate.HSP:
+        hsync = 0;
+        if (hcounter.q == HSP_T * FREQ_DIV - 1) {
+          hstate.d = hstate.HBP;
+        }
+      
+      hstate.HBP:
+        if (hcounter.q == HBP_T * FREQ_DIV - 1) {
+          hstate.d = hstate.HMIN;
+          hcounter.d = 0;
+          haddress.d = 0;
+          vcounter.d = vcounter.q + 1;
+          vaddress.d = vaddress.q + 1;
+        }
+    }
+    
+    case (vstate.q) {
+      
+      vstate.VMIN:
+        if (vcounter.q == VMIN_T) {
+          vstate.d = vstate.VMAX;
+          vaddress.d = 0;
+        }
+        
+      vstate.VMAX:
+        vblank = 0;
+        if (vcounter.q == VMAX_T) {
+          vstate.d = vstate.VVA;
+        }
+        
+      vstate.VVA:
+        if (vcounter.q == VVA_T) {
+          vstate.d = vstate.VFP;
+        }
+      
+      vstate.VFP:
+        if (vcounter.q == VFP_T) {
+          vstate.d = vstate.VSP;
+        }
+      
+      vstate.VSP:
+        vsync = 1;
+        if (vcounter.q == VSP_T) {
+          vstate.d = vstate.VBP;
+        }
+      
+      vstate.VBP:
+        if (vcounter.q == VBP_T) {
+          vstate.d = vstate.VMIN;
+          vcounter.d = 0;
+        }
+    }
+  }
+}

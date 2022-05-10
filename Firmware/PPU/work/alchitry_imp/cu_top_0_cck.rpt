@@ -1,7 +1,7 @@
 # Synopsys Constraint Checker, version maplat, Build 1612R, built Dec  5 2016
 # Copyright (C) 1994-2016 Synopsys, Inc. All rights reserved. This Synopsys software and all associated documentation are proprietary to Synopsys, Inc. and may only be used pursuant to the terms and conditions of a written license agreement with Synopsys, Inc. All other use, reproduction, modification, or distribution of the Synopsys software or the associated documentation is strictly prohibited.
 
-# Written on Mon May  9 09:53:13 2022
+# Written on Tue May 10 20:21:52 2022
 
 
 ##### DESIGN INFO #######################################################
@@ -38,17 +38,26 @@ pixel_clock_1|M_counter_q_derived_clock[1]     pixel_clock_1|M_counter_q_derived
 Unconstrained Start/End Points
 ******************************
 
-p:debug
+p:debug[0]
+p:debug[1]
 p:hblank
 p:hsync
-p:port_address[0]
-p:port_address[1]
-p:port_address[2]
-p:port_address[3]
-p:port_address[4]
-p:port_address[5]
-p:port_address[6]
-p:port_address[7]
+p:port_address[0] (bidir end point)
+p:port_address[0] (bidir start point)
+p:port_address[1] (bidir end point)
+p:port_address[1] (bidir start point)
+p:port_address[2] (bidir end point)
+p:port_address[2] (bidir start point)
+p:port_address[3] (bidir end point)
+p:port_address[3] (bidir start point)
+p:port_address[4] (bidir end point)
+p:port_address[4] (bidir start point)
+p:port_address[5] (bidir end point)
+p:port_address[5] (bidir start point)
+p:port_address[6] (bidir end point)
+p:port_address[6] (bidir start point)
+p:port_address[7] (bidir end point)
+p:port_address[7] (bidir start point)
 p:port_address[8]
 p:port_address[9]
 p:port_address[10]
@@ -70,7 +79,8 @@ p:port_data_rw
 p:port_dmab
 p:port_enb
 p:port_nmib
-p:port_rw
+p:port_rw (bidir end point)
+p:port_rw (bidir start point)
 p:rgb[0]
 p:rgb[1]
 p:rgb[2]

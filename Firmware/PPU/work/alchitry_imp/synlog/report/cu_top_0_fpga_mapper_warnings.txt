@@ -1,8 +1,12 @@
 @W: BN132 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v":41:2:41:7|Removing sequential instance this_start_address_delay.M_last_q because it is equivalent to instance this_start_data_delay.M_last_q. To keep the instance, apply constraint syn_preserve=1 on the instance.
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_2.v":29:2:29:7|User-specified initial value defined for instance this_reset_cond.M_stage_q[3:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":87:2:87:7|User-specified initial value defined for instance this_vga_signals.M_vcounter_q[9:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":87:2:87:7|User-specified initial value defined for instance this_vga_signals.M_hcounter_q[9:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":180:2:180:7|User-specified initial value defined for instance M_current_address_q[13:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|User-specified initial value defined for instance this_vga_signals.M_vcounter_q[9:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|User-specified initial value defined for instance this_vga_signals.M_address_buffer_q[13:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|User-specified initial value defined for instance this_vga_signals.M_hcounter_q[9:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|User-specified initial value defined for instance M_this_internal_address_q[13:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|User-specified initial value defined for instance M_this_pixel_data_q[5:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|User-specified initial value defined for instance M_this_external_address_q[15:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|User-specified initial value defined for instance M_this_data_count_q[13:0] is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_5.v":41:2:41:7|User-specified initial value defined for instance this_start_data_delay.M_last_q is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_3.v":34:2:34:7|User-specified initial value defined for instance this_delay_clk.M_pipe_q[4:0] is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_1.v":29:2:29:7|User-specified initial value defined for instance this_pixel_clock.M_counter_q[1:0] is being ignored. 

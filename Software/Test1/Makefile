@@ -2,7 +2,7 @@
 
 default: all
 
-rom.bin: include/*.i rom.s
+rom.bin: include/*.i cow.bin rom.s
 	vasm6502_oldstyle -c02 -Fbin -dotdir -o rom.bin rom.s
 
 burn: rom.bin

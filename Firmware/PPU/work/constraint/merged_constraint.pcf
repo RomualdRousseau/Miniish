@@ -1,6 +1,7 @@
 set_io clk P7
 set_io rst_n P8
-set_io debug P4
+set_io debug[0] P4
+set_io debug[1] L6
 set_io port_enb H1
 set_io port_rw F4
 set_io port_clk H4

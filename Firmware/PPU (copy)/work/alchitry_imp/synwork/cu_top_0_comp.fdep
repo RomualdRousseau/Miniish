@@ -1,0 +1,55 @@
+#OPTIONS:"|-layerid|0|-orig_srs|/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs|-prodtype|synplify_pro|-primux|-fixsmult|-infer_seqShift|-ice|-sdff_counter|-nram|-divnmod|-nostructver|-I|/home/romuald/Projects/Miniish/Firmware/PPU/work/|-I|/opt/lscc/iCEcube2.2020.12/synpbase/lib|-v2001|-devicelib|/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v|-encrypt|-pro|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work"
+#CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/linux_a_64/c_ver":1623495850
+#CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v":1623495849
+#CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/hypermods.v":1623495849
+#CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/umr_capim.v":1623495849
+#CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/scemi_objects.v":1623495849
+#CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/scemi_pipes.svh":1623495849
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_2.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_3.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_5.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_6.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_7.v":1652011339
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_8.v":1652011339
+0			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v" verilog
+1			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v" verilog
+2			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_2.v" verilog
+3			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_with_delay_3.v" verilog
+4			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v" verilog
+5			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_5.v" verilog
+6			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_6.v" verilog
+7			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_7.v" verilog
+8			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_8.v" verilog
+#Dependency Lists(Uses List)
+0 5 4 3 2 1
+1 -1
+2 7 6
+3 7 8
+4 -1
+5 -1
+6 -1
+7 -1
+8 -1
+#Dependency Lists(Users Of)
+0 -1
+1 0
+2 0
+3 0
+4 0
+5 0
+6 2
+7 3 2
+8 3
+#Design Unit to File Association
+module work edge_detector_8 8
+module work pipeline_7 7
+module work edge_detector_6 6
+module work cu_top_0 0
+module work simple_dual_ram_5 5
+module work vga_signals_4 4
+module work edge_detector_with_delay_3 3
+module work edge_detector_with_delay_2 2
+module work reset_conditioner_1 1

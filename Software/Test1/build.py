@@ -7,9 +7,9 @@ out_file = open("cow.bin", "wb")
 
 for y in range(128):
     for x in range(128):
-        i = pixels[x, y] & 0xF
+        pixel = pixels[x, y]
         if x % 2 == 0:
-            acc = pixels[x, y] << 4
+            acc = pixel << 4
         else:
-            acc = acc | pixels[x, y]
+            acc = acc | pixel
             out_file.write(b'%c' % acc)

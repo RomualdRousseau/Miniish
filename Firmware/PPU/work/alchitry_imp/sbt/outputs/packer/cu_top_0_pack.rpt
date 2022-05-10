@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:24:17
 
-* File Generated:     May 9 2022 09:54:13
+* File Generated:     May 10 2022 20:22:48
 
 * Purpose:            General info of design implementation
 
@@ -17,7 +17,7 @@
 Synthesis/Placement Summary:
 ----------------------------
     Status:  Successful
-    Runtime: 1 seconds
+    Runtime: 0 seconds
 
 Device Info:
 ------------
@@ -27,87 +27,101 @@ Device Info:
 
 Design statistics:
 ------------------
-    FFs:                  63
-    LUTs:                 433
+    FFs:                  119
+    LUTs:                 445
     RAMs:                 16
-    IOBs:                 34
+    IOBs:                 44
     GBs:                  3
     PLLs:                 0
     Warm Boots:           0
 
 Logic Resource Utilization:
 ---------------------------
-    Total Logic Cells: 439/7680
-        Combinational Logic Cells: 376      out of   7680      4.89583%
-        Sequential Logic Cells:    63       out of   7680      0.820312%
-        Logic Tiles:               118      out of   960       12.2917%
+    Total Logic Cells: 458/7680
+        Combinational Logic Cells: 339      out of   7680      4.41406%
+        Sequential Logic Cells:    119      out of   7680      1.54948%
+        Logic Tiles:               119      out of   960       12.3958%
     Registers: 
-        Logic Registers:           63       out of   7680      0.820312%
+        Logic Registers:           119      out of   7680      1.54948%
         IO Registers:              0        out of   1280      0
     Block RAMs:                    16       out of   32        50%
     Warm Boots:                    0        out of   1         0%
     Pins:
-        Input Pins:                20       out of   95        21.0526%
-        Output Pins:               14       out of   95        14.7368%
-        InOut Pins:                0        out of   95        0%
+        Input Pins:                12       out of   95        12.6316%
+        Output Pins:               23       out of   95        24.2105%
+        InOut Pins:                9        out of   95        9.47368%
     Global Buffers:                3        out of   8         37.5%
     PLLs:                          0        out of   2         0%
 
 IO Bank Utilization:
 --------------------
     Bank 3: 12       out of   24        50%
-    Bank 1: 8        out of   25        32%
-    Bank 0: 11       out of   24        45.8333%
-    Bank 2: 3        out of   22        13.6364%
+    Bank 1: 13       out of   25        52%
+    Bank 0: 15       out of   24        62.5%
+    Bank 2: 4        out of   22        18.1818%
 
 Detailed I/O Info:
 ------------------
     Input Pins: 
-    Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function    Signal Name      
-    ----------  ---------  -----------  -------  -------  -----------    -----------      
-    A7          Input      SB_LVCMOS    No       0        Simple Input   port_address[0]  
-    A11         Input      SB_LVCMOS    No       0        Simple Input   port_address[1]  
-    B14         Input      SB_LVCMOS    No       1        Simple Input   port_address[3]  
-    C7          Input      SB_LVCMOS    No       0        Simple Input   port_data[0]     
-    C10         Input      SB_LVCMOS    No       0        Simple Input   port_address[2]  
-    C12         Input      SB_LVCMOS    No       0        Simple Input   port_data[3]     
-    D7          Input      SB_LVCMOS    No       0        Simple Input   port_data[1]     
-    D10         Input      SB_LVCMOS    No       0        Simple Input   port_data[2]     
-    D12         Input      SB_LVCMOS    No       1        Simple Input   port_data[4]     
-    D14         Input      SB_LVCMOS    No       1        Simple Input   port_address[4]  
-    E12         Input      SB_LVCMOS    No       1        Simple Input   port_address[5]  
-    F4          Input      SB_LVCMOS    No       3        Simple Input   port_rw          
-    F11         Input      SB_LVCMOS    No       1        Simple Input   port_data[5]     
-    G12         Input      SB_LVCMOS    No       1        Simple Input   port_data[6]     
-    G14         Input      SB_LVCMOS    No       1        Simple Input   port_address[6]  
-    H1          Input      SB_LVCMOS    No       3        Simple Input   port_enb         
-    H4          Input      SB_LVCMOS    No       3        Simple Input   port_clk         
-    J12         Input      SB_LVCMOS    No       1        Simple Input   port_address[7]  
-    P7          Input      SB_LVCMOS    No       2        Simple Input   clk              
-    P8          Input      SB_LVCMOS    No       2        Simple Input   rst_n            
+    Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function                                Signal Name       
+    ----------  ---------  -----------  -------  -------  -----------                                -----------       
+    C7          Input      SB_LVCMOS    No       0        Simple Input                               port_data[0]      
+    C12         Input      SB_LVCMOS    No       0        Simple Input                               port_data[3]      
+    D7          Input      SB_LVCMOS    No       0        Simple Input                               port_data[1]      
+    D10         Input      SB_LVCMOS    No       0        Simple Input                               port_data[2]      
+    D12         Input      SB_LVCMOS    No       1        Simple Input                               port_data[4]      
+    F11         Input      SB_LVCMOS    No       1        Simple Input                               port_data[5]      
+    G12         Input      SB_LVCMOS    No       1        Simple Input                               port_data[6]      
+    H1          Input      SB_LVCMOS    No       3        Simple Input                               port_enb          
+    H4          Input      SB_LVCMOS    No       3        Simple Input                               port_clk          
+    H11         Input      SB_LVCMOS    No       1        Simple Input                               port_data[7]      
+    P7          Input      SB_LVCMOS    No       2        Simple Input                               clk               
+    P8          Input      SB_LVCMOS    No       2        Simple Input                               rst_n             
 
     Output Pins: 
-    Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function    Signal Name      
-    ----------  ---------  -----------  -------  -------  -----------    -----------      
-    A1          Output     SB_LVCMOS    No       0        Simple Output  hsync            
-    A2          Output     SB_LVCMOS    No       0        Simple Output  hblank           
-    A3          Output     SB_LVCMOS    No       0        Simple Output  vsync            
-    A4          Output     SB_LVCMOS    No       0        Simple Output  vblank           
-    C1          Output     SB_LVCMOS    No       3        Simple Output  rgb[4]           
-    D3          Output     SB_LVCMOS    No       3        Simple Output  rgb[5]           
-    D4          Output     SB_LVCMOS    No       3        Simple Output  port_data_rw     
-    E1          Output     SB_LVCMOS    No       3        Simple Output  rgb[3]           
-    G1          Output     SB_LVCMOS    No       3        Simple Output  rgb[2]           
-    J1          Output     SB_LVCMOS    No       3        Simple Output  rgb[1]           
-    K3          Output     SB_LVCMOS    No       3        Simple Output  port_nmib        
-    M1          Output     SB_LVCMOS    No       3        Simple Output  rgb[0]           
-    N1          Output     SB_LVCMOS    No       3        Simple Output  port_dmab        
-    P4          Output     SB_LVCMOS    No       2        Simple Output  debug            
+    Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function                                Signal Name       
+    ----------  ---------  -----------  -------  -------  -----------                                -----------       
+    A1          Output     SB_LVCMOS    No       0        Simple Output                              hsync             
+    A2          Output     SB_LVCMOS    No       0        Simple Output                              hblank            
+    A3          Output     SB_LVCMOS    No       0        Simple Output                              vsync             
+    A4          Output     SB_LVCMOS    No       0        Simple Output                              vblank            
+    A6          Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[8]   
+    A10         Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[9]   
+    A12         Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[11]  
+    C1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[4]            
+    C9          Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[10]  
+    C14         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[12]  
+    D3          Output     SB_LVCMOS    No       3        Simple Output                              rgb[5]            
+    D4          Output     SB_LVCMOS    No       3        Simple Output                              port_data_rw      
+    E1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[3]            
+    E14         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[13]  
+    F14         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[14]  
+    G1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[2]            
+    H12         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[15]  
+    J1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[1]            
+    K3          Output     SB_LVCMOS    No       3        Simple Output                              port_nmib         
+    L6          Output     SB_LVCMOS    No       2        Simple Output                              debug[1]          
+    M1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[0]            
+    N1          Output     SB_LVCMOS    No       3        Simple Output                              port_dmab         
+    P4          Output     SB_LVCMOS    No       2        Simple Output                              debug[0]          
+
+    Inoutput Pins: 
+    Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function                                Signal Name       
+    ----------  ---------  -----------  -------  -------  -----------                                -----------       
+    A7          InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_address[0]   
+    A11         InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_address[1]   
+    B14         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[3]   
+    C10         InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_address[2]   
+    D14         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[4]   
+    E12         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[5]   
+    F4          InOut      SB_LVCMOS    No       3        Simple Input Output Tristatable by Enable  port_rw           
+    G14         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[6]   
+    J12         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[7]   
 
 Detailed Global Buffer Info:
 ----------------------------
-    Buffer Number  IO Bank  Driven By  Fanout  Signal Name                 
-    -------------  -------  ---------  ------  -----------                 
-    6              2        IO         95      clk_0_c_g                   
-    4              0                   23      this_vga_signals.N_608_g    
-    3              3                   18      this_vga_signals.N_469_0_g  
+    Buffer Number  IO Bank  Driven By  Fanout  Signal Name               
+    -------------  -------  ---------  ------  -----------               
+    6              2        IO         151     clk_0_c_g                 
+    2              1                   21      this_vga_signals.N_583_g  
+    4              0                   45      M_this_state_q_nss_g_0    

@@ -1,12 +1,20 @@
 
-fsm_encoding {518021801} sequential
+fsm_encoding {526222621} onehot
 
-fsm_state_encoding {518021801} WAIT_state {00}
+fsm_state_encoding {526222621} INIT_this_state {00000001}
 
-fsm_state_encoding {518021801} WRITE_HIGH_ADDRESS_state {01}
+fsm_state_encoding {526222621} DMA_START_this_state {00000010}
 
-fsm_state_encoding {518021801} WRITE_LOW_ADDRESS_state {10}
+fsm_state_encoding {526222621} DMA_TRANSFER_HALF1_this_state {00000100}
 
-fsm_state_encoding {518021801} WRITE_DATA_state {11}
+fsm_state_encoding {526222621} DMA_TRANSFER_HALF2_this_state {00001000}
 
-fsm_registers {518021801} {M_state_q[1]}  {M_state_q[0]} 
+fsm_state_encoding {526222621} WAIT_this_state {00010000}
+
+fsm_state_encoding {526222621} WRITE_HIGH_ADDRESS_this_state {00100000}
+
+fsm_state_encoding {526222621} WRITE_LOW_ADDRESS_this_state {01000000}
+
+fsm_state_encoding {526222621} WRITE_DATA_this_state {10000000}
+
+fsm_registers {526222621} {M_this_state_q[7]}  {M_this_state_q[6]}  {M_this_state_q[5]}  {M_this_state_q[4]}  {M_this_state_q[3]}  {M_this_state_q[2]}  {M_this_state_q[1]}  {M_this_state_q[0]} 

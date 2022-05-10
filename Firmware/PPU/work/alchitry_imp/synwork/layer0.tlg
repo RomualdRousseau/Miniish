@@ -20,17 +20,18 @@ Selecting top level module cu_top_0
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_7.v":67:2:67:7|Found RAM mem, depth=16384, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
 
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":180:2:180:7|Trying to extract state machine for register M_state_q.
-Extracted state machine for register M_state_q
-State machine has 4 reachable states with original encodings of:
-   00
-   01
-   10
-   11
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":180:2:180:7|Initial value is not supported on state machine M_state_q
-@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":13:17:13:28|Input port bits 15 to 8 of port_address[15:0] are unused. Assign logic for all port bits or change the input port size.
-@W: CL247 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":14:16:14:24|Input port bit 7 of port_data[7:0] is unused
-
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":87:2:87:7|Register bit M_hcounter_q[10] is always 0.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":87:2:87:7|Register bit M_hcounter_q[11] is always 0.
-@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":87:2:87:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|Trying to extract state machine for register M_this_state_q.
+Extracted state machine for register M_this_state_q
+State machine has 8 reachable states with original encodings of:
+   000
+   001
+   010
+   011
+   100
+   101
+   110
+   111
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|Initial value is not supported on state machine M_this_state_q
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|Register bit M_hcounter_q[10] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|Register bit M_hcounter_q[11] is always 0.
+@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.

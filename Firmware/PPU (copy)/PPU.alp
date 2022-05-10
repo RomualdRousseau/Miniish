@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PPU" board="Alchitry Cu" language="Lucid" version="3">
+  <files>
+    <component>edge_detector.luc</component>
+    <component>reset_conditioner.luc</component>
+    <component>pipeline.luc</component>
+    <component>simple_dual_ram.v</component>
+    <src>vga_signals.luc</src>
+    <src top="true">cu_top.luc</src>
+    <src>edge_detector_with_delay.luc</src>
+    <constraint>alchitry.acf</constraint>
+  </files>
+</project>

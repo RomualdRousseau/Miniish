@@ -1,0 +1,129 @@
+* ******************************************************************************
+
+* iCEcube Report
+
+* Version:            2020.12.27943
+
+* Build Date:         Dec 10 2020 17:24:17
+
+* File Generated:     May 8 2022 20:03:15
+
+* Purpose:            General info of design implementation
+
+* Copyright (C) 2006-2010 by Lattice Semiconductor Corp. All rights reserved.
+
+* ******************************************************************************
+
+Synthesis/Placement Summary:
+----------------------------
+    Status:  Successful
+    Runtime: 1 seconds
+
+Device Info:
+------------
+    Device Family: iCE40
+    Device:        iCE40HX8K
+    Package:       CB132
+
+Design statistics:
+------------------
+    FFs:                  136
+    LUTs:                 442
+    RAMs:                 16
+    IOBs:                 34
+    GBs:                  3
+    PLLs:                 0
+    Warm Boots:           0
+
+Logic Resource Utilization:
+---------------------------
+    Total Logic Cells: 444/7680
+        Combinational Logic Cells: 308      out of   7680      4.01042%
+        Sequential Logic Cells:    136      out of   7680      1.77083%
+        Logic Tiles:               129      out of   960       13.4375%
+    Registers: 
+        Logic Registers:           136      out of   7680      1.77083%
+        IO Registers:              0        out of   1280      0
+    Block RAMs:                    16       out of   32        50%
+    Warm Boots:                    0        out of   1         0%
+    Pins:
+        Input Pins:                20       out of   95        21.0526%
+        Output Pins:               14       out of   95        14.7368%
+        InOut Pins:                0        out of   95        0%
+    Global Buffers:                3        out of   8         37.5%
+    PLLs:                          0        out of   2         0%
+
+IO Bank Utilization:
+--------------------
+    Bank 3: 12       out of   24        50%
+    Bank 1: 8        out of   25        32%
+    Bank 0: 11       out of   24        45.8333%
+    Bank 2: 3        out of   22        13.6364%
+
+Detailed I/O Info:
+------------------
+    Input Pins: 
+    Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function    Signal Name      
+    ----------  ---------  -----------  -------  -------  -----------    -----------      
+    A7          Input      SB_LVCMOS    No       0        Simple Input   port_address[0]  
+    A11         Input      SB_LVCMOS    No       0        Simple Input   port_address[1]  
+    B14         Input      SB_LVCMOS    No       1        Simple Input   port_address[3]  
+    C7          Input      SB_LVCMOS    No       0        Simple Input   port_data[0]     
+    C10         Input      SB_LVCMOS    No       0        Simple Input   port_address[2]  
+    C12         Input      SB_LVCMOS    No       0        Simple Input   port_data[3]     
+    D7          Input      SB_LVCMOS    No       0        Simple Input   port_data[1]     
+    D10         Input      SB_LVCMOS    No       0        Simple Input   port_data[2]     
+    D12         Input      SB_LVCMOS    No       1        Simple Input   port_data[4]     
+    D14         Input      SB_LVCMOS    No       1        Simple Input   port_address[4]  
+    E12         Input      SB_LVCMOS    No       1        Simple Input   port_address[5]  
+    F4          Input      SB_LVCMOS    No       3        Simple Input   port_rw          
+    F11         Input      SB_LVCMOS    No       1        Simple Input   port_data[5]     
+    G12         Input      SB_LVCMOS    No       1        Simple Input   port_data[6]     
+    G14         Input      SB_LVCMOS    No       1        Simple Input   port_address[6]  
+    H1          Input      SB_LVCMOS    No       3        Simple Input   port_enb         
+    H4          Input      SB_LVCMOS    No       3        Simple Input   port_clk         
+    J12         Input      SB_LVCMOS    No       1        Simple Input   port_address[7]  
+    P7          Input      SB_LVCMOS    No       2        Simple Input   clk              
+    P8          Input      SB_LVCMOS    No       2        Simple Input   rst_n            
+
+    Output Pins: 
+    Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function    Signal Name      
+    ----------  ---------  -----------  -------  -------  -----------    -----------      
+    A1          Output     SB_LVCMOS    No       0        Simple Output  hsync            
+    A2          Output     SB_LVCMOS    No       0        Simple Output  hblank           
+    A3          Output     SB_LVCMOS    No       0        Simple Output  vsync            
+    A4          Output     SB_LVCMOS    No       0        Simple Output  vblank           
+    C1          Output     SB_LVCMOS    No       3        Simple Output  rgb[4]           
+    D3          Output     SB_LVCMOS    No       3        Simple Output  rgb[5]           
+    D4          Output     SB_LVCMOS    No       3        Simple Output  port_data_rw     
+    E1          Output     SB_LVCMOS    No       3        Simple Output  rgb[3]           
+    G1          Output     SB_LVCMOS    No       3        Simple Output  rgb[2]           
+    J1          Output     SB_LVCMOS    No       3        Simple Output  rgb[1]           
+    K3          Output     SB_LVCMOS    No       3        Simple Output  port_nmib        
+    M1          Output     SB_LVCMOS    No       3        Simple Output  rgb[0]           
+    N1          Output     SB_LVCMOS    No       3        Simple Output  port_dmab        
+    P4          Output     SB_LVCMOS    No       2        Simple Output  debug            
+
+Detailed Global Buffer Info:
+----------------------------
+    Buffer Number  IO Bank  Driven By  Fanout  Signal Name               
+    -------------  -------  ---------  ------  -----------               
+    6              2        IO         168     clk_c_g                   
+    2              1                   18      this_vga_signals.N_583_g  
+    4              0                   38      N_631_g                   
+
+
+Router Summary:
+---------------
+    Status:  Successful
+    Runtime: 11 seconds
+
+Routing Resource Utilization:
+-----------------------------
+              Local line of tile     3993 out of 146184      2.73149%
+                          Span 4      663 out of  29696      2.23262%
+                         Span 12      192 out of   5632      3.40909%
+                  Global network        3 out of      8      37.5%
+      Vertical Inter-LUT Connect      105 out of   6720      1.5625%
+
+

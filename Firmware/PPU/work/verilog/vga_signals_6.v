@@ -11,7 +11,8 @@ module vga_signals_6 (
     output reg hblank,
     output reg vsync,
     output reg vblank,
-    output reg [13:0] address
+    output reg [13:0] address,
+    output reg new_pixel
   );
   
   
@@ -20,7 +21,9 @@ module vga_signals_6 (
   
   localparam HEIGHT = 8'h80;
   
-  localparam PIXEL_SIZE = 2'h3;
+  localparam HPIXEL_SIZE = 2'h3;
+  
+  localparam VPIXEL_SIZE = 2'h3;
   
   localparam HVA_T = 10'h280;
   
@@ -48,24 +51,34 @@ module vga_signals_6 (
   
   reg [11:0] M_hcounter_d, M_hcounter_q = 1'h0;
   reg [9:0] M_vcounter_d, M_vcounter_q = 1'h0;
+  reg [13:0] M_address_buffer_d, M_address_buffer_q = 1'h0;
   
-  integer hvisibility;
+  reg hvisibility;
   
-  integer vvisibility;
+  reg vvisibility;
+  
+  reg [6:0] haddress;
+  
+  reg [6:0] vaddress;
   
   always @* begin
+    M_address_buffer_d = M_address_buffer_q;
+    
+    address = M_address_buffer_q;
     hsync = M_hcounter_q >= 11'h290 && M_hcounter_q < 12'h2f0 ? 1'h0 : 1'h1;
     vsync = M_vcounter_q >= 10'h1ea && M_vcounter_q < 11'h1ec ? 1'h0 : 1'h1;
     hvisibility = M_hcounter_q >= 11'h080 && M_hcounter_q < 12'h200 ? 1'h1 : 1'h0;
     vvisibility = M_vcounter_q >= 11'h030 && M_vcounter_q < 12'h1b0 ? 1'h1 : 1'h0;
     hblank = ~hvisibility;
     vblank = ~vvisibility;
+    haddress = (M_hcounter_q - 11'h080) / 2'h3;
+    vaddress = (M_vcounter_q - 11'h030) / 2'h3;
     if (hvisibility && vvisibility) begin
-      address[0+6-:7] = (M_hcounter_q - 11'h080) / 2'h3;
-      address[7+6-:7] = (M_vcounter_q - 11'h030) / 2'h3;
+      M_address_buffer_d = {vaddress, haddress};
     end else begin
-      address = 1'h0;
+      M_address_buffer_d = 1'h0;
     end
+    new_pixel = ((M_hcounter_q - 11'h080) - haddress * 2'h3) == 1'h0 ? 1'h1 : 1'h0;
   end
   
   always @* begin
@@ -88,9 +101,11 @@ module vga_signals_6 (
     if (rst == 1'b1) begin
       M_hcounter_q <= 1'h0;
       M_vcounter_q <= 1'h0;
+      M_address_buffer_q <= 1'h0;
     end else begin
       M_hcounter_q <= M_hcounter_d;
       M_vcounter_q <= M_vcounter_d;
+      M_address_buffer_q <= M_address_buffer_d;
     end
   end
   

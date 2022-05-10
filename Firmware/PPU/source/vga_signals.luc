@@ -5,12 +5,14 @@ module vga_signals (
     output hblank,
     output vsync,
     output vblank,
-    output address[14]
+    output address[14],
+    output new_pixel
   ) {
   
   const WIDTH = 128;
   const HEIGHT = 128;
-  const PIXEL_SIZE = 3;
+  const HPIXEL_SIZE = 3;
+  const VPIXEL_SIZE = 3;
   
   const HVA_T = 640;
   const HFP_T = HVA_T + 16;
@@ -22,23 +24,30 @@ module vga_signals (
   const VSP_T = VFP_T + 2;
   const VBP_T = VSP_T + 33;
 
-  const HMIN_T = (HVA_T - WIDTH * PIXEL_SIZE) / 2;
-  const HMAX_T =  HMIN_T + WIDTH * PIXEL_SIZE;
-  const VMIN_T = (VVA_T - HEIGHT * PIXEL_SIZE) / 2;
-  const VMAX_T =  VMIN_T + HEIGHT * PIXEL_SIZE;
+  const HMIN_T = (HVA_T - WIDTH * HPIXEL_SIZE) / 2;
+  const HMAX_T =  HMIN_T + WIDTH * HPIXEL_SIZE;
+  const VMIN_T = (VVA_T - HEIGHT * VPIXEL_SIZE) / 2;
+  const VMAX_T =  VMIN_T + HEIGHT * VPIXEL_SIZE;
   
   .clk(clk) {
     .rst(rst) {
       dff hcounter[12];
       dff vcounter[10];
+      dff address_buffer[14];
     }
   }
   
-  var hvisibility;
-  var vvisibility;
+  sig hvisibility;
+  sig vvisibility; 
+  sig haddress[7];
+  sig vaddress[7];
   
   always {
-
+    
+    // Default Values
+    
+    address = address_buffer.q;
+  
     hsync = hcounter.q >= HFP_T && hcounter.q < HSP_T ? 0 : 1;
     vsync = vcounter.q >= VFP_T && vcounter.q  < VSP_T ? 0 : 1;
     
@@ -48,27 +57,37 @@ module vga_signals (
     hblank = ~hvisibility;
     vblank = ~vvisibility;
     
+    // Update address
+    
+    haddress = (hcounter.q - HMIN_T) / HPIXEL_SIZE;
+    vaddress = (vcounter.q - VMIN_T) / VPIXEL_SIZE;
+
     if (hvisibility && vvisibility) {
-      address[0+:7] = (hcounter.q - HMIN_T) / PIXEL_SIZE;
-      address[7+:7] = (vcounter.q - VMIN_T) / PIXEL_SIZE;
+      address_buffer.d = c{vaddress, haddress};
     }
     else {
-      address = 0;
+      address_buffer.d= 0;
     }
-}
-  
- always {
     
-  if (hcounter.q < HBP_T) {
-      hcounter.d = hcounter.q + 1; 
+    new_pixel = ((hcounter.q - HMIN_T) - haddress * HPIXEL_SIZE) == 0 ? 1 : 0;
   }
-  else {
-    hcounter.d = 0;
-
-    if (vcounter.q < VBP_T) {
-      vcounter.d = vcounter.q + 1;
-    } else {
-      vcounter.d = 0;
+  
+  always {
+    
+    // Increment sync counters
+      
+    if (hcounter.q < HBP_T) {
+        hcounter.d = hcounter.q + 1; 
+    }
+    else {
+      hcounter.d = 0;
+  
+      if (vcounter.q < VBP_T) {
+        vcounter.d = vcounter.q + 1;
+      }
+      else {
+        vcounter.d = 0;
+      }
     }
   }
 }
