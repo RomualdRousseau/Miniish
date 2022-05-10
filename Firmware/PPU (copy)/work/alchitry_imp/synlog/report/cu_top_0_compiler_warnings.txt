@@ -1,4 +1,0 @@
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":217:2:217:7|Initial value is not supported on state machine M_state_q
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":166:2:166:7|Initial value is not supported on state machine M_vstate_q
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_4.v":166:2:166:7|Initial value is not supported on state machine M_hstate_q
-
