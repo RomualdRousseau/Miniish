@@ -9,142 +9,195 @@ Part:			ICE40HX8KCB132 (Lattice)
 SEQUENTIAL ELEMENTS
 Name      Total elements     Utilization     Notes
 --------------------------------------------------
-FLOPS     119                100 %                
+FLOPS     114                100 %                
 ==================================================
-Total SEQUENTIAL ELEMENTS in the block cu_top_0:	119 (17.53 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block cu_top_0:	114 (14.50 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name       Total elements     Utilization     Notes
 ---------------------------------------------------
-LUTS       408                100 %                
-CARRYS     76                 100 %                
+LUTS       505                100 %                
+CARRYS     82                 100 %                
 ===================================================
-Total COMBINATIONAL LOGIC in the block cu_top_0:	484 (71.28 % Utilization)
+Total COMBINATIONAL LOGIC in the block cu_top_0:	587 (74.68 % Utilization)
 
 
 MEMORY ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-RAMS     16                 100 %                
+RAMS     17                 100 %                
 =================================================
-Total MEMORY ELEMENTS in the block cu_top_0:	16 (2.36 % Utilization)
+Total MEMORY ELEMENTS in the block cu_top_0:	17 (2.16 % Utilization)
 
 
 IO PADS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-PADS     46                 100 %                
+PADS     47                 100 %                
 =================================================
-Total IO PADS in the block cu_top_0:	46 (6.77 % Utilization)
+Total IO PADS in the block cu_top_0:	47 (5.98 % Utilization)
 
 ---------------------------------------------------------------------
-########   Utilization report for  cell:   edge_detector_5   ########
-Instance path:   cu_top_0.edge_detector_5                            
+########   Utilization report for  cell:   edge_detector_4   ########
+Instance path:   cu_top_0.edge_detector_4                            
 =====================================================================
 
 SEQUENTIAL ELEMENTS
 Name      Total elements     Utilization     Notes
 --------------------------------------------------
-FLOPS     1                  0.840 %              
+FLOPS     1                  0.8770 %             
 ==================================================
-Total SEQUENTIAL ELEMENTS in the block cu_top_0.edge_detector_5:	1 (0.15 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.edge_detector_4:	1 (0.13 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-LUTS     40                 9.8 %                
+LUTS     1                  0.1980 %             
 =================================================
-Total COMBINATIONAL LOGIC in the block cu_top_0.edge_detector_5:	40 (5.89 % Utilization)
+Total COMBINATIONAL LOGIC in the block cu_top_0.edge_detector_4:	1 (0.13 % Utilization)
 
 ----------------------------------------------------------------
-########   Utilization report for  cell:   pipeline_3   ########
-Instance path:   cu_top_0.pipeline_3                            
+########   Utilization report for  cell:   pipeline_2   ########
+Instance path:   cu_top_0.pipeline_2                            
 ================================================================
 
 SEQUENTIAL ELEMENTS
 Name      Total elements     Utilization     Notes
 --------------------------------------------------
-FLOPS     5                  4.2 %                
+FLOPS     5                  4.39 %               
 ==================================================
-Total SEQUENTIAL ELEMENTS in the block cu_top_0.pipeline_3:	5 (0.74 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.pipeline_2:	5 (0.64 % Utilization)
 
 -------------------------------------------------------------------
-########   Utilization report for  cell:   pixel_clock_1   ########
-Instance path:   cu_top_0.pixel_clock_1                            
+########   Utilization report for  cell:   pixel_clock_5   ########
+Instance path:   cu_top_0.pixel_clock_5                            
 ===================================================================
 
 SEQUENTIAL ELEMENTS
 Name      Total elements     Utilization     Notes
 --------------------------------------------------
-FLOPS     2                  1.68 %               
+FLOPS     2                  1.75 %               
 ==================================================
-Total SEQUENTIAL ELEMENTS in the block cu_top_0.pixel_clock_1:	2 (0.29 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.pixel_clock_5:	2 (0.25 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-LUTS     2                  0.490 %              
+LUTS     2                  0.3960 %             
 =================================================
-Total COMBINATIONAL LOGIC in the block cu_top_0.pixel_clock_1:	2 (0.29 % Utilization)
+Total COMBINATIONAL LOGIC in the block cu_top_0.pixel_clock_5:	2 (0.25 % Utilization)
+
+-----------------------------------------------------------
+########   Utilization report for  cell:   ppu_8   ########
+Instance path:   cu_top_0.ppu_8                            
+===========================================================
+
+SEQUENTIAL ELEMENTS
+Name      Total elements     Utilization     Notes
+--------------------------------------------------
+FLOPS     8                  7.02 %               
+==================================================
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.ppu_8:	8 (1.02 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name       Total elements     Utilization     Notes
+---------------------------------------------------
+LUTS       61                 12.1 %               
+CARRYS     6                  7.32 %               
+===================================================
+Total COMBINATIONAL LOGIC in the block cu_top_0.ppu_8:	67 (8.52 % Utilization)
 
 -------------------------------------------------------------------------
-########   Utilization report for  cell:   reset_conditioner_2   ########
-Instance path:   cu_top_0.reset_conditioner_2                            
+########   Utilization report for  cell:   reset_conditioner_1   ########
+Instance path:   cu_top_0.reset_conditioner_1                            
 =========================================================================
 
 SEQUENTIAL ELEMENTS
 Name      Total elements     Utilization     Notes
 --------------------------------------------------
-FLOPS     4                  3.36 %               
+FLOPS     4                  3.51 %               
 ==================================================
-Total SEQUENTIAL ELEMENTS in the block cu_top_0.reset_conditioner_2:	4 (0.59 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.reset_conditioner_1:	4 (0.51 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-LUTS     4                  0.980 %              
+LUTS     4                  0.7920 %             
 =================================================
-Total COMBINATIONAL LOGIC in the block cu_top_0.reset_conditioner_2:	4 (0.59 % Utilization)
+Total COMBINATIONAL LOGIC in the block cu_top_0.reset_conditioner_1:	4 (0.51 % Utilization)
 
 
 IO PADS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-PADS     1                  2.17 %               
+PADS     1                  2.13 %               
 =================================================
-Total IO PADS in the block cu_top_0.reset_conditioner_2:	1 (0.15 % Utilization)
+Total IO PADS in the block cu_top_0.reset_conditioner_1:	1 (0.13 % Utilization)
+
+------------------------------------------------------------------------------
+########   Utilization report for  cell:   simple_dual_ram_10_4_256   ########
+Instance path:   cu_top_0.simple_dual_ram_10_4_256                            
+==============================================================================
+
+MEMORY ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+RAMS     1                  5.88 %               
+=================================================
+Total MEMORY ELEMENTS in the block cu_top_0.simple_dual_ram_10_4_256:	1 (0.13 % Utilization)
 
 -------------------------------------------------------------------------------
-########   Utilization report for  cell:   simple_dual_ram_7_4_16384   ########
-Instance path:   cu_top_0.simple_dual_ram_7_4_16384                            
+########   Utilization report for  cell:   simple_dual_ram_9_4_16384   ########
+Instance path:   cu_top_0.simple_dual_ram_9_4_16384                            
 ===============================================================================
 
 SEQUENTIAL ELEMENTS
 Name      Total elements     Utilization     Notes
 --------------------------------------------------
-FLOPS     3                  2.52 %               
+FLOPS     3                  2.63 %               
 ==================================================
-Total SEQUENTIAL ELEMENTS in the block cu_top_0.simple_dual_ram_7_4_16384:	3 (0.44 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.simple_dual_ram_9_4_16384:	3 (0.38 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-LUTS     76                 18.6 %               
+LUTS     32                 6.34 %               
 =================================================
-Total COMBINATIONAL LOGIC in the block cu_top_0.simple_dual_ram_7_4_16384:	76 (11.19 % Utilization)
+Total COMBINATIONAL LOGIC in the block cu_top_0.simple_dual_ram_9_4_16384:	32 (4.07 % Utilization)
 
 
 MEMORY ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-RAMS     16                 100 %                
+RAMS     16                 94.1 %               
 =================================================
-Total MEMORY ELEMENTS in the block cu_top_0.simple_dual_ram_7_4_16384:	16 (2.36 % Utilization)
+Total MEMORY ELEMENTS in the block cu_top_0.simple_dual_ram_9_4_16384:	16 (2.04 % Utilization)
+
+------------------------------------------------------------------
+########   Utilization report for  cell:   vga_ramdac_7   ########
+Instance path:   cu_top_0.vga_ramdac_7                            
+==================================================================
+
+SEQUENTIAL ELEMENTS
+Name      Total elements     Utilization     Notes
+--------------------------------------------------
+FLOPS     6                  5.26 %               
+==================================================
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.vga_ramdac_7:	6 (0.76 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+LUTS     12                 2.38 %               
+=================================================
+Total COMBINATIONAL LOGIC in the block cu_top_0.vga_ramdac_7:	12 (1.53 % Utilization)
 
 -------------------------------------------------------------------
 ########   Utilization report for  cell:   vga_signals_6   ########
@@ -154,92 +207,96 @@ Instance path:   cu_top_0.vga_signals_6
 SEQUENTIAL ELEMENTS
 Name      Total elements     Utilization     Notes
 --------------------------------------------------
-FLOPS     46                 38.7 %               
+FLOPS     33                 28.9 %               
 ==================================================
-Total SEQUENTIAL ELEMENTS in the block cu_top_0.vga_signals_6:	46 (6.77 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block cu_top_0.vga_signals_6:	33 (4.20 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name       Total elements     Utilization     Notes
 ---------------------------------------------------
-LUTS       251                61.5 %               
-CARRYS     35                 46.1 %               
+LUTS       313                62 %                 
+CARRYS     35                 42.7 %               
 ===================================================
-Total COMBINATIONAL LOGIC in the block cu_top_0.vga_signals_6:	286 (42.12 % Utilization)
+Total COMBINATIONAL LOGIC in the block cu_top_0.vga_signals_6:	348 (44.27 % Utilization)
 
 
 IO PADS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-PADS     1                  2.17 %               
+PADS     2                  4.26 %               
 =================================================
-Total IO PADS in the block cu_top_0.vga_signals_6:	1 (0.15 % Utilization)
+Total IO PADS in the block cu_top_0.vga_signals_6:	2 (0.25 % Utilization)
 
 #### START OF Block RAM DETAILED REPORT ####
 
-Total Block RAMs: 16
-
-this_vram.mem_mem_7_1
-----------------------------
-----------------------------
-
-this_vram.mem_mem_7_0
-----------------------------
-----------------------------
-
-this_vram.mem_mem_6_1
-----------------------------
-----------------------------
-
-this_vram.mem_mem_6_0
-----------------------------
-----------------------------
-
-this_vram.mem_mem_5_1
-----------------------------
-----------------------------
-
-this_vram.mem_mem_5_0
-----------------------------
-----------------------------
-
-this_vram.mem_mem_4_1
-----------------------------
-----------------------------
-
-this_vram.mem_mem_4_0
-----------------------------
-----------------------------
-
-this_vram.mem_mem_3_1
-----------------------------
-----------------------------
-
-this_vram.mem_mem_3_0
-----------------------------
-----------------------------
-
-this_vram.mem_mem_2_1
-----------------------------
-----------------------------
-
-this_vram.mem_mem_2_0
-----------------------------
-----------------------------
-
-this_vram.mem_mem_1_1
-----------------------------
-----------------------------
-
-this_vram.mem_mem_1_0
-----------------------------
-----------------------------
-
-this_vram.mem_mem_0_1
-----------------------------
-----------------------------
+Total Block RAMs: 17
 
 this_vram.mem_mem_0_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_7_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_7_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_6_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_6_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_5_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_5_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_4_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_4_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_3_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_3_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_2_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_2_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_1_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_1_0
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_0_1
+----------------------------
+----------------------------
+
+this_sprites_ram.mem_mem_0_0
 ----------------------------
 ----------------------------
 

@@ -1,13 +1,18 @@
-@P:  Worst Slack : -24.424
-@P:  clk_0 - Estimated Frequency : 29.0 MHz
+@P:  Worst Slack : -20.266
+@P:  clk_0 - Estimated Frequency : 33.0 MHz
 @P:  clk_0 - Requested Frequency : 100.0 MHz
-@P:  clk_0 - Estimated Period : 34.424
+@P:  clk_0 - Estimated Period : 30.266
 @P:  clk_0 - Requested Period : 10.000
-@P:  clk_0 - Slack : -24.424
+@P:  clk_0 - Slack : -20.266
+@P:  vga_signals_6|pixel_clk_inferred_clock - Estimated Frequency : NA
+@P:  vga_signals_6|pixel_clk_inferred_clock - Requested Frequency : 1.0 MHz
+@P:  vga_signals_6|pixel_clk_inferred_clock - Estimated Period : NA
+@P:  vga_signals_6|pixel_clk_inferred_clock - Requested Period : 1000.000
+@P:  vga_signals_6|pixel_clk_inferred_clock - Slack : NA
 @P: cu_top_0 Part : ice40hx8kcb132
 @P: cu_top_0 I/O primitives : 44
 @P: cu_top_0 I/O Register bits : 0
-@P: cu_top_0 Register bits (Non I/O) : 119 (1%)
-@P: cu_top_0 Block Rams : 16 of 32 (50%)
-@P: cu_top_0 Total Luts : 408 (5%)
-@P:  CPU Time : 0h:00m:05s
+@P: cu_top_0 Register bits (Non I/O) : 114 (1%)
+@P: cu_top_0 Block Rams : 17 of 32 (53%)
+@P: cu_top_0 Total Luts : 505 (6%)
+@P:  CPU Time : 0h:00m:10s

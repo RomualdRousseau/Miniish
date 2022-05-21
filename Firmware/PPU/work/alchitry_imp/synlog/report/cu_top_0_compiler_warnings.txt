@@ -1,3 +1,4 @@
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|Initial value is not supported on state machine M_this_state_q
-@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":305:2:305:7|Initial value is not supported on state machine M_this_state_q
+@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":12:17:12:27|Input port bits 13 to 7 of vga_address[13:0] are unused. Assign logic for all port bits or change the input port size.
+@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
 

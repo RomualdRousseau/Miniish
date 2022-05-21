@@ -7,12 +7,13 @@
 module vga_signals_6 (
     input clk,
     input rst,
+    output reg pixel_clk,
+    output reg line_clk,
     output reg hsync,
-    output reg hblank,
     output reg vsync,
+    output reg hblank,
     output reg vblank,
-    output reg [13:0] address,
-    output reg new_pixel
+    output reg [13:0] address
   );
   
   
@@ -51,34 +52,40 @@ module vga_signals_6 (
   
   reg [11:0] M_hcounter_d, M_hcounter_q = 1'h0;
   reg [9:0] M_vcounter_d, M_vcounter_q = 1'h0;
-  reg [13:0] M_address_buffer_d, M_address_buffer_q = 1'h0;
+  
+  reg [1:0] pcounter;
+  
+  reg [1:0] lcounter;
   
   reg hvisibility;
   
   reg vvisibility;
+  
+  reg lvisibility;
   
   reg [6:0] haddress;
   
   reg [6:0] vaddress;
   
   always @* begin
-    M_address_buffer_d = M_address_buffer_q;
-    
-    address = M_address_buffer_q;
     hsync = M_hcounter_q >= 11'h290 && M_hcounter_q < 12'h2f0 ? 1'h0 : 1'h1;
     vsync = M_vcounter_q >= 10'h1ea && M_vcounter_q < 11'h1ec ? 1'h0 : 1'h1;
     hvisibility = M_hcounter_q >= 11'h080 && M_hcounter_q < 12'h200 ? 1'h1 : 1'h0;
     vvisibility = M_vcounter_q >= 11'h030 && M_vcounter_q < 12'h1b0 ? 1'h1 : 1'h0;
+    lvisibility = M_vcounter_q >= 12'h02d && M_vcounter_q < 13'h01ad ? 1'h1 : 1'h0;
     hblank = ~hvisibility;
     vblank = ~vvisibility;
+    pcounter = M_hcounter_q - (M_hcounter_q / 2'h3) * 2'h3;
+    lcounter = M_vcounter_q - (M_vcounter_q / 2'h3) * 2'h3;
+    pixel_clk = pcounter == 1'h0 ? 1'h1 : 1'h0;
+    line_clk = lvisibility && M_hcounter_q == 1'h0 && lcounter == 1'h0 ? 1'h1 : 1'h0;
     haddress = (M_hcounter_q - 11'h080) / 2'h3;
     vaddress = (M_vcounter_q - 11'h030) / 2'h3;
     if (hvisibility && vvisibility) begin
-      M_address_buffer_d = {vaddress, haddress};
+      address = {vaddress, haddress};
     end else begin
-      M_address_buffer_d = 1'h0;
+      address = 14'h0080;
     end
-    new_pixel = ((M_hcounter_q - 11'h080) - haddress * 2'h3) == 1'h0 ? 1'h1 : 1'h0;
   end
   
   always @* begin
@@ -101,11 +108,9 @@ module vga_signals_6 (
     if (rst == 1'b1) begin
       M_hcounter_q <= 1'h0;
       M_vcounter_q <= 1'h0;
-      M_address_buffer_q <= 1'h0;
     end else begin
       M_hcounter_q <= M_hcounter_d;
       M_vcounter_q <= M_vcounter_d;
-      M_address_buffer_q <= M_address_buffer_d;
     end
   end
   

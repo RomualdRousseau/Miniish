@@ -1,7 +1,7 @@
 module pixel_clock #(
     DIVIDER = 2 : DIVIDER > 1
   ) (
-    input clk,  // clock
+    input clk,  // 100MHz clock
     input rst,  // reset
     output out
   ) {

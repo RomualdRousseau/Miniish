@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:24:17
 
-* File Generated:     May 10 2022 20:22:47
+* File Generated:     May 21 2022 22:51:53
 
 * Purpose:            Detailed IO and package pin info
 
@@ -35,7 +35,7 @@ A13, VPP_DIRECT, not used, , , , , , UnknownBank
 A14, VPP_PUMP, not used, , , , , , UnknownBank
 B1, PIO, not used, , , , , , leftBank
 B14, PIO, port_address[3], InOut, , SB_LVCMOS, No Pull Up, Simple Input Output Tristatable by Enable, rightBank
-C1, PIO, rgb[4], Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
+C1, PIO, rgb[4], Output, , SB_LVCMOS, No Pull Up, Output Registered, leftBank
 C3, PIO, not used, , , , , , leftBank
 C4, PIO, not used, , , , , , topBank
 C5, PIO, not used, , , , , , topBank
@@ -48,7 +48,7 @@ C11, PIO, not used, , , , , , topBank
 C12, PIO, port_data[3], Input, , SB_LVCMOS, No Pull Up, Simple Input, topBank
 C14, PIO, port_address[12], Output, , SB_LVCMOS, No Pull Up, Output Tristatable by Enable, rightBank
 D1, PIO, not used, , , , , , leftBank
-D3, PIO, rgb[5], Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
+D3, PIO, rgb[5], Output, , SB_LVCMOS, No Pull Up, Output Registered, leftBank
 D4, PIO, port_data_rw, Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
 D5, PIO, not used, , , , , , topBank
 D6, PIO, not used, , , , , , topBank
@@ -59,7 +59,7 @@ D10, PIO, port_data[2], Input, , SB_LVCMOS, No Pull Up, Simple Input, topBank
 D11, PIO, not used, , , , , , topBank
 D12, PIO, port_data[4], Input, , SB_LVCMOS, No Pull Up, Simple Input, rightBank
 D14, PIO, port_address[4], InOut, , SB_LVCMOS, No Pull Up, Simple Input Output Tristatable by Enable, rightBank
-E1, PIO, rgb[3], Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
+E1, PIO, rgb[3], Output, , SB_LVCMOS, No Pull Up, Output Registered, leftBank
 E3, VCCIO_3, not used, , , , , , leftBank
 E4, PIO, not used, , , , , , leftBank
 E11, PIO, not used, , , , , , rightBank
@@ -75,7 +75,7 @@ F9, VCCIO_1, not used, , , , , , rightBank
 F11, PIO, port_data[5], Input, , SB_LVCMOS, No Pull Up, Simple Input, rightBank
 F12, PIO, not used, , , , , , rightBank
 F14, PIO_GBIN, port_address[14], Output, , SB_LVCMOS, No Pull Up, Output Tristatable by Enable, rightBank
-G1, PIO_GBIN, rgb[2], Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
+G1, PIO_GBIN, rgb[2], Output, , SB_LVCMOS, No Pull Up, Output Registered, leftBank
 G3, PIO, not used, , , , , , leftBank
 G4, PIO, not used, , , , , , leftBank
 G6, VCC, not used, , , , , , UnknownBank
@@ -95,7 +95,7 @@ H9, VCC, not used, , , , , , UnknownBank
 H11, PIO, port_data[7], Input, , SB_LVCMOS, No Pull Up, Simple Input, rightBank
 H12, PIO, port_address[15], Output, , SB_LVCMOS, No Pull Up, Output Tristatable by Enable, rightBank
 H14, VCCIO_1, not used, , , , , , rightBank
-J1, PIO, rgb[1], Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
+J1, PIO, rgb[1], Output, , SB_LVCMOS, No Pull Up, Output Registered, leftBank
 J3, PIO, not used, , , , , , leftBank
 J4, VCC, not used, , , , , , UnknownBank
 J6, VCCIO_3, not used, , , , , , leftBank
@@ -123,7 +123,7 @@ L10, CRESET_B, not used, , , , , , bottomBank
 L11, VDDIO_SPI, not used, , , , , , bottomBank
 L12, PIO, not used, , , , , , rightBank
 L14, PIO, not used, , , , , , rightBank
-M1, PIO, rgb[0], Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
+M1, PIO, rgb[0], Output, , SB_LVCMOS, No Pull Up, Output Registered, leftBank
 M3, PIO, not used, , , , , , bottomBank
 M4, PIO, not used, , , , , , bottomBank
 M5, VCCIO_2, not used, , , , , , bottomBank

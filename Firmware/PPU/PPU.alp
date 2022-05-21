@@ -4,10 +4,12 @@
     <component>edge_detector.luc</component>
     <component>reset_conditioner.luc</component>
     <component>pipeline.luc</component>
+    <src>vga_ramdac.luc</src>
     <component>simple_dual_ram.v</component>
     <src>vga_signals.luc</src>
     <src top="true">cu_top.luc</src>
     <src>pixel_clock.luc</src>
+    <src>ppu.luc</src>
     <constraint>alchitry.acf</constraint>
   </files>
 </project>

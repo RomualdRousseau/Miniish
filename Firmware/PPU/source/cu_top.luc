@@ -1,6 +1,8 @@
 module cu_top (
-    input clk,                // 100MHz clock
-    input rst_n,
+    input clk,    // 100MHz clock
+    input rst_n, // reset
+    
+    // Bus Interface
     
     input port_enb,
     input port_clk,
@@ -13,6 +15,8 @@ module cu_top (
     output port_dmab,
     output port_nmib,
     
+    // VGA Outputs
+    
     output hsync,
     output vsync,
     output hblank,
@@ -22,51 +26,48 @@ module cu_top (
     output debug[2]
   ) {
   
-  const PALETTE = $reverse({
-      6b000000,
-      6b000001,
-      6b010010,
-      6b001001,
-      6b100100,
-      6b010101,
-      6b101010,
-      6b111111,
-      6b110001,
-      6b111000,
-      6b111100,
-      6b001100,
-      6b001011,
-      6b100110,
-      6b110110,
-      6b111110
-    });
-  
   sig rst;
   sig dma;
   
   .clk(clk) {
     .rst(rst) {
-      pixel_clock           this_pixel_clock(#DIVIDER(4));
-      dff                       this_pixel_data[6];
       fsm                      this_state = {INIT, DMA_START, DMA_TRANSFER_HALF1, DMA_TRANSFER_HALF2, WAIT, WRITE_HIGH_ADDRESS, WRITE_LOW_ADDRESS, WRITE_DATA};
       dff                       this_external_address[16];
       dff                       this_internal_address[14];
       dff                       this_data_count[14];
     }
-    
     reset_conditioner   this_reset_cond;
     pipeline                 this_delay_clk(#DEPTH(5));
     edge_detector       this_start_address_delay(#RISE(0), #FALL(1));
     edge_detector       this_start_data_delay(#RISE(1), #FALL(0));
   }
   
-  .clk(this_pixel_clock.out) {
+  .clk(clk) {
+    .rst(rst) {
+      pixel_clock           this_pixel_clk(#DIVIDER(4));
+    }
+  }
+  
+  .clk(this_pixel_clk.out) {
     .rst(rst) {
       vga_signals          this_vga_signals;
     }
   }
   
-  simple_dual_ram      this_vram (.rclk(clk), .wclk(clk), #SIZE(4), #DEPTH(128 * 128));
+  .clk(this_vga_signals.pixel_clk) {
+    .rst(rst) {
+      vga_ramdac         this_vga_ramdac;
+    }
+  }
+  
+  .clk(clk) {
+    .rst(rst) {
+      ppu                      this_ppu(.vga_line_clk(this_vga_signals.line_clk));
+    }
+  }
+  
+  simple_dual_ram      this_sprites_ram (.rclk(clk), .wclk(clk), #SIZE(4), #DEPTH(128 * 128));
+  simple_dual_ram      this_vram (.rclk(clk), .wclk(clk), #SIZE(4), #DEPTH(2 * 128));
   
   always {
     
@@ -82,9 +83,15 @@ module cu_top (
     this_start_address_delay.in = this_delay_clk.out || port_enb;
     this_start_data_delay.in = this_delay_clk.out || port_enb;
     
-    this_vram.waddr = this_internal_address.q;
-    this_vram.write_en = 0;
-    this_vram.write_data = 0;
+    this_vram.raddr = this_vga_signals.address[6+:8];
+    this_vram.waddr = this_ppu.vram_addr;
+    this_vram.write_en = this_ppu.vram_en;
+    this_vram.write_data = this_ppu.vram_data;
+    
+    this_sprites_ram.raddr = this_ppu.sprites_addr;
+    this_sprites_ram.waddr = this_internal_address.q;
+    this_sprites_ram.write_en = 0;
+    this_sprites_ram.write_data = 0;
     
     port_rw.enable = ~dma;
     port_rw.write = 1;
@@ -97,10 +104,25 @@ module cu_top (
     port_dmab = dma;
     port_nmib = !this_vga_signals.vblank || !dma ? 1 : 0;
     
-    debug[0] = this_vga_signals.new_pixel;
-    debug[1] = ~this_vga_signals.hblank;
+    this_vga_ramdac.en = !this_vga_signals.hblank && !this_vga_signals.vblank;
+    this_vga_ramdac.data = this_vram.read_data;
     
-    // Receive commands
+    this_ppu.vga_visible = !this_vga_signals.hblank && !this_vga_signals.vblank;
+    this_ppu.vga_address = this_vga_signals.address;
+    this_ppu.sprites_data = this_sprites_ram.read_data;
+    
+    debug[0] = 0;
+    debug[1] = 0;
+    
+    // Output VGA signals
+    
+    hsync = this_vga_signals.hsync;
+    vsync = this_vga_signals.vsync;
+    hblank = this_vga_signals.hblank;
+    vblank = this_vga_signals.vblank;
+    rgb = this_vga_ramdac.rgb;
+    
+    // Receive commands from Bus Interface
     
     case (this_state.q) {
       this_state.INIT:
@@ -119,8 +141,8 @@ module cu_top (
       
       this_state.DMA_TRANSFER_HALF1:
         if (this_start_data_delay.out) {
-          this_vram.write_en = 1;
-          this_vram.write_data = port_data.read[4+:4];
+          this_sprites_ram.write_en = 1;
+          this_sprites_ram.write_data = port_data.read[4+:4];
           this_internal_address.d = this_internal_address.q + 1;
           this_state.d = this_state.DMA_TRANSFER_HALF2;
         }
@@ -165,46 +187,11 @@ module cu_top (
       
       this_state.WRITE_DATA:
         if (this_start_data_delay.out) {
-          this_vram.write_en = 1;
-          this_vram.write_data = port_data.read[0+:4];
+          this_sprites_ram.write_en = 1;
+          this_sprites_ram.write_data = port_data.read[0+:4];
           this_internal_address.d = this_internal_address.q + 1;
           this_state.d = this_state.WAIT;
         }
-    }
-  }
-  
-  always {
-    
-    // Initialize components
-    
-    this_vram.raddr = this_vga_signals.address;
-    
-    // Output VGA sync signals
-    
-    hsync = this_vga_signals.hsync;
-    vsync = this_vga_signals.vsync;
-    hblank = this_vga_signals.hblank;
-    vblank = this_vga_signals.vblank;
-    
-    rgb = this_pixel_data.q;
-    
-    // Output VGA color signals
-    
-    if (!this_vga_signals.hblank && !this_vga_signals.vblank) {
-      
-      // Chessboard + Cycle through all colors
-      
-      //if (this_vga_signals.new_pixel) {
-      //  this_pixel_data.d = PALETTE[(this_vga_signals.address[3] ^ this_vga_signals.address[10]) * (this_vga_signals.address[7+:7] >> 3)];
-      //}
-      
-      // Raster pixel
-      
-      if (this_vga_signals.new_pixel) {
-        this_pixel_data.d = PALETTE[this_vram.read_data];
-      }
-    } else {
-      this_pixel_data.d  = 6b000000;
     }
   }
 }

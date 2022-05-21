@@ -1,0 +1,61 @@
+module ppu (
+    input clk,  // 100MHz clock
+    input rst,  // reset,
+    
+    // VGA Signals
+    
+    input vga_line_clk,
+    input vga_visible,
+    input vga_address[14],
+    
+    // VRAM
+    
+    output vram_addr[8],
+    output vram_en,
+    output vram_data[4],
+    
+    // Sprites Memory
+    
+    output sprites_addr[14],
+    input sprites_data[4]
+  ) {
+  
+  .clk(clk) {
+    .rst(rst) {
+      fsm state = {WAIT, BUFFERIZE};
+      dff current[7];
+    }
+  }
+  
+  always {
+    
+    vram_en = 0;
+    vram_data = 0;
+    
+    if (!vga_visible) {
+      sprites_addr = c{0, current.q};
+      vram_addr = c{0, current.q};
+    }
+    else {
+      sprites_addr = c{vga_address[0+:7] + 1, current.q};
+      vram_addr = c{~vga_address[6], current.q};
+    }
+    
+    case (state.q) {
+      state.WAIT:
+        if (vga_line_clk) {
+          current.d = 0;
+          state.d = state.BUFFERIZE;
+        }
+      
+      state.BUFFERIZE:
+        vram_en = 1;
+        vram_data = sprites_data;
+        
+        current.d = current.q + 1;
+        if (current.q == 127) {
+          state.d = state.WAIT;
+        }
+    }
+  }
+}

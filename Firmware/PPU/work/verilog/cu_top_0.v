@@ -50,19 +50,10 @@ module cu_top_0 (
   assign IO_port_data_read = port_data;
   
   
-  localparam PALETTE = 96'hfb698b33ce31fea564252040;
-  
   reg rst;
   
   reg dma;
   
-  wire [1-1:0] M_this_pixel_clock_out;
-  pixel_clock_1 this_pixel_clock (
-    .clk(clk),
-    .rst(rst),
-    .out(M_this_pixel_clock_out)
-  );
-  reg [5:0] M_this_pixel_data_d, M_this_pixel_data_q = 1'h0;
   localparam INIT_this_state = 3'd0;
   localparam DMA_START_this_state = 3'd1;
   localparam DMA_TRANSFER_HALF1_this_state = 3'd2;
@@ -78,56 +69,111 @@ module cu_top_0 (
   reg [13:0] M_this_data_count_d, M_this_data_count_q = 1'h0;
   wire [1-1:0] M_this_reset_cond_out;
   reg [1-1:0] M_this_reset_cond_in;
-  reset_conditioner_2 this_reset_cond (
+  reset_conditioner_1 this_reset_cond (
     .clk(clk),
     .in(M_this_reset_cond_in),
     .out(M_this_reset_cond_out)
   );
   wire [1-1:0] M_this_delay_clk_out;
   reg [1-1:0] M_this_delay_clk_in;
-  pipeline_3 this_delay_clk (
+  pipeline_2 this_delay_clk (
     .clk(clk),
     .in(M_this_delay_clk_in),
     .out(M_this_delay_clk_out)
   );
   wire [1-1:0] M_this_start_address_delay_out;
   reg [1-1:0] M_this_start_address_delay_in;
-  edge_detector_4 this_start_address_delay (
+  edge_detector_3 this_start_address_delay (
     .clk(clk),
     .in(M_this_start_address_delay_in),
     .out(M_this_start_address_delay_out)
   );
   wire [1-1:0] M_this_start_data_delay_out;
   reg [1-1:0] M_this_start_data_delay_in;
-  edge_detector_5 this_start_data_delay (
+  edge_detector_4 this_start_data_delay (
     .clk(clk),
     .in(M_this_start_data_delay_in),
     .out(M_this_start_data_delay_out)
   );
   
+  wire [1-1:0] M_this_pixel_clk_out;
+  pixel_clock_5 this_pixel_clk (
+    .clk(clk),
+    .rst(rst),
+    .out(M_this_pixel_clk_out)
+  );
+  
+  wire [1-1:0] M_this_vga_signals_pixel_clk;
+  wire [1-1:0] M_this_vga_signals_line_clk;
   wire [1-1:0] M_this_vga_signals_hsync;
-  wire [1-1:0] M_this_vga_signals_hblank;
   wire [1-1:0] M_this_vga_signals_vsync;
+  wire [1-1:0] M_this_vga_signals_hblank;
   wire [1-1:0] M_this_vga_signals_vblank;
   wire [14-1:0] M_this_vga_signals_address;
-  wire [1-1:0] M_this_vga_signals_new_pixel;
   vga_signals_6 this_vga_signals (
-    .clk(M_this_pixel_clock_out),
+    .clk(M_this_pixel_clk_out),
     .rst(rst),
+    .pixel_clk(M_this_vga_signals_pixel_clk),
+    .line_clk(M_this_vga_signals_line_clk),
     .hsync(M_this_vga_signals_hsync),
-    .hblank(M_this_vga_signals_hblank),
     .vsync(M_this_vga_signals_vsync),
+    .hblank(M_this_vga_signals_hblank),
     .vblank(M_this_vga_signals_vblank),
-    .address(M_this_vga_signals_address),
-    .new_pixel(M_this_vga_signals_new_pixel)
+    .address(M_this_vga_signals_address)
+  );
+  
+  wire [6-1:0] M_this_vga_ramdac_rgb;
+  reg [1-1:0] M_this_vga_ramdac_en;
+  reg [4-1:0] M_this_vga_ramdac_data;
+  vga_ramdac_7 this_vga_ramdac (
+    .clk(M_this_vga_signals_pixel_clk),
+    .rst(rst),
+    .en(M_this_vga_ramdac_en),
+    .data(M_this_vga_ramdac_data),
+    .rgb(M_this_vga_ramdac_rgb)
+  );
+  
+  wire [8-1:0] M_this_ppu_vram_addr;
+  wire [1-1:0] M_this_ppu_vram_en;
+  wire [4-1:0] M_this_ppu_vram_data;
+  wire [14-1:0] M_this_ppu_sprites_addr;
+  reg [1-1:0] M_this_ppu_vga_visible;
+  reg [14-1:0] M_this_ppu_vga_address;
+  reg [4-1:0] M_this_ppu_sprites_data;
+  ppu_8 this_ppu (
+    .clk(clk),
+    .rst(rst),
+    .vga_line_clk(M_this_vga_signals_line_clk),
+    .vga_visible(M_this_ppu_vga_visible),
+    .vga_address(M_this_ppu_vga_address),
+    .sprites_data(M_this_ppu_sprites_data),
+    .vram_addr(M_this_ppu_vram_addr),
+    .vram_en(M_this_ppu_vram_en),
+    .vram_data(M_this_ppu_vram_data),
+    .sprites_addr(M_this_ppu_sprites_addr)
+  );
+  
+  wire [4-1:0] M_this_sprites_ram_read_data;
+  reg [14-1:0] M_this_sprites_ram_waddr;
+  reg [4-1:0] M_this_sprites_ram_write_data;
+  reg [1-1:0] M_this_sprites_ram_write_en;
+  reg [14-1:0] M_this_sprites_ram_raddr;
+  simple_dual_ram_9 #(.SIZE(3'h4), .DEPTH(16'h4000)) this_sprites_ram (
+    .rclk(clk),
+    .wclk(clk),
+    .waddr(M_this_sprites_ram_waddr),
+    .write_data(M_this_sprites_ram_write_data),
+    .write_en(M_this_sprites_ram_write_en),
+    .raddr(M_this_sprites_ram_raddr),
+    .read_data(M_this_sprites_ram_read_data)
   );
   
   wire [4-1:0] M_this_vram_read_data;
-  reg [14-1:0] M_this_vram_waddr;
+  reg [8-1:0] M_this_vram_waddr;
   reg [4-1:0] M_this_vram_write_data;
   reg [1-1:0] M_this_vram_write_en;
-  reg [14-1:0] M_this_vram_raddr;
-  simple_dual_ram_7 #(.SIZE(3'h4), .DEPTH(16'h4000)) this_vram (
+  reg [8-1:0] M_this_vram_raddr;
+  simple_dual_ram_10 #(.SIZE(3'h4), .DEPTH(10'h100)) this_vram (
     .rclk(clk),
     .wclk(clk),
     .waddr(M_this_vram_waddr),
@@ -149,9 +195,14 @@ module cu_top_0 (
     M_this_delay_clk_in = port_clk;
     M_this_start_address_delay_in = M_this_delay_clk_out || port_enb;
     M_this_start_data_delay_in = M_this_delay_clk_out || port_enb;
-    M_this_vram_waddr = M_this_internal_address_q;
-    M_this_vram_write_en = 1'h0;
-    M_this_vram_write_data = 1'h0;
+    M_this_vram_raddr = M_this_vga_signals_address[6+7-:8];
+    M_this_vram_waddr = M_this_ppu_vram_addr;
+    M_this_vram_write_en = M_this_ppu_vram_en;
+    M_this_vram_write_data = M_this_ppu_vram_data;
+    M_this_sprites_ram_raddr = M_this_ppu_sprites_addr;
+    M_this_sprites_ram_waddr = M_this_internal_address_q;
+    M_this_sprites_ram_write_en = 1'h0;
+    M_this_sprites_ram_write_data = 1'h0;
     IO_port_rw_enable = ~dma;
     IO_port_rw_write = 1'h1;
     IO_port_address_enable = {5'h10{~dma}};
@@ -161,8 +212,18 @@ module cu_top_0 (
     port_data_rw = !IO_port_rw_read || !dma ? 1'h1 : 1'h0;
     port_dmab = dma;
     port_nmib = !M_this_vga_signals_vblank || !dma ? 1'h1 : 1'h0;
-    debug[0+0-:1] = M_this_vga_signals_new_pixel;
-    debug[1+0-:1] = ~M_this_vga_signals_hblank;
+    M_this_vga_ramdac_en = !M_this_vga_signals_hblank && !M_this_vga_signals_vblank;
+    M_this_vga_ramdac_data = M_this_vram_read_data;
+    M_this_ppu_vga_visible = !M_this_vga_signals_hblank && !M_this_vga_signals_vblank;
+    M_this_ppu_vga_address = M_this_vga_signals_address;
+    M_this_ppu_sprites_data = M_this_sprites_ram_read_data;
+    debug[0+0-:1] = 1'h0;
+    debug[1+0-:1] = 1'h0;
+    hsync = M_this_vga_signals_hsync;
+    vsync = M_this_vga_signals_vsync;
+    hblank = M_this_vga_signals_hblank;
+    vblank = M_this_vga_signals_vblank;
+    rgb = M_this_vga_ramdac_rgb;
     
     case (M_this_state_q)
       INIT_this_state: begin
@@ -182,8 +243,8 @@ module cu_top_0 (
       end
       DMA_TRANSFER_HALF1_this_state: begin
         if (M_this_start_data_delay_out) begin
-          M_this_vram_write_en = 1'h1;
-          M_this_vram_write_data = IO_port_data_read[4+3-:4];
+          M_this_sprites_ram_write_en = 1'h1;
+          M_this_sprites_ram_write_data = IO_port_data_read[4+3-:4];
           M_this_internal_address_d = M_this_internal_address_q + 1'h1;
           M_this_state_d = DMA_TRANSFER_HALF2_this_state;
         end
@@ -232,8 +293,8 @@ module cu_top_0 (
       end
       WRITE_DATA_this_state: begin
         if (M_this_start_data_delay_out) begin
-          M_this_vram_write_en = 1'h1;
-          M_this_vram_write_data = IO_port_data_read[0+3-:4];
+          M_this_sprites_ram_write_en = 1'h1;
+          M_this_sprites_ram_write_data = IO_port_data_read[0+3-:4];
           M_this_internal_address_d = M_this_internal_address_q + 1'h1;
           M_this_state_d = WAIT_this_state;
         end
@@ -241,33 +302,13 @@ module cu_top_0 (
     endcase
   end
   
-  always @* begin
-    M_this_pixel_data_d = M_this_pixel_data_q;
-    
-    M_this_vram_raddr = M_this_vga_signals_address;
-    hsync = M_this_vga_signals_hsync;
-    vsync = M_this_vga_signals_vsync;
-    hblank = M_this_vga_signals_hblank;
-    vblank = M_this_vga_signals_vblank;
-    rgb = M_this_pixel_data_q;
-    if (!M_this_vga_signals_hblank && !M_this_vga_signals_vblank) begin
-      if (M_this_vga_signals_new_pixel) begin
-        M_this_pixel_data_d = PALETTE[(M_this_vram_read_data)*6+5-:6];
-      end
-    end else begin
-      M_this_pixel_data_d = 6'h00;
-    end
-  end
-  
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_this_pixel_data_q <= 1'h0;
       M_this_external_address_q <= 1'h0;
       M_this_internal_address_q <= 1'h0;
       M_this_data_count_q <= 1'h0;
       M_this_state_q <= 1'h0;
     end else begin
-      M_this_pixel_data_q <= M_this_pixel_data_d;
       M_this_external_address_q <= M_this_external_address_d;
       M_this_internal_address_q <= M_this_internal_address_d;
       M_this_data_count_q <= M_this_data_count_d;

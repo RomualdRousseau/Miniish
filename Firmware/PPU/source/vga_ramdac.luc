@@ -1,0 +1,51 @@
+module vga_ramdac (
+    input clk, // 8.3MHz clock
+    input rst, // reset
+    
+    input en,
+    //input address[14],
+    input data[4],
+    output rgb[6]
+  ) {
+  
+  const PALETTE = $reverse({
+      6b000000,
+      6b000001,
+      6b010010,
+      6b001001,
+      6b100100,
+      6b010101,
+      6b101010,
+      6b111111,
+      6b110001,
+      6b111000,
+      6b111100,
+      6b001100,
+      6b001011,
+      6b100110,
+      6b110110,
+      6b111110
+    });
+  
+  .clk(clk) {
+    .rst(rst) {
+      dff this_rgb[6];
+    }
+  }
+  
+  always {
+    rgb = this_rgb.q;
+    
+    if (en) {
+      
+      // Chessboard + Cycle through all colors
+      //  this_rgb.d = PALETTE[(address[3] ^ address[10]) * (address[7+:7] >> 3)];
+      
+      // Raster pixel
+      
+      this_rgb.d= PALETTE[data];
+    } else {
+      this_rgb.d  = 6b000000;
+    }
+  }
+}

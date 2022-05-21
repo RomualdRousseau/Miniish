@@ -1,12 +1,15 @@
 #project files
 add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_1.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_2.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_3.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_2.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_3.v"
 add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_5.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_5.v"
 add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v"
-add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_7.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v"
 add_file -constraint -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc"
 #options
 impl -add alchitry_imp -type fpga

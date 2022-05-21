@@ -1,26 +1,37 @@
 Selecting top level module cu_top_0
-@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_1.v":11:7:11:19|Synthesizing module pixel_clock_1 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":11:7:11:25|Synthesizing module reset_conditioner_1 in library work.
 
-@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_2.v":11:7:11:25|Synthesizing module reset_conditioner_2 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_2.v":11:7:11:16|Synthesizing module pipeline_2 in library work.
 
-@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_3.v":11:7:11:16|Synthesizing module pipeline_3 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_3.v":12:7:12:21|Synthesizing module edge_detector_3 in library work.
 
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v":12:7:12:21|Synthesizing module edge_detector_4 in library work.
 
-@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_5.v":12:7:12:21|Synthesizing module edge_detector_5 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_5.v":11:7:11:19|Synthesizing module pixel_clock_5 in library work.
 
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":7:7:7:19|Synthesizing module vga_signals_6 in library work.
 
-@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_7.v":48:7:48:23|Synthesizing module simple_dual_ram_7 in library work.
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":7:7:7:18|Synthesizing module vga_ramdac_7 in library work.
+
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":7:7:7:11|Synthesizing module ppu_8 in library work.
+
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":48:7:48:23|Synthesizing module simple_dual_ram_9 in library work.
 
 	SIZE=3'b100
 	DEPTH=16'b0100000000000000
-   Generated name = simple_dual_ram_7_4_16384
+   Generated name = simple_dual_ram_9_4_16384
 
-@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_7.v":67:2:67:7|Found RAM mem, depth=16384, width=4
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":67:2:67:7|Found RAM mem, depth=16384, width=4
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":48:7:48:24|Synthesizing module simple_dual_ram_10 in library work.
+
+	SIZE=3'b100
+	DEPTH=10'b0100000000
+   Generated name = simple_dual_ram_10_4_256
+
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
 
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|Trying to extract state machine for register M_this_state_q.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":305:2:305:7|Trying to extract state machine for register M_this_state_q.
 Extracted state machine for register M_this_state_q
 State machine has 8 reachable states with original encodings of:
    000
@@ -31,7 +42,8 @@ State machine has 8 reachable states with original encodings of:
    101
    110
    111
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":262:2:262:7|Initial value is not supported on state machine M_this_state_q
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|Register bit M_hcounter_q[10] is always 0.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|Register bit M_hcounter_q[11] is always 0.
-@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":100:2:100:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":305:2:305:7|Initial value is not supported on state machine M_this_state_q
+@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":12:17:12:27|Input port bits 13 to 7 of vga_address[13:0] are unused. Assign logic for all port bits or change the input port size.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Register bit M_hcounter_q[10] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Register bit M_hcounter_q[11] is always 0.
+@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.

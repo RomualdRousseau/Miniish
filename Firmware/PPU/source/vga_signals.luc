@@ -1,12 +1,19 @@
 module vga_signals (
-    input clk,        // clock
+    input clk,        // 25MHz clock
     input rst,        // reset
+    
+    // Various clocks
+    
+    output pixel_clk,
+    output line_clk,
+    
+    // VGA Signals
+    
     output hsync,
-    output hblank,
     output vsync,
+    output hblank,
     output vblank,
-    output address[14],
-    output new_pixel
+    output address[14]
   ) {
   
   const WIDTH = 128;
@@ -33,12 +40,16 @@ module vga_signals (
     .rst(rst) {
       dff hcounter[12];
       dff vcounter[10];
-      dff address_buffer[14];
+      //dff address_buffer[14];
     }
   }
   
+  sig pcounter[$clog2(HPIXEL_SIZE)];
+  sig lcounter[$clog2(VPIXEL_SIZE)];
+  
   sig hvisibility;
   sig vvisibility;
+  sig lvisibility;
   sig haddress[7];
   sig vaddress[7];
   
@@ -46,16 +57,23 @@ module vga_signals (
     
     // Default Values
     
-    address = address_buffer.q;
+    //address = address_buffer.q;
     
     hsync = hcounter.q >= HFP_T && hcounter.q < HSP_T ? 0 : 1;
     vsync = vcounter.q >= VFP_T && vcounter.q  < VSP_T ? 0 : 1;
     
     hvisibility = hcounter.q >= HMIN_T && hcounter.q < HMAX_T ? 1 : 0;
     vvisibility = vcounter.q >= VMIN_T && vcounter.q < VMAX_T ? 1 : 0;
+    lvisibility = vcounter.q >= (VMIN_T - VPIXEL_SIZE) && vcounter.q < (VMAX_T - VPIXEL_SIZE) ? 1 : 0;
     
     hblank = ~hvisibility;
     vblank = ~vvisibility;
+
+    pcounter = hcounter.q - (hcounter.q / HPIXEL_SIZE) * HPIXEL_SIZE;
+    lcounter = vcounter.q - (vcounter.q / VPIXEL_SIZE) * VPIXEL_SIZE;
+    
+    pixel_clk = pcounter == 0 ? 1 : 0;
+    line_clk =  lvisibility && hcounter.q == 0 && lcounter == 0 ? 1 : 0;
     
     // Update address
     
@@ -63,13 +81,11 @@ module vga_signals (
     vaddress = (vcounter.q - VMIN_T) / VPIXEL_SIZE;
     
     if (hvisibility && vvisibility) {
-      address_buffer.d = c{vaddress, haddress};
+      address = c{vaddress, haddress};
     }
     else {
-      address_buffer.d= 0;
+      address = c{7b0000001, 7b0000000};
     }
-    
-    new_pixel = ((hcounter.q - HMIN_T) - haddress * HPIXEL_SIZE) == 0 ? 1 : 0;
   }
   
   always {

@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:31:11
 
-* File Generated:     May 10 2022 20:22:48
+* File Generated:     May 21 2022 22:51:54
 
 * Purpose:            Router runtime info
 
@@ -17,26 +17,67 @@
 Executing : /opt/lscc/iCEcube2.2020.12/sbt_backend/bin/linux/opt/sbrouter /opt/lscc/iCEcube2.2020.12/sbt_backend/devices/ICE40P08.dev /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/sbt/netlist/oadb-cu_top_0 /opt/lscc/iCEcube2.2020.12/sbt_backend/devices/ice40HX8K.lib /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0_pk.sdc --outdir /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/sbt/outputs/router --sdf_file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0_sbt.sdf --pin_permutation 
 I1203: Reading Design cu_top_0
 I1202: Reading Architecture of device iCE40HX8K
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_s_3_LC_13_15_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_s_3_LC_13_15_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_cry_2_c_inv_LC_13_15_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_cry_2_c_inv_LC_13_15_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_cry_1_c_inv_LC_13_15_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_cry_1_c_inv_LC_13_15_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un68_sum_s_3_LC_12_12_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un68_sum_s_3_LC_12_12_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_axb_3_LC_12_12_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_axb_3_LC_12_12_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_axb_3_LC_12_12_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un75_sum_axb_3_LC_12_12_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un68_sum_cry_1_s_LC_12_12_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_s_3_LC_9_16_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_s_3_LC_9_16_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_axb_3_LC_9_16_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_axb_3_LC_9_16_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_axb_3_LC_9_16_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_axb_3_LC_9_16_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_cry_1_s_LC_9_16_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_cry_1_s_LC_9_16_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.M_hcounter_q_esr_RNICJJV_9_LC_9_15_5", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.M_hcounter_q_esr_RNICJJV_9_LC_9_15_5", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.M_hcounter_q_esr_RNICJJV_9_LC_9_15_5", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_s_3_LC_9_15_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_s_3_LC_9_15_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un68_sum_axb_3_LC_9_15_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un68_sum_axb_3_LC_9_15_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un68_sum_axb_3_LC_9_15_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un68_sum_axb_3_LC_9_15_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_cry_1_s_LC_9_15_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un61_sum_cry_1_s_LC_9_15_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un40_sum_axb_1_l_fx_LC_9_14_6", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_s_3_LC_9_14_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_s_3_LC_9_14_3", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_axb_3_LC_9_14_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_axb_3_LC_9_14_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_axb_3_LC_9_14_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un54_sum_axb_3_LC_9_14_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_cry_1_s_LC_9_14_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_cry_1_s_LC_9_14_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_axb_3_LC_9_13_4", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_axb_3_LC_9_13_4", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_axb_3_LC_9_13_4", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un47_sum_axb_3_LC_9_13_4", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un40_sum_axb_2_l_fx_LC_9_13_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un40_sum_cry_2_c_inv_LC_9_13_0", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "ltout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un40_sum_cry_2_c_inv_LC_9_13_0", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.mult1_un40_sum_cry_1_THRU_LUT4_0_LC_9_12_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.mult1_un40_sum_cry_1_THRU_LUT4_0_LC_9_12_2", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un40_sum_cry_1_s_LC_9_12_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un40_sum_cry_1_s_LC_9_12_1", in the clock network. Converting the timing arc to positive-unate
+Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter_if_generate_plus_mult1_un40_sum_cry_1_s_LC_9_12_1", in the clock network. Converting the timing arc to positive-unate
 I1209: Started routing
-I1223: Total Nets : 621 
-I1212: Iteration  1 :   126 unrouted : 1 seconds
-I1212: Iteration  2 :    31 unrouted : 1 seconds
-I1212: Iteration  3 :    21 unrouted : 0 seconds
-I1212: Iteration  4 :    13 unrouted : 0 seconds
-I1212: Iteration  5 :    12 unrouted : 0 seconds
-I1212: Iteration  6 :     8 unrouted : 0 seconds
-I1212: Iteration  7 :     4 unrouted : 0 seconds
-I1212: Iteration  8 :     4 unrouted : 0 seconds
-I1212: Iteration  9 :     4 unrouted : 0 seconds
-I1212: Iteration 10 :     2 unrouted : 0 seconds
-I1212: Iteration 11 :     2 unrouted : 0 seconds
-I1212: Iteration 12 :     2 unrouted : 0 seconds
-I1212: Iteration 13 :     2 unrouted : 0 seconds
-I1212: Iteration 14 :     2 unrouted : 0 seconds
-I1212: Iteration 15 :     2 unrouted : 0 seconds
-I1212: Iteration 16 :     2 unrouted : 0 seconds
-I1212: Iteration 17 :     2 unrouted : 0 seconds
-I1212: Iteration 18 :     0 unrouted : 0 seconds
+I1223: Total Nets : 728 
+I1212: Iteration  1 :   133 unrouted : 1 seconds
+I1212: Iteration  2 :    15 unrouted : 0 seconds
+I1212: Iteration  3 :    10 unrouted : 0 seconds
+I1212: Iteration  4 :     4 unrouted : 0 seconds
+I1212: Iteration  5 :     3 unrouted : 0 seconds
+I1212: Iteration  6 :     0 unrouted : 0 seconds
 I1215: Routing is successful
 I1206: Completed routing
 I1204: Writing Design cu_top_0

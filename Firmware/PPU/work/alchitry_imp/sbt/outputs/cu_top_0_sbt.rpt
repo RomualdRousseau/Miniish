@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:24:17
 
-* File Generated:     May 10 2022 20:22:48
+* File Generated:     May 21 2022 22:51:54
 
 * Purpose:            General info of design implementation
 
@@ -17,7 +17,7 @@
 Synthesis/Placement Summary:
 ----------------------------
     Status:  Successful
-    Runtime: 0 seconds
+    Runtime: 1 seconds
 
 Device Info:
 ------------
@@ -27,30 +27,30 @@ Device Info:
 
 Design statistics:
 ------------------
-    FFs:                  119
-    LUTs:                 445
-    RAMs:                 16
+    FFs:                  108
+    LUTs:                 536
+    RAMs:                 17
     IOBs:                 44
-    GBs:                  3
+    GBs:                  4
     PLLs:                 0
     Warm Boots:           0
 
 Logic Resource Utilization:
 ---------------------------
-    Total Logic Cells: 458/7680
-        Combinational Logic Cells: 339      out of   7680      4.41406%
-        Sequential Logic Cells:    119      out of   7680      1.54948%
-        Logic Tiles:               119      out of   960       12.3958%
+    Total Logic Cells: 545/7680
+        Combinational Logic Cells: 437      out of   7680      5.6901%
+        Sequential Logic Cells:    108      out of   7680      1.40625%
+        Logic Tiles:               139      out of   960       14.4792%
     Registers: 
-        Logic Registers:           119      out of   7680      1.54948%
-        IO Registers:              0        out of   1280      0
-    Block RAMs:                    16       out of   32        50%
+        Logic Registers:           108      out of   7680      1.40625%
+        IO Registers:              6        out of   1280      0.46875
+    Block RAMs:                    17       out of   32        53.125%
     Warm Boots:                    0        out of   1         0%
     Pins:
         Input Pins:                12       out of   95        12.6316%
         Output Pins:               23       out of   95        24.2105%
         InOut Pins:                9        out of   95        9.47368%
-    Global Buffers:                3        out of   8         37.5%
+    Global Buffers:                4        out of   8         50%
     PLLs:                          0        out of   2         0%
 
 IO Bank Utilization:
@@ -88,20 +88,20 @@ Detailed I/O Info:
     A6          Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[8]   
     A10         Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[9]   
     A12         Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[11]  
-    C1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[4]            
+    C1          Output     SB_LVCMOS    No       3        Output Registered                          rgb[4]            
     C9          Output     SB_LVCMOS    No       0        Output Tristatable by Enable               port_address[10]  
     C14         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[12]  
-    D3          Output     SB_LVCMOS    No       3        Simple Output                              rgb[5]            
+    D3          Output     SB_LVCMOS    No       3        Output Registered                          rgb[5]            
     D4          Output     SB_LVCMOS    No       3        Simple Output                              port_data_rw      
-    E1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[3]            
+    E1          Output     SB_LVCMOS    No       3        Output Registered                          rgb[3]            
     E14         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[13]  
     F14         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[14]  
-    G1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[2]            
+    G1          Output     SB_LVCMOS    No       3        Output Registered                          rgb[2]            
     H12         Output     SB_LVCMOS    No       1        Output Tristatable by Enable               port_address[15]  
-    J1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[1]            
+    J1          Output     SB_LVCMOS    No       3        Output Registered                          rgb[1]            
     K3          Output     SB_LVCMOS    No       3        Simple Output                              port_nmib         
     L6          Output     SB_LVCMOS    No       2        Simple Output                              debug[1]          
-    M1          Output     SB_LVCMOS    No       3        Simple Output                              rgb[0]            
+    M1          Output     SB_LVCMOS    No       3        Output Registered                          rgb[0]            
     N1          Output     SB_LVCMOS    No       3        Simple Output                              port_dmab         
     P4          Output     SB_LVCMOS    No       2        Simple Output                              debug[0]          
 
@@ -120,11 +120,12 @@ Detailed I/O Info:
 
 Detailed Global Buffer Info:
 ----------------------------
-    Buffer Number  IO Bank  Driven By  Fanout  Signal Name               
-    -------------  -------  ---------  ------  -----------               
-    6              2        IO         151     clk_0_c_g                 
-    2              1                   21      this_vga_signals.N_583_g  
-    4              0                   45      M_this_state_q_nss_g_0    
+    Buffer Number  IO Bank  Driven By  Fanout  Signal Name                 
+    -------------  -------  ---------  ------  -----------                 
+    6              2        IO         142     clk_0_c_g                   
+    2              1                   23      this_vga_signals.N_684_g    
+    3              3                   18      this_vga_signals.N_517_1_g  
+    4              0                   48      M_this_state_q_nss_g_0      
 
 
 Router Summary:
@@ -134,10 +135,10 @@ Router Summary:
 
 Routing Resource Utilization:
 -----------------------------
-              Local line of tile     4410 out of 146184      3.01675%
-                          Span 4      822 out of  29696      2.76805%
-                         Span 12      212 out of   5632      3.7642%
-                  Global network        3 out of      8      37.5%
-      Vertical Inter-LUT Connect       91 out of   6720      1.35417%
+              Local line of tile     5054 out of 146184      3.45729%
+                          Span 4     1005 out of  29696      3.38429%
+                         Span 12      247 out of   5632      4.38565%
+                  Global network        4 out of      8      50%
+      Vertical Inter-LUT Connect      111 out of   6720      1.65179%
 
 
