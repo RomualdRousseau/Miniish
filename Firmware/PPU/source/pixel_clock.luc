@@ -10,8 +10,8 @@ module pixel_clock #(
     .rst(rst) {
       dff counter[$clog2(DIVIDER)];
     }
-  } 
-
+  }
+  
   always {
     out = counter.q[$clog2(DIVIDER) - 1];
     counter.d = counter.q + 1;

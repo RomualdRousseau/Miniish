@@ -23,7 +23,7 @@ module vga_signals (
   const VFP_T = VVA_T + 10;
   const VSP_T = VFP_T + 2;
   const VBP_T = VSP_T + 33;
-
+  
   const HMIN_T = (HVA_T - WIDTH * HPIXEL_SIZE) / 2;
   const HMAX_T =  HMIN_T + WIDTH * HPIXEL_SIZE;
   const VMIN_T = (VVA_T - HEIGHT * VPIXEL_SIZE) / 2;
@@ -38,7 +38,7 @@ module vga_signals (
   }
   
   sig hvisibility;
-  sig vvisibility; 
+  sig vvisibility;
   sig haddress[7];
   sig vaddress[7];
   
@@ -47,7 +47,7 @@ module vga_signals (
     // Default Values
     
     address = address_buffer.q;
-  
+    
     hsync = hcounter.q >= HFP_T && hcounter.q < HSP_T ? 0 : 1;
     vsync = vcounter.q >= VFP_T && vcounter.q  < VSP_T ? 0 : 1;
     
@@ -61,7 +61,7 @@ module vga_signals (
     
     haddress = (hcounter.q - HMIN_T) / HPIXEL_SIZE;
     vaddress = (vcounter.q - VMIN_T) / VPIXEL_SIZE;
-
+    
     if (hvisibility && vvisibility) {
       address_buffer.d = c{vaddress, haddress};
     }
@@ -74,14 +74,16 @@ module vga_signals (
   
   always {
     
-    // Increment sync counters
-      
+    // Increment hsync counters
+    
     if (hcounter.q < HBP_T) {
-        hcounter.d = hcounter.q + 1; 
+      hcounter.d = hcounter.q + 1;
     }
     else {
       hcounter.d = 0;
-  
+      
+      // Increment vsync counters
+      
       if (vcounter.q < VBP_T) {
         vcounter.d = vcounter.q + 1;
       }

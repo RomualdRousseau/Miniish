@@ -12,7 +12,7 @@ module cu_top (
     output port_data_rw,
     output port_dmab,
     output port_nmib,
-   
+    
     output hsync,
     output vsync,
     output hblank,
@@ -40,10 +40,10 @@ module cu_top (
       6b110110,
       6b111110
     });
-
+  
   sig rst;
   sig dma;
-
+  
   .clk(clk) {
     .rst(rst) {
       pixel_clock           this_pixel_clock(#DIVIDER(4));
@@ -65,9 +65,9 @@ module cu_top (
       vga_signals          this_vga_signals;
     }
   }
-
+  
   simple_dual_ram      this_vram (.rclk(clk), .wclk(clk), #SIZE(4), #DEPTH(128 * 128));
-
+  
   always {
     
     // Initialize components
@@ -81,25 +81,25 @@ module cu_top (
     
     this_start_address_delay.in = this_delay_clk.out || port_enb;
     this_start_data_delay.in = this_delay_clk.out || port_enb;
-
+    
     this_vram.waddr = this_internal_address.q;
     this_vram.write_en = 0;
     this_vram.write_data = 0;
     
     port_rw.enable = ~dma;
     port_rw.write = 1;
-    port_address.enable = 16 x{ ~dma };
+    port_address.enable = 16x{ ~dma };
     port_address.write = this_external_address.q;
     port_data.enable = 0;
     port_data.write = 0;
-
+    
     port_data_rw = !port_rw.read || !dma ? 1 : 0;
     port_dmab = dma;
     port_nmib = !this_vga_signals.vblank || !dma ? 1 : 0;
     
     debug[0] = this_vga_signals.new_pixel;
     debug[1] = ~this_vga_signals.hblank;
-
+    
     // Receive commands
     
     case (this_state.q) {
@@ -108,7 +108,7 @@ module cu_top (
         this_internal_address.d = 0;
         this_data_count.d = 64 * 128;
         this_state.d = this_state.DMA_START;
-        
+      
       this_state.DMA_START:
         if (this_data_count.q == 0) {
           this_state.d = this_state.WAIT;
@@ -116,7 +116,7 @@ module cu_top (
         else if (this_start_address_delay.out) {
           this_state.d = this_state.DMA_TRANSFER_HALF1;
         }
-
+      
       this_state.DMA_TRANSFER_HALF1:
         if (this_start_data_delay.out) {
           this_vram.write_en = 1;
@@ -124,45 +124,45 @@ module cu_top (
           this_internal_address.d = this_internal_address.q + 1;
           this_state.d = this_state.DMA_TRANSFER_HALF2;
         }
-        
+      
       this_state.DMA_TRANSFER_HALF2:
-          this_vram.write_en = 1;
-          this_vram.write_data = port_data.read[0+:4];
-          this_external_address.d = this_external_address.q + 1;
-          this_internal_address.d = this_internal_address.q + 1;
-          this_data_count.d  = this_data_count.q - 1;
-          this_state.d = this_state.DMA_START;
- 
+        this_vram.write_en = 1;
+        this_vram.write_data = port_data.read[0+:4];
+        this_external_address.d = this_external_address.q + 1;
+        this_internal_address.d = this_internal_address.q + 1;
+        this_data_count.d  = this_data_count.q - 1;
+        this_state.d = this_state.DMA_START;
+      
       this_state.WAIT:
         if (this_start_address_delay.out) {
           case (port_address.read[0+:8]) {
-              8h00:
-                if (!port_rw.read) {
-                  this_state.d = this_state.WRITE_HIGH_ADDRESS;
-                }
-              8h01:
-                if (!port_rw.read) {
-                  this_state.d = this_state.WRITE_LOW_ADDRESS;
-                }
-              8h02:
-                if (!port_rw.read) {
-                  this_state.d = this_state.WRITE_DATA;
-                }
-            }
+            8h00:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_HIGH_ADDRESS;
+              }
+            8h01:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_LOW_ADDRESS;
+              }
+            8h02:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_DATA;
+              }
+          }
         }
-        
+      
       this_state.WRITE_HIGH_ADDRESS:
         if (this_start_data_delay.out) {
           this_internal_address.d[7+:7] = port_data.read[0+:7];
           this_state.d = this_state.WAIT;
         }
-        
+      
       this_state.WRITE_LOW_ADDRESS:
         if (this_start_data_delay.out) {
           this_internal_address.d[0+:7] = port_data.read[0+:7];
           this_state.d = this_state.WAIT;
         }
-        
+      
       this_state.WRITE_DATA:
         if (this_start_data_delay.out) {
           this_vram.write_en = 1;
@@ -170,9 +170,9 @@ module cu_top (
           this_internal_address.d = this_internal_address.q + 1;
           this_state.d = this_state.WAIT;
         }
-      }
+    }
   }
- 
+  
   always {
     
     // Initialize components
@@ -189,7 +189,7 @@ module cu_top (
     rgb = this_pixel_data.q;
     
     // Output VGA color signals
-
+    
     if (!this_vga_signals.hblank && !this_vga_signals.vblank) {
       
       // Chessboard + Cycle through all colors
@@ -197,7 +197,7 @@ module cu_top (
       //if (this_vga_signals.new_pixel) {
       //  this_pixel_data.d = PALETTE[(this_vga_signals.address[3] ^ this_vga_signals.address[10]) * (this_vga_signals.address[7+:7] >> 3)];
       //}
-
+      
       // Raster pixel
       
       if (this_vga_signals.new_pixel) {

@@ -1646,8 +1646,8 @@
     )
   )
 
-  (bus_alias "A12" (members "A12"))
   (bus_alias "A11" (members "A11"))
+  (bus_alias "A12" (members "A12"))
   (junction (at 225.933 106.426) (diameter 1.016) (color 0 0 0 0)
     (uuid 20cca02e-4c4d-4961-b6b4-b40a1731b220)
   )
@@ -3607,9 +3607,6 @@
     (path "/489ea2b2-d78d-43ee-a781-f145d67622f0"
       (reference "#PWR07") (unit 1) (value "GND") (footprint "")
     )
-    (path "/61215041-7d34-4941-9afc-8a556d19a10e/152b6a34-4999-4faa-94a5-9cae67004920"
-      (reference "#PWR08") (unit 1) (value "+5V") (footprint "")
-    )
     (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/abcbcdac-81dd-4b69-9235-70be2f19fe8c"
       (reference "#PWR010") (unit 1) (value "+5V") (footprint "")
     )
@@ -3760,6 +3757,9 @@
     (path "/66a425b5-d12e-4d6d-b1da-75ad893abab8"
       (reference "D1") (unit 1) (value "LED") (footprint "LED_THT:LED_D5.0mm")
     )
+    (path "/61215041-7d34-4941-9afc-8a556d19a10e/d74fd51f-04b7-4144-9f51-4f803cf64e62"
+      (reference "D2") (unit 1) (value "1N4001") (footprint "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal")
+    )
     (path "/7d63d6bb-fe45-44ec-9f57-c016b0e04c8c"
       (reference "F1") (unit 1) (value "500mA") (footprint "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm")
     )
@@ -3843,9 +3843,6 @@
     )
     (path "/6cbd16f3-a1f6-4857-8623-5a6775377a9a/1494de71-cb32-487e-8abf-73ca0d8919ff"
       (reference "R6") (unit 1) (value "3K3") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-    )
-    (path "/61215041-7d34-4941-9afc-8a556d19a10e/98db1298-7140-4b12-a298-15036cf44185"
-      (reference "R7") (unit 1) (value "3K3") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/41dea73b-592a-4011-87e8-df2dae3ce1b9"
       (reference "SW1") (unit 1) (value "RESET_SW") (footprint "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx83-2LFS")
