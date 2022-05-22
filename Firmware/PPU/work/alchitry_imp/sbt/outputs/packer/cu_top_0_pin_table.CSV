@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:24:17
 
-* File Generated:     May 22 2022 16:14:11
+* File Generated:     May 23 2022 02:00:54
 
 * Purpose:            Detailed IO and package pin info
 
@@ -102,15 +102,15 @@ J6, VCCIO_3, not used, , , , , , leftBank
 J7, VCC, not used, , , , , , UnknownBank
 J8, GND, not used, , , , , , UnknownBank
 J9, VCCIO_2, not used, , , , , , bottomBank
-J11, PIO, not used, , , , , , rightBank
+J11, PIO, led[0], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
 J12, PIO, port_address[7], InOut, , SB_LVCMOS, No Pull Up, Simple Input Output Tristatable by Enable, rightBank
 J14, GND, not used, , , , , , UnknownBank
 K1, VCCIO_3, not used, , , , , , leftBank
 K3, PIO, port_nmib, Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
 K4, PIO, not used, , , , , , leftBank
-K11, PIO, not used, , , , , , rightBank
-K12, PIO, not used, , , , , , rightBank
-K14, PIO, not used, , , , , , rightBank
+K11, PIO, led[1], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
+K12, PIO, led[2], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
+K14, PIO, led[3], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
 L1, PIO, not used, , , , , , leftBank
 L3, GND, not used, , , , , , UnknownBank
 L4, PIO, not used, , , , , , bottomBank
@@ -121,8 +121,8 @@ L8, PIO, not used, , , , , , bottomBank
 L9, PIO, not used, , , , , , bottomBank
 L10, CRESET_B, not used, , , , , , bottomBank
 L11, VDDIO_SPI, not used, , , , , , bottomBank
-L12, PIO, not used, , , , , , rightBank
-L14, PIO, not used, , , , , , rightBank
+L12, PIO, led[4], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
+L14, PIO, led[5], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
 M1, PIO, rgb[0], Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
 M3, PIO, not used, , , , , , bottomBank
 M4, PIO, not used, , , , , , bottomBank
@@ -133,10 +133,10 @@ M8, AVDD_BOT, not used, , , , , , UnknownBank
 M9, PIO, not used, , , , , , bottomBank
 M10, CDONE, not used, , , , , , bottomBank
 M11, SPI_SO, not used, , , , , , bottomBank
-M12, PIO, not used, , , , , , rightBank
+M12, PIO, led[6], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
 M14, TRST_B, not used, , , , , , rightBank
 N1, PIO, port_dmab, Output, , SB_LVCMOS, No Pull Up, Simple Output, leftBank
-N14, PIO, not used, , , , , , rightBank
+N14, PIO, led[7], Output, , SB_LVCMOS, No Pull Up, Simple Output, rightBank
 P1, PIO, not used, , , , , , leftBank
 P2, PIO, not used, , , , , , bottomBank
 P3, PIO, not used, , , , , , bottomBank
@@ -151,4 +151,4 @@ P11, SPI_SI, not used, , , , , , bottomBank
 P12, SPI_SCK, not used, , , , , , bottomBank
 P13, SPI_SS_B, not used, , , , , , bottomBank
 P14, PIO, not used, , , , , , rightBank
-Total Number of Used Pins, 44
+Total Number of Used Pins, 52

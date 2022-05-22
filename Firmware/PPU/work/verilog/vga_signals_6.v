@@ -28,11 +28,11 @@ module vga_signals_6 (
   
   localparam HVA_T = 10'h280;
   
-  localparam HFP_T = 11'h290;
+  localparam HFP_T = 12'h28f;
   
-  localparam HSP_T = 12'h2f0;
+  localparam HSP_T = 14'h02ee;
   
-  localparam HBP_T = 13'h0320;
+  localparam HBP_T = 16'h031d;
   
   localparam VVA_T = 9'h1e0;
   
@@ -69,7 +69,7 @@ module vga_signals_6 (
     hvisibility = M_hcounter_q >= 11'h080 && M_hcounter_q < 12'h200 ? 1'h1 : 1'h0;
     vvisibility = M_vcounter_q >= 11'h030 && M_vcounter_q < 12'h1b0 ? 1'h1 : 1'h0;
     lvisibility = M_vcounter_q >= 12'h02d && M_vcounter_q < 13'h01ad ? 1'h1 : 1'h0;
-    hsync = M_hcounter_q >= 11'h290 && M_hcounter_q < 12'h2f0 ? 1'h0 : 1'h1;
+    hsync = M_hcounter_q >= 12'h28f && M_hcounter_q < 14'h02ee ? 1'h0 : 1'h1;
     vsync = M_vcounter_q >= 10'h1ea && M_vcounter_q < 11'h1ec ? 1'h0 : 1'h1;
     hblank = ~hvisibility;
     vblank = ~vvisibility;
@@ -91,7 +91,7 @@ module vga_signals_6 (
     M_pcounter_d = M_pcounter_q;
     M_lcounter_d = M_lcounter_q;
     
-    if (M_hcounter_q < 13'h0320) begin
+    if (M_hcounter_q < 16'h031d) begin
       M_hcounter_d = M_hcounter_q + 1'h1;
       if (M_pcounter_q < 3'h2) begin
         M_pcounter_d = M_pcounter_q + 1'h1;

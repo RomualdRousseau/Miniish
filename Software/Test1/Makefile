@@ -2,10 +2,10 @@
 
 default: all
 
-cow.bin: data/cow.png
-	python build.py
+sprites.bin: pack.py data/cow.png
+	python pack.py
 
-rom.bin: include/*.i cow.bin rom.s
+rom.bin: include/*.i sprites.bin rom.s
 	vasm6502_oldstyle -c02 -Fbin -dotdir -o rom.bin rom.s
 
 burn: rom.bin
@@ -15,4 +15,3 @@ all: rom.bin
 
 clean:
 	rm -f *.bin
-		

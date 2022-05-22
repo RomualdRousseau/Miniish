@@ -38,10 +38,12 @@ Selecting top level module cu_top_0
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
 
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Trying to extract state machine for register M_this_state_q.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":444:2:444:7|Trying to extract state machine for register M_this_state_q.
 Extracted state machine for register M_this_state_q
-State machine has 8 reachable states with original encodings of:
+State machine has 16 reachable states with original encodings of:
    0000
+   0001
+   0010
    0011
    0100
    0101
@@ -49,19 +51,21 @@ State machine has 8 reachable states with original encodings of:
    0111
    1000
    1001
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Initial value is not supported on state machine M_this_state_q
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[0] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[1] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[2] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[3] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[4] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[5] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[6] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[7] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[8] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[9] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
-@W: CL169 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Pruning unused register M_this_map_address_q[9:0]. Make sure that there are no unused intermediate registers.
-@N: CL159 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":18:16:18:23|Input map_data is unused.
+   1010
+   1011
+   1100
+   1101
+   1110
+   1111
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":444:2:444:7|Initial value is not supported on state machine M_this_state_q
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":92:2:92:7|Trying to extract state machine for register M_state_q.
+Extracted state machine for register M_state_q
+State machine has 4 reachable states with original encodings of:
+   00
+   01
+   10
+   11
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":92:2:92:7|Initial value is not supported on state machine M_state_q
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[10] is always 0.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[11] is always 0.
 @W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.

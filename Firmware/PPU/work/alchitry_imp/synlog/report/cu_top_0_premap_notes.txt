@@ -1,4 +1,4 @@
 @N: MF248 |Running in 64-bit mode.
 @N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
-@N: BN115 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":181:53:181:64|Removing instance this_map_ram (in view: work.cu_top_0(verilog)) of type view:work.simple_dual_ram_10_8_1024(verilog) because it does not drive other instances.
 @N: BN225 |Writing default property annotation file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap.
+@N: MO225 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":92:2:92:7|There are no possible illegal states for state machine M_state_q[3:0] (in view: work.ppu_8(verilog)); safe FSM implementation is not required.

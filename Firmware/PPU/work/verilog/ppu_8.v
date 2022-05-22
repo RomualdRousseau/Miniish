@@ -20,12 +20,19 @@ module ppu_8 (
   
   
   
-  localparam WAIT_state = 1'd0;
-  localparam COPY_DATA_state = 1'd1;
+  reg [7:0] hscroll;
   
-  reg M_state_d, M_state_q = WAIT_state;
-  reg [6:0] M_haddress_d, M_haddress_q = 1'h0;
-  reg [6:0] M_vaddress_d, M_vaddress_q = 1'h0;
+  reg [7:0] vscroll;
+  
+  localparam IDLE_state = 2'd0;
+  localparam LOOP_state = 2'd1;
+  localparam READ_TILE_state = 2'd2;
+  localparam WRITE_PIXEL_state = 2'd3;
+  
+  reg [1:0] M_state_d, M_state_q = IDLE_state;
+  reg [7:0] M_count_d, M_count_q = 1'h0;
+  reg [7:0] M_haddress_d, M_haddress_q = 1'h0;
+  reg [7:0] M_vaddress_d, M_vaddress_q = 1'h0;
   wire [1-1:0] M_line_clk_out;
   reg [1-1:0] M_line_clk_in;
   edge_detector_4 line_clk (
@@ -36,47 +43,60 @@ module ppu_8 (
   
   always @* begin
     M_state_d = M_state_q;
+    M_count_d = M_count_q;
     M_vaddress_d = M_vaddress_q;
     M_haddress_d = M_haddress_q;
     
     M_line_clk_in = vga_line_clk;
-    vram_addr = {M_vaddress_q[0+0-:1], M_haddress_q};
+    vram_addr = {M_vaddress_q[0+0-:1], M_haddress_q[0+6-:7]};
     vram_en = 1'h0;
-    vram_data = 1'h0;
-    map_addr = {M_vaddress_q[3+3-:4], M_haddress_q[3+3-:4]} + 1'h1;
-    sprites_addr = {M_vaddress_q, M_haddress_q} + 1'h1;
+    vram_data = 4'bxxxx;
+    vscroll = M_vaddress_q + 7'h40;
+    hscroll = M_haddress_q + 7'h40;
+    map_addr = {vscroll[3+4-:5], hscroll[3+4-:5]};
+    sprites_addr = {map_data, vscroll[0+2-:3], hscroll[0+2-:3]};
     
     case (M_state_q)
-      WAIT_state: begin
+      IDLE_state: begin
         if (M_line_clk_out) begin
           if (!vga_is_drawing) begin
-            M_vaddress_d = 7'h00;
+            M_vaddress_d = 8'h00;
           end else begin
             M_vaddress_d = M_vaddress_q + 1'h1;
           end
-          M_haddress_d = 7'h00;
-          M_state_d = COPY_DATA_state;
+          M_haddress_d = 8'h00;
+          M_count_d = 8'h80;
+          M_state_d = LOOP_state;
         end
       end
-      COPY_DATA_state: begin
+      LOOP_state: begin
+        if (M_count_q == 1'h0) begin
+          M_state_d = IDLE_state;
+        end else begin
+          M_count_d = M_count_q - 1'h1;
+          M_state_d = READ_TILE_state;
+        end
+      end
+      READ_TILE_state: begin
+        M_state_d = WRITE_PIXEL_state;
+      end
+      WRITE_PIXEL_state: begin
         vram_en = 1'h1;
         vram_data = sprites_data;
-        if (M_haddress_q < 7'h7f) begin
-          M_haddress_d = M_haddress_q + 1'h1;
-          M_state_d = COPY_DATA_state;
-        end else begin
-          M_state_d = WAIT_state;
-        end
+        M_haddress_d = M_haddress_q + 1'h1;
+        M_state_d = LOOP_state;
       end
     endcase
   end
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
+      M_count_q <= 1'h0;
       M_haddress_q <= 1'h0;
       M_vaddress_q <= 1'h0;
       M_state_q <= 1'h0;
     end else begin
+      M_count_q <= M_count_d;
       M_haddress_q <= M_haddress_d;
       M_vaddress_q <= M_vaddress_d;
       M_state_q <= M_state_d;

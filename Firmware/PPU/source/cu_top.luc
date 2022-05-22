@@ -23,7 +23,8 @@ module cu_top (
     output vblank,
     output rgb[6],
     
-    output debug[2]
+    output debug[2],
+    output led[8]
   ) {
   
   sig rst;
@@ -32,18 +33,22 @@ module cu_top (
   .clk(clk) {
     .rst(rst) {
       fsm                      this_state = {
-        INIT,
-        DMA_START_MAP, DMA_TRANSFER_MAP,
-        DMA_START_SPRITE, DMA_TRANSFER_SPRITE_1, DMA_TRANSFER_SPRITE_2,
-        WAIT,
-        WRITE_HIGH_ADDRESS, WRITE_LOW_ADDRESS, WRITE_DATA
+        IDLE,
+        WRITE_SPRITE_HADDR, WRITE_SPRITE_LADDR,
+        WRITE_MAP_HADDR, WRITE_MAP_LADDR,
+        WRITE_EXTERNAL_HADDR, WRITE_EXTERNAL_LADDR,
+        WRITE_COUNT_HADDR, WRITE_COUNT_LADDR,
+        WRITE_PIXEL,
+        DMA_START,
+        DMA_LOOP_MAP, DMA_TRANSFER_MAP,
+        DMA_LOOP_SPRITE, DMA_TRANSFER_SPRITE_1, DMA_TRANSFER_SPRITE_2
       };
       dff                       this_external_address[16];
       dff                       this_sprites_address[14];
       dff                       this_map_address[10];
-      dff                       this_data_count[14];
+      dff                       this_data_count[16];
     }
-    reset_conditioner   this_reset_cond;
+    reset_conditioner   this_reset_cond(#STAGES(10));
     pipeline                 this_delay_clk(#DEPTH(5));
     edge_detector       this_start_address_delay(#RISE(0), #FALL(1));
     edge_detector       this_start_data_delay(#RISE(1), #FALL(0));
@@ -84,7 +89,7 @@ module cu_top (
     this_reset_cond.in = ~rst_n;
     rst = this_reset_cond.out;
     
-    dma = this_state.q == this_state.DMA_START_SPRITE || this_state.q == this_state.DMA_TRANSFER_SPRITE_1 || this_state.q == this_state.DMA_TRANSFER_SPRITE_2 ? 1 : 0;
+    dma = this_state.q > this_state.DMA_START ? 1 : 0;
     
     // Output Bus Interface
     
@@ -136,23 +141,139 @@ module cu_top (
     this_ppu.sprites_data = this_sprites_ram.read_data;
     this_ppu.map_data = this_map_ram.read_data;
     
-    debug[0] = 0;
-    debug[1] = 0;
-    
+    debug = 2b0;
+    led = 8b00000001;
+
     // Receive commands from Bus Interface
     
     case (this_state.q) {
-      this_state.INIT:
-        this_external_address.d = 16hA000;
-        this_sprites_address.d = 0;
-        this_data_count.d = 64 * 128;
-        this_state.d = this_state.DMA_START_SPRITE;
+      this_state.IDLE:
+        led = 8b00000011;
+        if (this_start_address_delay.out) {
+          case (port_address.read[0+:8]) {
+            8h00:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_SPRITE_HADDR;
+              }
+            8h01:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_SPRITE_LADDR;
+              }
+            8h02:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_MAP_HADDR;
+              }
+            8h03:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_MAP_LADDR;
+              }
+            8h04:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_EXTERNAL_HADDR;
+              }
+            8h05:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_EXTERNAL_LADDR;
+              }
+            8h06:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_COUNT_HADDR;
+              }
+            8h07:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_COUNT_LADDR;
+              }
+            8h08:
+              if (!port_rw.read) {
+                this_state.d = this_state.WRITE_PIXEL;
+              }
+            8h09:
+              if (!port_rw.read) {
+                this_state.d = this_state.DMA_START;
+              }
+          }
+        }
       
-      this_state.DMA_START_MAP:
+      this_state.WRITE_SPRITE_HADDR:
+        if (this_start_data_delay.out) {
+          this_sprites_address.d[7+:7] = port_data.read[0+:7];
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_SPRITE_LADDR:
+        if (this_start_data_delay.out) {
+          this_sprites_address.d[0+:7] = port_data.read[0+:7];
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_MAP_HADDR:
+        if (this_start_data_delay.out) {
+          this_map_address.d[5+:5] = port_data.read[0+:5];
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_MAP_LADDR:
+        if (this_start_data_delay.out) {
+          this_map_address.d[0+:5] = port_data.read[0+:5];
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_EXTERNAL_HADDR:
+        if (this_start_data_delay.out) {
+          this_external_address.d[8+:8] = port_data.read;
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_EXTERNAL_LADDR:
+        if (this_start_data_delay.out) {
+          this_external_address.d[0+:8] = port_data.read;
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_COUNT_HADDR:
+        if (this_start_data_delay.out) {
+          this_data_count.d[8+:8] = port_data.read;
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_COUNT_LADDR:
+        if (this_start_data_delay.out) {
+          this_data_count.d[0+:8] = port_data.read;
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.WRITE_PIXEL:
+        if (this_start_data_delay.out) {
+          this_sprites_ram.write_en = 0;
+          this_sprites_ram.write_data = port_data.read[0+:4];
+          this_sprites_address.d = this_sprites_address.q + 1;
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.DMA_START:
+        if (this_start_data_delay.out) {
+          case (port_data.read) {
+            8h00:
+              this_external_address.d = 16hA000;
+              this_sprites_address.d = 14b0;
+              this_data_count.d = 64 * 128;
+              this_state.d = this_state.DMA_LOOP_SPRITE;
+            8h01:
+              this_external_address.d = 16hC000;
+              this_map_address.d = 10b0;
+              this_data_count.d = 32 * 32;
+              this_state.d = this_state.DMA_LOOP_MAP;
+            default:
+              this_state.d = this_state.IDLE;
+          }
+        }
+      
+      this_state.DMA_LOOP_MAP:
         if (this_data_count.q == 0) {
-          this_state.d = this_state.WAIT;
+          this_state.d = this_state.IDLE;
         }
         else if (this_start_address_delay.out) {
+          this_data_count.d = this_data_count.q - 1;
           this_state.d = this_state.DMA_TRANSFER_MAP;
         }
       
@@ -162,15 +283,15 @@ module cu_top (
           this_map_ram.write_data = port_data.read;
           this_map_address.d = this_map_address.q + 1;
           this_external_address.d = this_external_address.q + 1;
-          this_data_count.d = this_data_count.q - 1;
-          this_state.d = this_state.DMA_START_MAP;
+          this_state.d = this_state.DMA_LOOP_MAP;
         }
       
-      this_state.DMA_START_SPRITE:
+      this_state.DMA_LOOP_SPRITE:
         if (this_data_count.q == 0) {
-          this_state.d = this_state.WAIT;
+          this_state.d = this_state.IDLE;
         }
         else if (this_start_address_delay.out) {
+          this_data_count.d = this_data_count.q - 1;
           this_state.d = this_state.DMA_TRANSFER_SPRITE_1;
         }
       
@@ -187,46 +308,7 @@ module cu_top (
         this_sprites_ram.write_data = port_data.read[0+:4];
         this_sprites_address.d = this_sprites_address.q + 1;
         this_external_address.d = this_external_address.q + 1;
-        this_data_count.d = this_data_count.q - 1;
-        this_state.d = this_state.DMA_START_SPRITE;
-      
-      this_state.WAIT:
-        if (this_start_address_delay.out) {
-          case (port_address.read[0+:8]) {
-            8h00:
-              if (!port_rw.read) {
-                this_state.d = this_state.WRITE_HIGH_ADDRESS;
-              }
-            8h01:
-              if (!port_rw.read) {
-                this_state.d = this_state.WRITE_LOW_ADDRESS;
-              }
-            8h02:
-              if (!port_rw.read) {
-                this_state.d = this_state.WRITE_DATA;
-              }
-          }
-        }
-      
-      this_state.WRITE_HIGH_ADDRESS:
-        if (this_start_data_delay.out) {
-          this_sprites_address.d[7+:7] = port_data.read[0+:7];
-          this_state.d = this_state.WAIT;
-        }
-      
-      this_state.WRITE_LOW_ADDRESS:
-        if (this_start_data_delay.out) {
-          this_sprites_address.d[0+:7] = port_data.read[0+:7];
-          this_state.d = this_state.WAIT;
-        }
-      
-      this_state.WRITE_DATA:
-        if (this_start_data_delay.out) {
-          this_sprites_ram.write_en = 1;
-          this_sprites_ram.write_data = port_data.read[0+:4];
-          this_sprites_address.d = this_sprites_address.q + 1;
-          this_state.d = this_state.WAIT;
-        }
+        this_state.d = this_state.DMA_LOOP_SPRITE;
     }
   }
 }

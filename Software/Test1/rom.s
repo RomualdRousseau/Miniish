@@ -17,6 +17,8 @@ COUNTER		.byte $00
 BALL_X      .byte $00
 BALL_Y      .byte $00
 
+NMI_STATE   .byte $00
+
 R1			.byte $00
 R2			.byte $00
 R3			.byte $00
@@ -44,6 +46,9 @@ SETUP
 		 	
 		 	lda #0
 		 	sta COUNTER
+
+            lda #0
+            sta NMI_STATE
 
             lda #64
             sta BALL_X
@@ -131,13 +136,28 @@ IRQ1_FUNC
 				
 NMI_FUNC
             pha
-			inc COUNTER
+            lda NMI_STATE
+            cmp #0
+            beq NMI_INIT
+            cmp #1
+            beq NMI_DRAW
+            jmp NMI_DONE
+NMI_INIT
+            lda #0
+            sta PORT_PPU + $09
+            lda #1
+            sta PORT_PPU + $09
+            lda #1
+            sta NMI_STATE
+            jmp NMI_DONE
+NMI_DRAW
+            inc COUNTER
             lda BALL_Y
             sta PORT_PPU + $00
             lda BALL_X
             sta PORT_PPU + $01
             lda #0
-            sta PORT_PPU + $02
+            sta PORT_PPU + $08
             inc BALL_X
             inc BALL_Y
             lda BALL_Y
@@ -145,14 +165,16 @@ NMI_FUNC
             lda BALL_X
             sta PORT_PPU + $01
             lda #3
-            sta PORT_PPU + $02
+            sta PORT_PPU + $08
+NMI_DONE
             pla
 			rti
 	
 			.org DATA_START	; DATA =============================================
-
-            .incbin "cow.bin"
-
+SPRITES
+            .incbin "sprites.bin"
+MAP
+            .incbin "map.bin"
 MESSAGE1
 			.asciiz "I am XiaoNiuNiu"
 MESSAGE2

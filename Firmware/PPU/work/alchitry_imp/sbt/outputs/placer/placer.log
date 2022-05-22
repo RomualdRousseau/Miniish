@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:35:50
 
-* File Generated:     May 22 2022 16:13:29
+* File Generated:     May 23 2022 02:00:02
 
 * Purpose:            
 
@@ -35,15 +35,15 @@ I2053: Starting placement of the design
 =============================================================
 
 Input Design Statistics
-    Number of LUTs      	:	433
-    Number of DFFs      	:	128
+    Number of LUTs      	:	705
+    Number of DFFs      	:	171
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	70
-    Number of RAMs      	:	17
+    Number of Carrys    	:	76
+    Number of RAMs      	:	19
     Number of ROMs      	:	0
-    Number of IOs       	:	43
+    Number of IOs       	:	51
     Number of GBIOs     	:	1
-    Number of GBs       	:	3
+    Number of GBs       	:	4
     Number of WarmBoot  	:	0
     Number of PLLs      	:	0
 
@@ -52,16 +52,16 @@ Phase 1
 I2077: Start design legalization
 
 Design Legalization Statistics
-    Number of feedthru LUTs inserted to legalize input of DFFs     	:	6
-    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	16
-    Number of LUTs replicated for LUTs driving multiple DFFs       	:	4
-    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	0
-    Number of feedthru LUTs inserted to legalize global signals    	:	0
+    Number of feedthru LUTs inserted to legalize input of DFFs     	:	8
+    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	24
+    Number of LUTs replicated for LUTs driving multiple DFFs       	:	3
+    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	2
+    Number of feedthru LUTs inserted to legalize global signals    	:	1
     Number of feedthru CARRYs inserted to legalize input of CARRYs 	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 01xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 10xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 11xxxx  	:	0
-    Total LUTs inserted                                            	:	26
+    Total LUTs inserted                                            	:	38
     Total CARRYs inserted                                          	:	0
 
 
@@ -75,55 +75,55 @@ I2088: Phase 2, elapsed time : 0.0 (sec)
 Phase 3
 
 Design Statistics after Packing
-    Number of LUTs      	:	460
-    Number of DFFs      	:	128
+    Number of LUTs      	:	744
+    Number of DFFs      	:	171
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	73
+    Number of Carrys    	:	76
 
 Device Utilization Summary after Packing
     Sequential LogicCells
-        LUT and DFF      	:	87
-        LUT, DFF and CARRY	:	41
+        LUT and DFF      	:	163
+        LUT, DFF and CARRY	:	8
     Combinational LogicCells
-        Only LUT         	:	305
-        CARRY Only       	:	5
-        LUT with CARRY   	:	27
-    LogicCells                  :	465/7680
-    PLBs                        :	65/960
-    BRAMs                       :	17/32
-    IOs and GBIOs               :	44/95
+        Only LUT         	:	507
+        CARRY Only       	:	2
+        LUT with CARRY   	:	66
+    LogicCells                  :	746/7680
+    PLBs                        :	101/960
+    BRAMs                       :	19/32
+    IOs and GBIOs               :	52/95
     PLLs                        :	0/2
 
 
-I2088: Phase 3, elapsed time : 0.6 (sec)
+I2088: Phase 3, elapsed time : 1.0 (sec)
 
 Phase 4
 I2088: Phase 4, elapsed time : 0.2 (sec)
 
 Phase 5
-I2088: Phase 5, elapsed time : 1.4 (sec)
+I2088: Phase 5, elapsed time : 1.9 (sec)
 
 Phase 6
-I2088: Phase 6, elapsed time : 38.2 (sec)
+I2088: Phase 6, elapsed time : 48.1 (sec)
 
 Final Design Statistics
-    Number of LUTs      	:	460
-    Number of DFFs      	:	128
+    Number of LUTs      	:	744
+    Number of DFFs      	:	171
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	73
-    Number of RAMs      	:	17
+    Number of Carrys    	:	76
+    Number of RAMs      	:	19
     Number of ROMs      	:	0
-    Number of IOs       	:	43
+    Number of IOs       	:	51
     Number of GBIOs     	:	1
-    Number of GBs       	:	3
+    Number of GBs       	:	4
     Number of WarmBoot  	:	0
     Number of PLLs      	:	0
 
 Device Utilization Summary
-    LogicCells                  :	465/7680
-    PLBs                        :	128/960
-    BRAMs                       :	17/32
-    IOs and GBIOs               :	44/95
+    LogicCells                  :	746/7680
+    PLBs                        :	201/960
+    BRAMs                       :	19/32
+    IOs and GBIOs               :	52/95
     PLLs                        :	0/2
 
 
@@ -140,7 +140,7 @@ analysis after routing.
                      Clock Summary 
 =====================================================================
 Number of clocks: 1
-Clock: clk_0 | Frequency: 66.14 MHz | Target: 100.00 MHz
+Clock: clk_0 | Frequency: 58.21 MHz | Target: 100.00 MHz
 
 =====================================================================
                      End of Clock Summary
@@ -148,5 +148,5 @@ Clock: clk_0 | Frequency: 66.14 MHz | Target: 100.00 MHz
 
 I2054: Placement of design completed successfully
 
-I2076: Placer run-time: 40.7 sec.
+I2076: Placer run-time: 51.6 sec.
 

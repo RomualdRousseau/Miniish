@@ -18,17 +18,21 @@ module ppu (
     output sprites_addr[14],
     input sprites_data[4],
     
-     // Map Memory
+    // Map Memory
     
     output map_addr[10],
     input map_data[8]
   ) {
   
+  sig hscroll[8];
+  sig vscroll[8];
+  
   .clk(clk) {
     .rst(rst) {
-      fsm state = {WAIT, COPY_DATA};
-      dff haddress[7];
-      dff vaddress[7];
+      fsm state = {IDLE, LOOP, READ_TILE, WRITE_PIXEL};
+      dff count[8];
+      dff haddress[8];
+      dff vaddress[8];
     }
     edge_detector line_clk(#RISE(1), #FALL(0));
   }
@@ -37,42 +41,50 @@ module ppu (
     
     line_clk.in = vga_line_clk;
     
-    vram_addr = c{vaddress.q[0], haddress.q};
+    vram_addr = c{vaddress.q[0], haddress.q[0+:7]};
     vram_en = 0;
-    vram_data = 0;
+    vram_data = 4bx;
     
-    map_addr = c{vaddress.q[3+:4], haddress.q[3+:4]} + 1;
+    vscroll = vaddress.q + 64;
+    hscroll = haddress.q + 64;
     
-    //sprites_addr = c{map_data, vaddress.q[0+:3], haddress.q[0+:3]} + 1;
+    map_addr = c{vscroll[3+:5], hscroll[3+:5]};
     
-    sprites_addr =c{vaddress.q, haddress.q} + 1;
-
+    sprites_addr = c{map_data, vscroll[0+:3], hscroll[0+:3]};
+    
     case (state.q) {
-      state.WAIT:
+      state.IDLE:
         if (line_clk.out) {
           if (!vga_is_drawing) {
-            vaddress.d = 7b0000000;
+            vaddress.d = 8b0;
           }
           else {
             vaddress.d = vaddress.q + 1;
           }
-          haddress.d = 7b0000000;
-          state.d = state.COPY_DATA;
+          haddress.d = 8b0;
+          count.d = 128;
+          state.d = state.LOOP;
         }
       
-      state.COPY_DATA:
-        vram_en = 1;
-        vram_data = sprites_data;
-        // Chessboard + Cycle through all colors
-        // vram_data = (haddress.q[3] ^ vaddress.q[3]) * (vaddress.q >> 3);
-        
-        if (haddress.q < 127) {
-          haddress.d = haddress.q + 1;
-          state.d = state.COPY_DATA;
+      state.LOOP:
+        if (count.q == 0) {
+          state.d = state.IDLE;
         }
         else {
-          state.d = state.WAIT;
+          count.d = count.q - 1;
+          state.d = state.READ_TILE;
         }
+      
+      state.READ_TILE:
+        state.d = state.WRITE_PIXEL;
+      
+      state.WRITE_PIXEL:
+        // Chessboard + Cycle through all colors
+        // vram_data = (haddress.q[0] ^ vaddress.q[0]) * toffset.q[0+:4];
+        vram_en = 1;
+        vram_data = sprites_data;
+        haddress.d = haddress.q + 1;
+        state.d = state.LOOP;
     }
   }
 }

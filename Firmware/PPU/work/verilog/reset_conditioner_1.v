@@ -6,7 +6,7 @@
 
 /*
    Parameters:
-     STAGES = 4
+     STAGES = 10
 */
 module reset_conditioner_1 (
     input clk,
@@ -14,21 +14,21 @@ module reset_conditioner_1 (
     output reg out
   );
   
-  localparam STAGES = 3'h4;
+  localparam STAGES = 4'ha;
   
   
-  reg [3:0] M_stage_d, M_stage_q = 4'hf;
+  reg [9:0] M_stage_d, M_stage_q = 10'h3ff;
   
   always @* begin
     M_stage_d = M_stage_q;
     
-    M_stage_d = {M_stage_q[0+2-:3], 1'h0};
-    out = M_stage_q[3+0-:1];
+    M_stage_d = {M_stage_q[0+8-:9], 1'h0};
+    out = M_stage_q[9+0-:1];
   end
   
   always @(posedge clk) begin
     if (in == 1'b1) begin
-      M_stage_q <= 4'hf;
+      M_stage_q <= 10'h3ff;
     end else begin
       M_stage_q <= M_stage_d;
     end

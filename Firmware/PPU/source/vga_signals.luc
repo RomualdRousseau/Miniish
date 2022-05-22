@@ -22,9 +22,9 @@ module vga_signals (
   const VPIXEL_SIZE = 3;
   
   const HVA_T = 640;
-  const HFP_T = HVA_T + 16;
-  const HSP_T = HFP_T + 96;
-  const HBP_T = HSP_T + 48;
+  const HFP_T = HVA_T + 16 - 1;
+  const HSP_T = HFP_T + 96 - 1;
+  const HBP_T = HSP_T + 48 - 1;
   
   const VVA_T = 480;
   const VFP_T = VVA_T + 10;
@@ -75,8 +75,8 @@ module vga_signals (
       vaddress = (vcounter.q - VMIN_T) / VPIXEL_SIZE;
     }
     else {
-      haddress = 7b0000000;
-      vaddress = 7b0000000;
+      haddress = 7b0;
+      vaddress = 7b0;
     }
     address = c{vaddress, haddress};
   }

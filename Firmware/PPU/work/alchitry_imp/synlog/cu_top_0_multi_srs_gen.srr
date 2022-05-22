@@ -3,11 +3,11 @@ Synopsys Netlist Linker, version comp2016q3p1, Build 141R, built Dec  5 2016
 @N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
 @N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
 
-At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 67MB peak: 68MB)
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 69MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Sun May 22 16:13:20 2022
+# Mon May 23 01:59:48 2022
 
 ###########################################################]

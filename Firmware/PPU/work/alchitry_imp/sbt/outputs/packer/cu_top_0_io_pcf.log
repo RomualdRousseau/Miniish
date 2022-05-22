@@ -37,6 +37,14 @@ INOUT port_address[11] 	 location (30, 33, 1) 	 A12
 INOUT port_address[10] 	 location (20, 33, 1) 	 C9 	 
 INOUT port_address[1] 	 location (26, 33, 0) 	 A11 	 
 INOUT port_address[0] 	 location (17, 33, 0) 	 A7 	 
+OUTPUT led[7] 	 location (33, 2, 1) 	 N14 	 
+OUTPUT led[6] 	 location (33, 1, 0) 	 M12 	 
+OUTPUT led[5] 	 location (33, 3, 1) 	 L14 	 
+OUTPUT led[4] 	 location (33, 2, 0) 	 L12 	 
+OUTPUT led[3] 	 location (33, 5, 0) 	 K14 	 
+OUTPUT led[2] 	 location (33, 4, 0) 	 K12 	 
+OUTPUT led[1] 	 location (33, 4, 1) 	 K11 	 
+OUTPUT led[0] 	 location (33, 6, 0) 	 J11 	 
 OUTPUT hsync 	 location (2, 33, 0) 	 A1 	 
 OUTPUT hblank 	 location (3, 33, 0) 	 A2 	 
 OUTPUT debug[1] 	 location (15, 0, 0) 	 L6 	 
