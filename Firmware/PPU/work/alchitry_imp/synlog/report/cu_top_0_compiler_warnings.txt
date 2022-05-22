@@ -1,4 +1,14 @@
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":305:2:305:7|Initial value is not supported on state machine M_this_state_q
-@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":12:17:12:27|Input port bits 13 to 7 of vga_address[13:0] are unused. Assign logic for all port bits or change the input port size.
-@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Initial value is not supported on state machine M_this_state_q
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[0] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[1] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[2] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[3] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[4] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[5] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[6] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[7] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[8] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL190 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Optimizing register bit M_this_map_address_q[9] to a constant 0. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: CL169 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Pruning unused register M_this_map_address_q[9:0]. Make sure that there are no unused intermediate registers.
+@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
 

@@ -8,7 +8,7 @@ module vga_ramdac_7 (
     input clk,
     input rst,
     input en,
-    input [3:0] data,
+    input [3:0] vram_data,
     output reg [5:0] rgb
   );
   
@@ -23,7 +23,7 @@ module vga_ramdac_7 (
     
     rgb = M_this_rgb_q;
     if (en) begin
-      M_this_rgb_d = PALETTE[(data)*6+5-:6];
+      M_this_rgb_d = PALETTE[(vram_data)*6+5-:6];
     end else begin
       M_this_rgb_d = 6'h00;
     end

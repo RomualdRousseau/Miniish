@@ -17,13 +17,7 @@ Max Top 5 critical clocks will be reported. For rest user needs to refer to Deta
 <row>
 <data>clk_0</data>
 <data>100.0 MHz</data>
-<data>33.0 MHz</data>
-<data>-20.266</data>
-</row>
-<row>
-<data>vga_signals_6|pixel_clk_inferred_clock</data>
-<data>1.0 MHz</data>
-<data>NA</data>
-<data>NA</data>
+<data>39.7 MHz</data>
+<data>-15.199</data>
 </row>
 </report_table>

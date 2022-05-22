@@ -1,31 +1,29 @@
 @N: MF248 |Running in 64-bit mode.
 @N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
 @N: MT204 |Auto Constrain mode is disabled because clocks are defined in the SDC file
-@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":83:16:83:46|Generating a type div divider 
-@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":82:16:82:46|Generating a type div divider 
-@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":79:31:79:50|Generating a type div divider 
-@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":78:31:78:50|Generating a type div divider 
+@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":80:18:80:48|Generating a type div divider 
+@N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":79:18:79:48|Generating a type div divider 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
-@N: MO106 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":26:21:26:43|Found ROM .delname. (in view: work.cu_top_0(verilog)) with 16 words by 6 bits.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Removing sequential instance this_vga_signals.M_pcounter_q[1] (in view: work.cu_top_0(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Removing sequential instance this_vga_signals.M_pcounter_q[0] (in view: work.cu_top_0(verilog)) because it does not drive other instances.
+@N: MO106 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":26:21:26:48|Found ROM .delname. (in view: work.cu_top_0(verilog)) with 16 words by 6 bits.
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Replicating instance this_vga_signals.M_vcounter_q[8] (in view: work.cu_top_0(verilog)) with 21 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Replicating instance this_vga_signals.M_vcounter_q[7] (in view: work.cu_top_0(verilog)) with 21 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Replicating instance this_vga_signals.M_vcounter_q[9] (in view: work.cu_top_0(verilog)) with 22 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Replicating instance this_vga_signals.M_vcounter_q[5] (in view: work.cu_top_0(verilog)) with 39 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Replicating instance this_vga_signals.M_vcounter_q[4] (in view: work.cu_top_0(verilog)) with 47 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Replicating instance this_vga_signals.M_vcounter_q[6] (in view: work.cu_top_0(verilog)) with 29 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Replicating instance this_vga_signals.M_hcounter_q[6] (in view: work.cu_top_0(verilog)) with 14 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[5] (in view: work.cu_top_0(verilog)) with 42 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[4] (in view: work.cu_top_0(verilog)) with 59 loads 3 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[6] (in view: work.cu_top_0(verilog)) with 33 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[7] (in view: work.cu_top_0(verilog)) with 15 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[8] (in view: work.cu_top_0(verilog)) with 13 loads 2 times to improve timing.
 @N: FX1016 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":8:10:8:12|SB_GB_IO inserted on the port clk.
-@N: FX1017 :|SB_GB inserted on the net N_684.
+@N: FX1017 :|SB_GB inserted on the net N_515.
 @N: FX1017 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":29:2:29:7|SB_GB inserted on the net M_this_state_q_nss[0].
-@N: FX1017 :|SB_GB inserted on the net N_517_1.
+@N: FX1017 :|SB_GB inserted on the net N_340_0.
 @N: MT611 :|Automatically generated clock pixel_clock_5|M_counter_q_derived_clock[1] is not used and is being removed
+@N: MT611 :|Automatically generated clock vga_signals_6|pixel_clk_inferred_clock is not used and is being removed
 @N: BW103 |The default time unit for the Synopsys Constraint File (SDC or FDC) is 1ns.
 @N: BW107 |Synopsys Constraint File capacitance units using default value of 1pF 
 @N: FX1056 |Writing EDF file: /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.edf
 @N: MT615 |Found clock clk_0 with period 10.00ns 
 @N: MT320 |This timing report is an estimate of place and route data. For final timing results, use the FPGA vendor place and route report.
 @N: MT322 |Clock constraints include only register-to-register paths associated with each individual clock.
-@N: MT582 |Estimated period and frequency not reported for given clock unless the clock has at least one timing path which is not a false or a max delay path and that does not have excessive slack

@@ -14,6 +14,7 @@ add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_
 add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v"
 add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v"
 add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v"
 add_file -constraint "/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc"
 
 

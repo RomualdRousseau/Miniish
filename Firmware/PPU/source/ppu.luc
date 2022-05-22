@@ -5,8 +5,7 @@ module ppu (
     // VGA Signals
     
     input vga_line_clk,
-    input vga_visible,
-    input vga_address[14],
+    input vga_is_drawing,
     
     // VRAM
     
@@ -17,43 +16,61 @@ module ppu (
     // Sprites Memory
     
     output sprites_addr[14],
-    input sprites_data[4]
+    input sprites_data[4],
+    
+     // Map Memory
+    
+    output map_addr[10],
+    input map_data[8]
   ) {
   
   .clk(clk) {
     .rst(rst) {
-      fsm state = {WAIT, BUFFERIZE};
-      dff current[7];
+      fsm state = {WAIT, COPY_DATA};
+      dff haddress[7];
+      dff vaddress[7];
     }
+    edge_detector line_clk(#RISE(1), #FALL(0));
   }
   
   always {
     
+    line_clk.in = vga_line_clk;
+    
+    vram_addr = c{vaddress.q[0], haddress.q};
     vram_en = 0;
     vram_data = 0;
     
-    if (!vga_visible) {
-      sprites_addr = c{0, current.q};
-      vram_addr = c{0, current.q};
-    }
-    else {
-      sprites_addr = c{vga_address[0+:7] + 1, current.q};
-      vram_addr = c{~vga_address[6], current.q};
-    }
+    map_addr = c{vaddress.q[3+:4], haddress.q[3+:4]} + 1;
     
+    //sprites_addr = c{map_data, vaddress.q[0+:3], haddress.q[0+:3]} + 1;
+    
+    sprites_addr =c{vaddress.q, haddress.q} + 1;
+
     case (state.q) {
       state.WAIT:
-        if (vga_line_clk) {
-          current.d = 0;
-          state.d = state.BUFFERIZE;
+        if (line_clk.out) {
+          if (!vga_is_drawing) {
+            vaddress.d = 7b0000000;
+          }
+          else {
+            vaddress.d = vaddress.q + 1;
+          }
+          haddress.d = 7b0000000;
+          state.d = state.COPY_DATA;
         }
       
-      state.BUFFERIZE:
+      state.COPY_DATA:
         vram_en = 1;
         vram_data = sprites_data;
+        // Chessboard + Cycle through all colors
+        // vram_data = (haddress.q[3] ^ vaddress.q[3]) * (vaddress.q >> 3);
         
-        current.d = current.q + 1;
-        if (current.q == 127) {
+        if (haddress.q < 127) {
+          haddress.d = haddress.q + 1;
+          state.d = state.COPY_DATA;
+        }
+        else {
           state.d = state.WAIT;
         }
     }

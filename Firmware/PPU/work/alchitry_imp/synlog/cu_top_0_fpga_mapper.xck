@@ -1,2 +1,1 @@
-CKID0001:@|S:this_vga_signals.pixel_clk_inferred_clock_RNO@|E:this_vga_ramdac.M_this_rgb_d_3_0_dreg[0]@|F:@syn_sample_clock_path==CKID0001@|M:ClockId0001 
-CKID0002:@|S:clk_ibuf_gb_io@|E:M_this_external_address_q[0]@|F:@syn_sample_clock_path==CKID0002@|M:ClockId0002 
+CKID0001:@|S:clk_ibuf_gb_io@|E:M_this_external_address_q[0]@|F:@syn_sample_clock_path==CKID0001@|M:ClockId0001 

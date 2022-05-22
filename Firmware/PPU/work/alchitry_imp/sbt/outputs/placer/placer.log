@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:35:50
 
-* File Generated:     May 21 2022 22:51:10
+* File Generated:     May 22 2022 16:13:29
 
 * Purpose:            
 
@@ -35,10 +35,10 @@ I2053: Starting placement of the design
 =============================================================
 
 Input Design Statistics
-    Number of LUTs      	:	505
-    Number of DFFs      	:	114
+    Number of LUTs      	:	433
+    Number of DFFs      	:	128
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	82
+    Number of Carrys    	:	70
     Number of RAMs      	:	17
     Number of ROMs      	:	0
     Number of IOs       	:	43
@@ -53,15 +53,15 @@ I2077: Start design legalization
 
 Design Legalization Statistics
     Number of feedthru LUTs inserted to legalize input of DFFs     	:	6
-    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	20
-    Number of LUTs replicated for LUTs driving multiple DFFs       	:	2
-    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	2
+    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	16
+    Number of LUTs replicated for LUTs driving multiple DFFs       	:	4
+    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	0
     Number of feedthru LUTs inserted to legalize global signals    	:	0
     Number of feedthru CARRYs inserted to legalize input of CARRYs 	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 01xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 10xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 11xxxx  	:	0
-    Total LUTs inserted                                            	:	30
+    Total LUTs inserted                                            	:	26
     Total CARRYs inserted                                          	:	0
 
 
@@ -73,97 +73,44 @@ Phase 2
 I2088: Phase 2, elapsed time : 0.0 (sec)
 
 Phase 3
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.M_hcounter_q_esr_RNICJJV[9]_LC_215", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.M_hcounter_q_esr_RNICJJV[9]_LC_215", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.M_hcounter_q_esr_RNICJJV[9]_LC_215", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un40_sum_axb_1_l_fx_LC_383", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un40_sum_axb_2_l_fx_LC_385", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un40_sum_cry_1_s_LC_386", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un40_sum_cry_1_s_LC_386", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un40_sum_cry_1_s_LC_386", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_axb_3_LC_389", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_axb_3_LC_389", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_axb_3_LC_389", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_axb_3_LC_389", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_cry_1_s_LC_390", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_cry_1_s_LC_390", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_s_3_LC_391", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un47_sum_s_3_LC_391", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_axb_3_LC_394", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_axb_3_LC_394", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_axb_3_LC_394", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_axb_3_LC_394", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_cry_1_s_LC_395", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_cry_1_s_LC_395", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_s_3_LC_396", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un54_sum_s_3_LC_396", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_axb_3_LC_399", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_axb_3_LC_399", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_axb_3_LC_399", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_axb_3_LC_399", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_cry_1_s_LC_400", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_cry_1_s_LC_400", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_s_3_LC_401", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un61_sum_s_3_LC_401", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un68_sum_axb_3_LC_404", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un68_sum_axb_3_LC_404", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un68_sum_axb_3_LC_404", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un68_sum_axb_3_LC_404", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un68_sum_cry_1_s_LC_405", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un68_sum_s_3_LC_406", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un68_sum_s_3_LC_406", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_axb_3_LC_407", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_axb_3_LC_407", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_axb_3_LC_407", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_axb_3_LC_407", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_cry_1_c_inv_LC_408", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_cry_1_c_inv_LC_408", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_cry_2_c_inv_LC_409", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_cry_2_c_inv_LC_409", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in0" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_s_3_LC_410", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.un4_pcounter.if_generate_plus.mult1_un75_sum_s_3_LC_410", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in1" to pin "lcout" of instance "this_vga_signals.mult1_un40_sum_cry_1_THRU_LUT4_0_LC_533", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in2" to pin "lcout" of instance "this_vga_signals.mult1_un40_sum_cry_1_THRU_LUT4_0_LC_533", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.mult1_un40_sum_cry_1_THRU_LUT4_0_LC_533", in the clock network. Converting the timing arc to positive-unate
-Warning-1034: Found non-unate timing arc, from pin "in3" to pin "lcout" of instance "this_vga_signals.mult1_un40_sum_cry_2_THRU_LUT4_0_LC_534", in the clock network. Converting the timing arc to positive-unate
 
 Design Statistics after Packing
-    Number of LUTs      	:	536
-    Number of DFFs      	:	108
-    Number of DFFs packed to IO	:	6
-    Number of Carrys    	:	85
+    Number of LUTs      	:	460
+    Number of DFFs      	:	128
+    Number of DFFs packed to IO	:	0
+    Number of Carrys    	:	73
 
 Device Utilization Summary after Packing
     Sequential LogicCells
-        LUT and DFF      	:	64
-        LUT, DFF and CARRY	:	44
+        LUT and DFF      	:	87
+        LUT, DFF and CARRY	:	41
     Combinational LogicCells
-        Only LUT         	:	396
-        CARRY Only       	:	9
-        LUT with CARRY   	:	32
-    LogicCells                  :	545/7680
-    PLBs                        :	75/960
+        Only LUT         	:	305
+        CARRY Only       	:	5
+        LUT with CARRY   	:	27
+    LogicCells                  :	465/7680
+    PLBs                        :	65/960
     BRAMs                       :	17/32
     IOs and GBIOs               :	44/95
     PLLs                        :	0/2
 
 
-I2088: Phase 3, elapsed time : 0.7 (sec)
+I2088: Phase 3, elapsed time : 0.6 (sec)
 
 Phase 4
 I2088: Phase 4, elapsed time : 0.2 (sec)
 
 Phase 5
-I2088: Phase 5, elapsed time : 1.7 (sec)
+I2088: Phase 5, elapsed time : 1.4 (sec)
 
 Phase 6
-I2088: Phase 6, elapsed time : 39.2 (sec)
+I2088: Phase 6, elapsed time : 38.2 (sec)
 
 Final Design Statistics
-    Number of LUTs      	:	536
-    Number of DFFs      	:	108
-    Number of DFFs packed to IO	:	6
-    Number of Carrys    	:	85
+    Number of LUTs      	:	460
+    Number of DFFs      	:	128
+    Number of DFFs packed to IO	:	0
+    Number of Carrys    	:	73
     Number of RAMs      	:	17
     Number of ROMs      	:	0
     Number of IOs       	:	43
@@ -173,8 +120,8 @@ Final Design Statistics
     Number of PLLs      	:	0
 
 Device Utilization Summary
-    LogicCells                  :	545/7680
-    PLBs                        :	139/960
+    LogicCells                  :	465/7680
+    PLBs                        :	128/960
     BRAMs                       :	17/32
     IOs and GBIOs               :	44/95
     PLLs                        :	0/2
@@ -192,9 +139,8 @@ analysis after routing.
 #####################################################################
                      Clock Summary 
 =====================================================================
-Number of clocks: 2
-Clock: clk_0 | Frequency: 54.26 MHz | Target: 100.00 MHz
-Clock: vga_signals_6|pixel_clk_inferred_clock | Frequency: N/A | Target: 1.00 MHz
+Number of clocks: 1
+Clock: clk_0 | Frequency: 66.14 MHz | Target: 100.00 MHz
 
 =====================================================================
                      End of Clock Summary
@@ -202,5 +148,5 @@ Clock: vga_signals_6|pixel_clk_inferred_clock | Frequency: N/A | Target: 1.00 MH
 
 I2054: Placement of design completed successfully
 
-I2076: Placer run-time: 42.1 sec.
+I2076: Placer run-time: 40.7 sec.
 

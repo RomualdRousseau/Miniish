@@ -1,10 +1,8 @@
 module vga_ramdac (
     input clk, // 8.3MHz clock
     input rst, // reset
-    
     input en,
-    //input address[14],
-    input data[4],
+    input vram_data[4],
     output rgb[6]
   ) {
   
@@ -35,17 +33,10 @@ module vga_ramdac (
   
   always {
     rgb = this_rgb.q;
-    
     if (en) {
-      
-      // Chessboard + Cycle through all colors
-      //  this_rgb.d = PALETTE[(address[3] ^ address[10]) * (address[7+:7] >> 3)];
-      
-      // Raster pixel
-      
-      this_rgb.d= PALETTE[data];
+      this_rgb.d = PALETTE[vram_data];
     } else {
-      this_rgb.d  = 6b000000;
+      this_rgb.d = 6b000000;
     }
   }
 }

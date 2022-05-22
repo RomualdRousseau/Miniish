@@ -11,11 +11,14 @@
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":48:7:48:23|Synthesizing module simple_dual_ram_9 in library work.
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":67:2:67:7|Found RAM mem, depth=16384, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":48:7:48:24|Synthesizing module simple_dual_ram_10 in library work.
-@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":67:2:67:7|Found RAM mem, depth=256, width=4
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":67:2:67:7|Found RAM mem, depth=1024, width=8
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":48:7:48:24|Synthesizing module simple_dual_ram_11 in library work.
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":305:2:305:7|Trying to extract state machine for register M_this_state_q.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Register bit M_hcounter_q[10] is always 0.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":107:2:107:7|Register bit M_hcounter_q[11] is always 0.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":349:2:349:7|Trying to extract state machine for register M_this_state_q.
+@N: CL159 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":18:16:18:23|Input map_data is unused.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[10] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[11] is always 0.
 @N|Running in 64-bit mode
 @N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
 @N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level

@@ -36,56 +36,49 @@ module vga_signals (
   const VMIN_T = (VVA_T - HEIGHT * VPIXEL_SIZE) / 2;
   const VMAX_T =  VMIN_T + HEIGHT * VPIXEL_SIZE;
   
-  .clk(clk) {
-    .rst(rst) {
-      dff hcounter[12];
-      dff vcounter[10];
-      //dff address_buffer[14];
-    }
-  }
-  
-  sig pcounter[$clog2(HPIXEL_SIZE)];
-  sig lcounter[$clog2(VPIXEL_SIZE)];
-  
   sig hvisibility;
   sig vvisibility;
   sig lvisibility;
   sig haddress[7];
   sig vaddress[7];
   
+  .clk(clk) {
+    .rst(rst) {
+      dff hcounter[12];
+      dff vcounter[10];
+      dff pcounter[$clog2(HPIXEL_SIZE)];
+      dff lcounter[$clog2(VPIXEL_SIZE)];
+    }
+  }
+  
   always {
     
     // Default Values
-    
-    //address = address_buffer.q;
-    
-    hsync = hcounter.q >= HFP_T && hcounter.q < HSP_T ? 0 : 1;
-    vsync = vcounter.q >= VFP_T && vcounter.q  < VSP_T ? 0 : 1;
     
     hvisibility = hcounter.q >= HMIN_T && hcounter.q < HMAX_T ? 1 : 0;
     vvisibility = vcounter.q >= VMIN_T && vcounter.q < VMAX_T ? 1 : 0;
     lvisibility = vcounter.q >= (VMIN_T - VPIXEL_SIZE) && vcounter.q < (VMAX_T - VPIXEL_SIZE) ? 1 : 0;
     
+    hsync = hcounter.q >= HFP_T && hcounter.q < HSP_T ? 0 : 1;
+    vsync = vcounter.q >= VFP_T && vcounter.q  < VSP_T ? 0 : 1;
+    
     hblank = ~hvisibility;
     vblank = ~vvisibility;
-
-    pcounter = hcounter.q - (hcounter.q / HPIXEL_SIZE) * HPIXEL_SIZE;
-    lcounter = vcounter.q - (vcounter.q / VPIXEL_SIZE) * VPIXEL_SIZE;
     
-    pixel_clk = pcounter == 0 ? 1 : 0;
-    line_clk =  lvisibility && hcounter.q == 0 && lcounter == 0 ? 1 : 0;
+    pixel_clk = pcounter.q == 0 ? 1 : 0;
+    line_clk =  lvisibility && lcounter.q == 0 ? 1 : 0;
     
     // Update address
     
-    haddress = (hcounter.q - HMIN_T) / HPIXEL_SIZE;
-    vaddress = (vcounter.q - VMIN_T) / VPIXEL_SIZE;
-    
     if (hvisibility && vvisibility) {
-      address = c{vaddress, haddress};
+      haddress = (hcounter.q - HMIN_T) / HPIXEL_SIZE;
+      vaddress = (vcounter.q - VMIN_T) / VPIXEL_SIZE;
     }
     else {
-      address = c{7b0000001, 7b0000000};
+      haddress = 7b0000000;
+      vaddress = 7b0000000;
     }
+    address = c{vaddress, haddress};
   }
   
   always {
@@ -94,17 +87,33 @@ module vga_signals (
     
     if (hcounter.q < HBP_T) {
       hcounter.d = hcounter.q + 1;
+      
+      if (pcounter.q < (HPIXEL_SIZE - 1)) {
+        pcounter.d = pcounter.q + 1;
+      }
+      else {
+        pcounter.d = 0;
+      }
     }
     else {
       hcounter.d = 0;
+      pcounter.d = 0;
       
       // Increment vsync counters
       
       if (vcounter.q < VBP_T) {
         vcounter.d = vcounter.q + 1;
+        
+        if (lcounter.q < (VPIXEL_SIZE - 1)) {
+          lcounter.d = lcounter.q + 1;
+        }
+        else {
+          lcounter.d = 0;
+        }
       }
       else {
         vcounter.d = 0;
+        lcounter.d = 0;
       }
     }
   }

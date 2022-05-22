@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version L-2016.09L+ice40
 #--  Project file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/run_options.txt
-#--  Written on Sat May 21 22:50:57 2022
+#--  Written on Sun May 22 16:13:18 2022
 
 
 #project files
@@ -16,6 +16,7 @@ add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_
 add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v"
 add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v"
 add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v"
+add_file -verilog "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v"
 add_file -constraint "/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc"
 
 
