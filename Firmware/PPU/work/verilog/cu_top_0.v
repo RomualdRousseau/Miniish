@@ -55,6 +55,8 @@ module cu_top_0 (
   
   reg dma;
   
+  reg [1:0] i;
+  
   wire [1-1:0] M_this_reset_cond_out;
   reg [1-1:0] M_this_reset_cond_in;
   reset_conditioner_1 this_reset_cond (
@@ -63,33 +65,29 @@ module cu_top_0 (
     .out(M_this_reset_cond_out)
   );
   
-  localparam IDLE_this_state = 5'd0;
-  localparam WRITE_SPRITE_HADDR_this_state = 5'd1;
-  localparam WRITE_SPRITE_LADDR_this_state = 5'd2;
-  localparam WRITE_PIXEL_this_state = 5'd3;
-  localparam WRITE_EXTERNAL_HADDR_this_state = 5'd4;
-  localparam WRITE_COUNT_HADDR_this_state = 5'd5;
-  localparam DMA_START_this_state = 5'd6;
-  localparam DMA_LOOP_SPRITE_this_state = 5'd7;
-  localparam DMA_TRANSFER_SPRITE_1_this_state = 5'd8;
-  localparam DMA_TRANSFER_SPRITE_2_this_state = 5'd9;
-  localparam DMA_LOOP_MAP_this_state = 5'd10;
-  localparam DMA_TRANSFER_MAP_this_state = 5'd11;
-  localparam DMA_LOOP_OAM_this_state = 5'd12;
-  localparam DMA_TRANSFER_OAM_1_this_state = 5'd13;
-  localparam DMA_TRANSFER_OAM_2_this_state = 5'd14;
-  localparam DMA_TRANSFER_OAM_3_this_state = 5'd15;
-  localparam DMA_TRANSFER_OAM_4_this_state = 5'd16;
-  localparam DMA_TRANSFER_OAM_5_this_state = 5'd17;
+  localparam IDLE_this_state = 4'd0;
+  localparam WRITE_SPRITE_HADDR_this_state = 4'd1;
+  localparam WRITE_SPRITE_LADDR_this_state = 4'd2;
+  localparam WRITE_PIXEL_this_state = 4'd3;
+  localparam WRITE_EXTERNAL_HADDR_this_state = 4'd4;
+  localparam WRITE_COUNT_HADDR_this_state = 4'd5;
+  localparam DMA_START_this_state = 4'd6;
+  localparam DMA_LOOP_SPRITE_this_state = 4'd7;
+  localparam DMA_TRANSFER_SPRITE_1_this_state = 4'd8;
+  localparam DMA_TRANSFER_SPRITE_2_this_state = 4'd9;
+  localparam DMA_LOOP_MAP_this_state = 4'd10;
+  localparam DMA_TRANSFER_MAP_this_state = 4'd11;
+  localparam DMA_LOOP_OAM_this_state = 4'd12;
+  localparam DMA_TRANSFER_OAM_this_state = 4'd13;
   
-  reg [4:0] M_this_state_d, M_this_state_q = IDLE_this_state;
+  reg [3:0] M_this_state_d, M_this_state_q = IDLE_this_state;
   reg M_this_substate_d, M_this_substate_q = 1'h0;
   reg [15:0] M_this_external_address_d, M_this_external_address_q = 1'h0;
   reg [13:0] M_this_sprites_address_d, M_this_sprites_address_q = 1'h0;
   reg [9:0] M_this_map_address_d, M_this_map_address_q = 1'h0;
-  reg [5:0] M_this_oam_address_d, M_this_oam_address_q = 1'h0;
+  reg [7:0] M_this_oam_address_d, M_this_oam_address_q = 1'h0;
   reg [15:0] M_this_data_count_d, M_this_data_count_q = 1'h0;
-  reg [31:0] M_this_data_tmp_d, M_this_data_tmp_q = 1'h0;
+  reg [23:0] M_this_data_tmp_d, M_this_data_tmp_q = 1'h0;
   wire [1-1:0] M_this_delay_clk_out;
   reg [1-1:0] M_this_delay_clk_in;
   pipeline_2 this_delay_clk (
@@ -278,7 +276,7 @@ module cu_top_0 (
     M_this_map_ram_write_en = 1'h0;
     M_this_map_ram_write_data = 1'h0;
     M_this_oam_ram_raddr = M_this_ppu_oam_addr;
-    M_this_oam_ram_waddr = M_this_oam_address_q;
+    M_this_oam_ram_waddr = M_this_oam_address_q[2+5-:6];
     M_this_oam_ram_write_en = 1'h0;
     M_this_oam_ram_write_data = 1'h0;
     M_this_vga_ramdac_en = !M_this_vga_signals_hblank && !M_this_vga_signals_vblank;
@@ -286,10 +284,10 @@ module cu_top_0 (
     M_this_ppu_vga_is_drawing = !dma && !M_this_vga_signals_vblank;
     M_this_ppu_sprites_data = M_this_sprites_ram_read_data;
     M_this_ppu_map_data = M_this_map_ram_read_data;
-    M_this_ppu_oam_data[0+7-:8] = M_this_oam_ram_read_data[24+7-:8];
-    M_this_ppu_oam_data[8+7-:8] = M_this_oam_ram_read_data[16+7-:8];
-    M_this_ppu_oam_data[16+7-:8] = M_this_oam_ram_read_data[8+7-:8];
-    M_this_ppu_oam_data[24+7-:8] = M_this_oam_ram_read_data[0+7-:8];
+    M_this_ppu_oam_data[0+7-:8] = M_this_oam_ram_read_data[0+7-:8];
+    M_this_ppu_oam_data[8+7-:8] = M_this_oam_ram_read_data[8+7-:8];
+    M_this_ppu_oam_data[16+7-:8] = M_this_oam_ram_read_data[16+7-:8];
+    M_this_ppu_oam_data[24+7-:8] = M_this_oam_ram_read_data[24+7-:8];
     debug = 2'h0;
     led = 8'h01;
     
@@ -387,8 +385,8 @@ module cu_top_0 (
             end
             8'h24: begin
               M_this_external_address_d = 16'h1000;
-              M_this_oam_address_d = 6'h00;
-              M_this_data_count_d = 7'h40;
+              M_this_oam_address_d = 8'h00;
+              M_this_data_count_d = 3'h4;
               M_this_state_d = DMA_LOOP_OAM_this_state;
             end
             default: begin
@@ -447,43 +445,23 @@ module cu_top_0 (
         end else begin
           if (M_this_start_address_delay_out) begin
             M_this_data_count_d = M_this_data_count_q - 1'h1;
-            M_this_state_d = DMA_TRANSFER_OAM_1_this_state;
+            M_this_state_d = DMA_TRANSFER_OAM_this_state;
           end
         end
       end
-      DMA_TRANSFER_OAM_1_this_state: begin
+      DMA_TRANSFER_OAM_this_state: begin
         if (M_this_start_data_delay_out) begin
-          M_this_data_tmp_d[24+7-:8] = IO_port_data_read;
+          i = M_this_oam_address_q[0+1-:2];
+          if (i == 2'h3) begin
+            M_this_oam_ram_write_en = 1'h1;
+            M_this_oam_ram_write_data = {IO_port_data_read, M_this_data_tmp_q};
+          end else begin
+            M_this_data_tmp_d[((i * 4'h8))*1+7-:8] = IO_port_data_read;
+          end
+          M_this_oam_address_d = M_this_oam_address_q + 1'h1;
           M_this_external_address_d = M_this_external_address_q + 1'h1;
-          M_this_state_d = DMA_TRANSFER_OAM_2_this_state;
+          M_this_state_d = DMA_LOOP_OAM_this_state;
         end
-      end
-      DMA_TRANSFER_OAM_2_this_state: begin
-        if (M_this_start_data_delay_out) begin
-          M_this_data_tmp_d[16+7-:8] = IO_port_data_read;
-          M_this_external_address_d = M_this_external_address_q + 1'h1;
-          M_this_state_d = DMA_TRANSFER_OAM_3_this_state;
-        end
-      end
-      DMA_TRANSFER_OAM_3_this_state: begin
-        if (M_this_start_data_delay_out) begin
-          M_this_data_tmp_d[8+7-:8] = IO_port_data_read;
-          M_this_external_address_d = M_this_external_address_q + 1'h1;
-          M_this_state_d = DMA_TRANSFER_OAM_4_this_state;
-        end
-      end
-      DMA_TRANSFER_OAM_4_this_state: begin
-        if (M_this_start_data_delay_out) begin
-          M_this_data_tmp_d[0+7-:8] = IO_port_data_read;
-          M_this_external_address_d = M_this_external_address_q + 1'h1;
-          M_this_state_d = DMA_TRANSFER_OAM_5_this_state;
-        end
-      end
-      DMA_TRANSFER_OAM_5_this_state: begin
-        M_this_oam_ram_write_en = 1'h1;
-        M_this_oam_ram_write_data = M_this_data_tmp_q;
-        M_this_oam_address_d = M_this_oam_address_q + 1'h1;
-        M_this_state_d = DMA_LOOP_OAM_this_state;
       end
     endcase
   end

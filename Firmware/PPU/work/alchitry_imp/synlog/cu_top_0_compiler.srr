@@ -73,29 +73,25 @@ Selecting top level module cu_top_0
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
 
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|Trying to extract state machine for register M_this_state_q.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Trying to extract state machine for register M_this_state_q.
 Extracted state machine for register M_this_state_q
-State machine has 18 reachable states with original encodings of:
-   00000
-   00001
-   00010
-   00011
-   00100
-   00101
-   00110
-   00111
-   01000
-   01001
-   01010
-   01011
-   01100
-   01101
-   01110
-   01111
-   10000
-   10001
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|Initial value is not supported on state machine M_this_state_q
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":116:2:116:7|Trying to extract state machine for register M_state_q.
+State machine has 14 reachable states with original encodings of:
+   0000
+   0001
+   0010
+   0011
+   0100
+   0101
+   0110
+   0111
+   1000
+   1001
+   1010
+   1011
+   1100
+   1101
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Initial value is not supported on state machine M_this_state_q
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":124:2:124:7|Trying to extract state machine for register M_state_q.
 Extracted state machine for register M_state_q
 State machine has 6 reachable states with original encodings of:
    000
@@ -104,9 +100,8 @@ State machine has 6 reachable states with original encodings of:
    011
    100
    101
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":116:2:116:7|Initial value is not supported on state machine M_state_q
-@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":20:17:20:24|Input port bits 31 to 22 of oam_data[31:0] are unused. Assign logic for all port bits or change the input port size.
-@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":20:17:20:24|Input port bits 7 to 0 of oam_data[31:0] are unused. Assign logic for all port bits or change the input port size.
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":124:2:124:7|Initial value is not supported on state machine M_state_q
+@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":20:17:20:24|Input port bits 31 to 24 of oam_data[31:0] are unused. Assign logic for all port bits or change the input port size.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[10] is always 0.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[11] is always 0.
 @W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
@@ -116,7 +111,7 @@ At c_ver Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Fri May 27 09:12:36 2022
+# Sat May 28 12:19:54 2022
 
 ###########################################################]
 Synopsys Netlist Linker, version comp2016q3p1, Build 141R, built Dec  5 2016
@@ -129,7 +124,7 @@ At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Fri May 27 09:12:36 2022
+# Sat May 28 12:19:54 2022
 
 ###########################################################]
 @END
@@ -139,6 +134,6 @@ At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Fri May 27 09:12:36 2022
+# Sat May 28 12:19:54 2022
 
 ###########################################################]

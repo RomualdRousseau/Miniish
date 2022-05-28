@@ -55,8 +55,8 @@ module ppu_8 (
     vram_addr = {M_vaddress_q[0+0-:1], M_haddress_q[0+6-:7]};
     vram_en = 1'h0;
     vram_data = 4'bxxxx;
-    vscroll = M_vaddress_q + 7'h40;
-    hscroll = M_haddress_q + 7'h40;
+    vscroll = M_vaddress_q + 1'h0;
+    hscroll = M_haddress_q + 1'h0;
     map_addr = 10'bxxxxxxxxxx;
     sprites_addr = 14'bxxxxxxxxxxxxxx;
     oam_addr = 6'h00;
@@ -83,11 +83,19 @@ module ppu_8 (
         end
       end
       READ_OAM_state: begin
-        sprites_addr = {oam_data[0+7-:8], vscroll - oam_data[16+7-:8], hscroll - oam_data[8+7-:8]};
-        M_state_d = WRITE_OAM_PIXEL_state;
+        if (vscroll >= oam_data[16+7-:8] && vscroll < (oam_data[16+7-:8] + 4'h8) && hscroll >= oam_data[8+7-:8] && hscroll < (oam_data[8+7-:8] + 4'h8)) begin
+          vscroll = vscroll - oam_data[16+7-:8];
+          hscroll = hscroll - oam_data[8+7-:8];
+          sprites_addr = {oam_data[0+7-:8], vscroll[0+2-:3], hscroll[0+2-:3]};
+          M_state_d = WRITE_OAM_PIXEL_state;
+        end else begin
+          M_state_d = READ_TILE_state;
+        end
       end
       WRITE_OAM_PIXEL_state: begin
-        sprites_addr = {oam_data[0+7-:8], vscroll - oam_data[16+7-:8], hscroll - oam_data[8+7-:8]};
+        vscroll = vscroll - oam_data[16+7-:8];
+        hscroll = hscroll - oam_data[8+7-:8];
+        sprites_addr = {oam_data[0+7-:8], vscroll[0+2-:3], hscroll[0+2-:3]};
         if (sprites_data == 1'h0) begin
           M_state_d = READ_TILE_state;
         end else begin

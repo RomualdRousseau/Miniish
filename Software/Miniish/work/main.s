@@ -53,7 +53,7 @@ SETUP
 
  lda #16
  sta BALL_TILE
- lda #20
+ lda #0
  sta BALL_X
  sta BALL_Y
  lda #0
@@ -159,8 +159,32 @@ NMI_INIT
  jmp NMI_DONE
 NMI_DRAW
  inc COUNTER
- ;inc BALL_X
- ;inc BALL_Y
+ lda COUNTER
+ and #3
+ bne NMI_DONE
+ lda JOYPAD
+ cmp #0
+ beq NMI_DONE
+ lda JOYPAD
+ and #%00001000
+ beq BALL_KEYDOWN
+ dec BALL_Y
+BALL_KEYDOWN
+ lda JOYPAD
+ and #%00000100
+ beq BALL_KEYLEFT
+ inc BALL_Y
+BALL_KEYLEFT
+ lda JOYPAD
+ and #%00000010
+ beq BALL_KEYRIGHT
+ dec BALL_X
+BALL_KEYRIGHT
+ lda JOYPAD
+ and #%00000001
+ beq BALL_UPDATE
+ inc BALL_X
+BALL_UPDATE
  lda #$24
  sta PORT_PPU + $05
 NMI_DONE

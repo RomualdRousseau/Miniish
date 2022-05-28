@@ -15,6 +15,7 @@ KEYWORDS1 = (
         "PLX",
         "BIT",
         "INC",
+        "DEC",
         "BEQ",
         "CLI",
         "RTS",

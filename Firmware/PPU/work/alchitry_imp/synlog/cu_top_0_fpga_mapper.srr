@@ -1,4 +1,4 @@
-# Fri May 27 09:12:38 2022
+# Sat May 28 12:19:55 2022
 
 Synopsys Lattice Technology Mapper, Version maplat, Build 1612R, Built Dec  5 2016 09:30:53
 Copyright (C) 1994-2016 Synopsys, Inc. All rights reserved. This Synopsys software and all associated documentation are proprietary to Synopsys, Inc. and may only be used pursuant to the terms and conditions of a written license agreement with Synopsys, Inc. All other use, reproduction, modification, or distribution of the Synopsys software or the associated documentation is strictly prohibited.
@@ -41,49 +41,45 @@ Available hyper_sources - for debug and ip models
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|User-specified initial value defined for instance this_vga_signals.M_pcounter_q[1:0] is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|User-specified initial value defined for instance this_vga_signals.M_hcounter_q[9:0] is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":32:2:32:7|User-specified initial value defined for instance this_vga_ramdac.M_this_rgb_q[5:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":116:2:116:7|User-specified initial value defined for instance this_ppu.M_count_q[7:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":116:2:116:7|User-specified initial value defined for instance this_ppu.M_haddress_q[7:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":116:2:116:7|User-specified initial value defined for instance this_ppu.M_vaddress_q[7:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":124:2:124:7|User-specified initial value defined for instance this_ppu.M_count_q[7:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":124:2:124:7|User-specified initial value defined for instance this_ppu.M_haddress_q[7:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":124:2:124:7|User-specified initial value defined for instance this_ppu.M_vaddress_q[7:0] is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v":41:2:41:7|User-specified initial value defined for instance this_ppu.line_clk.M_last_q is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|User-specified initial value defined for instance M_this_data_count_q[15:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|User-specified initial value defined for instance M_this_sprites_address_q[13:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|User-specified initial value defined for instance M_this_external_address_q[15:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|User-specified initial value defined for instance M_this_substate_q is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|User-specified initial value defined for instance M_this_map_address_q[9:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|User-specified initial value defined for instance M_this_oam_address_q[5:0] is being ignored. 
-@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|User-specified initial value defined for instance M_this_data_tmp_q[31:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|User-specified initial value defined for instance M_this_data_count_q[15:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|User-specified initial value defined for instance M_this_external_address_q[15:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|User-specified initial value defined for instance M_this_substate_q is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|User-specified initial value defined for instance M_this_sprites_address_q[13:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|User-specified initial value defined for instance M_this_map_address_q[9:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|User-specified initial value defined for instance M_this_oam_address_q[7:0] is being ignored. 
+@W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|User-specified initial value defined for instance M_this_data_tmp_q[23:0] is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_5.v":29:2:29:7|User-specified initial value defined for instance this_pixel_clk.M_counter_q[1:0] is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v":41:2:41:7|User-specified initial value defined for instance this_start_data_delay.M_last_q is being ignored. 
 @W: FX1039 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_2.v":34:2:34:7|User-specified initial value defined for instance this_delay_clk.M_pipe_q[4:0] is being ignored. 
 
 Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 132MB peak: 133MB)
 
-Encoding state machine M_this_state_q[17:0] (in view: work.cu_top_0(verilog))
+Encoding state machine M_this_state_q[13:0] (in view: work.cu_top_0(verilog))
 original code -> new code
-   00000 -> 000000000000000001
-   00001 -> 000000000000000010
-   00010 -> 000000000000000100
-   00011 -> 000000000000001000
-   00100 -> 000000000000010000
-   00101 -> 000000000000100000
-   00110 -> 000000000001000000
-   00111 -> 000000000010000000
-   01000 -> 000000000100000000
-   01001 -> 000000001000000000
-   01010 -> 000000010000000000
-   01011 -> 000000100000000000
-   01100 -> 000001000000000000
-   01101 -> 000010000000000000
-   01110 -> 000100000000000000
-   01111 -> 001000000000000000
-   10000 -> 010000000000000000
-   10001 -> 100000000000000000
+   0000 -> 00000000000001
+   0001 -> 00000000000010
+   0010 -> 00000000000100
+   0011 -> 00000000001000
+   0100 -> 00000000010000
+   0101 -> 00000000100000
+   0110 -> 00000001000000
+   0111 -> 00000010000000
+   1000 -> 00000100000000
+   1001 -> 00001000000000
+   1010 -> 00010000000000
+   1011 -> 00100000000000
+   1100 -> 01000000000000
+   1101 -> 10000000000000
 @W: FX107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":67:2:67:7|RAM this_vram.mem[3:0] (in view: work.cu_top_0(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
 @W: FX107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":67:2:67:7|RAM this_oam_ram.mem[31:0] (in view: work.cu_top_0(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
 @W: FX107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":67:2:67:7|RAM this_map_ram.mem[7:0] (in view: work.cu_top_0(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
 @W: FX107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":67:2:67:7|RAM this_sprites_ram.mem[3:0] (in view: work.cu_top_0(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
-@N: MO231 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|Found counter in view:work.cu_top_0(verilog) instance M_this_data_count_q[15:0] 
-@N: MO231 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|Found counter in view:work.cu_top_0(verilog) instance M_this_external_address_q[15:0] 
+@N: MO231 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Found counter in view:work.cu_top_0(verilog) instance M_this_data_count_q[15:0] 
+@N: MO231 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Found counter in view:work.cu_top_0(verilog) instance M_this_external_address_q[15:0] 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 Encoding state machine M_state_q[5:0] (in view: work.ppu_8(verilog))
 original code -> new code
@@ -98,24 +94,24 @@ original code -> new code
 Starting factoring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 135MB peak: 136MB)
 
 
-Finished factoring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 142MB peak: 143MB)
+Finished factoring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 139MB peak: 139MB)
 
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Removing sequential instance this_vga_signals.M_pcounter_q[0] (in view: work.cu_top_0(verilog)) because it does not drive other instances.
 @N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Removing sequential instance this_vga_signals.M_pcounter_q[1] (in view: work.cu_top_0(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Removing sequential instance this_vga_signals.M_pcounter_q[0] (in view: work.cu_top_0(verilog)) because it does not drive other instances.
 
-Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 138MB peak: 143MB)
-
-
-Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 139MB peak: 143MB)
+Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 137MB peak: 139MB)
 
 
-Starting Early Timing Optimization (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 140MB peak: 143MB)
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 140MB peak: 140MB)
 
 
-Finished Early Timing Optimization (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 152MB peak: 152MB)
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 141MB peak: 141MB)
 
 
-Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 151MB peak: 152MB)
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 151MB peak: 152MB)
+
+
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 150MB peak: 152MB)
 
 @W: FA239 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":26:21:26:48|ROM this_vga_ramdac.M_this_rgb_d_3_0[5:0] (in view: work.cu_top_0(verilog)) mapped in logic. To map to a technology ROM, apply attribute syn_romstyle on this instance.
 @W: FA239 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":26:21:26:48|ROM this_vga_ramdac.M_this_rgb_d_3_0[5:0] (in view: work.cu_top_0(verilog)) mapped in logic. To map to a technology ROM, apply attribute syn_romstyle on this instance.
@@ -123,38 +119,44 @@ Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:02s; CP
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 
-Finished preparing to map (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 152MB peak: 153MB)
+Finished preparing to map (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 151MB peak: 152MB)
 
 
-Finished technology mapping (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 173MB peak: 175MB)
+Finished technology mapping (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 153MB peak: 161MB)
 
 Pass		 CPU time		Worst Slack		Luts / Registers
 ------------------------------------------------------------
-   1		0h:00m:03s		    -9.17ns		 604 /       198
-   2		0h:00m:03s		    -9.17ns		 591 /       198
-   3		0h:00m:03s		    -7.77ns		 591 /       198
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[6] (in view: work.cu_top_0(verilog)) with 39 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[7] (in view: work.cu_top_0(verilog)) with 24 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[8] (in view: work.cu_top_0(verilog)) with 20 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[4] (in view: work.cu_top_0(verilog)) with 39 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[5] (in view: work.cu_top_0(verilog)) with 35 loads 2 times to improve timing.
+   1		0h:00m:03s		   -10.57ns		 659 /       189
+   2		0h:00m:03s		    -9.17ns		 643 /       189
+   3		0h:00m:03s		    -7.77ns		 644 /       189
+   4		0h:00m:03s		    -7.77ns		 646 /       189
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[6] (in view: work.cu_top_0(verilog)) with 25 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[4] (in view: work.cu_top_0(verilog)) with 41 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[5] (in view: work.cu_top_0(verilog)) with 19 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[8] (in view: work.cu_top_0(verilog)) with 14 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[7] (in view: work.cu_top_0(verilog)) with 14 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Replicating instance M_this_state_q[9] (in view: work.cu_top_0(verilog)) with 8 loads 1 time to improve timing.
 Timing driven replication report
 Added 10 Registers via timing driven replication
-Added 0 LUTs via timing driven replication
+Added 1 LUTs via timing driven replication
 
-   4		0h:00m:08s		    -7.77ns		 656 /       208
-   5		0h:00m:08s		    -7.77ns		 657 /       208
+   5		0h:00m:06s		    -6.37ns		 705 /       199
+   6		0h:00m:07s		    -6.37ns		 708 /       199
 
 
-   6		0h:00m:08s		    -7.77ns		 657 /       208
+   7		0h:00m:07s		    -6.37ns		 711 /       199
+   8		0h:00m:07s		    -6.37ns		 711 /       199
+Re-levelizing using alternate method
+Assigned 0 out of 1256 signals to level zero using alternate method
 @N: FX1016 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":8:10:8:12|SB_GB_IO inserted on the port clk.
 @N: FX1017 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":29:2:29:7|SB_GB inserted on the net M_this_reset_cond_out[0].
-@N: FX1017 :|SB_GB inserted on the net N_1358.
+@N: FX1017 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|SB_GB inserted on the net N_404.
+@N: FX1017 :|SB_GB inserted on the net N_1332.
 
-Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 188MB peak: 232MB)
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:07s; CPU Time elapsed 0h:00m:07s; Memory used current: 183MB peak: 206MB)
 
 
-Finished restoring hierarchy (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 188MB peak: 232MB)
+Finished restoring hierarchy (Real Time elapsed 0h:00m:07s; CPU Time elapsed 0h:00m:07s; Memory used current: 184MB peak: 206MB)
 
 @N: MT611 :|Automatically generated clock pixel_clock_5|M_counter_q_derived_clock[1] is not used and is being removed
 @N: MT611 :|Automatically generated clock vga_signals_6|pixel_clk_inferred_clock is not used and is being removed
@@ -165,25 +167,25 @@ Finished restoring hierarchy (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:
 
 #### START OF CLOCK OPTIMIZATION REPORT #####[
 
-1 non-gated/non-generated clock tree(s) driving 250 clock pin(s) of sequential element(s)
+1 non-gated/non-generated clock tree(s) driving 241 clock pin(s) of sequential element(s)
 0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
-34 instances converted, 0 sequential instances remain driven by gated/generated clocks
+33 instances converted, 0 sequential instances remain driven by gated/generated clocks
 
 ================================ Non-Gated/Non-Generated Clocks =================================
 Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance          
 -------------------------------------------------------------------------------------------------
-@K:CKID0001       clk_ibuf_gb_io      SB_GB_IO               250        M_this_data_tmp_q_esr[10]
+@K:CKID0001       clk_ibuf_gb_io      SB_GB_IO               241        M_this_data_tmp_q_esr[10]
 =================================================================================================
 
 
 ##### END OF CLOCK OPTIMIZATION REPORT ######]
 
 
-Start Writing Netlists (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 157MB peak: 232MB)
+Start Writing Netlists (Real Time elapsed 0h:00m:07s; CPU Time elapsed 0h:00m:07s; Memory used current: 153MB peak: 206MB)
 
 Writing Analyst data base /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_m.srm
 
-Finished Writing Netlist Databases (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 181MB peak: 232MB)
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:07s; CPU Time elapsed 0h:00m:07s; Memory used current: 177MB peak: 206MB)
 
 Writing EDIF Netlist and constraint files
 @N: BW103 |The default time unit for the Synopsys Constraint File (SDC or FDC) is 1ns.
@@ -194,16 +196,16 @@ Writing EDIF Netlist and constraint files
 @W: FX708 |Found invalid parameter 0 
 L-2016.09L+ice40
 
-Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 182MB peak: 232MB)
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:07s; CPU Time elapsed 0h:00m:07s; Memory used current: 178MB peak: 206MB)
 
 
-Start final timing analysis (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 180MB peak: 232MB)
+Start final timing analysis (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 176MB peak: 206MB)
 
 @N: MT615 |Found clock clk_0 with period 10.00ns 
 
 
 ##### START OF TIMING REPORT #####[
-# Timing Report written on Fri May 27 09:12:47 2022
+# Timing Report written on Sat May 28 12:20:03 2022
 #
 
 
@@ -223,12 +225,12 @@ Performance Summary
 *******************
 
 
-Worst slack in design: -17.054
+Worst slack in design: -16.963
 
                    Requested     Estimated     Requested     Estimated                 Clock        Clock           
 Starting Clock     Frequency     Frequency     Period        Period        Slack       Type         Group           
 --------------------------------------------------------------------------------------------------------------------
-clk_0              100.0 MHz     37.0 MHz      10.000        27.054        -17.054     declared     default_clkgroup
+clk_0              100.0 MHz     37.1 MHz      10.000        26.963        -16.963     declared     default_clkgroup
 ====================================================================================================================
 
 
@@ -242,7 +244,7 @@ Clocks            |    rise  to  rise     |    fall  to  fall   |    rise  to  f
 ----------------------------------------------------------------------------------------------------------
 Starting  Ending  |  constraint  slack    |  constraint  slack  |  constraint  slack  |  constraint  slack
 ----------------------------------------------------------------------------------------------------------
-clk_0     clk_0   |  10.000      -17.054  |  No paths    -      |  No paths    -      |  No paths    -    
+clk_0     clk_0   |  10.000      -16.963  |  No paths    -      |  No paths    -      |  No paths    -    
 ==========================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
        'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
@@ -269,16 +271,16 @@ Starting Points with Worst Slack
 Instance                                      Reference     Type          Pin     Net                      Time        Slack  
                                               Clock                                                                           
 ------------------------------------------------------------------------------------------------------------------------------
-this_vga_signals.M_vcounter_q_fast_esr[4]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[4]     0.540       -17.054
-this_vga_signals.M_vcounter_q_fast_esr[5]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[5]     0.540       -17.005
-this_vga_signals.M_vcounter_q_fast_esr[6]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[6]     0.540       -16.984
 this_vga_signals.M_vcounter_q_esr[9]          clk_0         SB_DFFESR     Q       M_vcounter_q[9]          0.540       -16.963
-this_vga_signals.M_vcounter_q_6_rep1_esr      clk_0         SB_DFFESR     Q       M_vcounter_q_6_rep1      0.540       -16.935
-this_vga_signals.M_vcounter_q_8_rep1_esr      clk_0         SB_DFFESR     Q       M_vcounter_q_8_rep1      0.540       -16.914
-this_vga_signals.M_vcounter_q_7_rep1_esr      clk_0         SB_DFFESR     Q       M_vcounter_q_7_rep1      0.540       -16.886
-this_vga_signals.M_vcounter_q_fast_esr[7]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[7]     0.540       -16.774
-this_vga_signals.M_vcounter_q_fast_esr[8]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[8]     0.540       -16.711
-this_vga_signals.M_hcounter_q[6]              clk_0         SB_DFFSR      Q       M_hcounter_q[6]          0.540       -14.870
+this_vga_signals.M_vcounter_q_7_rep1_esr      clk_0         SB_DFFESR     Q       M_vcounter_q_7_rep1      0.540       -16.914
+this_vga_signals.M_vcounter_q_fast_esr[4]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[4]     0.540       -16.900
+this_vga_signals.M_vcounter_q_8_rep1_esr      clk_0         SB_DFFESR     Q       M_vcounter_q_8_rep1      0.540       -16.893
+this_vga_signals.M_vcounter_q_fast_esr[5]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[5]     0.540       -16.893
+this_vga_signals.M_vcounter_q_fast_esr[7]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[7]     0.540       -16.865
+this_vga_signals.M_vcounter_q_fast_esr[6]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[6]     0.540       -16.704
+this_vga_signals.M_vcounter_q_fast_esr[8]     clk_0         SB_DFFESR     Q       M_vcounter_q_fast[8]     0.540       -16.640
+this_vga_signals.M_vcounter_q_6_rep1_esr      clk_0         SB_DFFESR     Q       M_vcounter_q_6_rep1      0.540       -15.115
+this_vga_signals.M_vcounter_q_4_rep1_esr      clk_0         SB_DFFESR     Q       M_vcounter_q_4_rep1      0.540       -15.080
 ==============================================================================================================================
 
 
@@ -289,16 +291,16 @@ Ending Points with Worst Slack
 Instance                     Reference     Type             Pin          Net                               Time         Slack  
                              Clock                                                                                             
 -------------------------------------------------------------------------------------------------------------------------------
-this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[7]     M_this_vga_signals_address[7]     9.797        -17.054
-this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[0]     M_this_vga_signals_address[0]     9.797        -14.870
-this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[1]     M_this_vga_signals_address[1]     9.797        -11.328
-this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[2]     M_this_vga_signals_address[2]     9.797        -9.726 
-this_ppu.M_vaddress_q[6]     clk_0         SB_DFFSR         D            M_vaddress_q_RNO[6]               9.895        -8.569 
-this_ppu.M_vaddress_q[7]     clk_0         SB_DFFSR         D            M_vaddress_q_RNO[7]               9.895        -8.506 
+this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[7]     M_this_vga_signals_address[7]     9.797        -16.963
+this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[0]     M_this_vga_signals_address[0]     9.797        -13.141
+this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[1]     M_this_vga_signals_address[1]     9.797        -11.588
+this_vram.mem_mem_0_0        clk_0         SB_RAM256x16     RADDR[2]     M_this_vga_signals_address[2]     9.797        -8.109 
 this_ppu.M_haddress_q[5]     clk_0         SB_DFFSR         D            M_haddress_q_RNO[5]               9.895        -7.164 
 this_ppu.M_haddress_q[6]     clk_0         SB_DFFSR         D            M_haddress_q_RNO[6]               9.895        -7.143 
 this_ppu.M_haddress_q[7]     clk_0         SB_DFFSR         D            M_haddress_q_RNO[7]               9.895        -7.080 
-this_ppu.M_vaddress_q[3]     clk_0         SB_DFFSR         D            M_vaddress_q_RNO[3]               9.895        -6.840 
+this_ppu.M_vaddress_q[5]     clk_0         SB_DFFSR         D            M_vaddress_q_RNO[5]               9.895        -6.574 
+this_ppu.M_vaddress_q[6]     clk_0         SB_DFFSR         D            M_vaddress_q_RNO[6]               9.895        -6.553 
+this_ppu.M_vaddress_q[7]     clk_0         SB_DFFSR         D            M_vaddress_q_RNO[7]               9.895        -6.490 
 ===============================================================================================================================
 
 
@@ -313,198 +315,9 @@ Path information for path number 1:
     + Clock delay at ending point:           0.000 (ideal)
     = Required time:                         9.797
 
-    - Propagation time:                      26.851
-    - Clock delay at starting point:         0.000 (ideal)
-    = Slack (critical) :                     -17.054
-
-    Number of logic level(s):                12
-    Starting point:                          this_vga_signals.M_vcounter_q_fast_esr[4] / Q
-    Ending point:                            this_vram.mem_mem_0_0 / RADDR[7]
-    The start point is clocked by            clk_0 [rising] on pin C
-    The end   point is clocked by            clk_0 [rising] on pin RCLK
-
-Instance / Net                                                                              Pin          Pin               Arrival     No. of    
-Name                                                                       Type             Name         Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------------------------------
-this_vga_signals.M_vcounter_q_fast_esr[4]                                  SB_DFFESR        Q            Out     0.540     0.540       -         
-M_vcounter_q_fast[4]                                                       Net              -            -       1.599     -           4         
-this_vga_signals.M_vcounter_q_fast_esr_RNIOJB1[4]                          SB_LUT4          I0           In      -         2.139       -         
-this_vga_signals.M_vcounter_q_fast_esr_RNIOJB1[4]                          SB_LUT4          O            Out     0.449     2.588       -         
-r_N_4_mux                                                                  Net              -            -       1.371     -           3         
-this_vga_signals.M_vcounter_q_7_rep1_esr_RNIEC471                          SB_LUT4          I0           In      -         3.959       -         
-this_vga_signals.M_vcounter_q_7_rep1_esr_RNIEC471                          SB_LUT4          O            Out     0.449     4.408       -         
-SUM_2                                                                      Net              -            -       1.371     -           2         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1        SB_LUT4          I2           In      -         5.779       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1        SB_LUT4          O            Out     0.379     6.157       -         
-mult1_un40_sum_axb1_i                                                      Net              -            -       1.371     -           10        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3       SB_LUT4          I0           In      -         7.528       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3       SB_LUT4          O            Out     0.449     7.977       -         
-mult1_un47_sum_c3                                                          Net              -            -       1.371     -           12        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1       SB_LUT4          I2           In      -         9.348       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1       SB_LUT4          O            Out     0.379     9.727       -         
-mult1_un54_sum_ac0_1                                                       Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0     SB_LUT4          I0           In      -         11.098      -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0     SB_LUT4          O            Out     0.449     11.547      -         
-mult1_un54_sum_c3_0                                                        Net              -            -       1.371     -           21        
-this_vga_signals.un5_vaddress.g0_28                                        SB_LUT4          I2           In      -         12.918      -         
-this_vga_signals.un5_vaddress.g0_28                                        SB_LUT4          O            Out     0.379     13.296      -         
-N_4_3_0                                                                    Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_25                                        SB_LUT4          I1           In      -         14.667      -         
-this_vga_signals.un5_vaddress.g0_25                                        SB_LUT4          O            Out     0.400     15.067      -         
-N_14_0                                                                     Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_10                                        SB_LUT4          I0           In      -         16.438      -         
-this_vga_signals.un5_vaddress.g0_10                                        SB_LUT4          O            Out     0.449     16.887      -         
-g0_i_x4_7_0_0                                                              Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_1                                         SB_LUT4          I2           In      -         18.258      -         
-this_vga_signals.un5_vaddress.g0_1                                         SB_LUT4          O            Out     0.379     18.637      -         
-g1_2_0_0                                                                   Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_5                                         SB_LUT4          I2           In      -         20.008      -         
-this_vga_signals.un5_vaddress.g0_5                                         SB_LUT4          O            Out     0.379     20.386      -         
-mult1_un75_sum_c3_0_0_0_0                                                  Net              -            -       1.371     -           1         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                 SB_LUT4          I2           In      -         21.757      -         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                 SB_LUT4          O            Out     0.379     22.136      -         
-M_this_vga_signals_address[7]                                              Net              -            -       4.715     -           1         
-this_vram.mem_mem_0_0                                                      SB_RAM256x16     RADDR[7]     In      -         26.851      -         
-=================================================================================================================================================
-Total path delay (propagation time + setup) of 27.054 is 5.659(20.9%) logic and 21.395(79.1%) route.
-Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
-
-
-Path information for path number 2: 
-      Requested Period:                      10.000
-    - Setup time:                            0.203
-    + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         9.797
-
-    - Propagation time:                      26.802
-    - Clock delay at starting point:         0.000 (ideal)
-    = Slack (non-critical) :                 -17.005
-
-    Number of logic level(s):                12
-    Starting point:                          this_vga_signals.M_vcounter_q_fast_esr[5] / Q
-    Ending point:                            this_vram.mem_mem_0_0 / RADDR[7]
-    The start point is clocked by            clk_0 [rising] on pin C
-    The end   point is clocked by            clk_0 [rising] on pin RCLK
-
-Instance / Net                                                                              Pin          Pin               Arrival     No. of    
-Name                                                                       Type             Name         Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------------------------------
-this_vga_signals.M_vcounter_q_fast_esr[5]                                  SB_DFFESR        Q            Out     0.540     0.540       -         
-M_vcounter_q_fast[5]                                                       Net              -            -       1.599     -           4         
-this_vga_signals.M_vcounter_q_fast_esr_RNIOJB1[4]                          SB_LUT4          I1           In      -         2.139       -         
-this_vga_signals.M_vcounter_q_fast_esr_RNIOJB1[4]                          SB_LUT4          O            Out     0.400     2.539       -         
-r_N_4_mux                                                                  Net              -            -       1.371     -           3         
-this_vga_signals.M_vcounter_q_7_rep1_esr_RNIEC471                          SB_LUT4          I0           In      -         3.910       -         
-this_vga_signals.M_vcounter_q_7_rep1_esr_RNIEC471                          SB_LUT4          O            Out     0.449     4.359       -         
-SUM_2                                                                      Net              -            -       1.371     -           2         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1        SB_LUT4          I2           In      -         5.730       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1        SB_LUT4          O            Out     0.379     6.108       -         
-mult1_un40_sum_axb1_i                                                      Net              -            -       1.371     -           10        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3       SB_LUT4          I0           In      -         7.479       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3       SB_LUT4          O            Out     0.449     7.928       -         
-mult1_un47_sum_c3                                                          Net              -            -       1.371     -           12        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1       SB_LUT4          I2           In      -         9.299       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1       SB_LUT4          O            Out     0.379     9.678       -         
-mult1_un54_sum_ac0_1                                                       Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0     SB_LUT4          I0           In      -         11.049      -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0     SB_LUT4          O            Out     0.449     11.498      -         
-mult1_un54_sum_c3_0                                                        Net              -            -       1.371     -           21        
-this_vga_signals.un5_vaddress.g0_28                                        SB_LUT4          I2           In      -         12.869      -         
-this_vga_signals.un5_vaddress.g0_28                                        SB_LUT4          O            Out     0.379     13.247      -         
-N_4_3_0                                                                    Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_25                                        SB_LUT4          I1           In      -         14.618      -         
-this_vga_signals.un5_vaddress.g0_25                                        SB_LUT4          O            Out     0.400     15.018      -         
-N_14_0                                                                     Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_10                                        SB_LUT4          I0           In      -         16.389      -         
-this_vga_signals.un5_vaddress.g0_10                                        SB_LUT4          O            Out     0.449     16.838      -         
-g0_i_x4_7_0_0                                                              Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_1                                         SB_LUT4          I2           In      -         18.209      -         
-this_vga_signals.un5_vaddress.g0_1                                         SB_LUT4          O            Out     0.379     18.587      -         
-g1_2_0_0                                                                   Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_5                                         SB_LUT4          I2           In      -         19.958      -         
-this_vga_signals.un5_vaddress.g0_5                                         SB_LUT4          O            Out     0.379     20.337      -         
-mult1_un75_sum_c3_0_0_0_0                                                  Net              -            -       1.371     -           1         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                 SB_LUT4          I2           In      -         21.708      -         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                 SB_LUT4          O            Out     0.379     22.087      -         
-M_this_vga_signals_address[7]                                              Net              -            -       4.715     -           1         
-this_vram.mem_mem_0_0                                                      SB_RAM256x16     RADDR[7]     In      -         26.802      -         
-=================================================================================================================================================
-Total path delay (propagation time + setup) of 27.005 is 5.610(20.8%) logic and 21.395(79.2%) route.
-Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
-
-
-Path information for path number 3: 
-      Requested Period:                      10.000
-    - Setup time:                            0.203
-    + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         9.797
-
-    - Propagation time:                      26.781
-    - Clock delay at starting point:         0.000 (ideal)
-    = Slack (non-critical) :                 -16.984
-
-    Number of logic level(s):                12
-    Starting point:                          this_vga_signals.M_vcounter_q_fast_esr[6] / Q
-    Ending point:                            this_vram.mem_mem_0_0 / RADDR[7]
-    The start point is clocked by            clk_0 [rising] on pin C
-    The end   point is clocked by            clk_0 [rising] on pin RCLK
-
-Instance / Net                                                                              Pin          Pin               Arrival     No. of    
-Name                                                                       Type             Name         Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------------------------------
-this_vga_signals.M_vcounter_q_fast_esr[6]                                  SB_DFFESR        Q            Out     0.540     0.540       -         
-M_vcounter_q_fast[6]                                                       Net              -            -       1.599     -           4         
-this_vga_signals.M_vcounter_q_fast_esr_RNIOJB1[4]                          SB_LUT4          I2           In      -         2.139       -         
-this_vga_signals.M_vcounter_q_fast_esr_RNIOJB1[4]                          SB_LUT4          O            Out     0.379     2.518       -         
-r_N_4_mux                                                                  Net              -            -       1.371     -           3         
-this_vga_signals.M_vcounter_q_7_rep1_esr_RNIEC471                          SB_LUT4          I0           In      -         3.889       -         
-this_vga_signals.M_vcounter_q_7_rep1_esr_RNIEC471                          SB_LUT4          O            Out     0.449     4.338       -         
-SUM_2                                                                      Net              -            -       1.371     -           2         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1        SB_LUT4          I2           In      -         5.708       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1        SB_LUT4          O            Out     0.379     6.087       -         
-mult1_un40_sum_axb1_i                                                      Net              -            -       1.371     -           10        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3       SB_LUT4          I0           In      -         7.458       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3       SB_LUT4          O            Out     0.449     7.907       -         
-mult1_un47_sum_c3                                                          Net              -            -       1.371     -           12        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1       SB_LUT4          I2           In      -         9.278       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1       SB_LUT4          O            Out     0.379     9.657       -         
-mult1_un54_sum_ac0_1                                                       Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0     SB_LUT4          I0           In      -         11.028      -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0     SB_LUT4          O            Out     0.449     11.476      -         
-mult1_un54_sum_c3_0                                                        Net              -            -       1.371     -           21        
-this_vga_signals.un5_vaddress.g0_28                                        SB_LUT4          I2           In      -         12.848      -         
-this_vga_signals.un5_vaddress.g0_28                                        SB_LUT4          O            Out     0.379     13.226      -         
-N_4_3_0                                                                    Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_25                                        SB_LUT4          I1           In      -         14.597      -         
-this_vga_signals.un5_vaddress.g0_25                                        SB_LUT4          O            Out     0.400     14.997      -         
-N_14_0                                                                     Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_10                                        SB_LUT4          I0           In      -         16.368      -         
-this_vga_signals.un5_vaddress.g0_10                                        SB_LUT4          O            Out     0.449     16.817      -         
-g0_i_x4_7_0_0                                                              Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_1                                         SB_LUT4          I2           In      -         18.188      -         
-this_vga_signals.un5_vaddress.g0_1                                         SB_LUT4          O            Out     0.379     18.566      -         
-g1_2_0_0                                                                   Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_5                                         SB_LUT4          I2           In      -         19.937      -         
-this_vga_signals.un5_vaddress.g0_5                                         SB_LUT4          O            Out     0.379     20.316      -         
-mult1_un75_sum_c3_0_0_0_0                                                  Net              -            -       1.371     -           1         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                 SB_LUT4          I2           In      -         21.687      -         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                 SB_LUT4          O            Out     0.379     22.066      -         
-M_this_vga_signals_address[7]                                              Net              -            -       4.715     -           1         
-this_vram.mem_mem_0_0                                                      SB_RAM256x16     RADDR[7]     In      -         26.781      -         
-=================================================================================================================================================
-Total path delay (propagation time + setup) of 26.984 is 5.589(20.7%) logic and 21.395(79.3%) route.
-Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
-
-
-Path information for path number 4: 
-      Requested Period:                      10.000
-    - Setup time:                            0.203
-    + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         9.797
-
     - Propagation time:                      26.760
     - Clock delay at starting point:         0.000 (ideal)
-    = Slack (non-critical) :                 -16.963
+    = Slack (critical) :                     -16.963
 
     Number of logic level(s):                12
     Starting point:                          this_vga_signals.M_vcounter_q_esr[9] / Q
@@ -512,54 +325,54 @@ Path information for path number 4:
     The start point is clocked by            clk_0 [rising] on pin C
     The end   point is clocked by            clk_0 [rising] on pin RCLK
 
-Instance / Net                                                                                    Pin          Pin               Arrival     No. of    
-Name                                                                             Type             Name         Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------------------------------------
-this_vga_signals.M_vcounter_q_esr[9]                                             SB_DFFESR        Q            Out     0.540     0.540       -         
-M_vcounter_q[9]                                                                  Net              -            -       1.599     -           23        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_x0     SB_LUT4          I0           In      -         2.139       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_x0     SB_LUT4          O            Out     0.449     2.588       -         
-mult1_un40_sum_ac0_3_0_a1_x0                                                     Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_ns     SB_LUT4          I1           In      -         3.959       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_ns     SB_LUT4          O            Out     0.400     4.359       -         
-mult1_un40_sum_ac0_3_0_a1_ns                                                     Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3             SB_LUT4          I0           In      -         5.730       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3             SB_LUT4          O            Out     0.386     6.115       -         
-mult1_un40_sum_c3_0                                                              Net              -            -       1.371     -           11        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3             SB_LUT4          I1           In      -         7.486       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3             SB_LUT4          O            Out     0.400     7.886       -         
-mult1_un47_sum_c3                                                                Net              -            -       1.371     -           12        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1             SB_LUT4          I2           In      -         9.257       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1             SB_LUT4          O            Out     0.379     9.636       -         
-mult1_un54_sum_ac0_1                                                             Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0           SB_LUT4          I0           In      -         11.007      -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0           SB_LUT4          O            Out     0.449     11.455      -         
-mult1_un54_sum_c3_0                                                              Net              -            -       1.371     -           21        
-this_vga_signals.un5_vaddress.g0_28                                              SB_LUT4          I2           In      -         12.826      -         
-this_vga_signals.un5_vaddress.g0_28                                              SB_LUT4          O            Out     0.379     13.205      -         
-N_4_3_0                                                                          Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_25                                              SB_LUT4          I1           In      -         14.576      -         
-this_vga_signals.un5_vaddress.g0_25                                              SB_LUT4          O            Out     0.400     14.976      -         
-N_14_0                                                                           Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_10                                              SB_LUT4          I0           In      -         16.347      -         
-this_vga_signals.un5_vaddress.g0_10                                              SB_LUT4          O            Out     0.449     16.796      -         
-g0_i_x4_7_0_0                                                                    Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_1                                               SB_LUT4          I2           In      -         18.167      -         
-this_vga_signals.un5_vaddress.g0_1                                               SB_LUT4          O            Out     0.379     18.545      -         
-g1_2_0_0                                                                         Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_5                                               SB_LUT4          I2           In      -         19.916      -         
-this_vga_signals.un5_vaddress.g0_5                                               SB_LUT4          O            Out     0.379     20.295      -         
-mult1_un75_sum_c3_0_0_0_0                                                        Net              -            -       1.371     -           1         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                       SB_LUT4          I2           In      -         21.666      -         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                       SB_LUT4          O            Out     0.379     22.045      -         
-M_this_vga_signals_address[7]                                                    Net              -            -       4.715     -           1         
-this_vram.mem_mem_0_0                                                            SB_RAM256x16     RADDR[7]     In      -         26.760      -         
-=======================================================================================================================================================
+Instance / Net                                                                                   Pin          Pin               Arrival     No. of    
+Name                                                                            Type             Name         Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+this_vga_signals.M_vcounter_q_esr[9]                                            SB_DFFESR        Q            Out     0.540     0.540       -         
+M_vcounter_q[9]                                                                 Net              -            -       1.599     -           14        
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          I0           In      -         2.139       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          O            Out     0.449     2.588       -         
+M_vcounter_q_fast_esr_RNIU9761[5]                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          I2           In      -         3.959       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          O            Out     0.379     4.338       -         
+M_vcounter_q_fast_esr_RNI5QL61[4]                                               Net              -            -       1.371     -           4         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          I0           In      -         5.708       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          O            Out     0.449     6.157       -         
+mult1_un40_sum_axb1_i                                                           Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_axbxc3           SB_LUT4          I0           In      -         7.528       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_axbxc3           SB_LUT4          O            Out     0.449     7.977       -         
+mult1_un47_sum_axbxc3                                                           Net              -            -       1.371     -           5         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x0      SB_LUT4          I1           In      -         9.348       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x0      SB_LUT4          O            Out     0.400     9.748       -         
+mult1_un68_sum_axb1_654_x0                                                      Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          I1           In      -         11.119      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          O            Out     0.400     11.519      -         
+mult1_un68_sum_axb1_654_ns                                                      Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          I0           In      -         12.889      -         
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          O            Out     0.449     13.338      -         
+if_m1_3                                                                         Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          I2           In      -         14.709      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          O            Out     0.379     15.088      -         
+mult1_un68_sum_ac0_3_0_0_x0                                                     Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          I1           In      -         16.459      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          O            Out     0.400     16.859      -         
+mult1_un68_sum_ac0_3_0_0                                                        Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          I2           In      -         18.230      -         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          O            Out     0.379     18.608      -         
+N_5_i_0                                                                         Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          I3           In      -         19.979      -         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          O            Out     0.316     20.295      -         
+mult1_un82_sum_c3                                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          I2           In      -         21.666      -         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          O            Out     0.379     22.045      -         
+M_this_vga_signals_address[7]                                                   Net              -            -       4.715     -           1         
+this_vram.mem_mem_0_0                                                           SB_RAM256x16     RADDR[7]     In      -         26.760      -         
+======================================================================================================================================================
 Total path delay (propagation time + setup) of 26.963 is 5.568(20.7%) logic and 21.395(79.3%) route.
 Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
 
 
-Path information for path number 5: 
+Path information for path number 2: 
       Requested Period:                      10.000
     - Setup time:                            0.203
     + Clock delay at ending point:           0.000 (ideal)
@@ -575,50 +388,239 @@ Path information for path number 5:
     The start point is clocked by            clk_0 [rising] on pin C
     The end   point is clocked by            clk_0 [rising] on pin RCLK
 
-Instance / Net                                                                                    Pin          Pin               Arrival     No. of    
-Name                                                                             Type             Name         Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------------------------------------
-this_vga_signals.M_vcounter_q_esr[9]                                             SB_DFFESR        Q            Out     0.540     0.540       -         
-M_vcounter_q[9]                                                                  Net              -            -       1.599     -           23        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_x1     SB_LUT4          I0           In      -         2.139       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_x1     SB_LUT4          O            Out     0.449     2.588       -         
-mult1_un40_sum_ac0_3_0_a1_x1                                                     Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_ns     SB_LUT4          I2           In      -         3.959       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3_0_a1_ns     SB_LUT4          O            Out     0.379     4.338       -         
-mult1_un40_sum_ac0_3_0_a1_ns                                                     Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3             SB_LUT4          I0           In      -         5.708       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_ac0_3             SB_LUT4          O            Out     0.386     6.094       -         
-mult1_un40_sum_c3_0                                                              Net              -            -       1.371     -           11        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3             SB_LUT4          I1           In      -         7.465       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_ac0_3             SB_LUT4          O            Out     0.400     7.865       -         
-mult1_un47_sum_c3                                                                Net              -            -       1.371     -           12        
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1             SB_LUT4          I2           In      -         9.236       -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_1             SB_LUT4          O            Out     0.379     9.615       -         
-mult1_un54_sum_ac0_1                                                             Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0           SB_LUT4          I0           In      -         10.986      -         
-this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_ac0_3_0           SB_LUT4          O            Out     0.449     11.434      -         
-mult1_un54_sum_c3_0                                                              Net              -            -       1.371     -           21        
-this_vga_signals.un5_vaddress.g0_28                                              SB_LUT4          I2           In      -         12.805      -         
-this_vga_signals.un5_vaddress.g0_28                                              SB_LUT4          O            Out     0.379     13.184      -         
-N_4_3_0                                                                          Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_25                                              SB_LUT4          I1           In      -         14.555      -         
-this_vga_signals.un5_vaddress.g0_25                                              SB_LUT4          O            Out     0.400     14.955      -         
-N_14_0                                                                           Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_10                                              SB_LUT4          I0           In      -         16.326      -         
-this_vga_signals.un5_vaddress.g0_10                                              SB_LUT4          O            Out     0.449     16.775      -         
-g0_i_x4_7_0_0                                                                    Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_1                                               SB_LUT4          I2           In      -         18.146      -         
-this_vga_signals.un5_vaddress.g0_1                                               SB_LUT4          O            Out     0.379     18.524      -         
-g1_2_0_0                                                                         Net              -            -       1.371     -           1         
-this_vga_signals.un5_vaddress.g0_5                                               SB_LUT4          I2           In      -         19.895      -         
-this_vga_signals.un5_vaddress.g0_5                                               SB_LUT4          O            Out     0.379     20.274      -         
-mult1_un75_sum_c3_0_0_0_0                                                        Net              -            -       1.371     -           1         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                       SB_LUT4          I2           In      -         21.645      -         
-this_vga_signals.M_vcounter_q_RNI3KH3P1[1]                                       SB_LUT4          O            Out     0.379     22.024      -         
-M_this_vga_signals_address[7]                                                    Net              -            -       4.715     -           1         
-this_vram.mem_mem_0_0                                                            SB_RAM256x16     RADDR[7]     In      -         26.739      -         
-=======================================================================================================================================================
+Instance / Net                                                                                   Pin          Pin               Arrival     No. of    
+Name                                                                            Type             Name         Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+this_vga_signals.M_vcounter_q_esr[9]                                            SB_DFFESR        Q            Out     0.540     0.540       -         
+M_vcounter_q[9]                                                                 Net              -            -       1.599     -           14        
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          I0           In      -         2.139       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          O            Out     0.449     2.588       -         
+M_vcounter_q_fast_esr_RNIU9761[5]                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          I2           In      -         3.959       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          O            Out     0.379     4.338       -         
+M_vcounter_q_fast_esr_RNI5QL61[4]                                               Net              -            -       1.371     -           4         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          I0           In      -         5.708       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          O            Out     0.449     6.157       -         
+mult1_un40_sum_axb1_i                                                           Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_axb2             SB_LUT4          I0           In      -         7.528       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_axb2             SB_LUT4          O            Out     0.449     7.977       -         
+mult1_un54_sum_axb2_i                                                           Net              -            -       1.371     -           15        
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x0      SB_LUT4          I2           In      -         9.348       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x0      SB_LUT4          O            Out     0.379     9.727       -         
+mult1_un68_sum_axb1_654_x0                                                      Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          I1           In      -         11.098      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          O            Out     0.400     11.498      -         
+mult1_un68_sum_axb1_654_ns                                                      Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          I0           In      -         12.869      -         
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          O            Out     0.449     13.317      -         
+if_m1_3                                                                         Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          I2           In      -         14.688      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          O            Out     0.379     15.067      -         
+mult1_un68_sum_ac0_3_0_0_x0                                                     Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          I1           In      -         16.438      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          O            Out     0.400     16.838      -         
+mult1_un68_sum_ac0_3_0_0                                                        Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          I2           In      -         18.209      -         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          O            Out     0.379     18.587      -         
+N_5_i_0                                                                         Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          I3           In      -         19.958      -         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          O            Out     0.316     20.274      -         
+mult1_un82_sum_c3                                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          I2           In      -         21.645      -         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          O            Out     0.379     22.024      -         
+M_this_vga_signals_address[7]                                                   Net              -            -       4.715     -           1         
+this_vram.mem_mem_0_0                                                           SB_RAM256x16     RADDR[7]     In      -         26.739      -         
+======================================================================================================================================================
 Total path delay (propagation time + setup) of 26.942 is 5.547(20.6%) logic and 21.395(79.4%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 3: 
+      Requested Period:                      10.000
+    - Setup time:                            0.203
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.797
+
+    - Propagation time:                      26.739
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -16.942
+
+    Number of logic level(s):                12
+    Starting point:                          this_vga_signals.M_vcounter_q_esr[9] / Q
+    Ending point:                            this_vram.mem_mem_0_0 / RADDR[7]
+    The start point is clocked by            clk_0 [rising] on pin C
+    The end   point is clocked by            clk_0 [rising] on pin RCLK
+
+Instance / Net                                                                                   Pin          Pin               Arrival     No. of    
+Name                                                                            Type             Name         Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+this_vga_signals.M_vcounter_q_esr[9]                                            SB_DFFESR        Q            Out     0.540     0.540       -         
+M_vcounter_q[9]                                                                 Net              -            -       1.599     -           14        
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          I0           In      -         2.139       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          O            Out     0.449     2.588       -         
+M_vcounter_q_fast_esr_RNIU9761[5]                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          I2           In      -         3.959       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          O            Out     0.379     4.338       -         
+M_vcounter_q_fast_esr_RNI5QL61[4]                                               Net              -            -       1.371     -           4         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          I0           In      -         5.708       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          O            Out     0.449     6.157       -         
+mult1_un40_sum_axb1_i                                                           Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_axbxc3           SB_LUT4          I0           In      -         7.528       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_axbxc3           SB_LUT4          O            Out     0.449     7.977       -         
+mult1_un47_sum_axbxc3                                                           Net              -            -       1.371     -           5         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x1      SB_LUT4          I1           In      -         9.348       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x1      SB_LUT4          O            Out     0.400     9.748       -         
+mult1_un68_sum_axb1_654_x1                                                      Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          I2           In      -         11.119      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          O            Out     0.379     11.498      -         
+mult1_un68_sum_axb1_654_ns                                                      Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          I0           In      -         12.869      -         
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          O            Out     0.449     13.317      -         
+if_m1_3                                                                         Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          I2           In      -         14.688      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          O            Out     0.379     15.067      -         
+mult1_un68_sum_ac0_3_0_0_x0                                                     Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          I1           In      -         16.438      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          O            Out     0.400     16.838      -         
+mult1_un68_sum_ac0_3_0_0                                                        Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          I2           In      -         18.209      -         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          O            Out     0.379     18.587      -         
+N_5_i_0                                                                         Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          I3           In      -         19.958      -         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          O            Out     0.316     20.274      -         
+mult1_un82_sum_c3                                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          I2           In      -         21.645      -         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          O            Out     0.379     22.024      -         
+M_this_vga_signals_address[7]                                                   Net              -            -       4.715     -           1         
+this_vram.mem_mem_0_0                                                           SB_RAM256x16     RADDR[7]     In      -         26.739      -         
+======================================================================================================================================================
+Total path delay (propagation time + setup) of 26.942 is 5.547(20.6%) logic and 21.395(79.4%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 4: 
+      Requested Period:                      10.000
+    - Setup time:                            0.203
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.797
+
+    - Propagation time:                      26.739
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -16.942
+
+    Number of logic level(s):                12
+    Starting point:                          this_vga_signals.M_vcounter_q_esr[9] / Q
+    Ending point:                            this_vram.mem_mem_0_0 / RADDR[7]
+    The start point is clocked by            clk_0 [rising] on pin C
+    The end   point is clocked by            clk_0 [rising] on pin RCLK
+
+Instance / Net                                                                                   Pin          Pin               Arrival     No. of    
+Name                                                                            Type             Name         Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+this_vga_signals.M_vcounter_q_esr[9]                                            SB_DFFESR        Q            Out     0.540     0.540       -         
+M_vcounter_q[9]                                                                 Net              -            -       1.599     -           14        
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          I0           In      -         2.139       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          O            Out     0.449     2.588       -         
+M_vcounter_q_fast_esr_RNIU9761[5]                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          I2           In      -         3.959       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          O            Out     0.379     4.338       -         
+M_vcounter_q_fast_esr_RNI5QL61[4]                                               Net              -            -       1.371     -           4         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          I0           In      -         5.708       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          O            Out     0.449     6.157       -         
+mult1_un40_sum_axb1_i                                                           Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_axbxc3           SB_LUT4          I0           In      -         7.528       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un47_sum_axbxc3           SB_LUT4          O            Out     0.449     7.977       -         
+mult1_un47_sum_axbxc3                                                           Net              -            -       1.371     -           5         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x0      SB_LUT4          I1           In      -         9.348       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x0      SB_LUT4          O            Out     0.400     9.748       -         
+mult1_un68_sum_axb1_654_x0                                                      Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          I1           In      -         11.119      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          O            Out     0.400     11.519      -         
+mult1_un68_sum_axb1_654_ns                                                      Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          I0           In      -         12.889      -         
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          O            Out     0.449     13.338      -         
+if_m1_3                                                                         Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x1     SB_LUT4          I2           In      -         14.709      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x1     SB_LUT4          O            Out     0.379     15.088      -         
+mult1_un68_sum_ac0_3_0_0_x1                                                     Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          I2           In      -         16.459      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          O            Out     0.379     16.838      -         
+mult1_un68_sum_ac0_3_0_0                                                        Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          I2           In      -         18.209      -         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          O            Out     0.379     18.587      -         
+N_5_i_0                                                                         Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          I3           In      -         19.958      -         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          O            Out     0.316     20.274      -         
+mult1_un82_sum_c3                                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          I2           In      -         21.645      -         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          O            Out     0.379     22.024      -         
+M_this_vga_signals_address[7]                                                   Net              -            -       4.715     -           1         
+this_vram.mem_mem_0_0                                                           SB_RAM256x16     RADDR[7]     In      -         26.739      -         
+======================================================================================================================================================
+Total path delay (propagation time + setup) of 26.942 is 5.547(20.6%) logic and 21.395(79.4%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 5: 
+      Requested Period:                      10.000
+    - Setup time:                            0.203
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.797
+
+    - Propagation time:                      26.718
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -16.921
+
+    Number of logic level(s):                12
+    Starting point:                          this_vga_signals.M_vcounter_q_esr[9] / Q
+    Ending point:                            this_vram.mem_mem_0_0 / RADDR[7]
+    The start point is clocked by            clk_0 [rising] on pin C
+    The end   point is clocked by            clk_0 [rising] on pin RCLK
+
+Instance / Net                                                                                   Pin          Pin               Arrival     No. of    
+Name                                                                            Type             Name         Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+this_vga_signals.M_vcounter_q_esr[9]                                            SB_DFFESR        Q            Out     0.540     0.540       -         
+M_vcounter_q[9]                                                                 Net              -            -       1.599     -           14        
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          I0           In      -         2.139       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNIU9761[5]                              SB_LUT4          O            Out     0.449     2.588       -         
+M_vcounter_q_fast_esr_RNIU9761[5]                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          I2           In      -         3.959       -         
+this_vga_signals.M_vcounter_q_fast_esr_RNI5QL61[4]                              SB_LUT4          O            Out     0.379     4.338       -         
+M_vcounter_q_fast_esr_RNI5QL61[4]                                               Net              -            -       1.371     -           4         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          I0           In      -         5.708       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un40_sum_axb1             SB_LUT4          O            Out     0.449     6.157       -         
+mult1_un40_sum_axb1_i                                                           Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_axb2             SB_LUT4          I0           In      -         7.528       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un54_sum_axb2             SB_LUT4          O            Out     0.449     7.977       -         
+mult1_un54_sum_axb2_i                                                           Net              -            -       1.371     -           15        
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x1      SB_LUT4          I2           In      -         9.348       -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_x1      SB_LUT4          O            Out     0.379     9.727       -         
+mult1_un68_sum_axb1_654_x1                                                      Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          I2           In      -         11.098      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_axb1_654_ns      SB_LUT4          O            Out     0.379     11.476      -         
+mult1_un68_sum_axb1_654_ns                                                      Net              -            -       1.371     -           10        
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          I0           In      -         12.848      -         
+this_vga_signals.un5_vaddress.if_m1_3                                           SB_LUT4          O            Out     0.449     13.296      -         
+if_m1_3                                                                         Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          I2           In      -         14.667      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_x0     SB_LUT4          O            Out     0.379     15.046      -         
+mult1_un68_sum_ac0_3_0_0_x0                                                     Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          I1           In      -         16.417      -         
+this_vga_signals.un5_vaddress.if_generate_plus\.mult1_un68_sum_ac0_3_0_0_ns     SB_LUT4          O            Out     0.400     16.817      -         
+mult1_un68_sum_ac0_3_0_0                                                        Net              -            -       1.371     -           2         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          I2           In      -         18.188      -         
+this_vga_signals.un5_vaddress.g0_31                                             SB_LUT4          O            Out     0.379     18.566      -         
+N_5_i_0                                                                         Net              -            -       1.371     -           1         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          I3           In      -         19.937      -         
+this_vga_signals.un5_vaddress.g0_22                                             SB_LUT4          O            Out     0.316     20.253      -         
+mult1_un82_sum_c3                                                               Net              -            -       1.371     -           1         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          I2           In      -         21.624      -         
+this_vga_signals.M_hcounter_q_RNIIADJ4E2[7]                                     SB_LUT4          O            Out     0.379     22.003      -         
+M_this_vga_signals_address[7]                                                   Net              -            -       4.715     -           1         
+this_vram.mem_mem_0_0                                                           SB_RAM256x16     RADDR[7]     In      -         26.718      -         
+======================================================================================================================================================
+Total path delay (propagation time + setup) of 26.921 is 5.526(20.5%) logic and 21.395(79.5%) route.
 Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
 
 
@@ -628,10 +630,10 @@ Path delay compensated for clock skew. Clock skew is added to clock-to-out value
 Timing exceptions that could not be applied
 None
 
-Finished final timing analysis (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 180MB peak: 232MB)
+Finished final timing analysis (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 176MB peak: 206MB)
 
 
-Finished timing report (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 180MB peak: 232MB)
+Finished timing report (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 176MB peak: 206MB)
 
 ---------------------------------------
 Resource Usage Report for cu_top_0 
@@ -639,18 +641,18 @@ Resource Usage Report for cu_top_0
 Mapping to part: ice40hx8kcb132
 Cell usage:
 GND             12 uses
-SB_CARRY        93 uses
-SB_DFF          71 uses
-SB_DFFE         33 uses
-SB_DFFESR       49 uses
-SB_DFFSR        54 uses
+SB_CARRY        112 uses
+SB_DFF          45 uses
+SB_DFFE         35 uses
+SB_DFFESR       40 uses
+SB_DFFSR        78 uses
 SB_DFFSS        1 use
-SB_GB           2 uses
+SB_GB           3 uses
 SB_RAM1024x4    2 uses
 SB_RAM2048x2    16 uses
 SB_RAM256x16    3 uses
 VCC             12 uses
-SB_LUT4         618 uses
+SB_LUT4         668 uses
 
 I/O ports: 52
 I/O primitives: 52
@@ -658,7 +660,7 @@ SB_GB_IO       1 use
 SB_IO          51 uses
 
 I/O Register bits:                  0
-Register bits not including I/Os:   208 (2%)
+Register bits not including I/Os:   199 (2%)
 
 RAM/ROM usage summary
 Block Rams : 21 of 32 (65%)
@@ -667,16 +669,16 @@ Total load per clock:
    clk_0: 1
 
 @S |Mapping Summary:
-Total  LUTs: 618 (8%)
+Total  LUTs: 668 (8%)
 
 Distribution of All Consumed LUTs = LUT4 
-Distribution of All Consumed Luts 618 = 618 
+Distribution of All Consumed Luts 668 = 668 
 
 Mapper successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 34MB peak: 232MB)
+At Mapper Exit (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 33MB peak: 206MB)
 
-Process took 0h:00m:09s realtime, 0h:00m:09s cputime
-# Fri May 27 09:12:47 2022
+Process took 0h:00m:08s realtime, 0h:00m:08s cputime
+# Sat May 28 12:20:04 2022
 
 ###########################################################]

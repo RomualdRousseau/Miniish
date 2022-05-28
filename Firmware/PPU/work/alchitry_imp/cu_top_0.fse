@@ -1,56 +1,48 @@
 
-fsm_encoding {549124911} onehot
+fsm_encoding {546924691} onehot
 
-fsm_state_encoding {549124911} IDLE_this_state {000000000000000001}
+fsm_state_encoding {546924691} IDLE_this_state {00000000000001}
 
-fsm_state_encoding {549124911} WRITE_SPRITE_HADDR_this_state {000000000000000010}
+fsm_state_encoding {546924691} WRITE_SPRITE_HADDR_this_state {00000000000010}
 
-fsm_state_encoding {549124911} WRITE_SPRITE_LADDR_this_state {000000000000000100}
+fsm_state_encoding {546924691} WRITE_SPRITE_LADDR_this_state {00000000000100}
 
-fsm_state_encoding {549124911} WRITE_PIXEL_this_state {000000000000001000}
+fsm_state_encoding {546924691} WRITE_PIXEL_this_state {00000000001000}
 
-fsm_state_encoding {549124911} WRITE_EXTERNAL_HADDR_this_state {000000000000010000}
+fsm_state_encoding {546924691} WRITE_EXTERNAL_HADDR_this_state {00000000010000}
 
-fsm_state_encoding {549124911} WRITE_COUNT_HADDR_this_state {000000000000100000}
+fsm_state_encoding {546924691} WRITE_COUNT_HADDR_this_state {00000000100000}
 
-fsm_state_encoding {549124911} DMA_START_this_state {000000000001000000}
+fsm_state_encoding {546924691} DMA_START_this_state {00000001000000}
 
-fsm_state_encoding {549124911} DMA_LOOP_SPRITE_this_state {000000000010000000}
+fsm_state_encoding {546924691} DMA_LOOP_SPRITE_this_state {00000010000000}
 
-fsm_state_encoding {549124911} DMA_TRANSFER_SPRITE_1_this_state {000000000100000000}
+fsm_state_encoding {546924691} DMA_TRANSFER_SPRITE_1_this_state {00000100000000}
 
-fsm_state_encoding {549124911} DMA_TRANSFER_SPRITE_2_this_state {000000001000000000}
+fsm_state_encoding {546924691} DMA_TRANSFER_SPRITE_2_this_state {00001000000000}
 
-fsm_state_encoding {549124911} DMA_LOOP_MAP_this_state {000000010000000000}
+fsm_state_encoding {546924691} DMA_LOOP_MAP_this_state {00010000000000}
 
-fsm_state_encoding {549124911} DMA_TRANSFER_MAP_this_state {000000100000000000}
+fsm_state_encoding {546924691} DMA_TRANSFER_MAP_this_state {00100000000000}
 
-fsm_state_encoding {549124911} DMA_LOOP_OAM_this_state {000001000000000000}
+fsm_state_encoding {546924691} DMA_LOOP_OAM_this_state {01000000000000}
 
-fsm_state_encoding {549124911} DMA_TRANSFER_OAM_1_this_state {000010000000000000}
+fsm_state_encoding {546924691} DMA_TRANSFER_OAM_this_state {10000000000000}
 
-fsm_state_encoding {549124911} DMA_TRANSFER_OAM_2_this_state {000100000000000000}
+fsm_registers {546924691} {M_this_state_q[13]}  {M_this_state_q[12]}  {M_this_state_q[11]}  {M_this_state_q[10]}  {M_this_state_q[9]}  {M_this_state_q[8]}  {M_this_state_q[7]}  {M_this_state_q[6]}  {M_this_state_q[5]}  {M_this_state_q[4]}  {M_this_state_q[3]}  {M_this_state_q[2]}  {M_this_state_q[1]}  {M_this_state_q[0]} 
 
-fsm_state_encoding {549124911} DMA_TRANSFER_OAM_3_this_state {001000000000000000}
+fsm_encoding {1312421242} onehot
 
-fsm_state_encoding {549124911} DMA_TRANSFER_OAM_4_this_state {010000000000000000}
+fsm_state_encoding {1312421242} IDLE_state {000001}
 
-fsm_state_encoding {549124911} DMA_TRANSFER_OAM_5_this_state {100000000000000000}
+fsm_state_encoding {1312421242} LOOP_state {000010}
 
-fsm_registers {549124911} {M_this_state_q[17]}  {M_this_state_q[16]}  {M_this_state_q[15]}  {M_this_state_q[14]}  {M_this_state_q[13]}  {M_this_state_q[12]}  {M_this_state_q[11]}  {M_this_state_q[10]}  {M_this_state_q[9]}  {M_this_state_q[8]}  {M_this_state_q[7]}  {M_this_state_q[6]}  {M_this_state_q[5]}  {M_this_state_q[4]}  {M_this_state_q[3]}  {M_this_state_q[2]}  {M_this_state_q[1]}  {M_this_state_q[0]} 
+fsm_state_encoding {1312421242} READ_OAM_state {000100}
 
-fsm_encoding {1311621162} onehot
+fsm_state_encoding {1312421242} WRITE_OAM_PIXEL_state {001000}
 
-fsm_state_encoding {1311621162} IDLE_state {000001}
+fsm_state_encoding {1312421242} READ_TILE_state {010000}
 
-fsm_state_encoding {1311621162} LOOP_state {000010}
+fsm_state_encoding {1312421242} WRITE_TILE_PIXEL_state {100000}
 
-fsm_state_encoding {1311621162} READ_OAM_state {000100}
-
-fsm_state_encoding {1311621162} WRITE_OAM_PIXEL_state {001000}
-
-fsm_state_encoding {1311621162} READ_TILE_state {010000}
-
-fsm_state_encoding {1311621162} WRITE_TILE_PIXEL_state {100000}
-
-fsm_registers {1311621162} {M_state_q[5]}  {M_state_q[4]}  {M_state_q[3]}  {M_state_q[2]}  {M_state_q[1]}  {M_state_q[0]} 
+fsm_registers {1312421242} {M_state_q[5]}  {M_state_q[4]}  {M_state_q[3]}  {M_state_q[2]}  {M_state_q[1]}  {M_state_q[0]} 

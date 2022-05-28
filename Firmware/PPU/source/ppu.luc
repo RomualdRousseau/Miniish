@@ -40,7 +40,7 @@ module ppu (
   
   sig hscroll[8];
   sig vscroll[8];
-
+  
   .clk(clk) {
     .rst(rst) {
       fsm state = {IDLE, LOOP, READ_OAM, WRITE_OAM_PIXEL, READ_TILE, WRITE_TILE_PIXEL};
@@ -59,8 +59,8 @@ module ppu (
     vram_en = 0;
     vram_data = 4bx;
     
-    vscroll = vaddress.q + 64;
-    hscroll = haddress.q + 64;
+    vscroll = vaddress.q + 0;
+    hscroll = haddress.q + 0;
     
     map_addr = 10bx;
     
@@ -92,11 +92,20 @@ module ppu (
         }
       
       state.READ_OAM:
-        sprites_addr = c{oam_data.tile, vscroll - oam_data.ypos, hscroll - oam_data.xpos};
-        state.d = state.WRITE_OAM_PIXEL;
+        if (vscroll >= oam_data.ypos && vscroll < (oam_data.ypos + 8) && hscroll >= oam_data.xpos && hscroll < (oam_data.xpos + 8)) {
+          vscroll = vscroll - oam_data.ypos;
+          hscroll = hscroll - oam_data.xpos;
+          sprites_addr = c{oam_data.tile, vscroll[0+:3], hscroll[0+:3]};
+          state.d = state.WRITE_OAM_PIXEL;
+        }
+        else {
+          state.d = state.READ_TILE;
+        }
       
       state.WRITE_OAM_PIXEL:
-        sprites_addr = c{oam_data.tile, vscroll - oam_data.ypos, hscroll - oam_data.xpos};
+        vscroll = vscroll - oam_data.ypos;
+        hscroll = hscroll - oam_data.xpos;
+        sprites_addr = c{oam_data.tile, vscroll[0+:3], hscroll[0+:3]};
         if (sprites_data == 0) {
           state.d = state.READ_TILE;
         }
