@@ -21,10 +21,8 @@ R5        .byte $00
 
  .dsect ; OAM ==================
  .org OAM_START
-BALL_TILE .byte $00
-BALL_X    .byte $00
-BALL_Y    .byte $00
-BALL_ATTR .byte $00
+HERO      .byte $00,$00,$00,$00
+COIN      .byte $00,$00,$00,$00
  .dend
 
  .org CODE_START ; CODE ========
@@ -50,14 +48,6 @@ SETUP
 
  lda #0
  sta NMI_STATE
-
- lda #16
- sta BALL_TILE
- lda #0
- sta BALL_X
- sta BALL_Y
- lda #0
- sta BALL_ATTR
 
  ; INIT LCD
 
@@ -148,12 +138,34 @@ NMI_FUNC
  beq NMI_DRAW
  jmp NMI_DONE
 NMI_INIT
+ ; INIT HERO
+ lda #16
+ sta HERO
+ lda #0
+ sta HERO + $01
+ lda #0
+ sta HERO + $02
+ lda #0
+ sta HERO + $03
+ ; init coin
+ lda #18
+ sta COIN
+ lda #8*8
+ sta COIN + $01
+ lda #12*8
+ sta COIN + $02
+ lda #0
+ sta COIN + $03
+ ; load assets in ppu
+ lda #$a0
+ sta PORT_PPU + $03
  lda #$00
- sta PORT_PPU + $05
+ sta PORT_PPU + $04
+ lda #$c0
+ sta PORT_PPU + $03
  lda #$20
- sta PORT_PPU + $05
- lda #$24
- sta PORT_PPU + $05
+ sta PORT_PPU + $04
+ ; next state
  lda #1
  sta NMI_STATE
  jmp NMI_DONE
@@ -162,31 +174,54 @@ NMI_DRAW
  lda COUNTER
  and #3
  bne NMI_DONE
+ ; update hero
  lda JOYPAD
  cmp #0
- beq NMI_DONE
+ beq HERO_UPDATE
+HERO_KEYUP
  lda JOYPAD
  and #%00001000
- beq BALL_KEYDOWN
- dec BALL_Y
-BALL_KEYDOWN
+ beq HERO_KEYDOWN
+ dec HERO + $02
+HERO_KEYDOWN
  lda JOYPAD
  and #%00000100
- beq BALL_KEYLEFT
- inc BALL_Y
-BALL_KEYLEFT
+ beq HERO_KEYLEFT
+ inc HERO + $02
+HERO_KEYLEFT
  lda JOYPAD
  and #%00000010
- beq BALL_KEYRIGHT
- dec BALL_X
-BALL_KEYRIGHT
+ beq HERO_KEYRIGHT
+ dec HERO + $01
+HERO_KEYRIGHT
  lda JOYPAD
  and #%00000001
- beq BALL_UPDATE
- inc BALL_X
-BALL_UPDATE
+ beq HERO_UPDATE
+ inc HERO + $01
+HERO_UPDATE
+ lda COUNTER
+ and #15
+ bne ALL_UPDATE
+ lda HERO
+ clc
+ adc #1
+ and #%11111101
+ sta HERO
+COIN_UPDATE
+ lda COIN
+ clc
+ adc #1
+ cmp #20
+ bne COIN_NEXT_ANIM
+ lda #18
+COIN_NEXT_ANIM
+ sta COIN
+ALL_UPDATE
+ ;update oam in ppu
+ lda #$10
+ sta PORT_PPU + $03 
  lda #$24
- sta PORT_PPU + $05
+ sta PORT_PPU + $04
 NMI_DONE
  pla
  rti
@@ -201,7 +236,7 @@ MESSAGE1
 MESSAGE2
  .asciiz "Wo ai ni (521 1314)"
 
- .org INTE_START ; INTERRUPT VECTORS ================================
+ .org INTE_START ; INT VECTORS =
 TABLE_IRQ
  .word IRQ0_FUNC
  .word IRQ1_FUNC

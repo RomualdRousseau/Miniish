@@ -34,7 +34,7 @@ module ppu (
     
     // Oam Memory
     
-    output oam_addr[6],
+    output oam_addr[4],
     input<Oam.entry> oam_data
   ) {
   
@@ -43,10 +43,11 @@ module ppu (
   
   .clk(clk) {
     .rst(rst) {
-      fsm state = {IDLE, LOOP, READ_OAM, WRITE_OAM_PIXEL, READ_TILE, WRITE_TILE_PIXEL};
+      fsm state = {IDLE, LOOP, LOOP_OAM, CHECK_OAM, READ_OAM, WRITE_OAM_PIXEL, READ_TILE, WRITE_TILE_PIXEL};
       dff count[8];
       dff haddress[8];
       dff vaddress[8];
+      dff oam_idx[5];
     }
     edge_detector line_clk(#RISE(1), #FALL(0));
   }
@@ -66,7 +67,7 @@ module ppu (
     
     sprites_addr = 14bx;
     
-    oam_addr = 6b0;
+    oam_addr = oam_idx.q[0+:4];
     
     case (state.q) {
       state.IDLE:
@@ -88,18 +89,31 @@ module ppu (
         }
         else {
           count.d = count.q - 1;
+          oam_idx.d = 0;
+          state.d = state.LOOP_OAM;
+        }
+      
+      state.LOOP_OAM:
+        if (oam_idx.q == 16) {
+          state.d = state.READ_TILE;
+        }
+        else {
           state.d = state.READ_OAM;
         }
       
       state.READ_OAM:
-        if (vscroll >= oam_data.ypos && vscroll < (oam_data.ypos + 8) && hscroll >= oam_data.xpos && hscroll < (oam_data.xpos + 8)) {
+        state.d = state.CHECK_OAM;
+      
+      state.CHECK_OAM:
+        if (oam_data.tile > 0 && vscroll >= oam_data.ypos && vscroll < (oam_data.ypos + 8) && hscroll >= oam_data.xpos && hscroll < (oam_data.xpos + 8)) {
           vscroll = vscroll - oam_data.ypos;
           hscroll = hscroll - oam_data.xpos;
           sprites_addr = c{oam_data.tile, vscroll[0+:3], hscroll[0+:3]};
           state.d = state.WRITE_OAM_PIXEL;
         }
         else {
-          state.d = state.READ_TILE;
+          oam_idx.d = oam_idx.q + 1;
+          state.d = state.LOOP_OAM;
         }
       
       state.WRITE_OAM_PIXEL:

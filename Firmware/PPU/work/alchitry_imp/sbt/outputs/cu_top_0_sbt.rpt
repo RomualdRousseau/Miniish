@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:24:17
 
-* File Generated:     May 28 2022 12:20:56
+* File Generated:     May 28 2022 16:04:11
 
 * Purpose:            General info of design implementation
 
@@ -17,7 +17,7 @@
 Synthesis/Placement Summary:
 ----------------------------
     Status:  Successful
-    Runtime: 1 seconds
+    Runtime: 0 seconds
 
 Device Info:
 ------------
@@ -27,8 +27,8 @@ Device Info:
 
 Design statistics:
 ------------------
-    FFs:                  199
-    LUTs:                 736
+    FFs:                  202
+    LUTs:                 693
     RAMs:                 21
     IOBs:                 52
     GBs:                  4
@@ -37,12 +37,12 @@ Design statistics:
 
 Logic Resource Utilization:
 ---------------------------
-    Total Logic Cells: 755/7680
-        Combinational Logic Cells: 556      out of   7680      7.23958%
-        Sequential Logic Cells:    199      out of   7680      2.59115%
-        Logic Tiles:               206      out of   960       21.4583%
+    Total Logic Cells: 713/7680
+        Combinational Logic Cells: 511      out of   7680      6.65365%
+        Sequential Logic Cells:    202      out of   7680      2.63021%
+        Logic Tiles:               172      out of   960       17.9167%
     Registers: 
-        Logic Registers:           199      out of   7680      2.59115%
+        Logic Registers:           202      out of   7680      2.63021%
         IO Registers:              0        out of   1280      0
     Block RAMs:                    21       out of   32        65.625%
     Warm Boots:                    0        out of   1         0%
@@ -128,25 +128,25 @@ Detailed I/O Info:
 
 Detailed Global Buffer Info:
 ----------------------------
-    Buffer Number  IO Bank  Driven By  Fanout  Signal Name                
-    -------------  -------  ---------  ------  -----------                
-    6              2        IO         241     clk_0_c_g                  
-    0              2                   19      this_vga_signals.N_1332_g  
-    2              1                   62      M_this_reset_cond_out_g_0  
-    4              0                   32      N_404_g                    
+    Buffer Number  IO Bank  Driven By  Fanout  Signal Name                 
+    -------------  -------  ---------  ------  -----------                 
+    6              2        IO         244     clk_0_c_g                   
+    3              3                   17      this_vga_signals.N_692_0_g  
+    2              1                   22      this_vga_signals.N_988_g    
+    4              0                   92      M_this_reset_cond_out_g_0   
 
 
 Router Summary:
 ---------------
     Status:  Successful
-    Runtime: 13 seconds
+    Runtime: 14 seconds
 
 Routing Resource Utilization:
 -----------------------------
-              Local line of tile     7195 out of 146184      4.92188%
-                          Span 4     1953 out of  29696      6.57664%
-                         Span 12      421 out of   5632      7.47514%
+              Local line of tile     6901 out of 146184      4.72076%
+                          Span 4     1861 out of  29696      6.26684%
+                         Span 12      418 out of   5632      7.42188%
                   Global network        4 out of      8      50%
-      Vertical Inter-LUT Connect      137 out of   6720      2.03869%
+      Vertical Inter-LUT Connect      108 out of   6720      1.60714%
 
 

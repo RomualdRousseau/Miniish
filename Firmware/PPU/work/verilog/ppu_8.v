@@ -16,7 +16,7 @@ module ppu_8 (
     input [3:0] sprites_data,
     output reg [9:0] map_addr,
     input [7:0] map_data,
-    output reg [5:0] oam_addr,
+    output reg [3:0] oam_addr,
     input [31:0] oam_data
   );
   
@@ -28,15 +28,18 @@ module ppu_8 (
   
   localparam IDLE_state = 3'd0;
   localparam LOOP_state = 3'd1;
-  localparam READ_OAM_state = 3'd2;
-  localparam WRITE_OAM_PIXEL_state = 3'd3;
-  localparam READ_TILE_state = 3'd4;
-  localparam WRITE_TILE_PIXEL_state = 3'd5;
+  localparam LOOP_OAM_state = 3'd2;
+  localparam CHECK_OAM_state = 3'd3;
+  localparam READ_OAM_state = 3'd4;
+  localparam WRITE_OAM_PIXEL_state = 3'd5;
+  localparam READ_TILE_state = 3'd6;
+  localparam WRITE_TILE_PIXEL_state = 3'd7;
   
   reg [2:0] M_state_d, M_state_q = IDLE_state;
   reg [7:0] M_count_d, M_count_q = 1'h0;
   reg [7:0] M_haddress_d, M_haddress_q = 1'h0;
   reg [7:0] M_vaddress_d, M_vaddress_q = 1'h0;
+  reg [4:0] M_oam_idx_d, M_oam_idx_q = 1'h0;
   wire [1-1:0] M_line_clk_out;
   reg [1-1:0] M_line_clk_in;
   edge_detector_4 line_clk (
@@ -50,6 +53,7 @@ module ppu_8 (
     M_count_d = M_count_q;
     M_vaddress_d = M_vaddress_q;
     M_haddress_d = M_haddress_q;
+    M_oam_idx_d = M_oam_idx_q;
     
     M_line_clk_in = vga_line_clk;
     vram_addr = {M_vaddress_q[0+0-:1], M_haddress_q[0+6-:7]};
@@ -59,7 +63,7 @@ module ppu_8 (
     hscroll = M_haddress_q + 1'h0;
     map_addr = 10'bxxxxxxxxxx;
     sprites_addr = 14'bxxxxxxxxxxxxxx;
-    oam_addr = 6'h00;
+    oam_addr = M_oam_idx_q[0+3-:4];
     
     case (M_state_q)
       IDLE_state: begin
@@ -79,17 +83,29 @@ module ppu_8 (
           M_state_d = IDLE_state;
         end else begin
           M_count_d = M_count_q - 1'h1;
+          M_oam_idx_d = 1'h0;
+          M_state_d = LOOP_OAM_state;
+        end
+      end
+      LOOP_OAM_state: begin
+        if (M_oam_idx_q == 5'h10) begin
+          M_state_d = READ_TILE_state;
+        end else begin
           M_state_d = READ_OAM_state;
         end
       end
       READ_OAM_state: begin
-        if (vscroll >= oam_data[16+7-:8] && vscroll < (oam_data[16+7-:8] + 4'h8) && hscroll >= oam_data[8+7-:8] && hscroll < (oam_data[8+7-:8] + 4'h8)) begin
+        M_state_d = CHECK_OAM_state;
+      end
+      CHECK_OAM_state: begin
+        if (oam_data[0+7-:8] > 1'h0 && vscroll >= oam_data[16+7-:8] && vscroll < (oam_data[16+7-:8] + 4'h8) && hscroll >= oam_data[8+7-:8] && hscroll < (oam_data[8+7-:8] + 4'h8)) begin
           vscroll = vscroll - oam_data[16+7-:8];
           hscroll = hscroll - oam_data[8+7-:8];
           sprites_addr = {oam_data[0+7-:8], vscroll[0+2-:3], hscroll[0+2-:3]};
           M_state_d = WRITE_OAM_PIXEL_state;
         end else begin
-          M_state_d = READ_TILE_state;
+          M_oam_idx_d = M_oam_idx_q + 1'h1;
+          M_state_d = LOOP_OAM_state;
         end
       end
       WRITE_OAM_PIXEL_state: begin
@@ -126,11 +142,13 @@ module ppu_8 (
       M_count_q <= 1'h0;
       M_haddress_q <= 1'h0;
       M_vaddress_q <= 1'h0;
+      M_oam_idx_q <= 1'h0;
       M_state_q <= 1'h0;
     end else begin
       M_count_q <= M_count_d;
       M_haddress_q <= M_haddress_d;
       M_vaddress_q <= M_vaddress_d;
+      M_oam_idx_q <= M_oam_idx_d;
       M_state_q <= M_state_d;
     end
   end

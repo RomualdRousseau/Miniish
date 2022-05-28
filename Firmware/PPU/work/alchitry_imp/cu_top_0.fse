@@ -1,48 +1,50 @@
 
-fsm_encoding {546924691} onehot
+fsm_encoding {545324531} onehot
 
-fsm_state_encoding {546924691} IDLE_this_state {00000000000001}
+fsm_state_encoding {545324531} IDLE_this_state {0000000000001}
 
-fsm_state_encoding {546924691} WRITE_SPRITE_HADDR_this_state {00000000000010}
+fsm_state_encoding {545324531} WRITE_SPRITE_HADDR_this_state {0000000000010}
 
-fsm_state_encoding {546924691} WRITE_SPRITE_LADDR_this_state {00000000000100}
+fsm_state_encoding {545324531} WRITE_SPRITE_LADDR_this_state {0000000000100}
 
-fsm_state_encoding {546924691} WRITE_PIXEL_this_state {00000000001000}
+fsm_state_encoding {545324531} WRITE_SPRITE_PIXEL_this_state {0000000001000}
 
-fsm_state_encoding {546924691} WRITE_EXTERNAL_HADDR_this_state {00000000010000}
+fsm_state_encoding {545324531} WRITE_EXTERNAL_HADDR_this_state {0000000010000}
 
-fsm_state_encoding {546924691} WRITE_COUNT_HADDR_this_state {00000000100000}
+fsm_state_encoding {545324531} DMA_START_this_state {0000000100000}
 
-fsm_state_encoding {546924691} DMA_START_this_state {00000001000000}
+fsm_state_encoding {545324531} DMA_LOOP_SPRITE_this_state {0000001000000}
 
-fsm_state_encoding {546924691} DMA_LOOP_SPRITE_this_state {00000010000000}
+fsm_state_encoding {545324531} DMA_TRANSFER_SPRITE_1_this_state {0000010000000}
 
-fsm_state_encoding {546924691} DMA_TRANSFER_SPRITE_1_this_state {00000100000000}
+fsm_state_encoding {545324531} DMA_TRANSFER_SPRITE_2_this_state {0000100000000}
 
-fsm_state_encoding {546924691} DMA_TRANSFER_SPRITE_2_this_state {00001000000000}
+fsm_state_encoding {545324531} DMA_LOOP_MAP_this_state {0001000000000}
 
-fsm_state_encoding {546924691} DMA_LOOP_MAP_this_state {00010000000000}
+fsm_state_encoding {545324531} DMA_TRANSFER_MAP_this_state {0010000000000}
 
-fsm_state_encoding {546924691} DMA_TRANSFER_MAP_this_state {00100000000000}
+fsm_state_encoding {545324531} DMA_LOOP_OAM_this_state {0100000000000}
 
-fsm_state_encoding {546924691} DMA_LOOP_OAM_this_state {01000000000000}
+fsm_state_encoding {545324531} DMA_TRANSFER_OAM_this_state {1000000000000}
 
-fsm_state_encoding {546924691} DMA_TRANSFER_OAM_this_state {10000000000000}
+fsm_registers {545324531} {M_this_state_q[12]}  {M_this_state_q[11]}  {M_this_state_q[10]}  {M_this_state_q[9]}  {M_this_state_q[8]}  {M_this_state_q[7]}  {M_this_state_q[6]}  {M_this_state_q[5]}  {M_this_state_q[4]}  {M_this_state_q[3]}  {M_this_state_q[2]}  {M_this_state_q[1]}  {M_this_state_q[0]} 
 
-fsm_registers {546924691} {M_this_state_q[13]}  {M_this_state_q[12]}  {M_this_state_q[11]}  {M_this_state_q[10]}  {M_this_state_q[9]}  {M_this_state_q[8]}  {M_this_state_q[7]}  {M_this_state_q[6]}  {M_this_state_q[5]}  {M_this_state_q[4]}  {M_this_state_q[3]}  {M_this_state_q[2]}  {M_this_state_q[1]}  {M_this_state_q[0]} 
+fsm_encoding {1314021402} onehot
 
-fsm_encoding {1312421242} onehot
+fsm_state_encoding {1314021402} IDLE_state {00000001}
 
-fsm_state_encoding {1312421242} IDLE_state {000001}
+fsm_state_encoding {1314021402} LOOP_state {00000010}
 
-fsm_state_encoding {1312421242} LOOP_state {000010}
+fsm_state_encoding {1314021402} LOOP_OAM_state {00000100}
 
-fsm_state_encoding {1312421242} READ_OAM_state {000100}
+fsm_state_encoding {1314021402} CHECK_OAM_state {00001000}
 
-fsm_state_encoding {1312421242} WRITE_OAM_PIXEL_state {001000}
+fsm_state_encoding {1314021402} READ_OAM_state {00010000}
 
-fsm_state_encoding {1312421242} READ_TILE_state {010000}
+fsm_state_encoding {1314021402} WRITE_OAM_PIXEL_state {00100000}
 
-fsm_state_encoding {1312421242} WRITE_TILE_PIXEL_state {100000}
+fsm_state_encoding {1314021402} READ_TILE_state {01000000}
 
-fsm_registers {1312421242} {M_state_q[5]}  {M_state_q[4]}  {M_state_q[3]}  {M_state_q[2]}  {M_state_q[1]}  {M_state_q[0]} 
+fsm_state_encoding {1314021402} WRITE_TILE_PIXEL_state {10000000}
+
+fsm_registers {1314021402} {M_state_q[7]}  {M_state_q[6]}  {M_state_q[5]}  {M_state_q[4]}  {M_state_q[3]}  {M_state_q[2]}  {M_state_q[1]}  {M_state_q[0]} 

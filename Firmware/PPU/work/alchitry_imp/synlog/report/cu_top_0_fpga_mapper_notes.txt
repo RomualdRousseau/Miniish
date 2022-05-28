@@ -3,8 +3,7 @@
 @N: MT204 |Auto Constrain mode is disabled because clocks are defined in the SDC file
 @N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":80:18:80:48|Generating a type div divider 
 @N: MF236 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":79:18:79:48|Generating a type div divider 
-@N: MO231 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Found counter in view:work.cu_top_0(verilog) instance M_this_data_count_q[15:0] 
-@N: MO231 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Found counter in view:work.cu_top_0(verilog) instance M_this_external_address_q[15:0] 
+@N: MO231 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":453:2:453:7|Found counter in view:work.cu_top_0(verilog) instance M_this_data_count_q[13:0] 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 @N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Removing sequential instance this_vga_signals.M_pcounter_q[1] (in view: work.cu_top_0(verilog)) because it does not drive other instances.
@@ -12,16 +11,16 @@
 @N: MO106 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":26:21:26:48|Found ROM .delname. (in view: work.cu_top_0(verilog)) with 16 words by 6 bits.
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
 @N: MF794 |RAM this_sprites_ram.mem[3:0] required 3 registers during mapping 
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[6] (in view: work.cu_top_0(verilog)) with 25 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[6] (in view: work.cu_top_0(verilog)) with 24 loads 2 times to improve timing.
 @N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[4] (in view: work.cu_top_0(verilog)) with 41 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[5] (in view: work.cu_top_0(verilog)) with 19 loads 1 time to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[8] (in view: work.cu_top_0(verilog)) with 14 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[7] (in view: work.cu_top_0(verilog)) with 14 loads 2 times to improve timing.
-@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|Replicating instance M_this_state_q[9] (in view: work.cu_top_0(verilog)) with 8 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[5] (in view: work.cu_top_0(verilog)) with 32 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[8] (in view: work.cu_top_0(verilog)) with 19 loads 2 times to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[7] (in view: work.cu_top_0(verilog)) with 19 loads 1 time to improve timing.
+@N: FX271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Replicating instance this_vga_signals.M_vcounter_q[9] (in view: work.cu_top_0(verilog)) with 18 loads 2 times to improve timing.
 @N: FX1016 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":8:10:8:12|SB_GB_IO inserted on the port clk.
 @N: FX1017 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":29:2:29:7|SB_GB inserted on the net M_this_reset_cond_out[0].
-@N: FX1017 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":469:2:469:7|SB_GB inserted on the net N_404.
-@N: FX1017 :|SB_GB inserted on the net N_1332.
+@N: FX1017 :|SB_GB inserted on the net N_988.
+@N: FX1017 :|SB_GB inserted on the net N_692_0.
 @N: MT611 :|Automatically generated clock pixel_clock_5|M_counter_q_derived_clock[1] is not used and is being removed
 @N: MT611 :|Automatically generated clock vga_signals_6|pixel_clk_inferred_clock is not used and is being removed
 @N: BW103 |The default time unit for the Synopsys Constraint File (SDC or FDC) is 1ns.

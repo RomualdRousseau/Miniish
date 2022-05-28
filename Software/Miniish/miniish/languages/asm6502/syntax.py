@@ -4,7 +4,7 @@ from miniish.pyco import *
 KEYWORDS1 = (
         "LDA",
         "LDX",
-        "ADD",
+        "ADC",
         "JMP",
         "CMP",
         "AND",
@@ -18,6 +18,7 @@ KEYWORDS1 = (
         "DEC",
         "BEQ",
         "CLI",
+        "CLC",
         "RTS",
         "DEX",
         "ASL",
