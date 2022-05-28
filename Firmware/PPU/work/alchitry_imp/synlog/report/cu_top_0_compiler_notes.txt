@@ -13,10 +13,12 @@
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":48:7:48:24|Synthesizing module simple_dual_ram_10 in library work.
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":67:2:67:7|Found RAM mem, depth=1024, width=8
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":48:7:48:24|Synthesizing module simple_dual_ram_11 in library work.
-@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":67:2:67:7|Found RAM mem, depth=256, width=4
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":67:2:67:7|Found RAM mem, depth=64, width=32
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":48:7:48:24|Synthesizing module simple_dual_ram_12 in library work.
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":444:2:444:7|Trying to extract state machine for register M_this_state_q.
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":92:2:92:7|Trying to extract state machine for register M_state_q.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":491:2:491:7|Trying to extract state machine for register M_this_state_q.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":116:2:116:7|Trying to extract state machine for register M_state_q.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[10] is always 0.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[11] is always 0.
 @N|Running in 64-bit mode

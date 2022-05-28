@@ -13,7 +13,7 @@ The file contains the job information from mapper to be displayed as part of the
 </job_status>
 <job_info>
 <info name="Notes">
-<data>4</data>
+<data>21</data>
 <report_link name="more">
 <data>/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/report/cu_top_0_premap_notes.txt</data>
 </report_link>
@@ -37,10 +37,10 @@ The file contains the job information from mapper to be displayed as part of the
 <data>0h:00m:00s</data>
 </info>
 <info name="Peak Memory">
-<data>134MB</data>
+<data>135MB</data>
 </info>
 <info name="Date &amp; Time">
-<data type="timestamp">1653242389</data>
+<data type="timestamp">1653613957</data>
 </info>
 </job_info>
 </job_run_status>

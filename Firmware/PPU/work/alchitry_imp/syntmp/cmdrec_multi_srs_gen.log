@@ -1,7 +1,7 @@
 /opt/lscc/iCEcube2.2020.12/synpbase/bin/syn_nfilter  -link  -multisrs  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs  -osyn  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_mult.srs  -log  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_multi_srs_gen.srr 
 rc:0 success:1 runtime:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs|io:i|time:1653242387|size:23729|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_mult.srs|io:o|time:1653242388|size:13034|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_multi_srs_gen.srr|io:o|time:1653242388|size:706|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs|io:i|time:1653613956|size:27293|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_mult.srs|io:o|time:1653613957|size:15270|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_multi_srs_gen.srr|io:o|time:1653613957|size:706|exec:0
 file:/opt/lscc/iCEcube2.2020.12/synpbase/linux_a_64/syn_nfilter|io:i|time:1623495851|size:11473624|exec:1
 file:/opt/lscc/iCEcube2.2020.12/synpbase/bin/syn_nfilter|io:i|time:1623495849|size:366|exec:1

@@ -15,7 +15,9 @@ module ppu_8 (
     output reg [13:0] sprites_addr,
     input [3:0] sprites_data,
     output reg [9:0] map_addr,
-    input [7:0] map_data
+    input [7:0] map_data,
+    output reg [5:0] oam_addr,
+    input [31:0] oam_data
   );
   
   
@@ -24,12 +26,14 @@ module ppu_8 (
   
   reg [7:0] vscroll;
   
-  localparam IDLE_state = 2'd0;
-  localparam LOOP_state = 2'd1;
-  localparam READ_TILE_state = 2'd2;
-  localparam WRITE_PIXEL_state = 2'd3;
+  localparam IDLE_state = 3'd0;
+  localparam LOOP_state = 3'd1;
+  localparam READ_OAM_state = 3'd2;
+  localparam WRITE_OAM_PIXEL_state = 3'd3;
+  localparam READ_TILE_state = 3'd4;
+  localparam WRITE_TILE_PIXEL_state = 3'd5;
   
-  reg [1:0] M_state_d, M_state_q = IDLE_state;
+  reg [2:0] M_state_d, M_state_q = IDLE_state;
   reg [7:0] M_count_d, M_count_q = 1'h0;
   reg [7:0] M_haddress_d, M_haddress_q = 1'h0;
   reg [7:0] M_vaddress_d, M_vaddress_q = 1'h0;
@@ -53,8 +57,9 @@ module ppu_8 (
     vram_data = 4'bxxxx;
     vscroll = M_vaddress_q + 7'h40;
     hscroll = M_haddress_q + 7'h40;
-    map_addr = {vscroll[3+4-:5], hscroll[3+4-:5]};
-    sprites_addr = {map_data, vscroll[0+2-:3], hscroll[0+2-:3]};
+    map_addr = 10'bxxxxxxxxxx;
+    sprites_addr = 14'bxxxxxxxxxxxxxx;
+    oam_addr = 6'h00;
     
     case (M_state_q)
       IDLE_state: begin
@@ -74,13 +79,32 @@ module ppu_8 (
           M_state_d = IDLE_state;
         end else begin
           M_count_d = M_count_q - 1'h1;
+          M_state_d = READ_OAM_state;
+        end
+      end
+      READ_OAM_state: begin
+        sprites_addr = {oam_data[0+7-:8], vscroll - oam_data[16+7-:8], hscroll - oam_data[8+7-:8]};
+        M_state_d = WRITE_OAM_PIXEL_state;
+      end
+      WRITE_OAM_PIXEL_state: begin
+        sprites_addr = {oam_data[0+7-:8], vscroll - oam_data[16+7-:8], hscroll - oam_data[8+7-:8]};
+        if (sprites_data == 1'h0) begin
           M_state_d = READ_TILE_state;
+        end else begin
+          vram_en = 1'h1;
+          vram_data = sprites_data;
+          M_haddress_d = M_haddress_q + 1'h1;
+          M_state_d = LOOP_state;
         end
       end
       READ_TILE_state: begin
-        M_state_d = WRITE_PIXEL_state;
+        map_addr = {vscroll[3+4-:5], hscroll[3+4-:5]};
+        sprites_addr = {map_data, vscroll[0+2-:3], hscroll[0+2-:3]};
+        M_state_d = WRITE_TILE_PIXEL_state;
       end
-      WRITE_PIXEL_state: begin
+      WRITE_TILE_PIXEL_state: begin
+        map_addr = {vscroll[3+4-:5], hscroll[3+4-:5]};
+        sprites_addr = {map_data, vscroll[0+2-:3], hscroll[0+2-:3]};
         vram_en = 1'h1;
         vram_data = sprites_data;
         M_haddress_d = M_haddress_q + 1'h1;

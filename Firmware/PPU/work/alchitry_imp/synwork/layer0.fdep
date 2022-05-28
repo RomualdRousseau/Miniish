@@ -1,22 +1,23 @@
-#OPTIONS:"|-layerid|0|-orig_srs|/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs|-prodtype|synplify_pro|-primux|-fixsmult|-infer_seqShift|-ice|-sdff_counter|-nram|-divnmod|-nostructver|-I|/home/romuald/Projects/Miniish/Firmware/PPU/work/|-I|/opt/lscc/iCEcube2.2020.12/synpbase/lib|-v2001|-devicelib|/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v|-encrypt|-pro|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work"
+#OPTIONS:"|-layerid|0|-orig_srs|/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs|-prodtype|synplify_pro|-primux|-fixsmult|-infer_seqShift|-ice|-sdff_counter|-nram|-divnmod|-nostructver|-I|/home/romuald/Projects/Miniish/Firmware/PPU/work/|-I|/opt/lscc/iCEcube2.2020.12/synpbase/lib|-v2001|-devicelib|/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v|-encrypt|-pro|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work"
 #CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/linux_a_64/c_ver":1623495850
 #CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v":1623495849
 #CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/hypermods.v":1623495849
 #CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/umr_capim.v":1623495849
 #CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/scemi_objects.v":1623495849
 #CUR:"/opt/lscc/iCEcube2.2020.12/synpbase/lib/vlog/scemi_pipes.svh":1623495849
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_2.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_3.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_5.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":1653242387
-#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":1653242387
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pipeline_2.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_3.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/edge_detector_4.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/pixel_clock_5.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":1653613955
+#CUR:"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":1653613955
 #numinternalfiles:5
 #defaultlanguage:verilog
 0			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v" verilog
@@ -31,8 +32,9 @@
 9			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v" verilog
 10			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v" verilog
 11			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v" verilog
+12			"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v" verilog
 #Dependency Lists(Uses List)
-0 1 2 3 4 5 6 7 8 9 10 11
+0 1 2 3 4 5 6 7 8 9 10 11 12
 1 -1
 2 -1
 3 -1
@@ -44,6 +46,7 @@
 9 -1
 10 -1
 11 -1
+12 -1
 #Dependency Lists(Users Of)
 0 -1
 1 0
@@ -57,6 +60,7 @@
 9 0
 10 0
 11 0
+12 0
 #Design Unit to File Association
 module work reset_conditioner_1 1
 module work pipeline_2 2
@@ -69,4 +73,5 @@ module work ppu_8 8
 module work simple_dual_ram_9 9
 module work simple_dual_ram_10 10
 module work simple_dual_ram_11 11
+module work simple_dual_ram_12 12
 module work cu_top_0 0

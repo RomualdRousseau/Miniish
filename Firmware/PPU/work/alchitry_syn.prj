@@ -11,6 +11,7 @@ add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/ve
 add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v"
 add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v"
 add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v"
+add_file -verilog -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v"
 add_file -constraint -lib work "/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc"
 #options
 impl -add alchitry_imp -type fpga

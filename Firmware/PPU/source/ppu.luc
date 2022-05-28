@@ -1,3 +1,12 @@
+global Oam {
+  struct entry {
+    tile[8],
+    xpos[8],
+    ypos[8],
+    flag[8]
+  }
+}
+
 module ppu (
     input clk,  // 100MHz clock
     input rst,  // reset,
@@ -21,15 +30,20 @@ module ppu (
     // Map Memory
     
     output map_addr[10],
-    input map_data[8]
+    input map_data[8],
+    
+    // Oam Memory
+    
+    output oam_addr[6],
+    input<Oam.entry> oam_data
   ) {
   
   sig hscroll[8];
   sig vscroll[8];
-  
+
   .clk(clk) {
     .rst(rst) {
-      fsm state = {IDLE, LOOP, READ_TILE, WRITE_PIXEL};
+      fsm state = {IDLE, LOOP, READ_OAM, WRITE_OAM_PIXEL, READ_TILE, WRITE_TILE_PIXEL};
       dff count[8];
       dff haddress[8];
       dff vaddress[8];
@@ -48,9 +62,11 @@ module ppu (
     vscroll = vaddress.q + 64;
     hscroll = haddress.q + 64;
     
-    map_addr = c{vscroll[3+:5], hscroll[3+:5]};
+    map_addr = 10bx;
     
-    sprites_addr = c{map_data, vscroll[0+:3], hscroll[0+:3]};
+    sprites_addr = 14bx;
+    
+    oam_addr = 6b0;
     
     case (state.q) {
       state.IDLE:
@@ -72,13 +88,33 @@ module ppu (
         }
         else {
           count.d = count.q - 1;
+          state.d = state.READ_OAM;
+        }
+      
+      state.READ_OAM:
+        sprites_addr = c{oam_data.tile, vscroll - oam_data.ypos, hscroll - oam_data.xpos};
+        state.d = state.WRITE_OAM_PIXEL;
+      
+      state.WRITE_OAM_PIXEL:
+        sprites_addr = c{oam_data.tile, vscroll - oam_data.ypos, hscroll - oam_data.xpos};
+        if (sprites_data == 0) {
           state.d = state.READ_TILE;
+        }
+        else {
+          vram_en = 1;
+          vram_data = sprites_data;
+          haddress.d = haddress.q + 1;
+          state.d = state.LOOP;
         }
       
       state.READ_TILE:
-        state.d = state.WRITE_PIXEL;
+        map_addr = c{vscroll[3+:5], hscroll[3+:5]};
+        sprites_addr = c{map_data, vscroll[0+:3], hscroll[0+:3]};
+        state.d = state.WRITE_TILE_PIXEL;
       
-      state.WRITE_PIXEL:
+      state.WRITE_TILE_PIXEL:
+        map_addr = c{vscroll[3+:5], hscroll[3+:5]};
+        sprites_addr = c{map_data, vscroll[0+:3], hscroll[0+:3]};
         // Chessboard + Cycle through all colors
         // vram_data = (haddress.q[0] ^ vaddress.q[0]) * toffset.q[0+:4];
         vram_en = 1;

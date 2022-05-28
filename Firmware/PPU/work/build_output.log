@@ -5,7 +5,7 @@ Running in Lattice mode
 Starting:    /opt/lscc/iCEcube2.2020.12/synpbase/linux_a_64/mbin/synbatch
 Install:     /opt/lscc/iCEcube2.2020.12/synpbase
 Hostname:    computer.workshop
-Date:        Mon May 23 01:59:47 2022
+Date:        Fri May 27 09:12:35 2022
 Version:     L-2016.09L+ice40
 
 Arguments:   -product synplify_pro -batch /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_syn.prj
@@ -21,26 +21,26 @@ Running: alchitry_imp in foreground
 Running alchitry_syn|alchitry_imp
 
 Running: compile (Compile) on alchitry_syn|alchitry_imp
-# Mon May 23 01:59:47 2022
+# Fri May 27 09:12:35 2022
 
 Running: compile_flow (Compile Process) on alchitry_syn|alchitry_imp
-# Mon May 23 01:59:47 2022
+# Fri May 27 09:12:35 2022
 
 Running: compiler (Compile Input) on alchitry_syn|alchitry_imp
-# Mon May 23 01:59:47 2022
+# Fri May 27 09:12:35 2022
 Copied /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs to /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.srs
 
 compiler completed
-# Mon May 23 01:59:48 2022
+# Fri May 27 09:12:37 2022
 
 Return Code: 0
-Run Time:00h:00m:01s
+Run Time:00h:00m:02s
 
 Running: multi_srs_gen (Multi-srs Generator) on alchitry_syn|alchitry_imp
-# Mon May 23 01:59:48 2022
+# Fri May 27 09:12:37 2022
 
 multi_srs_gen completed
-# Mon May 23 01:59:48 2022
+# Fri May 27 09:12:37 2022
 
 Return Code: 0
 Run Time:00h:00m:00s
@@ -48,28 +48,28 @@ Copied /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_
 Complete: Compile Process on alchitry_syn|alchitry_imp
 
 Running: premap (Pre-mapping) on alchitry_syn|alchitry_imp
-# Mon May 23 01:59:48 2022
+# Fri May 27 09:12:37 2022
 
 premap completed with warnings
-# Mon May 23 01:59:49 2022
+# Fri May 27 09:12:38 2022
 
 Return Code: 1
 Run Time:00h:00m:01s
 Complete: Compile on alchitry_syn|alchitry_imp
 
 Running: map (Map) on alchitry_syn|alchitry_imp
-# Mon May 23 01:59:49 2022
+# Fri May 27 09:12:38 2022
 License granted for 4 parallel jobs
 
 Running: fpga_mapper (Map & Optimize) on alchitry_syn|alchitry_imp
-# Mon May 23 01:59:49 2022
+# Fri May 27 09:12:38 2022
 Copied /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_m.srm to /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.srm
 
 fpga_mapper completed with warnings
-# Mon May 23 02:00:01 2022
+# Fri May 27 09:12:47 2022
 
 Return Code: 1
-Run Time:00h:00m:12s
+Run Time:00h:00m:09s
 Complete: Map on alchitry_syn|alchitry_imp
 Complete: Logic Synthesis on alchitry_syn|alchitry_imp
 
@@ -112,6 +112,8 @@ Warning: The terminal this_sprites_ram.mem_mem_6_0:RCLKE is driven by default dr
 Warning: The terminal this_sprites_ram.mem_mem_6_1:RCLKE is driven by default driver : VCC, Disconnecting it.
 Warning: The terminal this_sprites_ram.mem_mem_7_0:RCLKE is driven by default driver : VCC, Disconnecting it.
 Warning: The terminal this_sprites_ram.mem_mem_7_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_oam_ram.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_oam_ram.mem_mem_0_1:RCLKE is driven by default driver : VCC, Disconnecting it.
 Warning: The terminal this_map_ram.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
 Warning: The terminal this_map_ram.mem_mem_0_1:RCLKE is driven by default driver : VCC, Disconnecting it.
 
@@ -150,15 +152,15 @@ I2053: Starting placement of the design
 =============================================================
 
 Input Design Statistics
-    Number of LUTs      	:	705
-    Number of DFFs      	:	171
+    Number of LUTs      	:	618
+    Number of DFFs      	:	208
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	76
-    Number of RAMs      	:	19
+    Number of Carrys    	:	93
+    Number of RAMs      	:	21
     Number of ROMs      	:	0
     Number of IOs       	:	51
     Number of GBIOs     	:	1
-    Number of GBs       	:	4
+    Number of GBs       	:	2
     Number of WarmBoot  	:	0
     Number of PLLs      	:	0
 
@@ -167,16 +169,16 @@ Phase 1
 I2077: Start design legalization
 
 Design Legalization Statistics
-    Number of feedthru LUTs inserted to legalize input of DFFs     	:	8
-    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	24
-    Number of LUTs replicated for LUTs driving multiple DFFs       	:	3
-    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	2
-    Number of feedthru LUTs inserted to legalize global signals    	:	1
+    Number of feedthru LUTs inserted to legalize input of DFFs     	:	39
+    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	15
+    Number of LUTs replicated for LUTs driving multiple DFFs       	:	4
+    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	29
+    Number of feedthru LUTs inserted to legalize global signals    	:	0
     Number of feedthru CARRYs inserted to legalize input of CARRYs 	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 01xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 10xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 11xxxx  	:	0
-    Total LUTs inserted                                            	:	38
+    Total LUTs inserted                                            	:	87
     Total CARRYs inserted                                          	:	0
 
 
@@ -190,54 +192,54 @@ I2088: Phase 2, elapsed time : 0.0 (sec)
 Phase 3
 
 Design Statistics after Packing
-    Number of LUTs      	:	744
-    Number of DFFs      	:	171
+    Number of LUTs      	:	706
+    Number of DFFs      	:	208
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	76
+    Number of Carrys    	:	93
 
 Device Utilization Summary after Packing
     Sequential LogicCells
-        LUT and DFF      	:	163
-        LUT, DFF and CARRY	:	8
+        LUT and DFF      	:	175
+        LUT, DFF and CARRY	:	33
     Combinational LogicCells
-        Only LUT         	:	507
-        CARRY Only       	:	2
-        LUT with CARRY   	:	66
-    LogicCells                  :	746/7680
-    PLBs                        :	101/960
-    BRAMs                       :	19/32
+        Only LUT         	:	442
+        CARRY Only       	:	4
+        LUT with CARRY   	:	56
+    LogicCells                  :	710/7680
+    PLBs                        :	96/960
+    BRAMs                       :	21/32
     IOs and GBIOs               :	52/95
     PLLs                        :	0/2
 
 
-I2088: Phase 3, elapsed time : 1.0 (sec)
+I2088: Phase 3, elapsed time : 0.8 (sec)
 
 Phase 4
 I2088: Phase 4, elapsed time : 0.2 (sec)
 
 Phase 5
-I2088: Phase 5, elapsed time : 1.9 (sec)
+I2088: Phase 5, elapsed time : 2.1 (sec)
 
 Phase 6
-I2088: Phase 6, elapsed time : 48.1 (sec)
+I2088: Phase 6, elapsed time : 43.9 (sec)
 
 Final Design Statistics
-    Number of LUTs      	:	744
-    Number of DFFs      	:	171
+    Number of LUTs      	:	706
+    Number of DFFs      	:	208
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	76
-    Number of RAMs      	:	19
+    Number of Carrys    	:	93
+    Number of RAMs      	:	21
     Number of ROMs      	:	0
     Number of IOs       	:	51
     Number of GBIOs     	:	1
-    Number of GBs       	:	4
+    Number of GBs       	:	2
     Number of WarmBoot  	:	0
     Number of PLLs      	:	0
 
 Device Utilization Summary
-    LogicCells                  :	746/7680
-    PLBs                        :	201/960
-    BRAMs                       :	19/32
+    LogicCells                  :	710/7680
+    PLBs                        :	194/960
+    BRAMs                       :	21/32
     IOs and GBIOs               :	52/95
     PLLs                        :	0/2
 
@@ -255,7 +257,7 @@ analysis after routing.
                      Clock Summary 
 =====================================================================
 Number of clocks: 1
-Clock: clk_0 | Frequency: 58.21 MHz | Target: 100.00 MHz
+Clock: clk_0 | Frequency: 58.71 MHz | Target: 100.00 MHz
 
 =====================================================================
                      End of Clock Summary
@@ -263,7 +265,7 @@ Clock: clk_0 | Frequency: 58.21 MHz | Target: 100.00 MHz
 
 I2054: Placement of design completed successfully
 
-I2076: Placer run-time: 51.6 sec.
+I2076: Placer run-time: 47.4 sec.
 
 
 
@@ -275,8 +277,8 @@ Build Date:     Dec 10 2020 17:24:46
 
 Begin Packing...
 initializing finish
-Total HPWL cost is 5328
-used logic cells: 746
+Total HPWL cost is 5188
+used logic cells: 710
 Translating sdc file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/sbt/outputs/placer/cu_top_0_pl.sdc...
 Translated sdc file is /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0_pk.sdc
 Packer succeeded
@@ -298,23 +300,22 @@ Read design time: 0
 I1202: Reading Architecture of device iCE40HX8K
 Read device time: 8
 I1209: Started routing
-I1223: Total Nets : 937 
-I1212: Iteration  1 :   126 unrouted : 3 seconds
-I1212: Iteration  2 :    18 unrouted : 1 seconds
-I1212: Iteration  3 :     4 unrouted : 0 seconds
-I1212: Iteration  4 :     2 unrouted : 0 seconds
-I1212: Iteration  5 :     2 unrouted : 0 seconds
-I1212: Iteration  6 :     2 unrouted : 0 seconds
-I1212: Iteration  7 :     0 unrouted : 0 seconds
+I1223: Total Nets : 930 
+I1212: Iteration  1 :   120 unrouted : 3 seconds
+I1212: Iteration  2 :    25 unrouted : 1 seconds
+I1212: Iteration  3 :     6 unrouted : 0 seconds
+I1212: Iteration  4 :     3 unrouted : 0 seconds
+I1212: Iteration  5 :     3 unrouted : 0 seconds
+I1212: Iteration  6 :     0 unrouted : 0 seconds
 I1215: Routing is successful
-Routing time: 5
+Routing time: 4
 I1206: Completed routing
 I1204: Writing Design cu_top_0
 Lib Closed
 I1210: Writing routes
 I1218: Exiting the router
-I1224: Router run-time : 14 seconds
- total           337708K
+I1224: Router run-time : 12 seconds
+ total           337404K
 
 
 Run bitmap ...
@@ -326,7 +327,7 @@ Build Date:     Dec 10 2020 17:45:52
 Bit Stream File Size: 1080760 (1M 31K 440 Bits)
 Bit Stream Generator succeeded
 
-Bitmap run-time: 2 (sec)
+Bitmap run-time: 1 (sec)
 
 
 Run netlister ...
