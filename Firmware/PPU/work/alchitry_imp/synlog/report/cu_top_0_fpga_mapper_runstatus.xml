@@ -13,7 +13,7 @@ The file contains the job information from mapper to be displayed as part of the
 </job_status>
 <job_info>
 <info name="Notes">
-<data>31</data>
+<data>30</data>
 <report_link name="more">
 <data>/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/report/cu_top_0_fpga_mapper_notes.txt</data>
 </report_link>
@@ -31,16 +31,16 @@ The file contains the job information from mapper to be displayed as part of the
 </report_link>
 </info>
 <info name="CPU Time">
-<data>0h:00m:07s</data>
+<data>0h:00m:11s</data>
 </info>
 <info name="Real Time">
-<data>0h:00m:07s</data>
+<data>0h:00m:11s</data>
 </info>
 <info name="Peak Memory">
-<data>192MB</data>
+<data>234MB</data>
 </info>
 <info name="Date &amp; Time">
-<data type="timestamp">1653725003</data>
+<data type="timestamp">1653870895</data>
 </info>
 </job_info>
 </job_run_status>

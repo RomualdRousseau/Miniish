@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version L-2016.09L+ice40
 #--  Project file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/run_options.txt
-#--  Written on Sat May 28 16:03:13 2022
+#--  Written on Mon May 30 08:34:41 2022
 
 
 #project files

@@ -1,110 +1,110 @@
 ; lcd.i
 
-LCD_EN		= %10000000
-LCD_RW		= %01000000
-LCD_RS		= %00100000
+lcd_en		= %10000000
+lcd_rw		= %01000000
+lcd_rs		= %00100000
 
-LCD_INIT
- ; Setup I/O
- lda DDRA
- ora #(LCD_EN | LCD_RW | LCD_RS)
- sta DDRA
+lcd_init
+ ; setup i/o
+ lda ddra
+ ora #(lcd_en | lcd_rw | lcd_rs)
+ sta ddra
  lda #%11111111
- sta DDRB
- ; Interface: 8bits, Line: 2, Font: 5x8
+ sta ddrb
+ ; interface: 8bits, line: 2, font: 5x8
  lda #%00111000
- jsr LCD_SEND_CMD
- ; Display: On, Cursor: Off, Blink: Off
+ jsr lcd_send_cmd
+ ; display: on, cursor: off, blink: off
  lda #%00001100
- jsr LCD_SEND_CMD
- ; Shift: Right
+ jsr lcd_send_cmd
+ ; shift: right
  lda #%00000110
- jsr LCD_SEND_CMD
+ jsr lcd_send_cmd
  rts
 
-LCD_CLEAR
+lcd_clear
  lda #%00000001
- jsr LCD_SEND_CMD
+ jsr lcd_send_cmd
  rts
 
-LCD_HOME
+lcd_home
  lda #%00000010
- jsr LCD_SEND_CMD
+ jsr lcd_send_cmd
  rts
 
-LCD_PRINT
+lcd_print
  ldy #0
-LCD_PRINT_LOOP
- lda (LCD_PTR), y
- beq LCD_PRINT_END
- jsr LCD_SEND_CHAR
+lcd_print_loop
+ lda (lcd_ptr), y
+ beq lcd_print_end
+ jsr lcd_send_char
  iny
- jmp LCD_PRINT_LOOP
-LCD_PRINT_END
+ jmp lcd_print_loop
+lcd_print_end
  rts
 
-LCD_PRINT_BYTE
- sta R2
+lcd_print_byte
+ sta r2
  lda #%10000000
- sta R1
- ; Loop 8 bits
+ sta r1
+ ; loop 8 bits
  ldx #8
-LCD_PRINT_BYTE_1
- lda R2
- and R1
- beq LCD_PRINT_BYTE_4
+lcd_print_byte_1
+ lda r2
+ and r1
+ beq lcd_print_byte_4
  lda #'1'
- jsr LCD_SEND_CHAR
- jmp LCD_PRINT_BYTE_2
-LCD_PRINT_BYTE_4
+ jsr lcd_send_char
+ jmp lcd_print_byte_2
+lcd_print_byte_4
  lda #'0'
- jsr LCD_SEND_CHAR
-LCD_PRINT_BYTE_2
- ; Next data
+ jsr lcd_send_char
+lcd_print_byte_2
+ ; next data
  dex
- beq LCD_PRINT_BYTE_3
- lsr R1
- jmp LCD_PRINT_BYTE_1
-LCD_PRINT_BYTE_3
+ beq lcd_print_byte_3
+ lsr r1
+ jmp lcd_print_byte_1
+lcd_print_byte_3
  rts
 
-LCD_SEND_CMD
- jsr LCD_WAIT
- sta PORTB
+lcd_send_cmd
+ jsr lcd_wait
+ sta portb
  lda #0
- sta PORTA
- lda #LCD_EN
- sta PORTA
+ sta porta
+ lda #lcd_en
+ sta porta
  lda #0
- sta PORTA
+ sta porta
  rts
 
-LCD_SEND_CHAR
- jsr LCD_WAIT
- sta PORTB
- lda #LCD_RS
- sta PORTA
- lda #(LCD_RS | LCD_EN)
- sta PORTA
- lda #LCD_RS
- sta PORTA
+lcd_send_char
+ jsr lcd_wait
+ sta portb
+ lda #lcd_rs
+ sta porta
+ lda #(lcd_rs | lcd_en)
+ sta porta
+ lda #lcd_rs
+ sta porta
  rts
 
-LCD_WAIT
+lcd_wait
  pha
  lda #%00000000
- sta DDRB
-LCD_WAIT_LOOP
- lda #LCD_RW
- sta PORTA
- lda #(LCD_RW | LCD_EN)
- sta PORTA
- lda PORTB
+ sta ddrb
+lcd_wait_loop
+ lda #lcd_rw
+ sta porta
+ lda #(lcd_rw | lcd_en)
+ sta porta
+ lda portb
  and #%10000000
- bne LCD_WAIT_LOOP
- lda #LCD_RW
- sta PORTA
+ bne lcd_wait_loop
+ lda #lcd_rw
+ sta porta
  lda #%11111111
- sta DDRB
+ sta ddrb
  pla
  rts

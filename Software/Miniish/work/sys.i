@@ -1,43 +1,47 @@
 ; sys.i
 
-PORT_IRQ = $D000
-PORT_PPU = $D100
-PORT_APU = $D200
-PORT_IO	 = $D300
+port_irq = $d000
+port_ppu = $d100
+port_apu = $d200
+port_io	 = $d300
 
-PORTB	= PORT_IO + $00
-PORTA	= PORT_IO + $01
-DDRB		= PORT_IO + $02
-DDRA		= PORT_IO + $03
-T1CL		= PORT_IO + $04
-T1CH		= PORT_IO + $05
-T1LL		= PORT_IO + $06
-T1LH		= PORT_IO + $07
-T2CL		= PORT_IO + $08
-T2CH		= PORT_IO + $08
-ACR			= PORT_IO + $0B
-IFR			= PORT_IO + $0D
-IER			= PORT_IO + $0E
+portb	= port_io + $00
+porta = port_io + $01
+ddrb  = port_io + $02
+ddra  = port_io + $03
+t1cl  = port_io + $04
+t1ch  = port_io + $05
+t1ll  = port_io + $06
+t1lh  = port_io + $07
+t2cl  = port_io + $08
+t2ch  = port_io + $08
+acr   = port_io + $0b
+ifr   = port_io + $0d
+ier   = port_io + $0e
 
-IRQ_FUNC
+ppu_dmaspr  = port_ppu + $10
+ppu_dmamap  = port_ppu + $11
+ppu_dmaoam  = port_ppu + $12
+
+irq_func
  phx
- ldx PORT_IRQ
- jmp (TABLE_IRQ,X)
+ ldx port_irq
+ jmp (table_irq,x)
 
-DELAY
- jsr DELAY_1ms
+delay
+ jsr delay_1ms
  sbc #1
- bne DELAY
+ bne delay
  rts
 
-DELAY_1ms
+delay_1ms
  pha
  lda #100
-DELAY_1ms_LOOP
+delay_1ms_loop
  nop
  nop
  nop
  sbc #1
- bne DELAY_1ms_LOOP
+ bne delay_1ms_loop
  pla
  rts

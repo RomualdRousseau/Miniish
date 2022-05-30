@@ -68,25 +68,29 @@ module cu_top_0 (
   localparam IDLE_this_state = 4'd0;
   localparam WRITE_SPRITE_HADDR_this_state = 4'd1;
   localparam WRITE_SPRITE_LADDR_this_state = 4'd2;
-  localparam WRITE_SPRITE_PIXEL_this_state = 4'd3;
-  localparam WRITE_EXTERNAL_HADDR_this_state = 4'd4;
-  localparam DMA_START_this_state = 4'd5;
-  localparam DMA_LOOP_SPRITE_this_state = 4'd6;
-  localparam DMA_TRANSFER_SPRITE_1_this_state = 4'd7;
-  localparam DMA_TRANSFER_SPRITE_2_this_state = 4'd8;
-  localparam DMA_LOOP_MAP_this_state = 4'd9;
-  localparam DMA_TRANSFER_MAP_this_state = 4'd10;
-  localparam DMA_LOOP_OAM_this_state = 4'd11;
-  localparam DMA_TRANSFER_OAM_this_state = 4'd12;
+  localparam WRITE_SPRITE_DATA_this_state = 4'd3;
+  localparam DMA_SPRITE_START_this_state = 4'd4;
+  localparam DMA_MAP_START_this_state = 4'd5;
+  localparam DMA_OAM_START_this_state = 4'd6;
+  localparam DMA_SPRITE_LOOP_this_state = 4'd7;
+  localparam DMA_SPRITE_TRANSFER_1_this_state = 4'd8;
+  localparam DMA_SPRITE_TRANSFER_2_this_state = 4'd9;
+  localparam DMA_MAP_LOOP_this_state = 4'd10;
+  localparam DMA_MAP_TRANSFER_this_state = 4'd11;
+  localparam DMA_OAM_LOOP_this_state = 4'd12;
+  localparam DMA_OAM_TRANSFER_this_state = 4'd13;
   
   reg [3:0] M_this_state_d, M_this_state_q = IDLE_this_state;
-  reg M_this_substate_d, M_this_substate_q = 1'h0;
+  localparam HIGH_ADDRESS_this_substate = 1'd0;
+  localparam LOW_ADDRESS_this_substate = 1'd1;
+  
+  reg M_this_substate_d, M_this_substate_q = HIGH_ADDRESS_this_substate;
   reg [15:0] M_this_external_address_d, M_this_external_address_q = 1'h0;
   reg [13:0] M_this_sprites_address_d, M_this_sprites_address_q = 1'h0;
   reg [9:0] M_this_map_address_d, M_this_map_address_q = 1'h0;
   reg [5:0] M_this_oam_address_d, M_this_oam_address_q = 1'h0;
   reg [15:0] M_this_data_count_d, M_this_data_count_q = 1'h0;
-  reg [23:0] M_this_data_tmp_d, M_this_data_tmp_q = 1'h0;
+  reg [31:0] M_this_data_tmp_d, M_this_data_tmp_q = 1'h0;
   wire [1-1:0] M_this_delay_clk_out;
   reg [1-1:0] M_this_delay_clk_in;
   pipeline_2 this_delay_clk (
@@ -233,9 +237,9 @@ module cu_top_0 (
   );
   
   always @* begin
+    M_this_substate_d = M_this_substate_q;
     M_this_state_d = M_this_state_q;
     M_this_data_tmp_d = M_this_data_tmp_q;
-    M_this_substate_d = M_this_substate_q;
     M_this_sprites_address_d = M_this_sprites_address_q;
     M_this_external_address_d = M_this_external_address_q;
     M_this_map_address_d = M_this_map_address_q;
@@ -244,7 +248,7 @@ module cu_top_0 (
     
     M_this_reset_cond_in = ~rst_n;
     rst = M_this_reset_cond_out;
-    dma = M_this_state_q > DMA_START_this_state ? 1'h1 : 1'h0;
+    dma = M_this_state_q >= DMA_SPRITE_LOOP_this_state ? 1'h1 : 1'h0;
     IO_port_rw_enable = dma;
     IO_port_rw_write = 1'h1;
     IO_port_address_enable = {5'h10{dma}};
@@ -298,31 +302,37 @@ module cu_top_0 (
           case (IO_port_address_read[0+7-:8])
             8'h01: begin
               if (!IO_port_rw_read) begin
-                if (M_this_substate_q == 1'h0) begin
+                if (M_this_substate_q == HIGH_ADDRESS_this_substate) begin
                   M_this_state_d = WRITE_SPRITE_HADDR_this_state;
-                  M_this_substate_d = 1'h1;
+                  M_this_substate_d = LOW_ADDRESS_this_substate;
                 end else begin
                   M_this_state_d = WRITE_SPRITE_LADDR_this_state;
-                  M_this_substate_d = 1'h0;
+                  M_this_substate_d = HIGH_ADDRESS_this_substate;
                 end
               end
             end
             8'h02: begin
               if (!IO_port_rw_read) begin
-                M_this_state_d = WRITE_SPRITE_PIXEL_this_state;
-                M_this_substate_d = 1'h0;
+                M_this_state_d = WRITE_SPRITE_DATA_this_state;
+                M_this_substate_d = HIGH_ADDRESS_this_substate;
               end
             end
-            8'h03: begin
+            8'h10: begin
               if (!IO_port_rw_read) begin
-                M_this_state_d = WRITE_EXTERNAL_HADDR_this_state;
-                M_this_substate_d = 1'h0;
+                M_this_state_d = DMA_SPRITE_START_this_state;
+                M_this_substate_d = HIGH_ADDRESS_this_substate;
               end
             end
-            8'h04: begin
+            8'h11: begin
               if (!IO_port_rw_read) begin
-                M_this_state_d = DMA_START_this_state;
-                M_this_substate_d = 1'h0;
+                M_this_state_d = DMA_MAP_START_this_state;
+                M_this_substate_d = HIGH_ADDRESS_this_substate;
+              end
+            end
+            8'h12: begin
+              if (!IO_port_rw_read) begin
+                M_this_state_d = DMA_OAM_START_this_state;
+                M_this_substate_d = HIGH_ADDRESS_this_substate;
               end
             end
           endcase
@@ -340,7 +350,7 @@ module cu_top_0 (
           M_this_state_d = IDLE_this_state;
         end
       end
-      WRITE_SPRITE_PIXEL_this_state: begin
+      WRITE_SPRITE_DATA_this_state: begin
         if (M_this_start_data_delay_out) begin
           M_this_sprites_ram_write_en = 1'h0;
           M_this_sprites_ram_write_data = IO_port_data_read[0+3-:4];
@@ -348,103 +358,96 @@ module cu_top_0 (
           M_this_state_d = IDLE_this_state;
         end
       end
-      WRITE_EXTERNAL_HADDR_this_state: begin
+      DMA_SPRITE_START_this_state: begin
         if (M_this_start_data_delay_out) begin
           M_this_external_address_d = {IO_port_data_read, 8'h00};
-          M_this_state_d = IDLE_this_state;
+          M_this_sprites_address_d = 14'h0000;
+          M_this_data_count_d = 15'h2000;
+          M_this_state_d = DMA_SPRITE_LOOP_this_state;
         end
       end
-      DMA_START_this_state: begin
-        if (M_this_start_data_delay_out) begin
-          
-          case (IO_port_data_read)
-            8'h00: begin
-              M_this_sprites_address_d = 14'h0000;
-              M_this_data_count_d = 15'h2000;
-              M_this_state_d = DMA_LOOP_SPRITE_this_state;
-            end
-            8'h20: begin
-              M_this_map_address_d = 10'h000;
-              M_this_data_count_d = 12'h400;
-              M_this_state_d = DMA_LOOP_MAP_this_state;
-            end
-            8'h24: begin
-              M_this_oam_address_d = 8'h00;
-              M_this_data_count_d = 8'h40;
-              M_this_state_d = DMA_LOOP_OAM_this_state;
-            end
-            default: begin
-              M_this_state_d = IDLE_this_state;
-            end
-          endcase
-        end
-      end
-      DMA_LOOP_SPRITE_this_state: begin
+      DMA_SPRITE_LOOP_this_state: begin
         if (M_this_data_count_q == 1'h0) begin
           M_this_state_d = IDLE_this_state;
         end else begin
           if (M_this_start_address_delay_out) begin
             M_this_data_count_d = M_this_data_count_q - 1'h1;
-            M_this_state_d = DMA_TRANSFER_SPRITE_1_this_state;
+            M_this_state_d = DMA_SPRITE_TRANSFER_1_this_state;
           end
         end
       end
-      DMA_TRANSFER_SPRITE_1_this_state: begin
+      DMA_SPRITE_TRANSFER_1_this_state: begin
         if (M_this_start_data_delay_out) begin
           M_this_sprites_ram_write_en = 1'h1;
           M_this_sprites_ram_write_data = IO_port_data_read[4+3-:4];
           M_this_sprites_address_d = M_this_sprites_address_q + 1'h1;
-          M_this_state_d = DMA_TRANSFER_SPRITE_2_this_state;
+          M_this_state_d = DMA_SPRITE_TRANSFER_2_this_state;
         end
       end
-      DMA_TRANSFER_SPRITE_2_this_state: begin
+      DMA_SPRITE_TRANSFER_2_this_state: begin
         M_this_sprites_ram_write_en = 1'h1;
         M_this_sprites_ram_write_data = IO_port_data_read[0+3-:4];
         M_this_sprites_address_d = M_this_sprites_address_q + 1'h1;
         M_this_external_address_d = M_this_external_address_q + 1'h1;
-        M_this_state_d = DMA_LOOP_SPRITE_this_state;
+        M_this_state_d = DMA_SPRITE_LOOP_this_state;
       end
-      DMA_LOOP_MAP_this_state: begin
+      DMA_MAP_START_this_state: begin
+        if (M_this_start_data_delay_out) begin
+          M_this_external_address_d = {IO_port_data_read, 8'h00};
+          M_this_map_address_d = 10'h000;
+          M_this_data_count_d = 12'h400;
+          M_this_state_d = DMA_MAP_LOOP_this_state;
+        end
+      end
+      DMA_MAP_LOOP_this_state: begin
         if (M_this_data_count_q == 1'h0) begin
           M_this_state_d = IDLE_this_state;
         end else begin
           if (M_this_start_address_delay_out) begin
             M_this_data_count_d = M_this_data_count_q - 1'h1;
-            M_this_state_d = DMA_TRANSFER_MAP_this_state;
+            M_this_state_d = DMA_MAP_TRANSFER_this_state;
           end
         end
       end
-      DMA_TRANSFER_MAP_this_state: begin
+      DMA_MAP_TRANSFER_this_state: begin
         if (M_this_start_data_delay_out) begin
           M_this_map_ram_write_en = 1'h1;
           M_this_map_ram_write_data = IO_port_data_read;
           M_this_map_address_d = M_this_map_address_q + 1'h1;
           M_this_external_address_d = M_this_external_address_q + 1'h1;
-          M_this_state_d = DMA_LOOP_MAP_this_state;
+          M_this_state_d = DMA_MAP_LOOP_this_state;
         end
       end
-      DMA_LOOP_OAM_this_state: begin
+      DMA_OAM_START_this_state: begin
+        if (M_this_start_data_delay_out) begin
+          M_this_external_address_d = {IO_port_data_read, 8'h00};
+          M_this_oam_address_d = 6'h00;
+          M_this_data_count_d = 8'h40;
+          M_this_state_d = DMA_OAM_LOOP_this_state;
+        end
+      end
+      DMA_OAM_LOOP_this_state: begin
         if (M_this_data_count_q == 1'h0) begin
           M_this_state_d = IDLE_this_state;
         end else begin
           if (M_this_start_address_delay_out) begin
             M_this_data_count_d = M_this_data_count_q - 1'h1;
-            M_this_state_d = DMA_TRANSFER_OAM_this_state;
+            M_this_state_d = DMA_OAM_TRANSFER_this_state;
           end
         end
       end
-      DMA_TRANSFER_OAM_this_state: begin
+      DMA_OAM_TRANSFER_this_state: begin
         if (M_this_start_data_delay_out) begin
           i = M_this_oam_address_q[0+1-:2];
           if (i == 2'h3) begin
             M_this_oam_ram_write_en = 1'h1;
-            M_this_oam_ram_write_data = {IO_port_data_read, M_this_data_tmp_q};
+            M_this_oam_ram_write_data = {IO_port_data_read, M_this_data_tmp_q[0+23-:24]};
           end else begin
             M_this_data_tmp_d[((i * 4'h8))*1+7-:8] = IO_port_data_read;
           end
           M_this_oam_address_d = M_this_oam_address_q + 1'h1;
           M_this_external_address_d = M_this_external_address_q + 1'h1;
-          M_this_state_d = DMA_LOOP_OAM_this_state;
+          M_this_state_d = DMA_OAM_LOOP_this_state;
         end
       end
     endcase
@@ -452,7 +455,6 @@ module cu_top_0 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_this_substate_q <= 1'h0;
       M_this_external_address_q <= 1'h0;
       M_this_sprites_address_q <= 1'h0;
       M_this_map_address_q <= 1'h0;
@@ -460,8 +462,8 @@ module cu_top_0 (
       M_this_data_count_q <= 1'h0;
       M_this_data_tmp_q <= 1'h0;
       M_this_state_q <= 1'h0;
+      M_this_substate_q <= 1'h0;
     end else begin
-      M_this_substate_q <= M_this_substate_d;
       M_this_external_address_q <= M_this_external_address_d;
       M_this_sprites_address_q <= M_this_sprites_address_d;
       M_this_map_address_q <= M_this_map_address_d;
@@ -469,6 +471,7 @@ module cu_top_0 (
       M_this_data_count_q <= M_this_data_count_d;
       M_this_data_tmp_q <= M_this_data_tmp_d;
       M_this_state_q <= M_this_state_d;
+      M_this_substate_q <= M_this_substate_d;
     end
   end
   

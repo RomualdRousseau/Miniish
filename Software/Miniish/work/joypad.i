@@ -1,57 +1,57 @@
 ; joypad.i
 
-JPAD_DAT	= %00000100
-JPAD_LAT	= %00000010
-JPAD_CLK	= %00000001
+jpad_dat	= %00000100
+jpad_lat	= %00000010
+jpad_clk	= %00000001
 
-JOYPAD_INIT
- ; Setup I/O
- lda DDRA
- ora #(JPAD_LAT | JPAD_CLK)
- and #~JPAD_DAT
- sta DDRA
- ; Initial state
- lda PORTA
- and #~(JPAD_LAT | JPAD_CLK)
- sta PORTA
- ; Inital value
+joypad_init
+ ; setup i/o
+ lda ddra
+ ora #(jpad_lat | jpad_clk)
+ and #~jpad_dat
+ sta ddra
+ ; initial state
+ lda porta
+ and #~(jpad_lat | jpad_clk)
+ sta porta
+ ; inital value
  lda #0
- sta JOYPAD
+ sta joypad
  rts
 
-JOYPAD_READ
+joypad_read
  lda #0
- sta R1
- ; Latch the data
- lda PORTA
- ora #JPAD_LAT
- sta PORTA
- and #~JPAD_LAT
- sta PORTA
- ; Read 8 bits
+ sta r1
+ ; latch the data
+ lda porta
+ ora #jpad_lat
+ sta porta
+ and #~jpad_lat
+ sta porta
+ ; read 8 bits
  ldx #8
-JOYPAD_READ_1
- ; Read the data
- lda PORTA
- and #JPAD_DAT
- bne JOYPAD_READ_2
- ; Add a bit 1 into JOYPAD
- inc R1
-JOYPAD_READ_2
- ; Next data
- ora #JPAD_CLK
- sta PORTA
- and #~JPAD_CLK
- sta PORTA
+joypad_read_1
+ ; read the data
+ lda porta
+ and #jpad_dat
+ bne joypad_read_2
+ ; add a bit 1 into joypad
+ inc r1
+joypad_read_2
+ ; next data
+ ora #jpad_clk
+ sta porta
+ and #~jpad_clk
+ sta porta
  dex
- beq JOYPAD_READ_3
- asl R1
- jmp JOYPAD_READ_1
-JOYPAD_READ_3
- ; Initial state
- lda PORTA
- and #~(JPAD_LAT | JPAD_CLK)
- sta PORTA
- lda R1
- sta JOYPAD
+ beq joypad_read_3
+ asl r1
+ jmp joypad_read_1
+joypad_read_3
+ ; initial state
+ lda porta
+ and #~(jpad_lat | jpad_clk)
+ sta porta
+ lda r1
+ sta joypad
  rts

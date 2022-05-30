@@ -5,429 +5,368 @@ Boundary: ------1234567890
 ------1234567890
 Content-type: text
 
-ZERO_START = $0000
-STCK_START = $0100
-OAM_START  = $1000
-CODE_START = $8000
-DATA_START = $A000
-INTE_START = $FFEA
+zero_start = $0000
+stck_start = $0100
+oam_start  = $1000
+map_start  = $1100
+code_start = $8000
+data_start = $a000
+inte_start = $ffea
 
  .dsect
- .org ZERO_START ; ZERO ========
-LCD_PTR   .word $0000
-JOYPAD    .byte $00
-TIMER     .byte $00
-COUNTER   .byte $00
-NMI_STATE .byte $00
-R1        .byte $00
-R2        .byte $00
-R3        .byte $00
-R4        .byte $00
-R5        .byte $00
+ .org zero_start ; zero ========
+lcd_ptr   .word $0000
+src_ptr   .word $0000
+dst_ptr   .word $0000
+state     .byte $00
+counter   .byte $00
+joypad    .byte $00
+timer     .byte $00
+r1        .byte $00
+r2        .byte $00
+r3        .byte $00
+r4        .byte $00
+r5        .byte $00
+
+ .org oam_start ; oam ==================
+hero      .byte $00,$00,$00,$00
+coin      .byte $00,$00,$00,$00
  .dend
 
- .dsect ; OAM ==================
- .org OAM_START
-HERO      .byte $00,$00,$00,$00
-COIN      .byte $00,$00,$00,$00
- .dend
-
- .org CODE_START ; CODE ========
-MAIN
- ldx #$FF ; STACK SIZE
+ .org code_start ; code ========
+main
+ ldx #$ff ; stack size
  txs
- jmp SETUP
+ jmp setup
 
- ; IMPORTS =====================
+ ; includes =====================
  .include "sys.i"
  .include "lcd.i"
  .include "joypad.i"
+ .include "map.i"
+ .include "hero.i"
 
-SETUP
+init
+ jsr map_init
+ jsr hero_init
+ rts
 
- ; INIT VARIABLES
+update
+ jsr map_update
+ jsr hero_update
+ rts
 
+draw
+ jsr map_draw
+ jsr hero_draw
+ rts
+
+setup
+ ; init variables
  lda #0
- sta TIMER
-
+ sta state
  lda #0
- sta COUNTER
-
+ sta counter
  lda #0
- sta NMI_STATE
-
- ; INIT LCD
-
- jsr LCD_INIT
- jsr LCD_CLEAR
-
- ; PRINT MESSAGE1 AT (0, 1)
-
+ sta timer
+ ; init lcd
+ jsr lcd_init
+ jsr lcd_clear
+ ; print message1 at (0, 1)
  lda #%10010100
- jsr LCD_SEND_CMD
- lda #<MESSAGE1
- sta LCD_PTR
- lda #>MESSAGE1
- sta LCD_PTR + 1
- jsr LCD_PRINT
-
- ; INIT JOYPAD
-
- jsr JOYPAD_INIT
-
- ; INSTALL TIMER
-
+ jsr lcd_send_cmd
+ lda #<message1
+ sta lcd_ptr
+ lda #>message1
+ sta lcd_ptr+1
+ jsr lcd_print
+ ; init joypad
+ jsr joypad_init
+ ; install timer
  lda #%11000000
- sta IER
+ sta ier
  lda #%01000000
- sta ACR
- lda #$FF
- sta T1LL
- lda #$FF
- sta T1CH
+ sta acr
+ lda #$ff
+ sta t1ll
+ lda #$ff
+ sta t1ch
  cli
 
-LOOP
- jsr JOYPAD_READ
-
- ; PRINT JOYPAD AND TIMER VALUES
-
- jsr LCD_HOME
- lda JOYPAD
- jsr LCD_PRINT_BYTE
-
+loop
+ jsr joypad_read
+ ; print joypad and timer values
+ jsr lcd_home
+ lda joypad
+ jsr lcd_print_byte
  lda #%11000000
- jsr LCD_SEND_CMD
-
- lda TIMER
- jsr LCD_PRINT_BYTE
-
+ jsr lcd_send_cmd
+ lda timer
+ jsr lcd_print_byte
  lda #' '
- jsr LCD_SEND_CHAR
-
- lda COUNTER
- jsr LCD_PRINT_BYTE
-
- ; CHECK IF START PRESSED
-
- lda JOYPAD
+ jsr lcd_send_char
+ lda counter
+ jsr lcd_print_byte
+ ; check if start pressed
+ lda joypad
  and #%00010000
- beq LOOP
-
- ; PRINT MESSAGE2 AT (0, 3)
-
+ beq loop
+ ; print message2 at (0, 3)
  lda #%11010100
- jsr LCD_SEND_CMD
- lda #<MESSAGE2
- sta LCD_PTR
- lda #>MESSAGE2
- sta LCD_PTR + 1
- jsr LCD_PRINT
+ jsr lcd_send_cmd
+ lda #<message2
+ sta lcd_ptr
+ lda #>message2
+ sta lcd_ptr+1
+ jsr lcd_print
+ jmp loop
 
- jmp LOOP
-
-IRQ0_FUNC
+irq0_func
  plx
  rti
 
-IRQ1_FUNC
- bit T1CL
- inc TIMER
+irq1_func
+ bit t1cl
+ inc timer
  plx
  rti
 
-NMI_FUNC
+nmi_func
  pha
- lda NMI_STATE
- cmp #0
- beq NMI_INIT
- cmp #1
- beq NMI_DRAW
- jmp NMI_DONE
-NMI_INIT
- ; INIT HERO
- lda #16
- sta HERO
- lda #0
- sta HERO + $01
- lda #0
- sta HERO + $02
- lda #0
- sta HERO + $03
- ; init coin
- lda #18
- sta COIN
- lda #8*8
- sta COIN + $01
- lda #12*8
- sta COIN + $02
- lda #0
- sta COIN + $03
+ phx
+ phy
+ ldx state
+ jmp (table_state,x)
+nmi_init
+ jsr init
  ; load assets in ppu
- lda #$a0
- sta PORT_PPU + $03
- lda #$00
- sta PORT_PPU + $04
- lda #$c0
- sta PORT_PPU + $03
- lda #$20
- sta PORT_PPU + $04
+ lda #>sprites
+ sta ppu_dmaspr
+ lda #>map
+ sta ppu_dmamap
  ; next state
- lda #1
- sta NMI_STATE
- jmp NMI_DONE
-NMI_DRAW
- inc COUNTER
- lda COUNTER
+ ldx #2
+ stx state
+ jmp nmi_done
+nmi_update
+ lda counter
  and #3
- bne NMI_DONE
- ; update hero
- lda JOYPAD
- cmp #0
- beq HERO_UPDATE
-HERO_KEYUP
- lda JOYPAD
- and #%00001000
- beq HERO_KEYDOWN
- dec HERO + $02
-HERO_KEYDOWN
- lda JOYPAD
- and #%00000100
- beq HERO_KEYLEFT
- inc HERO + $02
-HERO_KEYLEFT
- lda JOYPAD
- and #%00000010
- beq HERO_KEYRIGHT
- dec HERO + $01
-HERO_KEYRIGHT
- lda JOYPAD
- and #%00000001
- beq HERO_UPDATE
- inc HERO + $01
-HERO_UPDATE
- lda COUNTER
+ bne nmi_done
+ jsr update
+nmi_draw
+ lda counter
  and #15
- bne ALL_UPDATE
- lda HERO
- clc
- adc #1
- and #%11111101
- sta HERO
-COIN_UPDATE
- lda COIN
- clc
- adc #1
- cmp #20
- bne COIN_NEXT_ANIM
- lda #18
-COIN_NEXT_ANIM
- sta COIN
-ALL_UPDATE
- ;update oam in ppu
- lda #$10
- sta PORT_PPU + $03
- lda #$24
- sta PORT_PPU + $04
-NMI_DONE
+ bne nmi_flush
+ jsr draw
+nmi_flush
+ ; update oam in ppu
+ lda #>oam_start
+ sta ppu_dmaoam
+nmi_done
+ inc counter
+ ply
+ plx
  pla
  rti
 
- .org DATA_START ; DATA ========
-SPRITES
+ .org data_start ; data ========
+sprites
  .incbin "sprites.dat"
-MAP
+map
  .incbin "map.dat"
-MESSAGE1
- .asciiz "I am XiaoNiuNiu"
-MESSAGE2
- .asciiz "Wo ai ni (521 1314)"
+message1
+ .asciiz "i am xiaoniuniu"
+message2
+ .asciiz "wo ai ni (521 1314)"
+table_state
+ .word nmi_init
+ .word nmi_update
 
- .org INTE_START ; INT VECTORS =
-TABLE_IRQ
- .word IRQ0_FUNC
- .word IRQ1_FUNC
+ .org inte_start ; int vectors =
+table_irq
+ .word irq0_func
+ .word irq1_func
  .word $0000
  .word $0000
  .word $0000
  .word $0000
- .word IRQ1_FUNC
- .word IRQ0_FUNC
-TABLE_VEC
- .word NMI_FUNC
- .word MAIN
- .word IRQ_FUNC
+ .word irq1_func
+ .word irq0_func
+table_vec
+ .word nmi_func
+ .word main
+ .word irq_func
 ------1234567890
 Content-type: text
 
 ; joypad.i
 
-JPAD_DAT	= %00000100
-JPAD_LAT	= %00000010
-JPAD_CLK	= %00000001
+jpad_dat	= %00000100
+jpad_lat	= %00000010
+jpad_clk	= %00000001
 
-JOYPAD_INIT
- ; Setup I/O
- lda DDRA
- ora #(JPAD_LAT | JPAD_CLK)
- and #~JPAD_DAT
- sta DDRA
- ; Initial state
- lda PORTA
- and #~(JPAD_LAT | JPAD_CLK)
- sta PORTA
- ; Inital value
+joypad_init
+ ; setup i/o
+ lda ddra
+ ora #(jpad_lat | jpad_clk)
+ and #~jpad_dat
+ sta ddra
+ ; initial state
+ lda porta
+ and #~(jpad_lat | jpad_clk)
+ sta porta
+ ; inital value
  lda #0
- sta JOYPAD
+ sta joypad
  rts
 
-JOYPAD_READ
+joypad_read
  lda #0
- sta R1
- ; Latch the data
- lda PORTA
- ora #JPAD_LAT
- sta PORTA
- and #~JPAD_LAT
- sta PORTA
- ; Read 8 bits
+ sta r1
+ ; latch the data
+ lda porta
+ ora #jpad_lat
+ sta porta
+ and #~jpad_lat
+ sta porta
+ ; read 8 bits
  ldx #8
-JOYPAD_READ_1
- ; Read the data
- lda PORTA
- and #JPAD_DAT
- bne JOYPAD_READ_2
- ; Add a bit 1 into JOYPAD
- inc R1
-JOYPAD_READ_2
- ; Next data
- ora #JPAD_CLK
- sta PORTA
- and #~JPAD_CLK
- sta PORTA
+joypad_read_1
+ ; read the data
+ lda porta
+ and #jpad_dat
+ bne joypad_read_2
+ ; add a bit 1 into joypad
+ inc r1
+joypad_read_2
+ ; next data
+ ora #jpad_clk
+ sta porta
+ and #~jpad_clk
+ sta porta
  dex
- beq JOYPAD_READ_3
- asl R1
- jmp JOYPAD_READ_1
-JOYPAD_READ_3
- ; Initial state
- lda PORTA
- and #~(JPAD_LAT | JPAD_CLK)
- sta PORTA
- lda R1
- sta JOYPAD
+ beq joypad_read_3
+ asl r1
+ jmp joypad_read_1
+joypad_read_3
+ ; initial state
+ lda porta
+ and #~(jpad_lat | jpad_clk)
+ sta porta
+ lda r1
+ sta joypad
  rts
 ------1234567890
 Content-type: text
 
 ; lcd.i
 
-LCD_EN		= %10000000
-LCD_RW		= %01000000
-LCD_RS		= %00100000
+lcd_en		= %10000000
+lcd_rw		= %01000000
+lcd_rs		= %00100000
 
-LCD_INIT
- ; Setup I/O
- lda DDRA
- ora #(LCD_EN | LCD_RW | LCD_RS)
- sta DDRA
+lcd_init
+ ; setup i/o
+ lda ddra
+ ora #(lcd_en | lcd_rw | lcd_rs)
+ sta ddra
  lda #%11111111
- sta DDRB
- ; Interface: 8bits, Line: 2, Font: 5x8
+ sta ddrb
+ ; interface: 8bits, line: 2, font: 5x8
  lda #%00111000
- jsr LCD_SEND_CMD
- ; Display: On, Cursor: Off, Blink: Off
+ jsr lcd_send_cmd
+ ; display: on, cursor: off, blink: off
  lda #%00001100
- jsr LCD_SEND_CMD
- ; Shift: Right
+ jsr lcd_send_cmd
+ ; shift: right
  lda #%00000110
- jsr LCD_SEND_CMD
+ jsr lcd_send_cmd
  rts
 
-LCD_CLEAR
+lcd_clear
  lda #%00000001
- jsr LCD_SEND_CMD
+ jsr lcd_send_cmd
  rts
 
-LCD_HOME
+lcd_home
  lda #%00000010
- jsr LCD_SEND_CMD
+ jsr lcd_send_cmd
  rts
 
-LCD_PRINT
+lcd_print
  ldy #0
-LCD_PRINT_LOOP
- lda (LCD_PTR), y
- beq LCD_PRINT_END
- jsr LCD_SEND_CHAR
+lcd_print_loop
+ lda (lcd_ptr), y
+ beq lcd_print_end
+ jsr lcd_send_char
  iny
- jmp LCD_PRINT_LOOP
-LCD_PRINT_END
+ jmp lcd_print_loop
+lcd_print_end
  rts
 
-LCD_PRINT_BYTE
- sta R2
+lcd_print_byte
+ sta r2
  lda #%10000000
- sta R1
- ; Loop 8 bits
+ sta r1
+ ; loop 8 bits
  ldx #8
-LCD_PRINT_BYTE_1
- lda R2
- and R1
- beq LCD_PRINT_BYTE_4
+lcd_print_byte_1
+ lda r2
+ and r1
+ beq lcd_print_byte_4
  lda #'1'
- jsr LCD_SEND_CHAR
- jmp LCD_PRINT_BYTE_2
-LCD_PRINT_BYTE_4
+ jsr lcd_send_char
+ jmp lcd_print_byte_2
+lcd_print_byte_4
  lda #'0'
- jsr LCD_SEND_CHAR
-LCD_PRINT_BYTE_2
- ; Next data
+ jsr lcd_send_char
+lcd_print_byte_2
+ ; next data
  dex
- beq LCD_PRINT_BYTE_3
- lsr R1
- jmp LCD_PRINT_BYTE_1
-LCD_PRINT_BYTE_3
+ beq lcd_print_byte_3
+ lsr r1
+ jmp lcd_print_byte_1
+lcd_print_byte_3
  rts
 
-LCD_SEND_CMD
- jsr LCD_WAIT
- sta PORTB
+lcd_send_cmd
+ jsr lcd_wait
+ sta portb
  lda #0
- sta PORTA
- lda #LCD_EN
- sta PORTA
+ sta porta
+ lda #lcd_en
+ sta porta
  lda #0
- sta PORTA
+ sta porta
  rts
 
-LCD_SEND_CHAR
- jsr LCD_WAIT
- sta PORTB
- lda #LCD_RS
- sta PORTA
- lda #(LCD_RS | LCD_EN)
- sta PORTA
- lda #LCD_RS
- sta PORTA
+lcd_send_char
+ jsr lcd_wait
+ sta portb
+ lda #lcd_rs
+ sta porta
+ lda #(lcd_rs | lcd_en)
+ sta porta
+ lda #lcd_rs
+ sta porta
  rts
 
-LCD_WAIT
+lcd_wait
  pha
  lda #%00000000
- sta DDRB
-LCD_WAIT_LOOP
- lda #LCD_RW
- sta PORTA
- lda #(LCD_RW | LCD_EN)
- sta PORTA
- lda PORTB
+ sta ddrb
+lcd_wait_loop
+ lda #lcd_rw
+ sta porta
+ lda #(lcd_rw | lcd_en)
+ sta porta
+ lda portb
  and #%10000000
- bne LCD_WAIT_LOOP
- lda #LCD_RW
- sta PORTA
+ bne lcd_wait_loop
+ lda #lcd_rw
+ sta porta
  lda #%11111111
- sta DDRB
+ sta ddrb
  pla
  rts
 ------1234567890
@@ -435,46 +374,116 @@ Content-type: text
 
 ; sys.i
 
-PORT_IRQ = $D000
-PORT_PPU = $D100
-PORT_APU = $D200
-PORT_IO	 = $D300
+port_irq = $d000
+port_ppu = $d100
+port_apu = $d200
+port_io	 = $d300
 
-PORTB	= PORT_IO + $00
-PORTA	= PORT_IO + $01
-DDRB		= PORT_IO + $02
-DDRA		= PORT_IO + $03
-T1CL		= PORT_IO + $04
-T1CH		= PORT_IO + $05
-T1LL		= PORT_IO + $06
-T1LH		= PORT_IO + $07
-T2CL		= PORT_IO + $08
-T2CH		= PORT_IO + $08
-ACR			= PORT_IO + $0B
-IFR			= PORT_IO + $0D
-IER			= PORT_IO + $0E
+portb	= port_io + $00
+porta = port_io + $01
+ddrb  = port_io + $02
+ddra  = port_io + $03
+t1cl  = port_io + $04
+t1ch  = port_io + $05
+t1ll  = port_io + $06
+t1lh  = port_io + $07
+t2cl  = port_io + $08
+t2ch  = port_io + $08
+acr   = port_io + $0b
+ifr   = port_io + $0d
+ier   = port_io + $0e
 
-IRQ_FUNC
+ppu_dmaspr  = port_ppu + $10
+ppu_dmamap  = port_ppu + $11
+ppu_dmaoam  = port_ppu + $12
+
+irq_func
  phx
- ldx PORT_IRQ
- jmp (TABLE_IRQ,X)
+ ldx port_irq
+ jmp (table_irq,x)
 
-DELAY
- jsr DELAY_1ms
+delay
+ jsr delay_1ms
  sbc #1
- bne DELAY
+ bne delay
  rts
 
-DELAY_1ms
+delay_1ms
  pha
  lda #100
-DELAY_1ms_LOOP
+delay_1ms_loop
  nop
  nop
  nop
  sbc #1
- bne DELAY_1ms_LOOP
+ bne delay_1ms_loop
  pla
+ rts
+------1234567890
+Content-type: text
+
+; map.i
+
+map_init
+ rts
+
+map_update
+ rts
+
+map_draw
+ rts
+------1234567890
+Content-type: text
+
+; hero.i
+
+hero_init
+ lda #16
+ sta hero
+ lda #0
+ sta hero+$01
+ lda #0
+ sta hero+$02
+ lda #0
+ sta hero+$03
+ rts
+
+hero_update
+ lda joypad
+ ;cmp #0
+ beq hero_update_done
+hero_update_keyup
+ lda joypad
+ and #%00001000
+ beq hero_update_keydown
+ dec hero+$02
+hero_update_keydown
+ lda joypad
+ and #%00000100
+ beq hero_update_keyleft
+ inc hero+$02
+hero_update_keyleft
+ lda joypad
+ and #%00000010
+ beq hero_update_keyright
+ dec hero+$01
+hero_update_keyright
+ lda joypad
+ and #%00000001
+ beq hero_update_done
+ inc hero+$01
+hero_update_done
+ rts
+
+hero_draw
+ lda hero
+ clc
+ adc #1
+ cmp #18
+ bne hero_draw_1
+ lda #16
+hero_draw_1
+ sta hero
  rts
 ------1234567890
 Content-type: spritesheet
@@ -641,7 +650,7 @@ Content-type: map
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 1,1,1,1,1,1,1,1,1,1,4,4,1,1,18,18,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+1,1,1,1,1,1,1,1,18,1,1,1,1,1,4,4,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 2,1,1,1,1,1,1,4,4,1,1,1,1,1,1,1,1,1,4,1,1,1,2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,1,2,3,2,1,18,1,18,1,1,2,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 3,3,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,3,2,2,3,3,3,2,2,2,2,2,2,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1

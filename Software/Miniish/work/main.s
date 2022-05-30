@@ -1,252 +1,191 @@
-ZERO_START = $0000
-STCK_START = $0100
-OAM_START  = $1000
-CODE_START = $8000
-DATA_START = $A000
-INTE_START = $FFEA
+zero_start = $0000
+stck_start = $0100
+oam_start  = $1000
+map_start  = $1100
+code_start = $8000
+data_start = $a000
+inte_start = $ffea
 
  .dsect
- .org ZERO_START ; ZERO ========
-LCD_PTR   .word $0000
-JOYPAD    .byte $00
-TIMER     .byte $00
-COUNTER   .byte $00
-NMI_STATE .byte $00
-R1        .byte $00
-R2        .byte $00
-R3        .byte $00
-R4        .byte $00
-R5        .byte $00
+ .org zero_start ; zero ========
+lcd_ptr   .word $0000
+src_ptr   .word $0000
+dst_ptr   .word $0000
+state     .byte $00
+counter   .byte $00
+joypad    .byte $00
+timer     .byte $00
+r1        .byte $00
+r2        .byte $00
+r3        .byte $00
+r4        .byte $00
+r5        .byte $00
+
+ .org oam_start ; oam ==================
+hero      .byte $00,$00,$00,$00
+coin      .byte $00,$00,$00,$00
  .dend
 
- .dsect ; OAM ==================
- .org OAM_START
-HERO      .byte $00,$00,$00,$00
-COIN      .byte $00,$00,$00,$00
- .dend
-
- .org CODE_START ; CODE ========
-MAIN
- ldx #$FF ; STACK SIZE
+ .org code_start ; code ========
+main
+ ldx #$ff ; stack size
  txs
- jmp SETUP
+ jmp setup
 
- ; IMPORTS =====================
+ ; includes =====================
  .include "sys.i"
  .include "lcd.i"
  .include "joypad.i"
+ .include "map.i"
+ .include "hero.i"
 
-SETUP
+init
+ jsr map_init
+ jsr hero_init
+ rts
 
- ; INIT VARIABLES
+update
+ jsr map_update
+ jsr hero_update
+ rts
 
+draw
+ jsr map_draw
+ jsr hero_draw
+ rts
+
+setup
+ ; init variables
  lda #0
- sta TIMER
-
+ sta state
  lda #0
- sta COUNTER
-
+ sta counter
  lda #0
- sta NMI_STATE
-
- ; INIT LCD
-
- jsr LCD_INIT
- jsr LCD_CLEAR
-
- ; PRINT MESSAGE1 AT (0, 1)
-
+ sta timer
+ ; init lcd
+ jsr lcd_init
+ jsr lcd_clear
+ ; print message1 at (0, 1)
  lda #%10010100
- jsr LCD_SEND_CMD
- lda #<MESSAGE1
- sta LCD_PTR
- lda #>MESSAGE1
- sta LCD_PTR + 1
- jsr LCD_PRINT
-
- ; INIT JOYPAD
-
- jsr JOYPAD_INIT
-
- ; INSTALL TIMER
-
+ jsr lcd_send_cmd
+ lda #<message1
+ sta lcd_ptr
+ lda #>message1
+ sta lcd_ptr+1
+ jsr lcd_print
+ ; init joypad
+ jsr joypad_init
+ ; install timer
  lda #%11000000
- sta IER
+ sta ier
  lda #%01000000
- sta ACR
- lda #$FF
- sta T1LL
- lda #$FF
- sta T1CH
+ sta acr
+ lda #$ff
+ sta t1ll
+ lda #$ff
+ sta t1ch
  cli
 
-LOOP
- jsr JOYPAD_READ
-
- ; PRINT JOYPAD AND TIMER VALUES
-
- jsr LCD_HOME
- lda JOYPAD
- jsr LCD_PRINT_BYTE
-
+loop
+ jsr joypad_read
+ ; print joypad and timer values
+ jsr lcd_home
+ lda joypad
+ jsr lcd_print_byte
  lda #%11000000
- jsr LCD_SEND_CMD
-
- lda TIMER
- jsr LCD_PRINT_BYTE
-
+ jsr lcd_send_cmd
+ lda timer
+ jsr lcd_print_byte
  lda #' '
- jsr LCD_SEND_CHAR
-
- lda COUNTER
- jsr LCD_PRINT_BYTE
-
- ; CHECK IF START PRESSED
-
- lda JOYPAD
+ jsr lcd_send_char
+ lda counter
+ jsr lcd_print_byte
+ ; check if start pressed
+ lda joypad
  and #%00010000
- beq LOOP
-
- ; PRINT MESSAGE2 AT (0, 3)
-
+ beq loop
+ ; print message2 at (0, 3)
  lda #%11010100
- jsr LCD_SEND_CMD
- lda #<MESSAGE2
- sta LCD_PTR
- lda #>MESSAGE2
- sta LCD_PTR + 1
- jsr LCD_PRINT
+ jsr lcd_send_cmd
+ lda #<message2
+ sta lcd_ptr
+ lda #>message2
+ sta lcd_ptr+1
+ jsr lcd_print
+ jmp loop
 
- jmp LOOP
-
-IRQ0_FUNC
+irq0_func
  plx
  rti
 
-IRQ1_FUNC
- bit T1CL
- inc TIMER
+irq1_func
+ bit t1cl
+ inc timer
  plx
  rti
 
-NMI_FUNC
+nmi_func
  pha
- lda NMI_STATE
- cmp #0
- beq NMI_INIT
- cmp #1
- beq NMI_DRAW
- jmp NMI_DONE
-NMI_INIT
- ; INIT HERO
- lda #16
- sta HERO
- lda #0
- sta HERO + $01
- lda #0
- sta HERO + $02
- lda #0
- sta HERO + $03
- ; init coin
- lda #18
- sta COIN
- lda #8*8
- sta COIN + $01
- lda #12*8
- sta COIN + $02
- lda #0
- sta COIN + $03
+ phx
+ phy
+ ldx state
+ jmp (table_state,x)
+nmi_init
+ jsr init
  ; load assets in ppu
- lda #$a0
- sta PORT_PPU + $03
- lda #$00
- sta PORT_PPU + $04
- lda #$c0
- sta PORT_PPU + $03
- lda #$20
- sta PORT_PPU + $04
+ lda #>sprites
+ sta ppu_dmaspr
+ lda #>map
+ sta ppu_dmamap
  ; next state
- lda #1
- sta NMI_STATE
- jmp NMI_DONE
-NMI_DRAW
- inc COUNTER
- lda COUNTER
+ ldx #2
+ stx state
+ jmp nmi_done
+nmi_update
+ lda counter
  and #3
- bne NMI_DONE
- ; update hero
- lda JOYPAD
- cmp #0
- beq HERO_UPDATE
-HERO_KEYUP
- lda JOYPAD
- and #%00001000
- beq HERO_KEYDOWN
- dec HERO + $02
-HERO_KEYDOWN
- lda JOYPAD
- and #%00000100
- beq HERO_KEYLEFT
- inc HERO + $02
-HERO_KEYLEFT
- lda JOYPAD
- and #%00000010
- beq HERO_KEYRIGHT
- dec HERO + $01
-HERO_KEYRIGHT
- lda JOYPAD
- and #%00000001
- beq HERO_UPDATE
- inc HERO + $01
-HERO_UPDATE
- lda COUNTER
+ bne nmi_done
+ jsr update
+nmi_draw
+ lda counter
  and #15
- bne ALL_UPDATE
- lda HERO
- clc
- adc #1
- and #%11111101
- sta HERO
-COIN_UPDATE
- lda COIN
- clc
- adc #1
- cmp #20
- bne COIN_NEXT_ANIM
- lda #18
-COIN_NEXT_ANIM
- sta COIN
-ALL_UPDATE
- ;update oam in ppu
- lda #$10
- sta PORT_PPU + $03 
- lda #$24
- sta PORT_PPU + $04
-NMI_DONE
+ bne nmi_flush
+ jsr draw
+nmi_flush
+ ; update oam in ppu
+ lda #>oam_start
+ sta ppu_dmaoam
+nmi_done
+ inc counter
+ ply
+ plx
  pla
  rti
 
- .org DATA_START ; DATA ========
-SPRITES
+ .org data_start ; data ========
+sprites
  .incbin "sprites.dat"
-MAP
+map
  .incbin "map.dat"
-MESSAGE1
- .asciiz "I am XiaoNiuNiu"
-MESSAGE2
- .asciiz "Wo ai ni (521 1314)"
+message1
+ .asciiz "i am xiaoniuniu"
+message2
+ .asciiz "wo ai ni (521 1314)"
+table_state
+ .word nmi_init
+ .word nmi_update
 
- .org INTE_START ; INT VECTORS =
-TABLE_IRQ
- .word IRQ0_FUNC
- .word IRQ1_FUNC
+ .org inte_start ; int vectors =
+table_irq
+ .word irq0_func
+ .word irq1_func
  .word $0000
  .word $0000
  .word $0000
  .word $0000
- .word IRQ1_FUNC
- .word IRQ0_FUNC
-TABLE_VEC
- .word NMI_FUNC
- .word MAIN
- .word IRQ_FUNC
+ .word irq1_func
+ .word irq0_func
+table_vec
+ .word nmi_func
+ .word main
+ .word irq_func
