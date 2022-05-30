@@ -1,4 +1,4 @@
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:25 2022
 
 Synopsys Lattice Technology Pre-mapping, Version maplat, Build 1612R, Built Dec  5 2016 09:30:53
 Copyright (C) 1994-2016 Synopsys, Inc. All rights reserved. This Synopsys software and all associated documentation are proprietary to Synopsys, Inc. and may only be used pursuant to the terms and conditions of a written license agreement with Synopsys, Inc. All other use, reproduction, modification, or distribution of the Synopsys software or the associated documentation is strictly prohibited.
@@ -12,16 +12,16 @@ Printing clock  summary report in "/home/romuald/Projects/Miniish/Firmware/PPU/w
 @N: MF248 |Running in 64-bit mode.
 @N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
 
-Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 100MB peak: 102MB)
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 103MB)
 
 
-Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 100MB peak: 102MB)
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 103MB)
 
 
-Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 102MB)
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 102MB peak: 103MB)
 
 
-Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 104MB)
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 102MB peak: 104MB)
 
 
 ICG Latch Removal Summary:
@@ -39,7 +39,7 @@ Clock Summary
 Start                                          Requested     Requested     Clock                    Clock                   Clock
 Clock                                          Frequency     Period        Type                     Group                   Load 
 ---------------------------------------------------------------------------------------------------------------------------------
-clk_0                                          100.0 MHz     10.000        declared                 default_clkgroup        252  
+clk_0                                          100.0 MHz     10.000        declared                 default_clkgroup        361  
 pixel_clock_5|M_counter_q_derived_clock[1]     100.0 MHz     10.000        derived (from clk_0)     default_clkgroup        24   
 vga_signals_6|pixel_clk_inferred_clock         1.0 MHz       1000.000      inferred                 Inferred_clkgroup_0     6    
 =================================================================================================================================
@@ -51,16 +51,18 @@ Finished Pre Mapping Phase.
 
 Starting constraint checker (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 132MB peak: 134MB)
 
-Encoding state machine M_state_q[7:0] (in view: work.ppu_8(verilog))
+Encoding state machine M_state_q[9:0] (in view: work.ppu_8(verilog))
 original code -> new code
-   000 -> 00000001
-   001 -> 00000010
-   010 -> 00000100
-   011 -> 00001000
-   100 -> 00010000
-   101 -> 00100000
-   110 -> 01000000
-   111 -> 10000000
+   0000 -> 0000000001
+   0001 -> 0000000010
+   0010 -> 0000000100
+   0011 -> 0000001000
+   0100 -> 0000010000
+   0101 -> 0000100000
+   0110 -> 0001000000
+   0111 -> 0010000000
+   1000 -> 0100000000
+   1001 -> 1000000000
 Encoding state machine M_this_state_q[13:0] (in view: work.cu_top_0(verilog))
 original code -> new code
    0000 -> 00000000000001
@@ -77,14 +79,19 @@ original code -> new code
    1011 -> 00100000000000
    1100 -> 01000000000000
    1101 -> 10000000000000
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[24] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[25] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[26] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[27] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[28] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[29] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[30] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
-@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":73:2:73:7|Removing sequential instance read_data[31] (in view: work.simple_dual_ram_11_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[19] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[20] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[21] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[22] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[23] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[24] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[25] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[26] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[27] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[28] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[29] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[30] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":73:2:73:7|Removing sequential instance read_data[31] (in view: work.simple_dual_ram_13_32_16(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
 None
 None
 
@@ -92,9 +99,9 @@ Finished constraint checker (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:0
 
 Pre-mapping successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 48MB peak: 137MB)
+At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 49MB peak: 137MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:26 2022
 
 ###########################################################]

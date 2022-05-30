@@ -8,7 +8,7 @@ Running in Lattice mode
 Starting:    /opt/lscc/iCEcube2.2020.12/synpbase/linux_a_64/mbin/synbatch
 Install:     /opt/lscc/iCEcube2.2020.12/synpbase
 Hostname:    computer.workshop
-Date:        Mon May 30 08:34:41 2022
+Date:        Mon May 30 22:03:24 2022
 Version:     L-2016.09L+ice40
 
 Arguments:   -product synplify_pro -batch /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_syn.prj
@@ -24,26 +24,26 @@ Running: alchitry_imp in foreground
 Running alchitry_syn|alchitry_imp
 
 Running: compile (Compile) on alchitry_syn|alchitry_imp
-# Mon May 30 08:34:41 2022
+# Mon May 30 22:03:24 2022
 
 Running: compile_flow (Compile Process) on alchitry_syn|alchitry_imp
-# Mon May 30 08:34:41 2022
+# Mon May 30 22:03:24 2022
 
 Running: compiler (Compile Input) on alchitry_syn|alchitry_imp
-# Mon May 30 08:34:41 2022
+# Mon May 30 22:03:24 2022
 Copied /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_comp.srs to /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.srs
 
 compiler completed
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:25 2022
 
 Return Code: 0
-Run Time:00h:00m:02s
+Run Time:00h:00m:01s
 
 Running: multi_srs_gen (Multi-srs Generator) on alchitry_syn|alchitry_imp
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:25 2022
 
 multi_srs_gen completed
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:25 2022
 
 Return Code: 0
 Run Time:00h:00m:00s
@@ -51,28 +51,28 @@ Copied /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_
 Complete: Compile Process on alchitry_syn|alchitry_imp
 
 Running: premap (Pre-mapping) on alchitry_syn|alchitry_imp
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:25 2022
 
 premap completed with warnings
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:26 2022
 
 Return Code: 1
-Run Time:00h:00m:00s
+Run Time:00h:00m:01s
 Complete: Compile on alchitry_syn|alchitry_imp
 
 Running: map (Map) on alchitry_syn|alchitry_imp
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:26 2022
 License granted for 4 parallel jobs
 
 Running: fpga_mapper (Map & Optimize) on alchitry_syn|alchitry_imp
-# Mon May 30 08:34:43 2022
+# Mon May 30 22:03:26 2022
 Copied /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_m.srm to /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.srm
 
 fpga_mapper completed with warnings
-# Mon May 30 08:34:55 2022
+# Mon May 30 22:03:33 2022
 
 Return Code: 1
-Run Time:00h:00m:12s
+Run Time:00h:00m:07s
 Complete: Map on alchitry_syn|alchitry_imp
 Complete: Logic Synthesis on alchitry_syn|alchitry_imp
 
@@ -99,22 +99,24 @@ SB_RAM SB_RAM1024x4 SB_RAM40_4K
 SB_RAM SB_RAM256x16 SB_RAM40_4K
 Stored edif netlist at /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/sbt/netlist/oadb-cu_top_0...
 Warning: The terminal this_vram.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_0_1:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_1_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_1_1:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_2_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_2_1:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_3_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_3_1:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_4_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_4_1:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_5_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_5_1:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_6_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_6_1:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_7_0:RCLKE is driven by default driver : VCC, Disconnecting it.
-Warning: The terminal this_sprites_ram.mem_mem_7_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_0_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_1_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_1_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_2_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_2_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_3_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_3_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_4_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_4_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_5_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_5_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_6_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_6_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_7_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_spr_ram.mem_mem_7_1:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_ppu.oam_cache.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
+Warning: The terminal this_ppu.oam_cache.mem_mem_0_1:RCLKE is driven by default driver : VCC, Disconnecting it.
 Warning: The terminal this_oam_ram.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
 Warning: The terminal this_oam_ram.mem_mem_0_1:RCLKE is driven by default driver : VCC, Disconnecting it.
 Warning: The terminal this_map_ram.mem_mem_0_0:RCLKE is driven by default driver : VCC, Disconnecting it.
@@ -125,7 +127,7 @@ write Timing Constraint to /home/romuald/Projects/Miniish/Firmware/PPU/work/alch
 EDIF Parser succeeded
 Top module is: cu_top_0
 
-EDF Parser run-time: 0 (sec)
+EDF Parser run-time: 1 (sec)
 Your license expires in 13 days.
 
 A new Lattice Diamond free license can be generated from the Lattice website. A Lattice Diamond subscription license can be purchased from your local Lattice sales representative or from the Lattice website. For more information on Lattice Diamond software refer to http://www.latticesemi.com/latticediamond .
@@ -157,15 +159,15 @@ I2053: Starting placement of the design
 =============================================================
 
 Input Design Statistics
-    Number of LUTs      	:	619
-    Number of DFFs      	:	200
+    Number of LUTs      	:	710
+    Number of DFFs      	:	267
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	110
-    Number of RAMs      	:	21
+    Number of Carrys    	:	150
+    Number of RAMs      	:	23
     Number of ROMs      	:	0
     Number of IOs       	:	51
     Number of GBIOs     	:	1
-    Number of GBs       	:	3
+    Number of GBs       	:	4
     Number of WarmBoot  	:	0
     Number of PLLs      	:	0
 
@@ -174,16 +176,16 @@ Phase 1
 I2077: Start design legalization
 
 Design Legalization Statistics
-    Number of feedthru LUTs inserted to legalize input of DFFs     	:	29
-    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	13
+    Number of feedthru LUTs inserted to legalize input of DFFs     	:	67
+    Number of feedthru LUTs inserted for LUTs driving multiple DFFs	:	18
     Number of LUTs replicated for LUTs driving multiple DFFs       	:	3
-    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	19
+    Number of feedthru LUTs inserted to legalize output of CARRYs  	:	27
     Number of feedthru LUTs inserted to legalize global signals    	:	1
     Number of feedthru CARRYs inserted to legalize input of CARRYs 	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 01xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 10xxxx  	:	0
     Number of inserted LUTs to Legalize IOs with PIN_TYPE= 11xxxx  	:	0
-    Total LUTs inserted                                            	:	65
+    Total LUTs inserted                                            	:	116
     Total CARRYs inserted                                          	:	0
 
 
@@ -197,54 +199,54 @@ I2088: Phase 2, elapsed time : 0.0 (sec)
 Phase 3
 
 Design Statistics after Packing
-    Number of LUTs      	:	685
-    Number of DFFs      	:	200
+    Number of LUTs      	:	827
+    Number of DFFs      	:	267
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	110
+    Number of Carrys    	:	150
 
 Device Utilization Summary after Packing
     Sequential LogicCells
-        LUT and DFF      	:	165
-        LUT, DFF and CARRY	:	35
+        LUT and DFF      	:	220
+        LUT, DFF and CARRY	:	47
     Combinational LogicCells
-        Only LUT         	:	429
-        CARRY Only       	:	19
-        LUT with CARRY   	:	56
-    LogicCells                  :	704/7680
-    PLBs                        :	100/960
-    BRAMs                       :	21/32
+        Only LUT         	:	498
+        CARRY Only       	:	41
+        LUT with CARRY   	:	62
+    LogicCells                  :	868/7680
+    PLBs                        :	123/960
+    BRAMs                       :	23/32
     IOs and GBIOs               :	52/95
     PLLs                        :	0/2
 
 
-I2088: Phase 3, elapsed time : 0.9 (sec)
+I2088: Phase 3, elapsed time : 1.1 (sec)
 
 Phase 4
 I2088: Phase 4, elapsed time : 0.2 (sec)
 
 Phase 5
-I2088: Phase 5, elapsed time : 2.6 (sec)
+I2088: Phase 5, elapsed time : 3.5 (sec)
 
 Phase 6
-I2088: Phase 6, elapsed time : 43.5 (sec)
+I2088: Phase 6, elapsed time : 50.2 (sec)
 
 Final Design Statistics
-    Number of LUTs      	:	685
-    Number of DFFs      	:	200
+    Number of LUTs      	:	827
+    Number of DFFs      	:	267
     Number of DFFs packed to IO	:	0
-    Number of Carrys    	:	110
-    Number of RAMs      	:	21
+    Number of Carrys    	:	150
+    Number of RAMs      	:	23
     Number of ROMs      	:	0
     Number of IOs       	:	51
     Number of GBIOs     	:	1
-    Number of GBs       	:	3
+    Number of GBs       	:	4
     Number of WarmBoot  	:	0
     Number of PLLs      	:	0
 
 Device Utilization Summary
-    LogicCells                  :	704/7680
-    PLBs                        :	200/960
-    BRAMs                       :	21/32
+    LogicCells                  :	868/7680
+    PLBs                        :	265/960
+    BRAMs                       :	23/32
     IOs and GBIOs               :	52/95
     PLLs                        :	0/2
 
@@ -262,7 +264,7 @@ analysis after routing.
                      Clock Summary 
 =====================================================================
 Number of clocks: 1
-Clock: clk_0 | Frequency: 67.75 MHz | Target: 100.00 MHz
+Clock: clk_0 | Frequency: 55.52 MHz | Target: 100.00 MHz
 
 =====================================================================
                      End of Clock Summary
@@ -270,7 +272,7 @@ Clock: clk_0 | Frequency: 67.75 MHz | Target: 100.00 MHz
 
 I2054: Placement of design completed successfully
 
-I2076: Placer run-time: 47.6 sec.
+I2076: Placer run-time: 55.5 sec.
 
 
 
@@ -282,8 +284,8 @@ Build Date:     Dec 10 2020 17:24:46
 
 Begin Packing...
 initializing finish
-Total HPWL cost is 5447
-used logic cells: 704
+Total HPWL cost is 6131
+used logic cells: 868
 Translating sdc file /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/sbt/outputs/placer/cu_top_0_pl.sdc...
 Translated sdc file is /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0_pk.sdc
 Packer succeeded
@@ -303,33 +305,24 @@ Build Date:     Dec 10 2020 17:31:26
 I1203: Reading Design cu_top_0
 Read design time: 0
 I1202: Reading Architecture of device iCE40HX8K
-Read device time: 8
+Read device time: 9
 I1209: Started routing
-I1223: Total Nets : 902 
-I1212: Iteration  1 :   138 unrouted : 3 seconds
-I1212: Iteration  2 :    18 unrouted : 1 seconds
-I1212: Iteration  3 :     4 unrouted : 0 seconds
-I1212: Iteration  4 :     2 unrouted : 0 seconds
+I1223: Total Nets : 1086 
+I1212: Iteration  1 :   164 unrouted : 5 seconds
+I1212: Iteration  2 :    28 unrouted : 2 seconds
+I1212: Iteration  3 :     8 unrouted : 0 seconds
+I1212: Iteration  4 :     6 unrouted : 0 seconds
 I1212: Iteration  5 :     2 unrouted : 0 seconds
-I1212: Iteration  6 :     2 unrouted : 0 seconds
-I1212: Iteration  7 :     2 unrouted : 1 seconds
-I1212: Iteration  8 :     2 unrouted : 0 seconds
-I1212: Iteration  9 :     2 unrouted : 0 seconds
-I1212: Iteration 10 :     2 unrouted : 0 seconds
-I1212: Iteration 11 :     2 unrouted : 0 seconds
-I1212: Iteration 12 :     2 unrouted : 0 seconds
-I1212: Iteration 13 :     2 unrouted : 0 seconds
-I1212: Iteration 14 :     2 unrouted : 0 seconds
-I1212: Iteration 15 :     0 unrouted : 0 seconds
+I1212: Iteration  6 :     0 unrouted : 0 seconds
 I1215: Routing is successful
-Routing time: 6
+Routing time: 8
 I1206: Completed routing
 I1204: Writing Design cu_top_0
 Lib Closed
 I1210: Writing routes
 I1218: Exiting the router
-I1224: Router run-time : 14 seconds
- total           337340K
+I1224: Router run-time : 17 seconds
+ total           339052K
 
 
 Run bitmap ...
@@ -355,7 +348,7 @@ Writing /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0_s
 Writing /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0_sbt.vhd
 Netlister succeeded.
 
-Netlister run-time: 5 (sec)
+Netlister run-time: 6 (sec)
 
 
 Run sbtimer ...
@@ -365,7 +358,7 @@ Lattice Semiconductor Corporation  Timer
 Release:        2020.12.27943
 Build Date:     Dec 10 2020 17:29:54
 
-Timer run-time: 3 seconds
+Timer run-time: 5 seconds
 
 
 Finished building project.

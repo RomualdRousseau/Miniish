@@ -25,6 +25,7 @@ Running on host :computer.workshop
 @I::"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_10.v" (library work)
 @I::"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v" (library work)
 @I::"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v" (library work)
+@I::"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v" (library work)
 Verilog syntax check successful!
 Selecting top level module cu_top_0
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/reset_conditioner_1.v":11:7:11:25|Synthesizing module reset_conditioner_1 in library work.
@@ -41,6 +42,13 @@ Selecting top level module cu_top_0
 
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_ramdac_7.v":7:7:7:18|Synthesizing module vga_ramdac_7 in library work.
 
+@N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":48:7:48:24|Synthesizing module simple_dual_ram_13 in library work.
+
+	SIZE=6'b100000
+	DEPTH=5'b10000
+   Generated name = simple_dual_ram_13_32_16
+
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_13.v":67:2:67:7|Found RAM mem, depth=16, width=32
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":7:7:7:11|Synthesizing module ppu_8 in library work.
 
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_9.v":48:7:48:23|Synthesizing module simple_dual_ram_9 in library work.
@@ -60,10 +68,10 @@ Selecting top level module cu_top_0
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":48:7:48:24|Synthesizing module simple_dual_ram_11 in library work.
 
 	SIZE=6'b100000
-	DEPTH=5'b10000
-   Generated name = simple_dual_ram_11_32_16
+	DEPTH=7'b1000000
+   Generated name = simple_dual_ram_11_32_64
 
-@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":67:2:67:7|Found RAM mem, depth=16, width=32
+@N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_11.v":67:2:67:7|Found RAM mem, depth=64, width=32
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":48:7:48:24|Synthesizing module simple_dual_ram_12 in library work.
 
 	SIZE=3'b100
@@ -73,12 +81,13 @@ Selecting top level module cu_top_0
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
 
-@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":456:2:456:7|Pruning unused bits 31 to 24 of M_this_data_tmp_q[31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":456:2:456:7|Register bit M_this_data_count_q[15] is always 0.
-@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":456:2:456:7|Pruning register bit 15 of M_this_data_count_q[15:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":456:2:456:7|Register bit M_this_data_count_q[14] is always 0.
-@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":456:2:456:7|Pruning register bit 14 of M_this_data_count_q[14:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":456:2:456:7|Trying to extract state machine for register M_this_state_q.
+@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Pruning unused bits 6 to 0 of M_this_ctrl_flags_q[7:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Pruning unused bits 31 to 24 of M_this_data_tmp_q[31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Register bit M_this_data_count_q[15] is always 0.
+@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Pruning register bit 15 of M_this_data_count_q[15:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Register bit M_this_data_count_q[14] is always 0.
+@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Pruning register bit 14 of M_this_data_count_q[14:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Trying to extract state machine for register M_this_state_q.
 Extracted state machine for register M_this_state_q
 State machine has 14 reachable states with original encodings of:
    0000
@@ -95,30 +104,31 @@ State machine has 14 reachable states with original encodings of:
    1011
    1100
    1101
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":456:2:456:7|Initial value is not supported on state machine M_this_state_q
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":140:2:140:7|Trying to extract state machine for register M_state_q.
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":472:2:472:7|Initial value is not supported on state machine M_this_state_q
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":217:2:217:7|Trying to extract state machine for register M_state_q.
 Extracted state machine for register M_state_q
-State machine has 8 reachable states with original encodings of:
-   000
-   001
-   010
-   011
-   100
-   101
-   110
-   111
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":140:2:140:7|Initial value is not supported on state machine M_state_q
-@W: CL246 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":20:17:20:24|Input port bits 31 to 24 of oam_data[31:0] are unused. Assign logic for all port bits or change the input port size.
+State machine has 10 reachable states with original encodings of:
+   0000
+   0001
+   0010
+   0011
+   0100
+   0101
+   0110
+   0111
+   1000
+   1001
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":217:2:217:7|Initial value is not supported on state machine M_state_q
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[10] is always 0.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Register bit M_hcounter_q[11] is always 0.
 @W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":118:2:118:7|Pruning register bits 11 to 10 of M_hcounter_q[11:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
 
-At c_ver Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 82MB peak: 95MB)
+At c_ver Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 84MB peak: 96MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Mon May 30 08:34:42 2022
+# Mon May 30 22:03:24 2022
 
 ###########################################################]
 Synopsys Netlist Linker, version comp2016q3p1, Build 141R, built Dec  5 2016
@@ -126,12 +136,12 @@ Synopsys Netlist Linker, version comp2016q3p1, Build 141R, built Dec  5 2016
 @N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
 @N: NF107 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Selected library: work cell: cu_top_0 view verilog as top level
 
-At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 68MB)
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 68MB peak: 69MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Mon May 30 08:34:42 2022
+# Mon May 30 22:03:24 2022
 
 ###########################################################]
 @END
@@ -141,6 +151,6 @@ At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Mon May 30 08:34:42 2022
+# Mon May 30 22:03:24 2022
 
 ###########################################################]

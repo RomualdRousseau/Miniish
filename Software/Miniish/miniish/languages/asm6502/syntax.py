@@ -12,6 +12,8 @@ KEYWORDS1 = (
         "CPY",
         "AND",
         "STA",
+        "STX",
+        "STY",
         "JSR",
         "TXS",
         "RTI",

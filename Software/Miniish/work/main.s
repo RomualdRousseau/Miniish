@@ -11,8 +11,7 @@ inte_start = $ffea
 lcd_ptr   .word $0000
 src_ptr   .word $0000
 dst_ptr   .word $0000
-state     .byte $00
-counter   .byte $00
+retraces  .byte $00
 joypad    .byte $00
 timer     .byte $00
 r1        .byte $00
@@ -42,6 +41,11 @@ main
 init
  jsr map_init
  jsr hero_init
+ ; load assets in ppu
+ lda #>sprites
+ sta ppu_dmaspr
+ lda #>map
+ sta ppu_dmamap
  rts
 
 update
@@ -57,11 +61,19 @@ draw
 setup
  ; init variables
  lda #0
- sta state
- lda #0
- sta counter
+ sta retraces
  lda #0
  sta timer
+ lda #<oam_start
+ sta src_ptr
+ lda #>oam_start
+ sta src_ptr+1
+ ldy #0
+ lda #0
+mem_set
+ sta (src_ptr),y
+ iny
+ bne mem_set
  ; init lcd
  jsr lcd_init
  jsr lcd_clear
@@ -85,6 +97,11 @@ setup
  lda #$ff
  sta t1ch
  cli
+ ; init game
+ jsr init
+ ; start ppu
+ lda #%10000000
+ sta ppu_ctrl
 
 loop
  jsr joypad_read
@@ -98,7 +115,7 @@ loop
  jsr lcd_print_byte
  lda #' '
  jsr lcd_send_char
- lda counter
+ lda retraces
  jsr lcd_print_byte
  ; check if start pressed
  lda joypad
@@ -128,35 +145,26 @@ nmi_func
  pha
  phx
  phy
- ldx state
- jmp (table_state,x)
-nmi_init
- jsr init
- ; load assets in ppu
- lda #>sprites
- sta ppu_dmaspr
- lda #>map
- sta ppu_dmamap
- ; next state
- ldx #2
- stx state
- jmp nmi_done
-nmi_update
- lda counter
- and #3
+ lda retraces
+ and #1
  bne nmi_done
  jsr update
 nmi_draw
- lda counter
+ lda retraces
  and #15
  bne nmi_flush
  jsr draw
 nmi_flush
- ; update oam in ppu
+ lda hero+$01
+ clc
+ sbc #3*8
+ sta ppu_scroll
+ lda #0
+ sta ppu_scroll
  lda #>oam_start
  sta ppu_dmaoam
 nmi_done
- inc counter
+ inc retraces
  ply
  plx
  pla
@@ -171,9 +179,6 @@ message1
  .asciiz "i am xiaoniuniu"
 message2
  .asciiz "wo ai ni (521 1314)"
-table_state
- .word nmi_init
- .word nmi_update
 
  .org inte_start ; int vectors =
 table_irq

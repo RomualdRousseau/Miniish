@@ -19,6 +19,8 @@ acr   = port_io + $0b
 ifr   = port_io + $0d
 ier   = port_io + $0e
 
+ppu_ctrl    = port_ppu + $00
+ppu_scroll  = port_ppu + $01
 ppu_dmaspr  = port_ppu + $10
 ppu_dmamap  = port_ppu + $11
 ppu_dmaoam  = port_ppu + $12

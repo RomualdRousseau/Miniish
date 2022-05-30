@@ -3,9 +3,9 @@
 hero_init
  lda #16
  sta hero
- lda #0
+ lda #3*8
  sta hero+$01
- lda #0
+ lda #14*8
  sta hero+$02
  lda #0
  sta hero+$03

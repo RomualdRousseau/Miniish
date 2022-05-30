@@ -9,37 +9,40 @@ module ppu_8 (
     input rst,
     input vga_line_clk,
     input vga_is_drawing,
+    input [15:0] scroll,
     output reg [7:0] vram_addr,
     output reg vram_en,
     output reg [3:0] vram_data,
-    output reg [13:0] sprites_addr,
-    input [3:0] sprites_data,
+    output reg [13:0] spr_addr,
+    input [3:0] spr_data,
     output reg [9:0] map_addr,
     input [7:0] map_data,
-    output reg [3:0] oam_addr,
+    output reg [5:0] oam_addr,
     input [31:0] oam_data
   );
   
   
   
-  reg [7:0] hscroll;
+  localparam IDLE_state = 4'd0;
+  localparam LOOP_OAM_state = 4'd1;
+  localparam READ_OAM_state = 4'd2;
+  localparam WRITE_OAM_CACHE_state = 4'd3;
+  localparam LOOP_state = 4'd4;
+  localparam LOOP_OAM_CACHE_state = 4'd5;
+  localparam READ_OAM_CACHE_state = 4'd6;
+  localparam WRITE_OAM_PIXEL_state = 4'd7;
+  localparam READ_TILE_state = 4'd8;
+  localparam WRITE_TILE_PIXEL_state = 4'd9;
+  localparam WRITE_CHESS_PIXEL_state = 4'd10;
   
-  reg [7:0] vscroll;
-  
-  localparam IDLE_state = 3'd0;
-  localparam LOOP_state = 3'd1;
-  localparam LOOP_OAM_state = 3'd2;
-  localparam CHECK_OAM_state = 3'd3;
-  localparam READ_OAM_state = 3'd4;
-  localparam WRITE_OAM_PIXEL_state = 3'd5;
-  localparam READ_TILE_state = 3'd6;
-  localparam WRITE_TILE_PIXEL_state = 3'd7;
-  
-  reg [2:0] M_state_d, M_state_q = IDLE_state;
+  reg [3:0] M_state_d, M_state_q = IDLE_state;
   reg [7:0] M_count_d, M_count_q = 1'h0;
   reg [7:0] M_haddress_d, M_haddress_q = 1'h0;
   reg [7:0] M_vaddress_d, M_vaddress_q = 1'h0;
-  reg [4:0] M_oam_idx_d, M_oam_idx_q = 1'h0;
+  reg [8:0] M_voffset_d, M_voffset_q = 1'h0;
+  reg [8:0] M_hoffset_d, M_hoffset_q = 1'h0;
+  reg [6:0] M_oamcurr_d, M_oamcurr_q = 1'h0;
+  reg [3:0] M_oamidx_d, M_oamidx_q = 1'h0;
   wire [1-1:0] M_line_clk_out;
   reg [1-1:0] M_line_clk_in;
   edge_detector_4 line_clk (
@@ -48,22 +51,48 @@ module ppu_8 (
     .out(M_line_clk_out)
   );
   
+  wire [32-1:0] M_oam_cache_read_data;
+  reg [4-1:0] M_oam_cache_waddr;
+  reg [32-1:0] M_oam_cache_write_data;
+  reg [1-1:0] M_oam_cache_write_en;
+  reg [4-1:0] M_oam_cache_raddr;
+  simple_dual_ram_13 #(.SIZE(6'h20), .DEPTH(5'h10)) oam_cache (
+    .rclk(clk),
+    .wclk(clk),
+    .waddr(M_oam_cache_waddr),
+    .write_data(M_oam_cache_write_data),
+    .write_en(M_oam_cache_write_en),
+    .raddr(M_oam_cache_raddr),
+    .read_data(M_oam_cache_read_data)
+  );
+  
+  reg [33:0] oam_entry;
+  
+  reg [8:0] vspr;
+  
+  reg [8:0] hspr;
+  
   always @* begin
     M_state_d = M_state_q;
+    M_oamidx_d = M_oamidx_q;
+    M_hoffset_d = M_hoffset_q;
+    M_oamcurr_d = M_oamcurr_q;
     M_count_d = M_count_q;
     M_vaddress_d = M_vaddress_q;
     M_haddress_d = M_haddress_q;
-    M_oam_idx_d = M_oam_idx_q;
+    M_voffset_d = M_voffset_q;
     
     M_line_clk_in = vga_line_clk;
     vram_addr = {M_vaddress_q[0+0-:1], M_haddress_q[0+6-:7]};
     vram_en = 1'h0;
     vram_data = 4'bxxxx;
-    vscroll = M_vaddress_q + 1'h0;
-    hscroll = M_haddress_q + 1'h0;
-    map_addr = 10'bxxxxxxxxxx;
-    sprites_addr = 14'bxxxxxxxxxxxxxx;
-    oam_addr = M_oam_idx_q[0+3-:4];
+    map_addr = {M_voffset_q[3+4-:5], M_hoffset_q[3+4-:5]};
+    oam_addr = M_oamcurr_q[0+5-:6];
+    spr_addr = 14'bxxxxxxxxxxxxxx;
+    M_oam_cache_raddr = M_oamcurr_q[0+3-:4];
+    M_oam_cache_waddr = M_oamidx_q;
+    M_oam_cache_write_en = 1'h0;
+    M_oam_cache_write_data = 1'h0;
     
     case (M_state_q)
       IDLE_state: begin
@@ -75,62 +104,110 @@ module ppu_8 (
           end
           M_haddress_d = 8'h00;
           M_count_d = 8'h80;
-          M_state_d = LOOP_state;
+          M_oamcurr_d = 1'h0;
+          M_oamidx_d = 1'h0;
+          M_state_d = LOOP_OAM_state;
         end
+      end
+      LOOP_OAM_state: begin
+        if (M_oamcurr_q == 7'h40) begin
+          M_state_d = LOOP_state;
+        end else begin
+          M_voffset_d = M_vaddress_q + scroll[0+7-:8];
+          M_hoffset_d = M_haddress_q + scroll[8+7-:8];
+          M_state_d = READ_OAM_state;
+        end
+      end
+      READ_OAM_state: begin
+        oam_entry[0+7-:8] = oam_data[0+7-:8];
+        oam_entry[8+8-:9] = oam_data[8+7-:8];
+        oam_entry[17+8-:9] = oam_data[16+7-:8];
+        oam_entry[26+7-:8] = oam_data[24+7-:8];
+        if (oam_entry[0+7-:8] > 1'h0 && M_voffset_q >= oam_entry[17+8-:9] && M_voffset_q <= (oam_entry[17+8-:9] + 3'h7)) begin
+          M_state_d = WRITE_OAM_CACHE_state;
+        end else begin
+          M_oamcurr_d = M_oamcurr_q + 1'h1;
+          M_state_d = LOOP_OAM_state;
+        end
+      end
+      WRITE_OAM_CACHE_state: begin
+        M_oam_cache_write_en = 1'h1;
+        M_oam_cache_write_data = oam_data;
+        M_oamcurr_d = M_oamcurr_q + 1'h1;
+        M_oamidx_d = M_oamidx_q + 1'h1;
+        M_state_d = LOOP_OAM_state;
       end
       LOOP_state: begin
         if (M_count_q == 1'h0) begin
           M_state_d = IDLE_state;
         end else begin
           M_count_d = M_count_q - 1'h1;
-          M_oam_idx_d = 1'h0;
-          M_state_d = LOOP_OAM_state;
+          M_voffset_d = M_vaddress_q + scroll[0+7-:8];
+          M_hoffset_d = M_haddress_q + scroll[8+7-:8];
+          M_oamcurr_d = 1'h0;
+          M_state_d = LOOP_OAM_CACHE_state;
         end
       end
-      LOOP_OAM_state: begin
-        if (M_oam_idx_q == 5'h10) begin
+      LOOP_OAM_CACHE_state: begin
+        if (M_oamcurr_q[0+3-:4] == M_oamidx_q) begin
           M_state_d = READ_TILE_state;
         end else begin
-          M_state_d = READ_OAM_state;
+          M_state_d = READ_OAM_CACHE_state;
         end
       end
-      READ_OAM_state: begin
-        M_state_d = CHECK_OAM_state;
-      end
-      CHECK_OAM_state: begin
-        if (oam_data[0+7-:8] > 1'h0 && vscroll >= oam_data[16+7-:8] && vscroll < (oam_data[16+7-:8] + 4'h8) && hscroll >= oam_data[8+7-:8] && hscroll < (oam_data[8+7-:8] + 4'h8)) begin
-          vscroll = vscroll - oam_data[16+7-:8];
-          hscroll = hscroll - oam_data[8+7-:8];
-          sprites_addr = {oam_data[0+7-:8], vscroll[0+2-:3], hscroll[0+2-:3]};
+      READ_OAM_CACHE_state: begin
+        oam_entry[0+7-:8] = M_oam_cache_read_data[0+7-:8];
+        oam_entry[8+8-:9] = M_oam_cache_read_data[8+7-:8];
+        oam_entry[17+8-:9] = M_oam_cache_read_data[16+7-:8];
+        oam_entry[26+7-:8] = M_oam_cache_read_data[24+7-:8];
+        if (oam_entry[8+8-:9] < 8'hf9 && M_hoffset_q[0+7-:8] >= oam_entry[8+8-:9] && M_hoffset_q[0+7-:8] <= (oam_entry[8+8-:9] + 3'h7)) begin
+          vspr = M_voffset_q - oam_entry[17+8-:9];
+          hspr = M_hoffset_q - oam_entry[8+8-:9];
+          spr_addr = {oam_entry[0+7-:8], vspr[0+2-:3], hspr[0+2-:3]};
           M_state_d = WRITE_OAM_PIXEL_state;
         end else begin
-          M_oam_idx_d = M_oam_idx_q + 1'h1;
-          M_state_d = LOOP_OAM_state;
+          if (oam_entry[8+8-:9] >= 8'hf9 && M_hoffset_q >= oam_entry[8+8-:9] && M_hoffset_q <= (oam_entry[8+8-:9] + 3'h7)) begin
+            vspr = M_voffset_q - oam_entry[17+8-:9];
+            hspr = M_hoffset_q - oam_entry[8+8-:9];
+            spr_addr = {oam_entry[0+7-:8], vspr[0+2-:3], hspr[0+2-:3]};
+            M_state_d = WRITE_OAM_PIXEL_state;
+          end else begin
+            M_oamcurr_d = M_oamcurr_q + 1'h1;
+            M_state_d = LOOP_OAM_CACHE_state;
+          end
         end
       end
       WRITE_OAM_PIXEL_state: begin
-        vscroll = vscroll - oam_data[16+7-:8];
-        hscroll = hscroll - oam_data[8+7-:8];
-        sprites_addr = {oam_data[0+7-:8], vscroll[0+2-:3], hscroll[0+2-:3]};
-        if (sprites_data == 1'h0) begin
+        oam_entry[0+7-:8] = M_oam_cache_read_data[0+7-:8];
+        oam_entry[8+8-:9] = M_oam_cache_read_data[8+7-:8];
+        oam_entry[17+8-:9] = M_oam_cache_read_data[16+7-:8];
+        oam_entry[26+7-:8] = M_oam_cache_read_data[24+7-:8];
+        vspr = M_voffset_q - oam_entry[17+8-:9];
+        hspr = M_hoffset_q - oam_entry[8+8-:9];
+        spr_addr = {oam_entry[0+7-:8], vspr[0+2-:3], hspr[0+2-:3]};
+        if (spr_data == 1'h0) begin
           M_state_d = READ_TILE_state;
         end else begin
           vram_en = 1'h1;
-          vram_data = sprites_data;
+          vram_data = spr_data;
           M_haddress_d = M_haddress_q + 1'h1;
           M_state_d = LOOP_state;
         end
       end
       READ_TILE_state: begin
-        map_addr = {vscroll[3+4-:5], hscroll[3+4-:5]};
-        sprites_addr = {map_data, vscroll[0+2-:3], hscroll[0+2-:3]};
+        spr_addr = {map_data, M_voffset_q[0+2-:3], M_hoffset_q[0+2-:3]};
         M_state_d = WRITE_TILE_PIXEL_state;
       end
       WRITE_TILE_PIXEL_state: begin
-        map_addr = {vscroll[3+4-:5], hscroll[3+4-:5]};
-        sprites_addr = {map_data, vscroll[0+2-:3], hscroll[0+2-:3]};
+        spr_addr = {map_data, M_voffset_q[0+2-:3], M_hoffset_q[0+2-:3]};
         vram_en = 1'h1;
-        vram_data = sprites_data;
+        vram_data = spr_data;
+        M_haddress_d = M_haddress_q + 1'h1;
+        M_state_d = LOOP_state;
+      end
+      WRITE_CHESS_PIXEL_state: begin
+        vram_en = 1'h1;
+        vram_data = (M_haddress_q[3+0-:1] ^ M_vaddress_q[3+0-:1]) * M_vaddress_q[3+3-:4];
         M_haddress_d = M_haddress_q + 1'h1;
         M_state_d = LOOP_state;
       end
@@ -142,13 +219,19 @@ module ppu_8 (
       M_count_q <= 1'h0;
       M_haddress_q <= 1'h0;
       M_vaddress_q <= 1'h0;
-      M_oam_idx_q <= 1'h0;
+      M_voffset_q <= 1'h0;
+      M_hoffset_q <= 1'h0;
+      M_oamcurr_q <= 1'h0;
+      M_oamidx_q <= 1'h0;
       M_state_q <= 1'h0;
     end else begin
       M_count_q <= M_count_d;
       M_haddress_q <= M_haddress_d;
       M_vaddress_q <= M_vaddress_d;
-      M_oam_idx_q <= M_oam_idx_d;
+      M_voffset_q <= M_voffset_d;
+      M_hoffset_q <= M_hoffset_d;
+      M_oamcurr_q <= M_oamcurr_d;
+      M_oamidx_q <= M_oamidx_d;
       M_state_q <= M_state_d;
     end
   end

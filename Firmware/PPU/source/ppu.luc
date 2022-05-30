@@ -1,8 +1,8 @@
 global Oam {
   struct entry {
     tile[8],
-    xpos[8],
-    ypos[8],
+    xpos[9],
+    ypos[9],
     flag[8]
   }
 }
@@ -16,6 +16,8 @@ module ppu (
     input vga_line_clk,
     input vga_is_drawing,
     
+    input scroll[16],
+    
     // VRAM
     
     output vram_addr[8],
@@ -24,8 +26,8 @@ module ppu (
     
     // Sprites Memory
     
-    output sprites_addr[14],
-    input sprites_data[4],
+    output spr_addr[14],
+    input spr_data[4],
     
     // Map Memory
     
@@ -34,23 +36,41 @@ module ppu (
     
     // Oam Memory
     
-    output oam_addr[4],
-    input<Oam.entry> oam_data
+    output oam_addr[6],
+    input oam_data[32]
   ) {
-  
-  sig hscroll[8];
-  sig vscroll[8];
   
   .clk(clk) {
     .rst(rst) {
-      fsm state = {IDLE, LOOP, LOOP_OAM, CHECK_OAM, READ_OAM, WRITE_OAM_PIXEL, READ_TILE, WRITE_TILE_PIXEL};
+      fsm state = {
+        IDLE,
+        LOOP_OAM,
+        READ_OAM,
+        WRITE_OAM_CACHE,
+        LOOP,
+        LOOP_OAM_CACHE,
+        READ_OAM_CACHE,
+        WRITE_OAM_PIXEL,
+        READ_TILE,
+        WRITE_TILE_PIXEL,
+        WRITE_CHESS_PIXEL
+      };
       dff count[8];
       dff haddress[8];
       dff vaddress[8];
-      dff oam_idx[5];
+      dff voffset[9];
+      dff hoffset[9];
+      dff oamcurr[7];
+      dff oamidx[4];
     }
     edge_detector line_clk(#RISE(1), #FALL(0));
   }
+  
+  simple_dual_ram oam_cache(.rclk(clk), .wclk(clk), #SIZE(32), #DEPTH(16));
+  
+  sig<Oam.entry> oam_entry;
+  sig vspr[9];
+  sig hspr[9];
   
   always {
     
@@ -60,14 +80,14 @@ module ppu (
     vram_en = 0;
     vram_data = 4bx;
     
-    vscroll = vaddress.q + 0;
-    hscroll = haddress.q + 0;
+    map_addr = c{voffset.q[3+:5], hoffset.q[3+:5]};
+    oam_addr = oamcurr.q[0+:6];
+    spr_addr = 14bx;
     
-    map_addr = 10bx;
-    
-    sprites_addr = 14bx;
-    
-    oam_addr = oam_idx.q[0+:4];
+    oam_cache.raddr = oamcurr.q[0+:4];
+    oam_cache.waddr = oamidx.q;
+    oam_cache.write_en = 0;
+    oam_cache.write_data = 0;
     
     case (state.q) {
       state.IDLE:
@@ -80,8 +100,44 @@ module ppu (
           }
           haddress.d = 8b0;
           count.d = 128;
+          oamcurr.d = 0;
+          oamidx.d = 0;
+          state.d = state.LOOP_OAM;
+        }
+      
+      // Scan all oam entries and select the ones on the current scan line
+      
+      state.LOOP_OAM:
+        if (oamcurr.q == 64) {
           state.d = state.LOOP;
         }
+        else {
+          voffset.d = vaddress.q + scroll[0+:8];
+          hoffset.d = haddress.q + scroll[8+:8];
+          state.d = state.READ_OAM;
+        }
+      
+      state.READ_OAM:
+        oam_entry.tile = oam_data[0+:8];
+        oam_entry.xpos = oam_data[8+:8];
+        oam_entry.ypos = oam_data[16+:8];
+        oam_entry.flag = oam_data[24+:8];
+        if (oam_entry.tile > 0 && voffset.q  >= oam_entry.ypos && voffset.q  <= (oam_entry.ypos + 7)) {
+          state.d = state.WRITE_OAM_CACHE;
+        }
+        else {
+          oamcurr.d = oamcurr.q + 1;
+          state.d = state.LOOP_OAM;
+        }
+      
+      state.WRITE_OAM_CACHE:
+        oam_cache.write_en = 1;
+        oam_cache.write_data = oam_data;
+        oamcurr.d = oamcurr.q + 1;
+        oamidx.d = oamidx.q + 1;
+        state.d = state.LOOP_OAM;
+      
+      // Raster pixels
       
       state.LOOP:
         if (count.q == 0) {
@@ -89,59 +145,74 @@ module ppu (
         }
         else {
           count.d = count.q - 1;
-          oam_idx.d = 0;
-          state.d = state.LOOP_OAM;
+          voffset.d = vaddress.q + scroll[0+:8];
+          hoffset.d = haddress.q + scroll[8+:8];
+          oamcurr.d = 0;
+          state.d = state.LOOP_OAM_CACHE;
         }
       
-      state.LOOP_OAM:
-        if (oam_idx.q == 16) {
+      state.LOOP_OAM_CACHE:
+        if (oamcurr.q[0+:4] == oamidx.q) {
           state.d = state.READ_TILE;
         }
         else {
-          state.d = state.READ_OAM;
+          state.d = state.READ_OAM_CACHE;
         }
       
-      state.READ_OAM:
-        state.d = state.CHECK_OAM;
-      
-      state.CHECK_OAM:
-        if (oam_data.tile > 0 && vscroll >= oam_data.ypos && vscroll < (oam_data.ypos + 8) && hscroll >= oam_data.xpos && hscroll < (oam_data.xpos + 8)) {
-          vscroll = vscroll - oam_data.ypos;
-          hscroll = hscroll - oam_data.xpos;
-          sprites_addr = c{oam_data.tile, vscroll[0+:3], hscroll[0+:3]};
+      state.READ_OAM_CACHE:
+        oam_entry.tile = oam_cache.read_data[0+:8];
+        oam_entry.xpos = oam_cache.read_data[8+:8];
+        oam_entry.ypos = oam_cache.read_data[16+:8];
+        oam_entry.flag = oam_cache.read_data[24+:8];
+        if (oam_entry.xpos < 249 && hoffset.q[0+:8]  >= oam_entry.xpos && hoffset.q[0+:8]  <= (oam_entry.xpos + 7)) {
+          vspr = voffset.q - oam_entry.ypos;
+          hspr = hoffset.q - oam_entry.xpos;
+          spr_addr = c{oam_entry.tile, vspr[0+:3], hspr[0+:3]};
+          state.d = state.WRITE_OAM_PIXEL;
+        }
+        else if (oam_entry.xpos >= 249 && hoffset.q  >= oam_entry.xpos && hoffset.q  <= (oam_entry.xpos + 7)) {
+          vspr = voffset.q - oam_entry.ypos;
+          hspr = hoffset.q - oam_entry.xpos;
+          spr_addr = c{oam_entry.tile, vspr[0+:3], hspr[0+:3]};
           state.d = state.WRITE_OAM_PIXEL;
         }
         else {
-          oam_idx.d = oam_idx.q + 1;
-          state.d = state.LOOP_OAM;
+          oamcurr.d = oamcurr.q + 1;
+          state.d = state.LOOP_OAM_CACHE;
         }
       
       state.WRITE_OAM_PIXEL:
-        vscroll = vscroll - oam_data.ypos;
-        hscroll = hscroll - oam_data.xpos;
-        sprites_addr = c{oam_data.tile, vscroll[0+:3], hscroll[0+:3]};
-        if (sprites_data == 0) {
+        oam_entry.tile = oam_cache.read_data[0+:8];
+        oam_entry.xpos = oam_cache.read_data[8+:8];
+        oam_entry.ypos = oam_cache.read_data[16+:8];
+        oam_entry.flag = oam_cache.read_data[24+:8];
+        vspr = voffset.q - oam_entry.ypos;
+        hspr = hoffset.q - oam_entry.xpos;
+        spr_addr = c{oam_entry.tile, vspr[0+:3], hspr[0+:3]};
+        if (spr_data == 0) {
           state.d = state.READ_TILE;
         }
         else {
           vram_en = 1;
-          vram_data = sprites_data;
+          vram_data = spr_data;
           haddress.d = haddress.q + 1;
           state.d = state.LOOP;
         }
       
       state.READ_TILE:
-        map_addr = c{vscroll[3+:5], hscroll[3+:5]};
-        sprites_addr = c{map_data, vscroll[0+:3], hscroll[0+:3]};
+        spr_addr = c{map_data, voffset.q[0+:3], hoffset.q[0+:3]};
         state.d = state.WRITE_TILE_PIXEL;
       
       state.WRITE_TILE_PIXEL:
-        map_addr = c{vscroll[3+:5], hscroll[3+:5]};
-        sprites_addr = c{map_data, vscroll[0+:3], hscroll[0+:3]};
-        // Chessboard + Cycle through all colors
-        // vram_data = (haddress.q[0] ^ vaddress.q[0]) * toffset.q[0+:4];
+        spr_addr = c{map_data, voffset.q[0+:3], hoffset.q[0+:3]};
         vram_en = 1;
-        vram_data = sprites_data;
+        vram_data = spr_data;
+        haddress.d = haddress.q + 1;
+        state.d = state.LOOP;
+      
+      state.WRITE_CHESS_PIXEL:
+        vram_en = 1;
+        vram_data = (haddress.q[3] ^ vaddress.q[3]) * vaddress.q[3+:4];
         haddress.d = haddress.q + 1;
         state.d = state.LOOP;
     }
