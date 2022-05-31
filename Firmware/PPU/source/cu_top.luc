@@ -23,29 +23,105 @@ module cu_top (
     output vblank,
     output rgb[6],
     
-    output debug[2],
-    output led[8]
+    // Status & Debug
+    
+    output led[8],
+    output debug[2]
   ) {
   
-  const NMI_EN = 7;
+  const WIDTH = 128;
+  const HEIGHT = 128;
+  const COLORS = 16;
+  
+  const MAP_WIDTH = 32;
+  const MAP_HEIGHT = 32;
+  
+  const SPRITESHEET_WIDTH = 16;
+  const SPRITESHEET_HEIGHT = 16;
+  const SPRITE_WIDTH = 8;
+  const SPRITE_HEIGHT = 8;
+  
+  const OAM_ENTRY_COUNT = 64;
+  const OAM_ENTRY_WIDTH = $clog2(SPRITESHEET_WIDTH * SPRITESHEET_HEIGHT * MAP_WIDTH * SPRITE_WIDTH * MAP_HEIGHT * SPRITE_HEIGHT) + 8;
+  
+  const CTRL_NMI_EN   = 7;
+  const CTRL_MASK_FG = 6;
+  const CTRL_MASK_BG = 5;
+  
+  const STATUS_NMI = 7;
+  const STATUS_RDY = 0;
   
   sig rst;
   sig dma;
-  sig i[2];
+  sig i[$clog2(OAM_ENTRY_WIDTH / 8)];
   
   .clk(clk) {
-    reset_conditioner   this_reset_cond(#STAGES(10));
+    reset_conditioner this_reset_cond(#STAGES(10));
+  }
+  
+  .clk(clk) {
+    pipeline           this_delay_clk(#DEPTH(5));
+    edge_detector this_start_address_delay(#RISE(0), #FALL(1));
+    edge_detector this_start_data_delay(#RISE(1), #FALL(0));
   }
   
   .clk(clk) {
     .rst(rst) {
-      fsm                      this_state = {
+      pixel_clock  this_pixel_clk(#DIVIDER(4));
+    }
+  }
+  
+  .clk(this_pixel_clk.out) {
+    .rst(rst) {
+      vga_signals this_vga_signals(#WIDTH(WIDTH), #HEIGHT(HEIGHT));
+    }
+  }
+  
+  .clk(this_vga_signals.pixel_clk) {
+    .rst(rst) {
+      vga_ramdac this_vga_ramdac(#COLORS(COLORS));
+    }
+  }
+  
+  .clk(clk) {
+    .rst(rst) {
+      ppu this_ppu(.vga_line_clk(this_vga_signals.line_clk), #WIDTH(WIDTH), #HEIGHT(HEIGHT), #COLORS(COLORS), #MAP_WIDTH(MAP_WIDTH), #MAP_HEIGHT(MAP_HEIGHT),
+        #SPRITESHEET_WIDTH(SPRITESHEET_WIDTH), #SPRITESHEET_HEIGHT(SPRITESHEET_HEIGHT), #SPRITE_WIDTH(SPRITE_WIDTH), #SPRITE_HEIGHT(SPRITE_HEIGHT), #OAM_ENTRY_COUNT(OAM_ENTRY_COUNT));
+      
+    }
+  }
+  
+  .rclk(clk) {
+    .wclk(clk) {
+      simple_dual_ram this_spr_ram(#SIZE($clog2(COLORS)), #DEPTH(SPRITESHEET_WIDTH * SPRITE_WIDTH * SPRITESHEET_HEIGHT * SPRITE_HEIGHT));
+      simple_dual_ram this_map_ram(#SIZE($clog2(SPRITESHEET_WIDTH * SPRITESHEET_HEIGHT)), #DEPTH(MAP_WIDTH * MAP_HEIGHT));
+      simple_dual_ram this_oam_ram(#SIZE(OAM_ENTRY_WIDTH), #DEPTH(OAM_ENTRY_COUNT));
+      simple_dual_ram this_vram(#SIZE($clog2(COLORS)), #DEPTH(2 * WIDTH));
+    }
+  }
+  
+  .clk(clk) {
+    .rst(rst) {
+      dff this_warmup[32];
+      dff this_status_flags[8];
+      dff this_ctrl_flags[8];
+      dff this_scroll[$clog2(MAP_WIDTH * SPRITE_WIDTH * MAP_HEIGHT * SPRITE_HEIGHT)];
+      dff this_ext_address[16];
+      dff this_spr_address[$clog2(SPRITESHEET_WIDTH * SPRITE_WIDTH * SPRITESHEET_HEIGHT * SPRITE_HEIGHT)];
+      dff this_map_address[$clog2(MAP_WIDTH * MAP_HEIGHT)];
+      dff this_oam_address[$clog2(OAM_ENTRY_COUNT * OAM_ENTRY_WIDTH / 8)];
+    }
+  }
+  
+  .clk(clk) {
+    .rst(rst) {
+      fsm  this_state = {
         IDLE,
         // Controller
-        WRITE_CTRL,
+        CTRL_WRITE,
         // Scroll
-        WRITE_SCROLL_HADDR,
-        WRITE_SCROLL_LADDR,
+        SCROLL_WRITE_HADDR,
+        SCROLL_WRITE_LADDR,
         // DMA transfers
         DMA_SPR_START,
         DMA_MAP_START,
@@ -61,52 +137,18 @@ module cu_top (
         DMA_OAM_LOOP,
         DMA_OAM_TRANSFER
       };
-      fsm                      this_substate = {
+      fsm this_substate = {
         HIGH_ADDRESS,
         LOW_ADDRESS
       };
-      dff                       this_ctrl_flags[8];
-      dff                       this_ext_address[16];
-      dff                       this_spr_address[14];
-      dff                       this_map_address[10];
-      dff                       this_oam_address[8];
-      dff                       this_data_count[16];
-      dff                       this_data_tmp[32];
-    }
-    pipeline                 this_delay_clk(#DEPTH(5));
-    edge_detector       this_start_address_delay(#RISE(0), #FALL(1));
-    edge_detector       this_start_data_delay(#RISE(1), #FALL(0));
-  }
-  
-  .clk(clk) {
-    .rst(rst) {
-      pixel_clock           this_pixel_clk(#DIVIDER(4));
+      dff this_data_count[16];
+      dff this_data_tmp[OAM_ENTRY_WIDTH];
     }
   }
   
-  .clk(this_pixel_clk.out) {
-    .rst(rst) {
-      vga_signals          this_vga_signals;
-    }
+  always {
+    this_warmup.d = this_warmup.q + 1;
   }
-  
-  .clk(this_vga_signals.pixel_clk) {
-    .rst(rst) {
-      vga_ramdac         this_vga_ramdac;
-    }
-  }
-  
-  .clk(clk) {
-    .rst(rst) {
-      ppu                      this_ppu(.vga_line_clk(this_vga_signals.line_clk));
-      dff                        this_scroll[16];
-    }
-  }
-  
-  simple_dual_ram      this_spr_ram(.rclk(clk), .wclk(clk), #SIZE(4), #DEPTH(128 * 128));
-  simple_dual_ram      this_map_ram(.rclk(clk), .wclk(clk), #SIZE(8), #DEPTH(32 * 32));
-  simple_dual_ram      this_oam_ram(.rclk(clk), .wclk(clk), #SIZE(32), #DEPTH(64));
-  simple_dual_ram      this_vram(.rclk(clk), .wclk(clk), #SIZE(4), #DEPTH(2 * 128));
   
   always {
     
@@ -121,14 +163,14 @@ module cu_top (
     
     port_rw.enable = dma;
     port_rw.write = 1;
-    port_address.enable = 16x{ dma };
+    port_address.enable = this_ext_address.WIDTHx{ dma };
     port_address.write = this_ext_address.q;
     port_data.enable = 0;
     port_data.write = 0;
     
     port_data_rw = !port_rw.read || dma ? 1 : 0;
     port_dmab = ~dma;
-    port_nmib = this_ctrl_flags.q[NMI_EN] && this_vga_signals.vblank && !dma ? 0 : 1;
+    port_nmib = this_ctrl_flags.q[CTRL_NMI_EN] && this_vga_signals.vblank && !dma ? 0 : 1;
     
     // Output VGA signals
     
@@ -148,42 +190,50 @@ module cu_top (
     this_vga_ramdac.en = !this_vga_signals.hblank && !this_vga_signals.vblank ? 1 : 0;
     this_vga_ramdac.vram_data = this_vram.read_data;
     
-    this_ppu.vga_is_drawing = !dma && !this_vga_signals.vblank ? 1 : 0;
+    this_ppu.en = this_status_flags.q[STATUS_RDY];
+    this_ppu.mask = c{this_ctrl_flags.q[CTRL_MASK_FG], this_ctrl_flags.q[CTRL_MASK_BG]};
+    this_ppu.vga_is_drawing = !this_vga_signals.vblank && !dma ? 1 : 0;
     this_ppu.scroll = this_scroll.q;
     this_ppu.spr_data = this_spr_ram.read_data;
     this_ppu.map_data = this_map_ram.read_data;
     this_ppu.oam_data = this_oam_ram.read_data;
     
-    debug = 2b0;
-  }
-  
-  always
-  {
-    // Setup components for Bus Interface
-    
-    this_vram.raddr = this_vga_signals.address[0+:8];
+    this_vram.raddr = this_vga_signals.address[0+:this_vram.raddr.WIDTH];
     this_vram.waddr = this_ppu.vram_addr;
     this_vram.write_en = this_ppu.vram_en;
     this_vram.write_data = this_ppu.vram_data;
     
     this_spr_ram.raddr = this_ppu.spr_addr;
     this_spr_ram.waddr = this_spr_address.q;
-    this_spr_ram.write_en = 0;
-    this_spr_ram.write_data = 0;
     
     this_map_ram.raddr = this_ppu.map_addr;
     this_map_ram.waddr = this_map_address.q;
+    
+    this_oam_ram.raddr = this_ppu.oam_addr;
+    this_oam_ram.waddr = this_oam_address.q[$clog2(OAM_ENTRY_WIDTH / 8)+:this_oam_ram.waddr.WIDTH];
+    
+    this_status_flags.d[STATUS_NMI] = this_vga_signals.vblank ? 1 : 0;
+    this_status_flags.d[STATUS_RDY] = this_status_flags.q[STATUS_RDY] | this_warmup.q[28];
+    
+    debug = 2b0;
+  }
+  
+  always
+  {
+    // Setup Controller components
+    
+    this_spr_ram.write_en = 0;
+    this_spr_ram.write_data = 0;
+    
     this_map_ram.write_en = 0;
     this_map_ram.write_data = 0;
     
-    this_oam_ram.raddr = this_ppu.oam_addr;
-    this_oam_ram.waddr = this_oam_address.q[2+:6];
     this_oam_ram.write_en = 0;
     this_oam_ram.write_data = 0;
     
     led = 8b00000001;
-
-    // Receive commands from Bus Interface
+    
+    // Execute Controller state machine
     
     case (this_state.q) {
       this_state.IDLE:
@@ -192,17 +242,17 @@ module cu_top (
           case (port_address.read[0+:8]) {
             8h00:
               if (!port_rw.read) {
-                this_state.d = this_state.WRITE_CTRL;
+                this_state.d = this_state.CTRL_WRITE;
                 this_substate.d = this_substate.HIGH_ADDRESS;
               }
             8h01:
               if (!port_rw.read) {
                 if (this_substate.q == this_substate.HIGH_ADDRESS) {
-                  this_state.d = this_state.WRITE_SCROLL_HADDR;
+                  this_state.d = this_state.SCROLL_WRITE_HADDR;
                   this_substate.d = this_substate.LOW_ADDRESS;
                 }
                 else {
-                  this_state.d = this_state.WRITE_SCROLL_LADDR;
+                  this_state.d = this_state.SCROLL_WRITE_LADDR;
                   this_substate.d = this_substate.HIGH_ADDRESS;
                 }
               }
@@ -224,33 +274,38 @@ module cu_top (
           }
         }
       
-      this_state.WRITE_CTRL:
+      this_state.CTRL_WRITE:
+        led = 8b01000001;
         if (this_start_data_delay.out) {
           this_ctrl_flags.d = port_data.read;
           this_state.d = this_state.IDLE;
         }
       
-      this_state.WRITE_SCROLL_HADDR:
+      this_state.SCROLL_WRITE_HADDR:
+        led = 8b01000001;
         if (this_start_data_delay.out) {
           this_scroll.d[8+:8] = port_data.read;
           this_state.d = this_state.IDLE;
         }
       
-      this_state.WRITE_SCROLL_LADDR:
+      this_state.SCROLL_WRITE_LADDR:
+        led = 8b01000001;
         if (this_start_data_delay.out) {
           this_scroll.d[0+:8] = port_data.read;
           this_state.d = this_state.IDLE;
         }
       
       this_state.DMA_SPR_START:
+        led = 8b10000001;
         if (this_start_data_delay.out) {
           this_ext_address.d= c{port_data.read, 8b0};
-          this_spr_address.d = 14b0;
-          this_data_count.d = 64 * 128;
+          this_spr_address.d = 0;
+          this_data_count.d = SPRITESHEET_WIDTH * SPRITE_WIDTH * SPRITESHEET_HEIGHT * SPRITE_HEIGHT * $clog2(COLORS) / 8;
           this_state.d = this_state.DMA_SPR_LOOP;
         }
       
       this_state.DMA_SPR_LOOP:
+        led = 8b10000001;
         if (this_data_count.q == 0) {
           this_state.d = this_state.IDLE;
         }
@@ -260,29 +315,33 @@ module cu_top (
         }
       
       this_state.DMA_SPR_TRANSFER_1:
+        led = 8b11000001;
         if (this_start_data_delay.out) {
           this_spr_ram.write_en = 1;
-          this_spr_ram.write_data = port_data.read[4+:4];
+          this_spr_ram.write_data = port_data.read[this_spr_ram.write_data.WIDTH+:this_spr_ram.write_data.WIDTH];
           this_spr_address.d = this_spr_address.q + 1;
           this_state.d = this_state.DMA_SPR_TRANSFER_2;
         }
       
       this_state.DMA_SPR_TRANSFER_2:
+        led = 8b11000001;
         this_spr_ram.write_en = 1;
-        this_spr_ram.write_data = port_data.read[0+:4];
+        this_spr_ram.write_data = port_data.read[0+:this_spr_ram.write_data.WIDTH];
         this_spr_address.d = this_spr_address.q + 1;
         this_ext_address.d = this_ext_address.q + 1;
         this_state.d = this_state.DMA_SPR_LOOP;
       
       this_state.DMA_MAP_START:
+        led = 8b10000001;
         if (this_start_data_delay.out) {
           this_ext_address.d= c{port_data.read, 8b0};
-          this_map_address.d = 10b0;
-          this_data_count.d = 32 * 32;
+          this_map_address.d = 0;
+          this_data_count.d = MAP_WIDTH * MAP_HEIGHT * $clog2(SPRITESHEET_WIDTH * SPRITESHEET_HEIGHT) / 8;
           this_state.d = this_state.DMA_MAP_LOOP;
         }
       
       this_state.DMA_MAP_LOOP:
+        led = 8b10000001;
         if (this_data_count.q == 0) {
           this_state.d = this_state.IDLE;
         }
@@ -292,6 +351,7 @@ module cu_top (
         }
       
       this_state.DMA_MAP_TRANSFER:
+        led = 8b11000001;
         if (this_start_data_delay.out) {
           this_map_ram.write_en = 1;
           this_map_ram.write_data = port_data.read;
@@ -301,14 +361,16 @@ module cu_top (
         }
       
       this_state.DMA_OAM_START:
+        led = 8b10000001;
         if (this_start_data_delay.out) {
           this_ext_address.d= c{port_data.read, 8b0};
-          this_oam_address.d = 6b0;
-          this_data_count.d = 4 * 64;
+          this_oam_address.d = 0;
+          this_data_count.d = OAM_ENTRY_COUNT * OAM_ENTRY_WIDTH / 8;
           this_state.d = this_state.DMA_OAM_LOOP;
         }
       
       this_state.DMA_OAM_LOOP:
+        led = 8b10000001;
         if (this_data_count.q == 0) {
           this_state.d = this_state.IDLE;
         }
@@ -318,11 +380,12 @@ module cu_top (
         }
       
       this_state.DMA_OAM_TRANSFER:
+        led = 8b11000001;
         if (this_start_data_delay.out) {
-          i = this_oam_address.q[0+:2];
-          if (i == 2b11) {
+          i = this_oam_address.q[0+:i.WIDTH];
+          if (i == (OAM_ENTRY_WIDTH / 8 - 1)) {
             this_oam_ram.write_en = 1;
-            this_oam_ram.write_data = c{port_data.read, this_data_tmp.q[0+:24]};
+            this_oam_ram.write_data = c{port_data.read, this_data_tmp.q[0+:(this_oam_ram.write_data.WIDTH - 8)]};
           } else {
             this_data_tmp.d[(i*8)+:8] = port_data.read;
           }

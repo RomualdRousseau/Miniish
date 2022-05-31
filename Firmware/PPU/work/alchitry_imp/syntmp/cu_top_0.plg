@@ -1,13 +1,13 @@
-@P:  Worst Slack : -17.089
-@P:  clk_0 - Estimated Frequency : 36.9 MHz
+@P:  Worst Slack : -18.846
+@P:  clk_0 - Estimated Frequency : 34.7 MHz
 @P:  clk_0 - Requested Frequency : 100.0 MHz
-@P:  clk_0 - Estimated Period : 27.089
+@P:  clk_0 - Estimated Period : 28.846
 @P:  clk_0 - Requested Period : 10.000
-@P:  clk_0 - Slack : -17.089
+@P:  clk_0 - Slack : -18.846
 @P: cu_top_0 Part : ice40hx8kcb132
 @P: cu_top_0 I/O primitives : 52
 @P: cu_top_0 I/O Register bits : 0
-@P: cu_top_0 Register bits (Non I/O) : 267 (3%)
+@P: cu_top_0 Register bits (Non I/O) : 296 (3%)
 @P: cu_top_0 Block Rams : 23 of 32 (71%)
-@P: cu_top_0 Total Luts : 710 (9%)
-@P:  CPU Time : 0h:00m:06s
+@P: cu_top_0 Total Luts : 730 (9%)
+@P:  CPU Time : 0h:00m:07s

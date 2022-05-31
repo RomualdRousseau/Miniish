@@ -4,6 +4,13 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
+/*
+   Parameters:
+     WIDTH = WIDTH
+     HEIGHT = HEIGHT
+     HPIXEL_SIZE = 3
+     VPIXEL_SIZE = 3
+*/
 module vga_signals_6 (
     input clk,
     input rst,
@@ -16,15 +23,11 @@ module vga_signals_6 (
     output reg [13:0] address
   );
   
-  
-  
   localparam WIDTH = 8'h80;
-  
   localparam HEIGHT = 8'h80;
-  
   localparam HPIXEL_SIZE = 2'h3;
-  
   localparam VPIXEL_SIZE = 2'h3;
+  
   
   localparam HVA_T = 10'h280;
   

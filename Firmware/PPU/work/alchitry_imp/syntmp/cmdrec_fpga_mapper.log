@@ -1,15 +1,15 @@
 /opt/lscc/iCEcube2.2020.12/synpbase/bin/m_generic  -prodtype  synplify_pro   -encrypt  -pro  -rundir  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp   -part iCE40HX8K  -package CB132    -maxfan 10000 -RWCheckOnRam 0 -pipe -fixgatedclocks 1 -fixgeneratedclocks 1 -summaryfile /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/report/cu_top_0_fpga_mapper.xml  -flow mapping  -multisrs  -oedif  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.edf   -autoconstraint  -freq 1.000   -tcl  /home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_prem.srd  -sap  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap  -otap  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.tap  -omap  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.map  -devicelib  /opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v  -sap  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap  -ologparam  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/syntmp/cu_top_0.plg  -osyn  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.srm  -prjdir  /home/romuald/Projects/Miniish/Firmware/PPU/work/  -prjname  alchitry_syn  -log  /home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_fpga_mapper.srr 
-rc:1 success:1 runtime:7
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.edf|io:o|time:1653919413|size:871676|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc|io:i|time:1653919404|size:76|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_prem.srd|io:i|time:1653919406|size:44412|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap|io:o|time:1653919406|size:2269|exec:0
+rc:1 success:1 runtime:8
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.edf|io:o|time:1654013234|size:885381|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc|io:i|time:1654013225|size:76|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synwork/cu_top_0_prem.srd|io:i|time:1654013227|size:47843|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap|io:o|time:1654013227|size:2289|exec:0
 file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.tap|io:o|time:0|size:0|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.map|io:o|time:1653919413|size:27|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.map|io:o|time:1654013235|size:27|exec:0
 file:/opt/lscc/iCEcube2.2020.12/synpbase/lib/generic/sb_ice40.v|io:i|time:1623495849|size:220434|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap|io:o|time:1653919406|size:2269|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/syntmp/cu_top_0.plg|io:o|time:1653919413|size:477|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.srm|io:o|time:1653919413|size:43578|exec:0
-file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_fpga_mapper.srr|io:o|time:1653919413|size:66789|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.sap|io:o|time:1654013227|size:2289|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/syntmp/cu_top_0.plg|io:o|time:1654013235|size:477|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/cu_top_0.srm|io:o|time:1654013235|size:48653|exec:0
+file:/home/romuald/Projects/Miniish/Firmware/PPU/work/alchitry_imp/synlog/cu_top_0_fpga_mapper.srr|io:o|time:1654013235|size:70099|exec:0
 file:/opt/lscc/iCEcube2.2020.12/synpbase/linux_a_64/m_generic|io:i|time:1623495851|size:32925640|exec:1
 file:/opt/lscc/iCEcube2.2020.12/synpbase/bin/m_generic|io:i|time:1623495849|size:345|exec:1

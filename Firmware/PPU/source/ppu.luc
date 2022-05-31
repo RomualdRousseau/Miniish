@@ -1,220 +1,252 @@
-global Oam {
-  struct entry {
-    tile[8],
-    xpos[9],
-    ypos[9],
-    flag[8]
-  }
-}
-
-module ppu (
+module ppu #(
+    WIDTH = 128,
+    HEIGHT = 128,
+    COLORS = 16,
+    
+    MAP_WIDTH = 32,
+    MAP_HEIGHT = 32,
+    
+    SPRITESHEET_WIDTH = 16,
+    SPRITESHEET_HEIGHT = 16,
+    SPRITE_WIDTH = 8,
+    SPRITE_HEIGHT = 8,
+    
+    OAM_ENTRY_COUNT = 64,
+    SPRITES_PER_SCANLINE = 16
+  ) (
     input clk,  // 100MHz clock
     input rst,  // reset,
+    input en,
     
     // VGA Signals
     
     input vga_line_clk,
     input vga_is_drawing,
     
-    input scroll[16],
+    input mask[2],
+    
+    input scroll[$clog2(MAP_WIDTH * SPRITE_WIDTH * MAP_HEIGHT * SPRITE_HEIGHT)],
     
     // VRAM
     
-    output vram_addr[8],
+    output vram_addr[$clog2(WIDTH * 2)],
     output vram_en,
-    output vram_data[4],
+    output vram_data[$clog2(COLORS)],
     
     // Sprites Memory
     
-    output spr_addr[14],
-    input spr_data[4],
+    output spr_addr[$clog2(SPRITESHEET_HEIGHT * SPRITE_HEIGHT * SPRITESHEET_WIDTH *  SPRITE_WIDTH)],
+    input spr_data[$clog2(COLORS)],
     
     // Map Memory
     
-    output map_addr[10],
-    input map_data[8],
+    output map_addr[$clog2(MAP_WIDTH * MAP_HEIGHT)],
+    input map_data[$clog2(SPRITESHEET_WIDTH * SPRITESHEET_HEIGHT)],
     
     // Oam Memory
     
-    output oam_addr[6],
-    input oam_data[32]
+    output oam_addr[$clog2(OAM_ENTRY_COUNT)],
+    input oam_data[$clog2(SPRITESHEET_WIDTH * SPRITESHEET_HEIGHT * MAP_WIDTH * SPRITE_WIDTH * MAP_HEIGHT * SPRITE_HEIGHT) + 8]
   ) {
+  
+  const MASK_FG = 1;
+  const MASK_BG = 0;
+  
+  const OAM_ENTRY_TILE_IDX = 0;
+  const OAM_ENTRY_TILE_WIDTH = $clog2(SPRITESHEET_WIDTH * SPRITESHEET_HEIGHT);
+  const OAM_ENTRY_POSX_IDX = OAM_ENTRY_TILE_IDX + OAM_ENTRY_TILE_WIDTH;
+  const OAM_ENTRY_POSX_WIDTH =  $clog2(MAP_WIDTH * SPRITE_WIDTH);
+  const OAM_ENTRY_POSY_IDX = OAM_ENTRY_POSX_IDX + OAM_ENTRY_POSX_WIDTH;
+  const OAM_ENTRY_POSY_WIDTH =  $clog2(MAP_HEIGHT * SPRITE_HEIGHT);
+  const OAM_ENTRY_FLAGS_IDX = OAM_ENTRY_POSY_IDX + OAM_ENTRY_POSY_WIDTH;
+  const OAM_ENTRY_FLAGS_WIDTH = 8;
+  const OAM_ENTRY_SIZE = OAM_ENTRY_TILE_WIDTH + OAM_ENTRY_POSX_WIDTH + OAM_ENTRY_POSY_WIDTH + OAM_ENTRY_FLAGS_WIDTH;
+  
+  struct oamentry {
+    tile[OAM_ENTRY_TILE_WIDTH],
+    pos_x[OAM_ENTRY_POSX_WIDTH],
+    pos_y[OAM_ENTRY_POSY_WIDTH],
+    flags[OAM_ENTRY_FLAGS_WIDTH]
+  }
+  
+  sig<oamentry> oam_entry;
+  sig offset_x[OAM_ENTRY_POSX_WIDTH];
+  sig offset_y[OAM_ENTRY_POSY_WIDTH];
   
   .clk(clk) {
     .rst(rst) {
       fsm state = {
         IDLE,
-        LOOP_OAM,
-        READ_OAM,
-        WRITE_OAM_CACHE,
-        LOOP,
-        LOOP_OAM_CACHE,
-        READ_OAM_CACHE,
-        WRITE_OAM_PIXEL,
-        READ_TILE,
-        WRITE_TILE_PIXEL,
-        WRITE_CHESS_PIXEL
+        // Scan all oam entries and select the ones on the current scan line
+        OAM_LOOP,
+        OAM_CHECK_IN_SCANLINE,
+        OAM_WRITE_CACHE,
+        // Raster pixels
+        SCANLINE_LOOP,
+        OAM_CACHE_LOOP,
+        OAM_CACHE_CHECK_PIXEL,
+        OAM_CACHE_WRITE_PIXEL,
+        TILE_READ,
+        TILE_WRITE_PIXEL,
+        // Display Chessboard
+        CHESS_LOOP,
+        CHESS_WRITE_PIXEL
       };
-      dff count[8];
-      dff haddress[8];
-      dff vaddress[8];
-      dff voffset[9];
-      dff hoffset[9];
-      dff oamcurr[7];
-      dff oamidx[4];
+      dff screen_x[$clog2(WIDTH * 2)];
+      dff screen_y[$clog2(HEIGHT * 2)];
+      dff surface_x[OAM_ENTRY_POSX_WIDTH];
+      dff surface_y[OAM_ENTRY_POSY_WIDTH];
+      dff pixel_cnt[$clog2(WIDTH * 2)];
+      dff oam_curr[$clog2(OAM_ENTRY_COUNT * 2)];
+      dff oam_cache_cnt[$clog2(SPRITES_PER_SCANLINE * 2)];
     }
     edge_detector line_clk(#RISE(1), #FALL(0));
   }
   
-  simple_dual_ram oam_cache(.rclk(clk), .wclk(clk), #SIZE(32), #DEPTH(16));
-  
-  sig<Oam.entry> oam_entry;
-  sig vspr[9];
-  sig hspr[9];
+  simple_dual_ram oam_cache(.rclk(clk), .wclk(clk), #SIZE(OAM_ENTRY_SIZE), #DEPTH(SPRITES_PER_SCANLINE));
   
   always {
-    
     line_clk.in = vga_line_clk;
     
-    vram_addr = c{vaddress.q[0], haddress.q[0+:7]};
+    vram_addr = c{screen_y.q[0], screen_x.q[0+:(vram_addr.WIDTH - 1)]};
     vram_en = 0;
-    vram_data = 4bx;
+    vram_data = vram_data.WIDTHx{1bx};
     
-    map_addr = c{voffset.q[3+:5], hoffset.q[3+:5]};
-    oam_addr = oamcurr.q[0+:6];
-    spr_addr = 14bx;
+    map_addr = c{surface_y.q[$clog2(SPRITE_HEIGHT)+:(map_addr.WIDTH / 2)], surface_x.q[$clog2(SPRITE_WIDTH)+:(map_addr.WIDTH / 2)]};
+    oam_addr = oam_curr.q[0+:oam_addr.WIDTH];
+    spr_addr = spr_addr.WIDTHx{1bx};
     
-    oam_cache.raddr = oamcurr.q[0+:4];
-    oam_cache.waddr = oamidx.q;
+    oam_cache.raddr = oam_curr.q[0+:oam_cache.raddr.WIDTH];
+    oam_cache.waddr = oam_cache_cnt.q[0+:oam_cache.waddr.WIDTH];
     oam_cache.write_en = 0;
     oam_cache.write_data = 0;
     
     case (state.q) {
       state.IDLE:
         if (line_clk.out) {
-          if (!vga_is_drawing) {
-            vaddress.d = 8b0;
-          }
-          else {
-            vaddress.d = vaddress.q + 1;
-          }
-          haddress.d = 8b0;
-          count.d = 128;
-          oamcurr.d = 0;
-          oamidx.d = 0;
-          state.d = state.LOOP_OAM;
+          screen_x.d = 0;
+          screen_y.d = !vga_is_drawing ? 0 : screen_y.q + 1;
+          surface_x.d = scroll[surface_y.WIDTH+:surface_x.WIDTH];
+          surface_y.d =  scroll[0+:surface_y.WIDTH] + (!vga_is_drawing ? 0 : screen_y.q + 1);
+          pixel_cnt.d = WIDTH;
+          oam_curr.d = 0;
+          oam_cache_cnt.d = 0;
+          state.d = en ? state.OAM_LOOP : state.CHESS_LOOP;
         }
       
       // Scan all oam entries and select the ones on the current scan line
       
-      state.LOOP_OAM:
-        if (oamcurr.q == 64) {
-          state.d = state.LOOP;
+      state.OAM_LOOP:
+        if (oam_curr.q == OAM_ENTRY_COUNT) {
+          state.d = state.SCANLINE_LOOP;
         }
         else {
-          voffset.d = vaddress.q + scroll[0+:8];
-          hoffset.d = haddress.q + scroll[8+:8];
-          state.d = state.READ_OAM;
+          state.d = state.OAM_CHECK_IN_SCANLINE;
         }
       
-      state.READ_OAM:
-        oam_entry.tile = oam_data[0+:8];
-        oam_entry.xpos = oam_data[8+:8];
-        oam_entry.ypos = oam_data[16+:8];
-        oam_entry.flag = oam_data[24+:8];
-        if (oam_entry.tile > 0 && voffset.q  >= oam_entry.ypos && voffset.q  <= (oam_entry.ypos + 7)) {
-          state.d = state.WRITE_OAM_CACHE;
+      state.OAM_CHECK_IN_SCANLINE:
+        oam_entry.tile = oam_data[OAM_ENTRY_TILE_IDX+:OAM_ENTRY_TILE_WIDTH];
+        oam_entry.pos_y = oam_data[OAM_ENTRY_POSY_IDX+:OAM_ENTRY_POSY_WIDTH];
+        if (oam_entry.tile > 0 && (surface_y.q - oam_entry.pos_y) <= (SPRITE_HEIGHT - 1)) {
+          state.d = state.OAM_WRITE_CACHE;
         }
         else {
-          oamcurr.d = oamcurr.q + 1;
-          state.d = state.LOOP_OAM;
+          oam_curr.d = oam_curr.q + 1;
+          state.d = state.OAM_LOOP;
         }
       
-      state.WRITE_OAM_CACHE:
+      state.OAM_WRITE_CACHE:
         oam_cache.write_en = 1;
         oam_cache.write_data = oam_data;
-        oamcurr.d = oamcurr.q + 1;
-        oamidx.d = oamidx.q + 1;
-        state.d = state.LOOP_OAM;
+        oam_curr.d = oam_curr.q + 1;
+        oam_cache_cnt.d = oam_cache_cnt.q + 1;
+        state.d = state.OAM_LOOP;
       
       // Raster pixels
       
-      state.LOOP:
-        if (count.q == 0) {
+      state.SCANLINE_LOOP:
+        if (pixel_cnt.q == 0) {
           state.d = state.IDLE;
         }
         else {
-          count.d = count.q - 1;
-          voffset.d = vaddress.q + scroll[0+:8];
-          hoffset.d = haddress.q + scroll[8+:8];
-          oamcurr.d = 0;
-          state.d = state.LOOP_OAM_CACHE;
+          oam_curr.d = 0;
+          pixel_cnt.d = pixel_cnt.q - 1;
+          state.d = mask[MASK_FG] ? state.OAM_CACHE_LOOP : state.TILE_READ;
         }
       
-      state.LOOP_OAM_CACHE:
-        if (oamcurr.q[0+:4] == oamidx.q) {
-          state.d = state.READ_TILE;
+      state.OAM_CACHE_LOOP:
+        if (oam_curr.q[0+:oam_cache_cnt.WIDTH] == oam_cache_cnt.q) {
+          state.d = state.TILE_READ;
         }
         else {
-          state.d = state.READ_OAM_CACHE;
+          state.d = state.OAM_CACHE_CHECK_PIXEL;
         }
       
-      state.READ_OAM_CACHE:
-        oam_entry.tile = oam_cache.read_data[0+:8];
-        oam_entry.xpos = oam_cache.read_data[8+:8];
-        oam_entry.ypos = oam_cache.read_data[16+:8];
-        oam_entry.flag = oam_cache.read_data[24+:8];
-        if (oam_entry.xpos < 249 && hoffset.q[0+:8]  >= oam_entry.xpos && hoffset.q[0+:8]  <= (oam_entry.xpos + 7)) {
-          vspr = voffset.q - oam_entry.ypos;
-          hspr = hoffset.q - oam_entry.xpos;
-          spr_addr = c{oam_entry.tile, vspr[0+:3], hspr[0+:3]};
-          state.d = state.WRITE_OAM_PIXEL;
-        }
-        else if (oam_entry.xpos >= 249 && hoffset.q  >= oam_entry.xpos && hoffset.q  <= (oam_entry.xpos + 7)) {
-          vspr = voffset.q - oam_entry.ypos;
-          hspr = hoffset.q - oam_entry.xpos;
-          spr_addr = c{oam_entry.tile, vspr[0+:3], hspr[0+:3]};
-          state.d = state.WRITE_OAM_PIXEL;
+      state.OAM_CACHE_CHECK_PIXEL:
+        oam_entry.tile = oam_cache.read_data[OAM_ENTRY_TILE_IDX+:OAM_ENTRY_TILE_WIDTH];
+        oam_entry.pos_x = oam_cache.read_data[OAM_ENTRY_POSX_IDX+:OAM_ENTRY_POSX_WIDTH];
+        oam_entry.pos_y = oam_cache.read_data[OAM_ENTRY_POSY_IDX+:OAM_ENTRY_POSY_WIDTH];
+        oam_entry.flags = oam_cache.read_data[OAM_ENTRY_FLAGS_IDX+:OAM_ENTRY_FLAGS_WIDTH];
+        offset_x = surface_x.q - oam_entry.pos_x;
+        offset_y = surface_y.q - oam_entry.pos_y;
+        if (offset_x <= (SPRITE_WIDTH - 1)) {
+          spr_addr = c{oam_entry.tile, offset_y[0+:$clog2(SPRITE_HEIGHT)], offset_x[0+:$clog2(SPRITE_WIDTH)]};
+          state.d = state.OAM_CACHE_WRITE_PIXEL;
         }
         else {
-          oamcurr.d = oamcurr.q + 1;
-          state.d = state.LOOP_OAM_CACHE;
+          oam_curr.d = oam_curr.q + 1;
+          state.d = state.OAM_CACHE_LOOP;
         }
       
-      state.WRITE_OAM_PIXEL:
-        oam_entry.tile = oam_cache.read_data[0+:8];
-        oam_entry.xpos = oam_cache.read_data[8+:8];
-        oam_entry.ypos = oam_cache.read_data[16+:8];
-        oam_entry.flag = oam_cache.read_data[24+:8];
-        vspr = voffset.q - oam_entry.ypos;
-        hspr = hoffset.q - oam_entry.xpos;
-        spr_addr = c{oam_entry.tile, vspr[0+:3], hspr[0+:3]};
+      state.OAM_CACHE_WRITE_PIXEL:
+        oam_entry.tile = oam_cache.read_data[OAM_ENTRY_TILE_IDX+:OAM_ENTRY_TILE_WIDTH];
+        oam_entry.pos_x = oam_cache.read_data[OAM_ENTRY_POSX_IDX+:OAM_ENTRY_POSX_WIDTH];
+        oam_entry.pos_y = oam_cache.read_data[OAM_ENTRY_POSY_IDX+:OAM_ENTRY_POSY_WIDTH];
+        oam_entry.flags = oam_cache.read_data[OAM_ENTRY_FLAGS_IDX+:OAM_ENTRY_FLAGS_WIDTH];
+        offset_x = surface_x.q - oam_entry.pos_x;
+        offset_y = surface_y.q - oam_entry.pos_y;
+        spr_addr = c{oam_entry.tile, offset_y[0+:$clog2(SPRITE_HEIGHT)], offset_x[0+:$clog2(SPRITE_WIDTH)]};
         if (spr_data == 0) {
-          state.d = state.READ_TILE;
+          oam_curr.d = oam_curr.q + 1;
+          state.d = state.OAM_CACHE_LOOP;
+          //state.d = state.TILE_READ;
         }
         else {
           vram_en = 1;
           vram_data = spr_data;
-          haddress.d = haddress.q + 1;
-          state.d = state.LOOP;
+          screen_x.d = screen_x.q + 1;
+          surface_x.d = surface_x.q + 1;
+          state.d = state.SCANLINE_LOOP;
         }
       
-      state.READ_TILE:
-        spr_addr = c{map_data, voffset.q[0+:3], hoffset.q[0+:3]};
-        state.d = state.WRITE_TILE_PIXEL;
+      state.TILE_READ:
+        spr_addr = c{map_data, surface_y.q[0+:$clog2(SPRITE_HEIGHT)], surface_x.q[0+:$clog2(SPRITE_WIDTH)]};
+        state.d = state.TILE_WRITE_PIXEL;
       
-      state.WRITE_TILE_PIXEL:
-        spr_addr = c{map_data, voffset.q[0+:3], hoffset.q[0+:3]};
-        vram_en = 1;
+      state.TILE_WRITE_PIXEL:
+        spr_addr = c{map_data, surface_y.q[0+:$clog2(SPRITE_HEIGHT)], surface_x.q[0+:$clog2(SPRITE_WIDTH)]};
+        vram_en = mask[MASK_BG];
         vram_data = spr_data;
-        haddress.d = haddress.q + 1;
-        state.d = state.LOOP;
+        screen_x.d = screen_x.q + 1;
+        surface_x.d = surface_x.q + 1;
+        state.d = state.SCANLINE_LOOP;
       
-      state.WRITE_CHESS_PIXEL:
+      // Display Chessboard
+      
+      state.CHESS_LOOP:
+        if (pixel_cnt.q == 0) {
+          state.d = state.IDLE;
+        }
+        else {
+          pixel_cnt.d = pixel_cnt.q - 1;
+          state.d = state.CHESS_WRITE_PIXEL;
+        }
+      
+      state.CHESS_WRITE_PIXEL:
         vram_en = 1;
-        vram_data = (haddress.q[3] ^ vaddress.q[3]) * vaddress.q[3+:4];
-        haddress.d = haddress.q + 1;
-        state.d = state.LOOP;
+        vram_data = (screen_x.q[3] ^ screen_y.q[3]) * screen_y.q[3+:vram_data.WIDTH];
+        screen_x.d = screen_x.q + 1;
+        state.d = state.CHESS_LOOP;
     }
   }
 }

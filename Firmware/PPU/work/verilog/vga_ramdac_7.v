@@ -4,6 +4,10 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
+/*
+   Parameters:
+     COLORS = COLORS
+*/
 module vga_ramdac_7 (
     input clk,
     input rst,
@@ -12,6 +16,7 @@ module vga_ramdac_7 (
     output reg [5:0] rgb
   );
   
+  localparam COLORS = 5'h10;
   
   
   localparam PALETTE = 96'hfb698b33ce31fea564252040;

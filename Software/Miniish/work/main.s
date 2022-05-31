@@ -100,7 +100,7 @@ mem_set
  ; init game
  jsr init
  ; start ppu
- lda #%10000000
+ lda #%11100000
  sta ppu_ctrl
 
 loop

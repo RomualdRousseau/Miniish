@@ -20,8 +20,8 @@ module cu_top_0 (
     output reg hblank,
     output reg vblank,
     output reg [5:0] rgb,
-    output reg [1:0] debug,
-    output reg [7:0] led
+    output reg [7:0] led,
+    output reg [1:0] debug
   );
   
   reg [0:0] IO_port_rw_enable;
@@ -51,7 +51,37 @@ module cu_top_0 (
   assign IO_port_data_read = port_data;
   
   
-  localparam NMI_EN = 3'h7;
+  localparam WIDTH = 8'h80;
+  
+  localparam HEIGHT = 8'h80;
+  
+  localparam COLORS = 5'h10;
+  
+  localparam MAP_WIDTH = 6'h20;
+  
+  localparam MAP_HEIGHT = 6'h20;
+  
+  localparam SPRITESHEET_WIDTH = 5'h10;
+  
+  localparam SPRITESHEET_HEIGHT = 5'h10;
+  
+  localparam SPRITE_WIDTH = 4'h8;
+  
+  localparam SPRITE_HEIGHT = 4'h8;
+  
+  localparam OAM_ENTRY_COUNT = 7'h40;
+  
+  localparam OAM_ENTRY_WIDTH = 6'h20;
+  
+  localparam CTRL_NMI_EN = 3'h7;
+  
+  localparam CTRL_MASK_FG = 3'h6;
+  
+  localparam CTRL_MASK_BG = 3'h5;
+  
+  localparam STATUS_NMI = 3'h7;
+  
+  localparam STATUS_RDY = 1'h0;
   
   reg rst;
   
@@ -67,33 +97,6 @@ module cu_top_0 (
     .out(M_this_reset_cond_out)
   );
   
-  localparam IDLE_this_state = 4'd0;
-  localparam WRITE_CTRL_this_state = 4'd1;
-  localparam WRITE_SCROLL_HADDR_this_state = 4'd2;
-  localparam WRITE_SCROLL_LADDR_this_state = 4'd3;
-  localparam DMA_SPR_START_this_state = 4'd4;
-  localparam DMA_MAP_START_this_state = 4'd5;
-  localparam DMA_OAM_START_this_state = 4'd6;
-  localparam DMA_SPR_LOOP_this_state = 4'd7;
-  localparam DMA_SPR_TRANSFER_1_this_state = 4'd8;
-  localparam DMA_SPR_TRANSFER_2_this_state = 4'd9;
-  localparam DMA_MAP_LOOP_this_state = 4'd10;
-  localparam DMA_MAP_TRANSFER_this_state = 4'd11;
-  localparam DMA_OAM_LOOP_this_state = 4'd12;
-  localparam DMA_OAM_TRANSFER_this_state = 4'd13;
-  
-  reg [3:0] M_this_state_d, M_this_state_q = IDLE_this_state;
-  localparam HIGH_ADDRESS_this_substate = 1'd0;
-  localparam LOW_ADDRESS_this_substate = 1'd1;
-  
-  reg M_this_substate_d, M_this_substate_q = HIGH_ADDRESS_this_substate;
-  reg [7:0] M_this_ctrl_flags_d, M_this_ctrl_flags_q = 1'h0;
-  reg [15:0] M_this_ext_address_d, M_this_ext_address_q = 1'h0;
-  reg [13:0] M_this_spr_address_d, M_this_spr_address_q = 1'h0;
-  reg [9:0] M_this_map_address_d, M_this_map_address_q = 1'h0;
-  reg [7:0] M_this_oam_address_d, M_this_oam_address_q = 1'h0;
-  reg [15:0] M_this_data_count_d, M_this_data_count_q = 1'h0;
-  reg [31:0] M_this_data_tmp_d, M_this_data_tmp_q = 1'h0;
   wire [1-1:0] M_this_delay_clk_out;
   reg [1-1:0] M_this_delay_clk_in;
   pipeline_2 this_delay_clk (
@@ -159,7 +162,9 @@ module cu_top_0 (
   wire [14-1:0] M_this_ppu_spr_addr;
   wire [10-1:0] M_this_ppu_map_addr;
   wire [6-1:0] M_this_ppu_oam_addr;
+  reg [1-1:0] M_this_ppu_en;
   reg [1-1:0] M_this_ppu_vga_is_drawing;
+  reg [2-1:0] M_this_ppu_mask;
   reg [16-1:0] M_this_ppu_scroll;
   reg [4-1:0] M_this_ppu_spr_data;
   reg [8-1:0] M_this_ppu_map_data;
@@ -168,7 +173,9 @@ module cu_top_0 (
     .clk(clk),
     .rst(rst),
     .vga_line_clk(M_this_vga_signals_line_clk),
+    .en(M_this_ppu_en),
     .vga_is_drawing(M_this_ppu_vga_is_drawing),
+    .mask(M_this_ppu_mask),
     .scroll(M_this_ppu_scroll),
     .spr_data(M_this_ppu_spr_data),
     .map_data(M_this_ppu_map_data),
@@ -180,14 +187,13 @@ module cu_top_0 (
     .map_addr(M_this_ppu_map_addr),
     .oam_addr(M_this_ppu_oam_addr)
   );
-  reg [15:0] M_this_scroll_d, M_this_scroll_q = 1'h0;
   
   wire [4-1:0] M_this_spr_ram_read_data;
   reg [14-1:0] M_this_spr_ram_waddr;
   reg [4-1:0] M_this_spr_ram_write_data;
   reg [1-1:0] M_this_spr_ram_write_en;
   reg [14-1:0] M_this_spr_ram_raddr;
-  simple_dual_ram_9 #(.SIZE(3'h4), .DEPTH(16'h4000)) this_spr_ram (
+  simple_dual_ram_9 #(.SIZE(3'h4), .DEPTH(18'h04000)) this_spr_ram (
     .rclk(clk),
     .wclk(clk),
     .waddr(M_this_spr_ram_waddr),
@@ -196,7 +202,6 @@ module cu_top_0 (
     .raddr(M_this_spr_ram_raddr),
     .read_data(M_this_spr_ram_read_data)
   );
-  
   wire [8-1:0] M_this_map_ram_read_data;
   reg [10-1:0] M_this_map_ram_waddr;
   reg [8-1:0] M_this_map_ram_write_data;
@@ -211,7 +216,6 @@ module cu_top_0 (
     .raddr(M_this_map_ram_raddr),
     .read_data(M_this_map_ram_read_data)
   );
-  
   wire [32-1:0] M_this_oam_ram_read_data;
   reg [6-1:0] M_this_oam_ram_waddr;
   reg [32-1:0] M_this_oam_ram_write_data;
@@ -226,7 +230,6 @@ module cu_top_0 (
     .raddr(M_this_oam_ram_raddr),
     .read_data(M_this_oam_ram_read_data)
   );
-  
   wire [4-1:0] M_this_vram_read_data;
   reg [8-1:0] M_this_vram_waddr;
   reg [4-1:0] M_this_vram_write_data;
@@ -242,7 +245,47 @@ module cu_top_0 (
     .read_data(M_this_vram_read_data)
   );
   
+  reg [31:0] M_this_warmup_d, M_this_warmup_q = 1'h0;
+  reg [7:0] M_this_status_flags_d, M_this_status_flags_q = 1'h0;
+  reg [7:0] M_this_ctrl_flags_d, M_this_ctrl_flags_q = 1'h0;
+  reg [15:0] M_this_scroll_d, M_this_scroll_q = 1'h0;
+  reg [15:0] M_this_ext_address_d, M_this_ext_address_q = 1'h0;
+  reg [13:0] M_this_spr_address_d, M_this_spr_address_q = 1'h0;
+  reg [9:0] M_this_map_address_d, M_this_map_address_q = 1'h0;
+  reg [7:0] M_this_oam_address_d, M_this_oam_address_q = 1'h0;
+  
+  localparam IDLE_this_state = 4'd0;
+  localparam CTRL_WRITE_this_state = 4'd1;
+  localparam SCROLL_WRITE_HADDR_this_state = 4'd2;
+  localparam SCROLL_WRITE_LADDR_this_state = 4'd3;
+  localparam DMA_SPR_START_this_state = 4'd4;
+  localparam DMA_MAP_START_this_state = 4'd5;
+  localparam DMA_OAM_START_this_state = 4'd6;
+  localparam DMA_SPR_LOOP_this_state = 4'd7;
+  localparam DMA_SPR_TRANSFER_1_this_state = 4'd8;
+  localparam DMA_SPR_TRANSFER_2_this_state = 4'd9;
+  localparam DMA_MAP_LOOP_this_state = 4'd10;
+  localparam DMA_MAP_TRANSFER_this_state = 4'd11;
+  localparam DMA_OAM_LOOP_this_state = 4'd12;
+  localparam DMA_OAM_TRANSFER_this_state = 4'd13;
+  
+  reg [3:0] M_this_state_d, M_this_state_q = IDLE_this_state;
+  localparam HIGH_ADDRESS_this_substate = 1'd0;
+  localparam LOW_ADDRESS_this_substate = 1'd1;
+  
+  reg M_this_substate_d, M_this_substate_q = HIGH_ADDRESS_this_substate;
+  reg [15:0] M_this_data_count_d, M_this_data_count_q = 1'h0;
+  reg [31:0] M_this_data_tmp_d, M_this_data_tmp_q = 1'h0;
+  
   always @* begin
+    M_this_warmup_d = M_this_warmup_q;
+    
+    M_this_warmup_d = M_this_warmup_q + 1'h1;
+  end
+  
+  always @* begin
+    M_this_status_flags_d = M_this_status_flags_q;
+    
     M_this_reset_cond_in = ~rst_n;
     rst = M_this_reset_cond_out;
     dma = M_this_state_q > DMA_OAM_START_this_state ? 1'h1 : 1'h0;
@@ -265,11 +308,25 @@ module cu_top_0 (
     M_this_start_data_delay_in = M_this_delay_clk_out || port_enb;
     M_this_vga_ramdac_en = !M_this_vga_signals_hblank && !M_this_vga_signals_vblank ? 1'h1 : 1'h0;
     M_this_vga_ramdac_vram_data = M_this_vram_read_data;
-    M_this_ppu_vga_is_drawing = !dma && !M_this_vga_signals_vblank ? 1'h1 : 1'h0;
+    M_this_ppu_en = M_this_status_flags_q[0+0-:1];
+    M_this_ppu_mask = {M_this_ctrl_flags_q[6+0-:1], M_this_ctrl_flags_q[5+0-:1]};
+    M_this_ppu_vga_is_drawing = !M_this_vga_signals_vblank && !dma ? 1'h1 : 1'h0;
     M_this_ppu_scroll = M_this_scroll_q;
     M_this_ppu_spr_data = M_this_spr_ram_read_data;
     M_this_ppu_map_data = M_this_map_ram_read_data;
     M_this_ppu_oam_data = M_this_oam_ram_read_data;
+    M_this_vram_raddr = M_this_vga_signals_address[0+7-:8];
+    M_this_vram_waddr = M_this_ppu_vram_addr;
+    M_this_vram_write_en = M_this_ppu_vram_en;
+    M_this_vram_write_data = M_this_ppu_vram_data;
+    M_this_spr_ram_raddr = M_this_ppu_spr_addr;
+    M_this_spr_ram_waddr = M_this_spr_address_q;
+    M_this_map_ram_raddr = M_this_ppu_map_addr;
+    M_this_map_ram_waddr = M_this_map_address_q;
+    M_this_oam_ram_raddr = M_this_ppu_oam_addr;
+    M_this_oam_ram_waddr = M_this_oam_address_q[2+5-:6];
+    M_this_status_flags_d[7+0-:1] = M_this_vga_signals_vblank ? 1'h1 : 1'h0;
+    M_this_status_flags_d[0+0-:1] = M_this_status_flags_q[0+0-:1] | M_this_warmup_q[28+0-:1];
     debug = 2'h0;
   end
   
@@ -285,20 +342,10 @@ module cu_top_0 (
     M_this_data_count_d = M_this_data_count_q;
     M_this_ctrl_flags_d = M_this_ctrl_flags_q;
     
-    M_this_vram_raddr = M_this_vga_signals_address[0+7-:8];
-    M_this_vram_waddr = M_this_ppu_vram_addr;
-    M_this_vram_write_en = M_this_ppu_vram_en;
-    M_this_vram_write_data = M_this_ppu_vram_data;
-    M_this_spr_ram_raddr = M_this_ppu_spr_addr;
-    M_this_spr_ram_waddr = M_this_spr_address_q;
     M_this_spr_ram_write_en = 1'h0;
     M_this_spr_ram_write_data = 1'h0;
-    M_this_map_ram_raddr = M_this_ppu_map_addr;
-    M_this_map_ram_waddr = M_this_map_address_q;
     M_this_map_ram_write_en = 1'h0;
     M_this_map_ram_write_data = 1'h0;
-    M_this_oam_ram_raddr = M_this_ppu_oam_addr;
-    M_this_oam_ram_waddr = M_this_oam_address_q[2+5-:6];
     M_this_oam_ram_write_en = 1'h0;
     M_this_oam_ram_write_data = 1'h0;
     led = 8'h01;
@@ -311,17 +358,17 @@ module cu_top_0 (
           case (IO_port_address_read[0+7-:8])
             8'h00: begin
               if (!IO_port_rw_read) begin
-                M_this_state_d = WRITE_CTRL_this_state;
+                M_this_state_d = CTRL_WRITE_this_state;
                 M_this_substate_d = HIGH_ADDRESS_this_substate;
               end
             end
             8'h01: begin
               if (!IO_port_rw_read) begin
                 if (M_this_substate_q == HIGH_ADDRESS_this_substate) begin
-                  M_this_state_d = WRITE_SCROLL_HADDR_this_state;
+                  M_this_state_d = SCROLL_WRITE_HADDR_this_state;
                   M_this_substate_d = LOW_ADDRESS_this_substate;
                 end else begin
-                  M_this_state_d = WRITE_SCROLL_LADDR_this_state;
+                  M_this_state_d = SCROLL_WRITE_LADDR_this_state;
                   M_this_substate_d = HIGH_ADDRESS_this_substate;
                 end
               end
@@ -347,33 +394,38 @@ module cu_top_0 (
           endcase
         end
       end
-      WRITE_CTRL_this_state: begin
+      CTRL_WRITE_this_state: begin
+        led = 8'h41;
         if (M_this_start_data_delay_out) begin
           M_this_ctrl_flags_d = IO_port_data_read;
           M_this_state_d = IDLE_this_state;
         end
       end
-      WRITE_SCROLL_HADDR_this_state: begin
+      SCROLL_WRITE_HADDR_this_state: begin
+        led = 8'h41;
         if (M_this_start_data_delay_out) begin
           M_this_scroll_d[8+7-:8] = IO_port_data_read;
           M_this_state_d = IDLE_this_state;
         end
       end
-      WRITE_SCROLL_LADDR_this_state: begin
+      SCROLL_WRITE_LADDR_this_state: begin
+        led = 8'h41;
         if (M_this_start_data_delay_out) begin
           M_this_scroll_d[0+7-:8] = IO_port_data_read;
           M_this_state_d = IDLE_this_state;
         end
       end
       DMA_SPR_START_this_state: begin
+        led = 8'h81;
         if (M_this_start_data_delay_out) begin
           M_this_ext_address_d = {IO_port_data_read, 8'h00};
-          M_this_spr_address_d = 14'h0000;
-          M_this_data_count_d = 15'h2000;
+          M_this_spr_address_d = 1'h0;
+          M_this_data_count_d = 21'h002000;
           M_this_state_d = DMA_SPR_LOOP_this_state;
         end
       end
       DMA_SPR_LOOP_this_state: begin
+        led = 8'h81;
         if (M_this_data_count_q == 1'h0) begin
           M_this_state_d = IDLE_this_state;
         end else begin
@@ -384,6 +436,7 @@ module cu_top_0 (
         end
       end
       DMA_SPR_TRANSFER_1_this_state: begin
+        led = 8'hc1;
         if (M_this_start_data_delay_out) begin
           M_this_spr_ram_write_en = 1'h1;
           M_this_spr_ram_write_data = IO_port_data_read[4+3-:4];
@@ -392,6 +445,7 @@ module cu_top_0 (
         end
       end
       DMA_SPR_TRANSFER_2_this_state: begin
+        led = 8'hc1;
         M_this_spr_ram_write_en = 1'h1;
         M_this_spr_ram_write_data = IO_port_data_read[0+3-:4];
         M_this_spr_address_d = M_this_spr_address_q + 1'h1;
@@ -399,14 +453,16 @@ module cu_top_0 (
         M_this_state_d = DMA_SPR_LOOP_this_state;
       end
       DMA_MAP_START_this_state: begin
+        led = 8'h81;
         if (M_this_start_data_delay_out) begin
           M_this_ext_address_d = {IO_port_data_read, 8'h00};
-          M_this_map_address_d = 10'h000;
-          M_this_data_count_d = 12'h400;
+          M_this_map_address_d = 1'h0;
+          M_this_data_count_d = 16'h0400;
           M_this_state_d = DMA_MAP_LOOP_this_state;
         end
       end
       DMA_MAP_LOOP_this_state: begin
+        led = 8'h81;
         if (M_this_data_count_q == 1'h0) begin
           M_this_state_d = IDLE_this_state;
         end else begin
@@ -417,6 +473,7 @@ module cu_top_0 (
         end
       end
       DMA_MAP_TRANSFER_this_state: begin
+        led = 8'hc1;
         if (M_this_start_data_delay_out) begin
           M_this_map_ram_write_en = 1'h1;
           M_this_map_ram_write_data = IO_port_data_read;
@@ -426,14 +483,16 @@ module cu_top_0 (
         end
       end
       DMA_OAM_START_this_state: begin
+        led = 8'h81;
         if (M_this_start_data_delay_out) begin
           M_this_ext_address_d = {IO_port_data_read, 8'h00};
-          M_this_oam_address_d = 6'h00;
-          M_this_data_count_d = 10'h100;
+          M_this_oam_address_d = 1'h0;
+          M_this_data_count_d = 13'h0100;
           M_this_state_d = DMA_OAM_LOOP_this_state;
         end
       end
       DMA_OAM_LOOP_this_state: begin
+        led = 8'h81;
         if (M_this_data_count_q == 1'h0) begin
           M_this_state_d = IDLE_this_state;
         end else begin
@@ -444,9 +503,10 @@ module cu_top_0 (
         end
       end
       DMA_OAM_TRANSFER_this_state: begin
+        led = 8'hc1;
         if (M_this_start_data_delay_out) begin
           i = M_this_oam_address_q[0+1-:2];
-          if (i == 2'h3) begin
+          if (i == 7'h03) begin
             M_this_oam_ram_write_en = 1'h1;
             M_this_oam_ram_write_data = {IO_port_data_read, M_this_data_tmp_q[0+23-:24]};
           end else begin
@@ -462,34 +522,38 @@ module cu_top_0 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_this_scroll_q <= 1'h0;
+      M_this_data_count_q <= 1'h0;
+      M_this_data_tmp_q <= 1'h0;
+      M_this_state_q <= 1'h0;
+      M_this_substate_q <= 1'h0;
     end else begin
-      M_this_scroll_q <= M_this_scroll_d;
+      M_this_data_count_q <= M_this_data_count_d;
+      M_this_data_tmp_q <= M_this_data_tmp_d;
+      M_this_state_q <= M_this_state_d;
+      M_this_substate_q <= M_this_substate_d;
     end
   end
   
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
+      M_this_warmup_q <= 1'h0;
+      M_this_status_flags_q <= 1'h0;
       M_this_ctrl_flags_q <= 1'h0;
+      M_this_scroll_q <= 1'h0;
       M_this_ext_address_q <= 1'h0;
       M_this_spr_address_q <= 1'h0;
       M_this_map_address_q <= 1'h0;
       M_this_oam_address_q <= 1'h0;
-      M_this_data_count_q <= 1'h0;
-      M_this_data_tmp_q <= 1'h0;
-      M_this_state_q <= 1'h0;
-      M_this_substate_q <= 1'h0;
     end else begin
+      M_this_warmup_q <= M_this_warmup_d;
+      M_this_status_flags_q <= M_this_status_flags_d;
       M_this_ctrl_flags_q <= M_this_ctrl_flags_d;
+      M_this_scroll_q <= M_this_scroll_d;
       M_this_ext_address_q <= M_this_ext_address_d;
       M_this_spr_address_q <= M_this_spr_address_d;
       M_this_map_address_q <= M_this_map_address_d;
       M_this_oam_address_q <= M_this_oam_address_d;
-      M_this_data_count_q <= M_this_data_count_d;
-      M_this_data_tmp_q <= M_this_data_tmp_d;
-      M_this_state_q <= M_this_state_d;
-      M_this_substate_q <= M_this_substate_d;
     end
   end
   

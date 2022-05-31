@@ -1,8 +1,11 @@
-module vga_ramdac (
+module vga_ramdac #(
+    COLORS = 16
+  ) (
     input clk, // 8.3MHz clock
     input rst, // reset
     input en,
-    input vram_data[4],
+    
+    input vram_data[$clog2(COLORS)],
     output rgb[6]
   ) {
   

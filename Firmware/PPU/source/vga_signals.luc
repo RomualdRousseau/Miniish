@@ -1,4 +1,9 @@
-module vga_signals (
+module vga_signals #(
+    WIDTH = 128,
+    HEIGHT = 128,
+    HPIXEL_SIZE = 3,
+    VPIXEL_SIZE = 3
+  ) (
     input clk,        // 25MHz clock
     input rst,        // reset
     
@@ -13,13 +18,8 @@ module vga_signals (
     output vsync,
     output hblank,
     output vblank,
-    output address[14]
+    output address[$clog2(HEIGHT) + $clog2(WIDTH)]
   ) {
-  
-  const WIDTH = 128;
-  const HEIGHT = 128;
-  const HPIXEL_SIZE = 3;
-  const VPIXEL_SIZE = 3;
   
   const HVA_T = 640;
   const HFP_T = HVA_T + 16 - 1;
