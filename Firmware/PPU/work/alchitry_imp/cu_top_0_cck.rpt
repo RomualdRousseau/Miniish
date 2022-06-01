@@ -1,7 +1,7 @@
 # Synopsys Constraint Checker, version maplat, Build 1612R, built Dec  5 2016
 # Copyright (C) 1994-2016 Synopsys, Inc. All rights reserved. This Synopsys software and all associated documentation are proprietary to Synopsys, Inc. and may only be used pursuant to the terms and conditions of a written license agreement with Synopsys, Inc. All other use, reproduction, modification, or distribution of the Synopsys software or the associated documentation is strictly prohibited.
 
-# Written on Wed Jun  1 00:07:07 2022
+# Written on Wed Jun  1 09:53:21 2022
 
 
 ##### DESIGN INFO #######################################################
@@ -77,14 +77,22 @@ p:port_address[13]
 p:port_address[14]
 p:port_address[15]
 p:port_clk
-p:port_data[0]
-p:port_data[1]
-p:port_data[2]
-p:port_data[3]
-p:port_data[4]
-p:port_data[5]
-p:port_data[6]
-p:port_data[7]
+p:port_data[0] (bidir end point)
+p:port_data[0] (bidir start point)
+p:port_data[1] (bidir end point)
+p:port_data[1] (bidir start point)
+p:port_data[2] (bidir end point)
+p:port_data[2] (bidir start point)
+p:port_data[3] (bidir end point)
+p:port_data[3] (bidir start point)
+p:port_data[4] (bidir end point)
+p:port_data[4] (bidir start point)
+p:port_data[5] (bidir end point)
+p:port_data[5] (bidir start point)
+p:port_data[6] (bidir end point)
+p:port_data[6] (bidir start point)
+p:port_data[7] (bidir end point)
+p:port_data[7] (bidir start point)
 p:port_data_rw
 p:port_dmab
 p:port_enb

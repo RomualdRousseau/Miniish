@@ -41,8 +41,7 @@ def replace_character(buffer, c):
     pos = buffer.cursor[0]
     line = get_current_line(buffer)
     if line is not None:
-        line[pos] = c
-        set_current_line(buffer, line)
+        set_current_line(buffer, line[:pos] + c + line[pos + 1:])
     return line
 
 

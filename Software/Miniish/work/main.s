@@ -59,6 +59,10 @@ draw
  rts
 
 setup
+ ; wait ppu
+ lda ppu_status
+ and #%00000001
+ beq setup
  ; init variables
  lda #0
  sta retraces
@@ -99,7 +103,7 @@ mem_set
  cli
  ; init game
  jsr init
- ; start ppu
+ ; start ppu retrace
  lda #%11100000
  sta ppu_ctrl
 

@@ -43,20 +43,22 @@ module cu_top (
   
   const OAM_ENTRY_COUNT = 64;
   const OAM_ENTRY_WIDTH = $clog2(SPRITESHEET_WIDTH * SPRITESHEET_HEIGHT * MAP_WIDTH * SPRITE_WIDTH * MAP_HEIGHT * SPRITE_HEIGHT) + 8;
+  const OAM_ENTRY_BITS = $clog2(OAM_ENTRY_WIDTH / 8);
   
-  const CTRL_NMI_EN   = 7;
-  const CTRL_MASK_FG = 6;
-  const CTRL_MASK_BG = 5;
+  const CTRL_NMI_EN    = 7;
+  const CTRL_MASK_FG  = 6;
+  const CTRL_MASK_BG  = 5;
+  const CTRL_ADDR_INC = 4;
   
   const STATUS_NMI = 7;
   const STATUS_RDY = 0;
   
   sig rst;
   sig dma;
-  sig i[$clog2(OAM_ENTRY_WIDTH / 8)];
+  sig i[OAM_ENTRY_BITS];
   
   .clk(clk) {
-    reset_conditioner this_reset_cond(#STAGES(10));
+    reset_conditioner this_reset_cond;
   }
   
   .clk(clk) {
@@ -119,6 +121,11 @@ module cu_top (
         IDLE,
         // Controller
         CTRL_WRITE,
+        STATUS_READ,
+        MAP_WRITE_HADDR,
+        MAP_WRITE_LADDR,
+        MAP_READ_DATA,
+        MAP_WRITE_DATA,
         // Scroll
         SCROLL_WRITE_HADDR,
         SCROLL_WRITE_LADDR,
@@ -163,10 +170,8 @@ module cu_top (
     
     port_rw.enable = dma;
     port_rw.write = 1;
-    port_address.enable = this_ext_address.WIDTHx{ dma };
+    port_address.enable = this_ext_address.WIDTHx{dma};
     port_address.write = this_ext_address.q;
-    port_data.enable = 0;
-    port_data.write = 0;
     
     port_data_rw = !port_rw.read || dma ? 1 : 0;
     port_dmab = ~dma;
@@ -210,10 +215,10 @@ module cu_top (
     this_map_ram.waddr = this_map_address.q;
     
     this_oam_ram.raddr = this_ppu.oam_addr;
-    this_oam_ram.waddr = this_oam_address.q[$clog2(OAM_ENTRY_WIDTH / 8)+:this_oam_ram.waddr.WIDTH];
+    this_oam_ram.waddr = this_oam_address.q[OAM_ENTRY_BITS+:this_oam_ram.waddr.WIDTH];
     
     this_status_flags.d[STATUS_NMI] = this_vga_signals.vblank ? 1 : 0;
-    this_status_flags.d[STATUS_RDY] = this_status_flags.q[STATUS_RDY] | this_warmup.q[28];
+    this_status_flags.d[STATUS_RDY] = this_status_flags.q[STATUS_RDY] | this_warmup.q[27];
     
     debug = 2b0;
   }
@@ -221,6 +226,9 @@ module cu_top (
   always
   {
     // Setup Controller components
+    
+    port_data.enable = 0;
+    port_data.write = 0;
     
     this_spr_ram.write_en = 0;
     this_spr_ram.write_data = 0;
@@ -246,6 +254,31 @@ module cu_top (
                 this_substate.d = this_substate.HIGH_ADDRESS;
               }
             8h01:
+              if (port_rw.read) {
+                this_state.d = this_state.STATUS_READ;
+                this_substate.d = this_substate.HIGH_ADDRESS;
+              }
+            8h02:
+              if (!port_rw.read) {
+                if (this_substate.q == this_substate.HIGH_ADDRESS) {
+                  this_state.d = this_state.MAP_WRITE_HADDR;
+                  this_substate.d = this_substate.LOW_ADDRESS;
+                }
+                else {
+                  this_state.d = this_state.MAP_WRITE_LADDR;
+                  this_substate.d = this_substate.HIGH_ADDRESS;
+                }
+              }
+            8h03:
+              if (!port_rw.read) {
+                this_state.d = this_state.MAP_WRITE_DATA;
+                this_substate.d = this_substate.HIGH_ADDRESS;
+              }
+              else {
+                this_state.d = this_state.MAP_READ_DATA;
+                this_substate.d = this_substate.HIGH_ADDRESS;
+              }
+            8h04:
               if (!port_rw.read) {
                 if (this_substate.q == this_substate.HIGH_ADDRESS) {
                   this_state.d = this_state.SCROLL_WRITE_HADDR;
@@ -281,17 +314,56 @@ module cu_top (
           this_state.d = this_state.IDLE;
         }
       
+      this_state.STATUS_READ:
+        led = 8b00100001;
+        port_data.enable = 8x{1};
+        port_data.write = this_status_flags.q;
+        if (this_start_data_delay.out) {
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.MAP_WRITE_HADDR:
+        led = 8b01000001;
+        if (this_start_data_delay.out) {
+          this_map_address.d[$clog2(MAP_WIDTH)+:$clog2(MAP_HEIGHT)] = port_data.read[0+:$clog2(MAP_HEIGHT)];
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.MAP_WRITE_LADDR:
+        led = 8b01000001;
+        if (this_start_data_delay.out) {
+          this_map_address.d[0+:$clog2(MAP_WIDTH)] = port_data.read[0+:$clog2(MAP_WIDTH)];
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.MAP_WRITE_DATA:
+        led = 8b01000001;
+        if (this_start_data_delay.out) {
+          this_map_ram.write_en = 1;
+          this_map_ram.write_data = port_data.read;
+          this_map_address.d = this_map_address.q + (this_ctrl_flags.q[CTRL_ADDR_INC] ? MAP_WIDTH : 1);
+          this_state.d = this_state.IDLE;
+        }
+      
+      this_state.MAP_READ_DATA:
+        led = 8b00100001;
+        port_data.enable = 8x{1};
+        port_data.write = this_map_ram.read_data;
+        if (this_start_data_delay.out) {
+          this_state.d = this_state.IDLE;
+        }
+      
       this_state.SCROLL_WRITE_HADDR:
         led = 8b01000001;
         if (this_start_data_delay.out) {
-          this_scroll.d[8+:8] = port_data.read;
+          this_scroll.d[$clog2(MAP_WIDTH * SPRITE_WIDTH)+:$clog2(MAP_HEIGHT * SPRITE_HEIGHT)] = port_data.read[0+:$clog2(MAP_HEIGHT * SPRITE_HEIGHT)];
           this_state.d = this_state.IDLE;
         }
       
       this_state.SCROLL_WRITE_LADDR:
         led = 8b01000001;
         if (this_start_data_delay.out) {
-          this_scroll.d[0+:8] = port_data.read;
+          this_scroll.d[0+:$clog2(MAP_WIDTH * SPRITE_WIDTH)] = port_data.read[0+:$clog2(MAP_WIDTH * SPRITE_WIDTH)];
           this_state.d = this_state.IDLE;
         }
       

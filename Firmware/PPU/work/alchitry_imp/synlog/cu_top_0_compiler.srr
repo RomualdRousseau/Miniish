@@ -81,31 +81,42 @@ Selecting top level module cu_top_0
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
 
-@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":538:2:538:7|Pruning unused bits 7 to 1 of M_this_status_flags_q[7:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
-@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":538:2:538:7|Pruning unused bits 4 to 0 of M_this_ctrl_flags_q[7:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
-@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Pruning unused bits 31 to 24 of M_this_data_tmp_q[31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Register bit M_this_data_count_q[15] is always 0.
-@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Pruning register bit 15 of M_this_data_count_q[15:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Register bit M_this_data_count_q[14] is always 0.
-@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Pruning register bit 14 of M_this_data_count_q[14:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Trying to extract state machine for register M_this_state_q.
+@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Pruning unused bits 3 to 0 of M_this_ctrl_flags_q[7:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Pruning unused bits 31 to 24 of M_this_data_tmp_q[31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[1] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[2] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[3] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[4] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[5] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[6] is always 0.
+@W: CL279 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Pruning register bits 6 to 1 of M_this_status_flags_q[7:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Register bit M_this_data_count_q[15] is always 0.
+@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Pruning register bit 15 of M_this_data_count_q[15:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Register bit M_this_data_count_q[14] is always 0.
+@W: CL260 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Pruning register bit 14 of M_this_data_count_q[14:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Trying to extract state machine for register M_this_state_q.
 Extracted state machine for register M_this_state_q
-State machine has 14 reachable states with original encodings of:
-   0000
-   0001
-   0010
-   0011
-   0100
-   0101
-   0110
-   0111
-   1000
-   1001
-   1010
-   1011
-   1100
-   1101
-@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Initial value is not supported on state machine M_this_state_q
+State machine has 19 reachable states with original encodings of:
+   00000
+   00001
+   00010
+   00011
+   00100
+   00101
+   00110
+   00111
+   01000
+   01001
+   01010
+   01011
+   01100
+   01101
+   01110
+   01111
+   10000
+   10001
+   10010
+@W: CL249 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Initial value is not supported on state machine M_this_state_q
 @N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":264:2:264:7|Trying to extract state machine for register M_state_q.
 Extracted state machine for register M_state_q
 State machine has 12 reachable states with original encodings of:
@@ -131,7 +142,7 @@ At c_ver Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Wed Jun  1 00:07:05 2022
+# Wed Jun  1 09:53:19 2022
 
 ###########################################################]
 Synopsys Netlist Linker, version comp2016q3p1, Build 141R, built Dec  5 2016
@@ -144,7 +155,7 @@ At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Wed Jun  1 00:07:05 2022
+# Wed Jun  1 09:53:19 2022
 
 ###########################################################]
 @END
@@ -154,6 +165,6 @@ At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 
 Process completed successfully.
-# Wed Jun  1 00:07:05 2022
+# Wed Jun  1 09:53:19 2022
 
 ###########################################################]

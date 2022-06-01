@@ -6,7 +6,7 @@
 
 * Build Date:         Dec 10 2020 17:24:17
 
-* File Generated:     Jun 1 2022 00:08:02
+* File Generated:     Jun 1 2022 09:54:20
 
 * Purpose:            General info of design implementation
 
@@ -17,7 +17,7 @@
 Synthesis/Placement Summary:
 ----------------------------
     Status:  Successful
-    Runtime: 1 seconds
+    Runtime: 0 seconds
 
 Device Info:
 ------------
@@ -27,30 +27,30 @@ Device Info:
 
 Design statistics:
 ------------------
-    FFs:                  296
-    LUTs:                 826
+    FFs:                  299
+    LUTs:                 928
     RAMs:                 23
     IOBs:                 52
-    GBs:                  4
+    GBs:                  5
     PLLs:                 0
     Warm Boots:           0
 
 Logic Resource Utilization:
 ---------------------------
-    Total Logic Cells: 832/7680
-        Combinational Logic Cells: 536      out of   7680      6.97917%
-        Sequential Logic Cells:    296      out of   7680      3.85417%
-        Logic Tiles:               200      out of   960       20.8333%
+    Total Logic Cells: 937/7680
+        Combinational Logic Cells: 638      out of   7680      8.30729%
+        Sequential Logic Cells:    299      out of   7680      3.89323%
+        Logic Tiles:               221      out of   960       23.0208%
     Registers: 
-        Logic Registers:           296      out of   7680      3.85417%
+        Logic Registers:           299      out of   7680      3.89323%
         IO Registers:              0        out of   1280      0
     Block RAMs:                    23       out of   32        71.875%
     Warm Boots:                    0        out of   1         0%
     Pins:
-        Input Pins:                12       out of   95        12.6316%
+        Input Pins:                4        out of   95        4.21053%
         Output Pins:               31       out of   95        32.6316%
-        InOut Pins:                9        out of   95        9.47368%
-    Global Buffers:                4        out of   8         50%
+        InOut Pins:                17       out of   95        17.8947%
+    Global Buffers:                5        out of   8         62.5%
     PLLs:                          0        out of   2         0%
 
 IO Bank Utilization:
@@ -65,16 +65,8 @@ Detailed I/O Info:
     Input Pins: 
     Pin Number  Direction  IO Standard  Pull Up  IO Bank  IO Function                                Signal Name       
     ----------  ---------  -----------  -------  -------  -----------                                -----------       
-    C7          Input      SB_LVCMOS    No       0        Simple Input                               port_data[0]      
-    C12         Input      SB_LVCMOS    No       0        Simple Input                               port_data[3]      
-    D7          Input      SB_LVCMOS    No       0        Simple Input                               port_data[1]      
-    D10         Input      SB_LVCMOS    No       0        Simple Input                               port_data[2]      
-    D12         Input      SB_LVCMOS    No       1        Simple Input                               port_data[4]      
-    F11         Input      SB_LVCMOS    No       1        Simple Input                               port_data[5]      
-    G12         Input      SB_LVCMOS    No       1        Simple Input                               port_data[6]      
     H1          Input      SB_LVCMOS    No       3        Simple Input                               port_enb          
     H4          Input      SB_LVCMOS    No       3        Simple Input                               port_clk          
-    H11         Input      SB_LVCMOS    No       1        Simple Input                               port_data[7]      
     P7          Input      SB_LVCMOS    No       2        Simple Input                               clk               
     P8          Input      SB_LVCMOS    No       2        Simple Input                               rst_n             
 
@@ -119,18 +111,27 @@ Detailed I/O Info:
     A7          InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_address[0]   
     A11         InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_address[1]   
     B14         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[3]   
+    C7          InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_data[0]      
     C10         InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_address[2]   
+    C12         InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_data[3]      
+    D7          InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_data[1]      
+    D10         InOut      SB_LVCMOS    No       0        Simple Input Output Tristatable by Enable  port_data[2]      
+    D12         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_data[4]      
     D14         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[4]   
     E12         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[5]   
     F4          InOut      SB_LVCMOS    No       3        Simple Input Output Tristatable by Enable  port_rw           
+    F11         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_data[5]      
+    G12         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_data[6]      
     G14         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[6]   
+    H11         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_data[7]      
     J12         InOut      SB_LVCMOS    No       1        Simple Input Output Tristatable by Enable  port_address[7]   
 
 Detailed Global Buffer Info:
 ----------------------------
-    Buffer Number  IO Bank  Driven By  Fanout  Signal Name                
-    -------------  -------  ---------  ------  -----------                
-    6              2        IO         342     clk_0_c_g                  
-    0              2                   19      this_vga_signals.N_1188_g  
-    2              1                   147     M_this_reset_cond_out_g_0  
-    4              0                   44      N_527_g                    
+    Buffer Number  IO Bank  Driven By  Fanout  Signal Name                  
+    -------------  -------  ---------  ------  -----------                  
+    6              2        IO         345     clk_0_c_g                    
+    3              3                   17      this_vga_signals.N_1307_0_g  
+    0              2                   22      this_vga_signals.N_1637_g    
+    2              1                   148     M_this_reset_cond_out_g_0    
+    4              0                   39      N_620_g                      

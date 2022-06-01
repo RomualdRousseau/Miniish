@@ -19,9 +19,15 @@
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":48:7:48:24|Synthesizing module simple_dual_ram_12 in library work.
 @N: CL134 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/simple_dual_ram_12.v":67:2:67:7|Found RAM mem, depth=256, width=4
 @N: CG364 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":7:7:7:14|Synthesizing module cu_top_0 in library work.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Register bit M_this_data_count_q[15] is always 0.
-@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Register bit M_this_data_count_q[14] is always 0.
-@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":523:2:523:7|Trying to extract state machine for register M_this_state_q.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[1] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[2] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[3] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[4] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[5] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":612:2:612:7|Register bit M_this_status_flags_q[6] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Register bit M_this_data_count_q[15] is always 0.
+@N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Register bit M_this_data_count_q[14] is always 0.
+@N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/cu_top_0.v":597:2:597:7|Trying to extract state machine for register M_this_state_q.
 @N: CL201 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/ppu_8.v":264:2:264:7|Trying to extract state machine for register M_state_q.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":121:2:121:7|Register bit M_hcounter_q[10] is always 0.
 @N: CL189 :"/home/romuald/Projects/Miniish/Firmware/PPU/work/verilog/vga_signals_6.v":121:2:121:7|Register bit M_hcounter_q[11] is always 0.

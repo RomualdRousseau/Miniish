@@ -15,6 +15,7 @@ STATES = {
         "NORMAL" : lambda b,c: state_normal(b, c),
         "INSERT" : lambda b,c: state_insert(b, c),
         "CHANGE" : lambda b,c: state_change(b, c),
+        "REPLACE": lambda b,c: state_replace(b, c),
         "DELETE" : lambda b,c: state_delete(b, c),
         "COPY"   : lambda b,c: state_copy(b, c),
         "GOTO"   : lambda b,c: state_goto(b, c)
@@ -165,6 +166,17 @@ def state_normal_enter_insert(buffer, c):
         move_cursor_start_of_line(buffer, True)
         replace_end_of_current_line(buffer)
         return True
+    elif c == 'r':
+        buffer.state = "REPLACE"
+        record_start_step(buffer)
+        record_current_step(buffer, c)
+        return True
+    elif c == 'R':
+        buffer.state = "INSERT"
+        record_start_step(buffer)
+        record_current_step(buffer, c)
+        replace_end_of_current_line(buffer)
+        return True
     else:
         return False
 
@@ -256,6 +268,11 @@ def state_change(buffer, c):
         buffer.state = "NORMAL"
     return True
 
+def state_replace(buffer, c):
+    record_current_step(buffer, c)
+    replace_character(buffer, c)
+    buffer.state = "NORMAL"
+    return True
 
 def state_delete(buffer, c):
     if c == 'd':
