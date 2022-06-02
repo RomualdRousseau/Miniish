@@ -26,6 +26,19 @@ ppu_dmaspr  = port_ppu + $10
 ppu_dmamap  = port_ppu + $11
 ppu_dmaoam  = port_ppu + $12
 
+apu_play   = port_apu + $0a
+apu_status = port_apu + $00
+apu_wav0   = port_apu + $01
+apu_env0   = port_apu + $02
+apu_len0   = port_apu + $03
+apu_mod0   = port_apu + $04
+apu_not0   = port_apu + $05
+apu_wav1   = port_apu + $11
+apu_env1   = port_apu + $12
+apu_len1   = port_apu + $13
+apu_mod1   = port_apu + $14
+apu_not1   = port_apu + $15
+
 irq_func
  phx
  ldx port_irq

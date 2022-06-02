@@ -59,10 +59,13 @@ draw
  rts
 
 setup
- ; wait ppu
  lda ppu_status
  and #%00000001
  beq setup
+wait_apu
+ lda apu_status
+ and #%00000001
+ beq wait_apu
  ; init variables
  lda #0
  sta retraces
@@ -106,6 +109,8 @@ mem_set
  ; start ppu retrace
  lda #%11100000
  sta ppu_ctrl
+ lda #0
+ sta apu_play
 
 loop
  jsr joypad_read
@@ -136,12 +141,38 @@ loop
  jmp loop
 
 irq0_func
+ pha
+ inc timer
+ ; little beep
+ lda #1 ; triangle
+ sta apu_wav0
+ lda #1 ; envelope0
+ sta apu_env0
+ lda #127
+ sta apu_len0
+ lda #64 ; no mod
+ sta apu_mod0
+ lda #69 ; c4
+ sta apu_not0
+ lda #3 ; noise
+ sta apu_wav1
+ lda #1 ; envelope0
+ sta apu_env1
+ lda #32
+ sta apu_len1
+ lda #64 ; no mod
+ sta apu_mod1
+ lda #69
+ sta apu_not1
+ lda #100
+ sta apu_play
+ pla
  plx
  rti
 
 irq1_func
  bit t1cl
- inc timer
+ ;inc timer
  plx
  rti
 
