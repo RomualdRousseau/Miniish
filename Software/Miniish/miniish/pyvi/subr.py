@@ -14,9 +14,15 @@ def find_start_word_pos(line):
 
 
 def find_next_word_pos(line, pos, spaces = True):
-    pattern = r"\s+" if spaces else r"\W+"
+    pattern = r"\W+" if spaces else r"\s+"
     match = re.search(pattern, line[pos:])
     return pos + (match.end() if match is not None else 0)
+
+
+def find_previous_word_pos(line, pos, spaces = True):
+    pattern = r"\w+\W*$" if spaces else r"\S+\s*$"
+    match = re.search(pattern, line[:pos - 1])
+    return match.start() if match is not None else pos
 
 
 def get_clipboard():

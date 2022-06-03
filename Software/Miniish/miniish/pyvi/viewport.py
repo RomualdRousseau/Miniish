@@ -87,6 +87,14 @@ def move_cursor_next_word(buffer, spaces):
     buffer.cursor = (pos, buffer.cursor[1])
 
 
+def move_cursor_previous_word(buffer, spaces):
+    line = get_current_line(buffer)
+    pos = buffer.cursor[0]
+    if line is not None:
+        pos = find_previous_word_pos(line, pos, spaces)
+    buffer.cursor = (pos, buffer.cursor[1])
+
+
 def keep_cursor_inbounds(buffer):
     padding = 1 if buffer.state in ("INSERT", "CHANGE") else 0
     buffer.buf_pos = max(0, min(buffer.buf_pos, get_buffer_len(buffer) - 1))

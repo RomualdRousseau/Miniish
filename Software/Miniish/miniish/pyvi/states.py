@@ -105,6 +105,12 @@ def state_normal_navigation(buffer, c):
     elif c == 'W':
         move_cursor_next_word(buffer, False)
         return True
+    elif c == 'b':
+        move_cursor_previous_word(buffer, True)
+        return True
+    elif c == 'B':
+        move_cursor_previous_word(buffer, False)
+        return True
     elif c == 'g':
         buffer.state = "GOTO"
         return True

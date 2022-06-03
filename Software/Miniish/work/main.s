@@ -11,6 +11,8 @@ inte_start = $ffea
 lcd_ptr   .word $0000
 src_ptr   .word $0000
 dst_ptr   .word $0000
+apu_ptr   .word $0000
+song_ptr  .word $0000
 retraces  .byte $00
 joypad    .byte $00
 timer     .byte $00
@@ -35,6 +37,7 @@ main
  .include "sys.i"
  .include "lcd.i"
  .include "joypad.i"
+ .include "audio.i"
  .include "map.i"
  .include "hero.i"
 
@@ -110,7 +113,7 @@ mem_set
  lda #%11100000
  sta ppu_ctrl
  lda #0
- sta apu_play
+ sta apu_ctrl
 
 loop
  jsr joypad_read
@@ -141,38 +144,64 @@ loop
  jmp loop
 
 irq0_func
+ phy
  pha
+ lda r1
+ pha
+ lda timer
+ lsr
+ lsr
+ cmp song
+ bne irq0_func_1
+ lda #0
+ sta timer
+irq0_func_1
+ asl
+ asl
+ asl
+ asl
+ tax
+ ; load channel 0
+ lda #<apu_wav0
+ sta apu_ptr
+ lda #>apu_wav0
+ sta apu_ptr+1
+ lda song+1,x
+ jsr sound_load
+ ; load channel 1
+ lda #<apu_wav1
+ sta apu_ptr
+ lda #>apu_wav1
+ sta apu_ptr+1
+ lda song+2,x
+ jsr sound_load
+ ; load channel 2
+ lda #<apu_wav2
+ sta apu_ptr
+ lda #>apu_wav2
+ sta apu_ptr+1
+ lda song+3,x
+ jsr sound_load
+ ; load channel 3
+ lda #<apu_wav3
+ sta apu_ptr
+ lda #>apu_wav3
+ sta apu_ptr+1
+ lda song+4,x
+ jsr sound_load
+ ; play all channels
+ lda #50
+ sta apu_ctrl
  inc timer
- ; little beep
- lda #1 ; triangle
- sta apu_wav0
- lda #1 ; envelope0
- sta apu_env0
- lda #127
- sta apu_len0
- lda #64 ; no mod
- sta apu_mod0
- lda #69 ; c4
- sta apu_not0
- lda #3 ; noise
- sta apu_wav1
- lda #1 ; envelope0
- sta apu_env1
- lda #32
- sta apu_len1
- lda #64 ; no mod
- sta apu_mod1
- lda #69
- sta apu_not1
- lda #100
- sta apu_play
  pla
+ sta r1
+ pla
+ ply
  plx
  rti
 
 irq1_func
  bit t1cl
- ;inc timer
  plx
  rti
 
@@ -210,6 +239,21 @@ sprites
  .incbin "sprites.dat"
 map
  .incbin "map.dat"
+song
+ .byte 2,0,2,-1,-1,0,2,1,-1
+sound
+ .byte $11,127,64,69
+ .byte $11,127,64,80
+ .byte $11,127,64,48
+ .byte $11,127,64,69
+ .byte $01,64,64,80
+ .byte $01,64,64,48
+ .byte $01,64,64,69
+ .byte $01,64,64,80
+ .byte $31,32,64,69
+ .byte -1,-1,-1,-1
+ .byte -1,-1,-1,-1
+ .byte -1,-1,-1,-1
 message1
  .asciiz "i am xiaoniuniu"
 message2
