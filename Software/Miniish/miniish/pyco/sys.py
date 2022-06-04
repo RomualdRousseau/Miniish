@@ -305,7 +305,7 @@ def run():
     pg.key.set_repeat(500, 33)
     pg.mouse.set_visible(False)
     
-    PYCO.display = pg.display.set_mode((512, 512))
+    PYCO.display = pg.display.set_mode((1024, 1024))
     PYCO.clock = pg.time.Clock()
     PYCO.screen = pg.Surface((128, 128))
     PYCO.font = subr.load_asset_png("miniish-font")

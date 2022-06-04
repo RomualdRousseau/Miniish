@@ -486,13 +486,13 @@ def input():
         elif event.key == pg.K_ESCAPE:
             return "escape"
         elif event.key == pg.K_UP:
-            return "up"
+            return subr.extend_key(event, "up")
         elif event.key == pg.K_DOWN:
-            return "down"
+            return subr.extend_key(event, "down")
         elif event.key == pg.K_LEFT:
-            return "left"
+            return subr.extend_key(event, "left")
         elif event.key == pg.K_RIGHT:
-            return "right"
+            return subr.extend_key(event, "right")
         elif event.key == pg.K_TAB:
             return " "
         elif event.mod & pg.KMOD_CTRL:
@@ -575,6 +575,6 @@ def flip():
     the 30-frames-per-second draw timer in carts that implement 
     their own custom game loop.
     """
-    PYCO.display.blit(pg.transform.scale(PYCO.screen, (512, 512)), (0, 0))            
+    PYCO.display.blit(pg.transform.scale(PYCO.screen, (1024, 1024)), (0, 0))            
     pg.display.flip()
     PYCO.clock.tick(30)

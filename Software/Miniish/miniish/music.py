@@ -12,6 +12,7 @@ class MusicEditor:
         self.top = 0
         self.pattern_selector = 0
         self.sound_selector = 0
+        self.copy_buffer = (0, 0, 0, 0, 1)
 
     #
     # App interface

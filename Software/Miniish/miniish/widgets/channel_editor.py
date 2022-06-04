@@ -45,7 +45,8 @@ class ChannelEditor(Widget):
         self.last_volume = 4
         self.last_oscillator = 0
         self.last_octave = 2
-        self.copy_buffer = (0, 0, 0, 0, 1)
+        self.select_start = -1
+        self.select_end = -1
         self.init_ui()
 
     #
@@ -76,19 +77,61 @@ class ChannelEditor(Widget):
             sound = synth.get_sound(self.sound)
             if c == "left":
                 self._move_cursor_left()                
+                self.select_start = -1
+                self.select_end = -1
             elif c == "right":
                 self._move_cursor_right()
+                self.select_start = -1
+                self.select_end = -1
+            elif c == "up" or c == "down":
+                self.select_start = -1
+                self.select_end = -1
+            elif c == "shift-down":
+                if self.select_start == -1:
+                    self.select_start = self.note
+                    self.select_end = self.note
+                else:
+                    self.select_end += 1
+            elif c == "shift-up":
+                if self.select_start == -1:
+                    self.select_start = self.note
+                    self.select_end = self.note
+                else:
+                    self.select_end -= 1
             elif c == "delete":
-                (p, wa, v, e, s) = sound[self.note]
-                sound[self.selector] = (0, 0, 0, 0, s)
+                if self.select_start == -1:
+                    (p, wa, v, e, s) = sound[self.note]
+                    sound[self.note] = (0, 0, 0, 0, s)
+                else:
+                    for i in range(self.select_start, self.select_end + 1):
+                        (p, wa, v, e, s) = sound[i]
+                        sound[i] = (0, 0, 0, 0, s)
+                self.select_start = -1
+                self.select_end = -1
             elif c == "control-x":
-                self.copy_buffer = sound[self.note]
-                (p, wa, v, e, s) = sound[self.note]
-                sound[self.note] = (0, 0, 0, 0, s)
+                if self.select_start == -1:
+                    self.parent.copy_buffer = [sound[self.note]]
+                    (p, wa, v, e, s) = sound[self.note]
+                    sound[self.note] = (0, 0, 0, 0, s)
+                else:
+                    self.parent.copy_buffer = [sound[i] for i in range(self.select_start, self.select_end + 1)]
+                    for i in range(self.select_start, self.select_end + 1):
+                        (p, wa, v, e, s) = sound[i]
+                        sound[i] = (0, 0, 0, 0, s)
+                self.select_start = -1
+                self.select_end = -1
             elif c == "control-c":
-                self.copy_buffer = sound[self.note]
+                if self.select_start == -1:
+                    self.parent.copy_buffer = [sound[self.note]]
+                else:
+                    self.parent.copy_buffer = [sound[i] for i in range(self.select_start, self.select_end + 1)]
+                self.select_start = -1
+                self.select_end = -1
             elif c == "control-v":
-                sound[self.note] = self.copy_buffer
+                for i, note in enumerate(self.parent.copy_buffer):
+                    sound[self.note + i] = note
+                self.select_start = -1
+                self.select_end = -1
             else:
                 (p, wa, v, e, s) = sound[self.note]
                 if c.isnumeric() and self.cursor >= 1:
@@ -122,6 +165,8 @@ class ChannelEditor(Widget):
                     sound[self.note] = (p, wa, v, e, s)
                     synth.play_one_note(*sound[self.note])
                     self._move_selector_down()
+                self.select_start = -1
+                self.select_end = -1
 
     def draw(self):
         focus = self.inbounds(mxy())
@@ -139,6 +184,8 @@ class ChannelEditor(Widget):
             sound = synth.get_sound(self.sound)
             sample = synth.get_samples_index()
             top = self._get_top() if sample < 0 else (sample - 12 if sample > 12 else 0)
+            if self.select_end > 0 and self.select_end > top + 12:
+                top = self.select_end - 12
             # Draw notes
             for i in range(min(32 - top, 13)):
                 (p, wa, v, e, _) = sound[top + i]
@@ -153,6 +200,8 @@ class ChannelEditor(Widget):
                         rectfill((self.pos[0] + 5 * (self.cursor - 1) + 8, self.pos[1] + i * 7) + (5, 7), YELLOW)
                 # Draw playing bar
                 if sample >= 0 and sample == top + i:
+                    rectfill((self.pos[0], self.pos[1] + i * 7) + (self.size[0], 7), YELLOW)
+                if self.select_start <= top + i and top + i <= self.select_end:
                     rectfill((self.pos[0], self.pos[1] + i * 7) + (self.size[0], 7), YELLOW)
                 # Draw notes info
                 if v == 0:

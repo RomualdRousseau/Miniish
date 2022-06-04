@@ -31,7 +31,27 @@ def compile():
         for i in range(32):
             for j in range(32):
                 writer.write(b'%c' % pyco.mget((j, i)))
-    
+   
+    with open("work/sound.dat", "wb") as writer:
+        for i in range(16):
+            s = PYCO.sounds[i]
+            for j in range(8):
+                p, w, v, e, _ = s[j]
+                pack = ((w & 3) << 4) | ((e & 3) << 0)
+                writer.write(b'%c' % (pack & 0xFF))
+                writer.write(b'%c' % (p & 0xFF))
+ 
+    with open("work/music.dat", "wb") as writer:
+        for i in range(16):
+                m = PYCO.music[i]
+                flag = -1
+                for j in range(3):
+                    if m[j] >= 0:
+                        flag = 0
+                writer.write(b'%c' % (flag & 0xFF))
+                for j in range(3):
+                    writer.write(b'%c' % (m[j] & 0xFF))
+
     os.system("make -C work burn")
 
     return None

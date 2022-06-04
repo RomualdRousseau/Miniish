@@ -56,6 +56,15 @@ def guess_file_name(i, line):
         return f"buffer{i}.i"
 
 
+def extend_key(event, key):
+    if event.mod & pg.KMOD_SHIFT:
+        return "shift-" + key
+    elif event.mod & pg.KMOD_CTRL:
+        return "control-" + key
+    else:
+        return key
+
+
 def is_done(events):
     if not events:
         return not PYCO.running

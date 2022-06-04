@@ -240,20 +240,9 @@ sprites
 map
  .incbin "map.dat"
 song
- .byte 2,0,2,-1,-1,0,2,1,-1
+ .incbin "music.dat"
 sound
- .byte $11,127,64,69
- .byte $11,127,64,80
- .byte $11,127,64,48
- .byte $11,127,64,69
- .byte $01,64,64,80
- .byte $01,64,64,48
- .byte $01,64,64,69
- .byte $01,64,64,80
- .byte $31,32,64,69
- .byte -1,-1,-1,-1
- .byte -1,-1,-1,-1
- .byte -1,-1,-1,-1
+ .incbin "sound.dat"
 message1
  .asciiz "i am xiaoniuniu"
 message2

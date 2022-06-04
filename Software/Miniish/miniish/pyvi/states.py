@@ -78,16 +78,16 @@ def state_normal_action(buffer, c):
 
 
 def state_normal_navigation(buffer, c):
-    if c == 'h':
+    if c == 'h' or c == "left":
         move_cursor_left(buffer)
         return True
-    elif c == 'l':
+    elif c == 'l' or c == "right":
         move_cursor_right(buffer)
         return True
-    elif c == 'k':
+    elif c == 'k' or c == "up":
         move_cursor_up(buffer)
         return True
-    elif c == 'j':
+    elif c == 'j' or c == "down":
         move_cursor_down(buffer)
         return True
     elif c == '0':
