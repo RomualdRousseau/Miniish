@@ -6,12 +6,12 @@ from .modulators import *
 import sounddevice as sd
 
 OSCILLATORS = [
+        sin,
         triangle,
         square,
-        noise,
-        sin,
+        sawtooth,
         ramp,
-        sawtooth
+        noise
         ]
 
 EFFECTS = [

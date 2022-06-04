@@ -21,12 +21,12 @@ class SoundEditor:
         self.sound_down = Button(1, (21, 9), (62, 62), self._switch_sound)
         self.speed_picker = TextSpinner(-1, (46, 10), (11, 7), 1, 99, self._update_speed)
         self.oscillator_picker = ButtonGroup(-1, (45, 18), [
-            Button(0, (1, 0), (46, 45), self._switch_oscillator),
-            Button(1, (1, 0), (52, 51), self._switch_oscillator),
-            Button(2, (1, 0), (58, 57), self._switch_oscillator),
-            Button(3, (1, 0), (60, 59), self._switch_oscillator),
-            Button(4, (1, 0), (48, 47), self._switch_oscillator),
-            Button(5, (1, 0), (50, 49), self._switch_oscillator)
+            Button(0, (1, 0), (60, 59), self._switch_oscillator),
+            Button(1, (1, 0), (46, 45), self._switch_oscillator),
+            Button(2, (1, 0), (52, 51), self._switch_oscillator),
+            Button(3, (1, 0), (48, 47), self._switch_oscillator),
+            Button(4, (1, 0), (50, 49), self._switch_oscillator),
+            Button(5, (1, 0), (58, 57), self._switch_oscillator)
             ], False, [0])
         self.pitch_picker = PitchPicker(-1, (0, 28), (128, 64))
         self.pitch_picker.parent = self

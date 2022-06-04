@@ -149,18 +149,16 @@ irq0_func
  lda r1
  pha
  lda timer
+ and #%11111000
  lsr
- lsr
- cmp song
+ tax
+ lda song,x
+ cmp #-1
  bne irq0_func_1
  lda #0
  sta timer
-irq0_func_1
- asl
- asl
- asl
- asl
  tax
+irq0_func_1
  ; load channel 0
  lda #<apu_wav0
  sta apu_ptr
@@ -176,21 +174,14 @@ irq0_func_1
  lda song+2,x
  jsr sound_load
  ; load channel 2
- lda #<apu_wav2
- sta apu_ptr
- lda #>apu_wav2
- sta apu_ptr+1
- lda song+3,x
- jsr sound_load
- ; load channel 3
- lda #<apu_wav3
- sta apu_ptr
- lda #>apu_wav3
- sta apu_ptr+1
- lda song+4,x
- jsr sound_load
+ ;lda #<apu_wav2
+ ;sta apu_ptr
+ ;lda #>apu_wav2
+ ;sta apu_ptr+1
+ ;lda song+3,x
+ ;jsr sound_load
  ; play all channels
- lda #50
+ lda #25
  sta apu_ctrl
  inc timer
  pla
