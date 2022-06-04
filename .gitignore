@@ -1,2 +1,8 @@
 # Kicad backups
 *-backups
+
+# Python caches
+__pycache__
+
+# Alchitry work
+work
