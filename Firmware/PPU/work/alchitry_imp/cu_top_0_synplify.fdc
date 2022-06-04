@@ -1,5 +1,0 @@
-
-#1001 : create_clock -name clk_0 -period 10.0 [get_ports clk]
-# line 2 in /home/romuald/Projects/Miniish/Firmware/PPU/work/constraint/merged_constraint.sdc
-
-create_clock -name {clk_0} -period {10.000} [get_ports {clk}]
