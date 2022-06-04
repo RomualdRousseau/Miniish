@@ -7,22 +7,20 @@ import sounddevice as sd
 
 OSCILLATORS = [
         triangle,
-        ramp,
-        sawtooth,
         square,
         noise,
-        sin
+        sin,
+        ramp,
+        sawtooth
         ]
 
 EFFECTS = [
         (effect_frq_none, effect_env_none),             # None
-        (effect_frq_slide, effect_env_none),            # Slide
-        (effect_frq_vibrato, effect_env_none),          # Vibrato
-        (effect_frq_drop, effect_env_none),             # Drop
         (effect_frq_none, effect_env_fade_in),          # Fade In
         (effect_frq_none, effect_env_fade_out),         # Fade Out
-        (effect_frq_none, effect_env_none),             # Arpegio Fast
-        (effect_frq_none, effect_env_none)              # Arpegio Slow
+        (effect_frq_drop, effect_env_none),             # Drop
+        (effect_frq_slide, effect_env_none),            # Slide
+        (effect_frq_vibrato, effect_env_none)           # Vibrato
         ]
 
 

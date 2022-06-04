@@ -29,18 +29,27 @@ class MusicEditor:
         for channel_editor in self.channel_editors:
             channel_editor.parent = self
 
-    def update_ui(self):
-        for channel_editor in self.channel_editors:
-            channel_editor.update_ui()
-
     def update(self):
         c = input()
         if c is not None and c == "escape":
             return False
+        if c == "down":
+            self._move_selector_down()
+        elif c == "up":
+            self._move_selector_up()
+        elif c == " ":
+            if not synth.is_playing():
+                pattern = sys.get_music()[self.pattern_selector] 
+                synth.play_sound(tuple([p for p in pattern if p >= 0]), False)
+            else:
+                synth.play_sound(-1)
         # Update widgets
         self.pattern_up.update()
         self.pattern_down.update()
         for channel_editor in self.channel_editors:
+            pattern = sys.get_music()[self.pattern_selector]
+            channel_editor.sound = pattern[channel_editor.id]
+            channel_editor.note = self.sound_selector
             channel_editor.update(c)
         return True
 
@@ -64,7 +73,7 @@ class MusicEditor:
     #
 
     def load(self, method):
-       self.update_ui() 
+        pass
 
     def save(self, method):
         pass
@@ -86,4 +95,13 @@ class MusicEditor:
                 self.pattern_selector = 63
             if self.pattern_selector > self.top + 3:
                 self.top = self.pattern_selector - 3
-        self.update_ui()
+
+    def _move_selector_down(self):
+        self.sound_selector += 1
+        if self.sound_selector > 31:
+            self.sound_selector = 31
+
+    def _move_selector_up(self):
+        self.sound_selector -= 1
+        if self.sound_selector < 0:
+            self.sound_selector = 0
