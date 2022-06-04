@@ -154,6 +154,9 @@ def save_cartdrige(file_name):
         writer.body_end()
 
 
+def debug(s):
+    print(s)
+
 def load_png(file_name):
     """Loads an image from the assets folder. 
     

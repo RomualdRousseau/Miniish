@@ -24,11 +24,11 @@ class VolumePicker(Widget):
         if self.inbounds(m) and mbtn():
             (x, y) = (m[0] - self.pos[0], m[1] - self.pos[1])
             i = int(x / w)
-            sound = synth.get_sound(self.parent.sound - 1)
+            sound = synth.get_sound(self.parent.sound)
             (p, wa, _, e, s) = sound[i]
             v = max(0, 7 - int(y / h))
             sound[i] =  (p, wa, v, e, s)
-            synth.set_sound(self.parent.sound - 1, sound)
+            synth.set_sound(self.parent.sound, sound)
 
     def draw(self):
         (w, h) = self.cell_size
@@ -36,7 +36,7 @@ class VolumePicker(Widget):
         print(":volume", (2, self.pos[1] - 6), BLUE)
         rectfill(self.pos + self.size, BLACK)
        
-        sound = synth.get_sound(self.parent.sound - 1)
+        sound = synth.get_sound(self.parent.sound)
         for i in range(32):
             (_, _, v, _, _) = sound[i]
             b = self.pos[1] + self.size[1]

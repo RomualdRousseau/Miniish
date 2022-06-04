@@ -10,7 +10,8 @@ class MusicEditor:
 
     def __init__(self):
         self.top = 0
-        self.selector = 0
+        self.pattern_selector = 0
+        self.sound_selector = 0
 
     #
     # App interface
@@ -28,6 +29,10 @@ class MusicEditor:
         for channel_editor in self.channel_editors:
             channel_editor.parent = self
 
+    def update_ui(self):
+        for channel_editor in self.channel_editors:
+            channel_editor.update_ui()
+
     def update(self):
         c = input()
         if c is not None and c == "escape":
@@ -37,13 +42,13 @@ class MusicEditor:
         self.pattern_down.update()
         for channel_editor in self.channel_editors:
             channel_editor.update(c)
-            channel_editor.update_ui()
         return True
 
     def draw(self):
+        # Draw pattern selector
         print("pattern", (3, 11), WHITE)
         for i in range(4):
-            if self.selector == self.top + i:
+            if self.pattern_selector == self.top + i:
                 rectfill((38 + i * 12 - 1, 10, 9, 7), WHITE)
             else:
                 rectfill((38 + i * 12 - 1, 10, 9, 7), LIGHT_GRAY)
@@ -59,7 +64,7 @@ class MusicEditor:
     #
 
     def load(self, method):
-        pass
+       self.update_ui() 
 
     def save(self, method):
         pass
@@ -70,16 +75,15 @@ class MusicEditor:
 
     def _switch_pattern(self, b):
         if b.id == 0:
-            self.selector -= 1
-            if self.selector < 0:
-                self.selector = 0
-            if self.selector < self.top:
-                self.top = self.selector
+            self.pattern_selector -= 1
+            if self.pattern_selector < 0:
+                self.pattern_selector = 0
+            if self.pattern_selector < self.top:
+                self.top = self.pattern_selector
         elif b.id == 1:
-            self.selector += 1
-            if self.selector > 63:
-                self.selector = 63
-            if self.selector > self.top + 3:
-                self.top = self.selector - 3
-        for channel_editor in self.channel_editors:
-            channel_editor.update_ui()
+            self.pattern_selector += 1
+            if self.pattern_selector > 63:
+                self.pattern_selector = 63
+            if self.pattern_selector > self.top + 3:
+                self.top = self.pattern_selector - 3
+        self.update_ui()

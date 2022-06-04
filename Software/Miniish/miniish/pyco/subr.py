@@ -65,6 +65,4 @@ def is_done(events):
             PYCO.keybuf.append(head)
         elif head.type == pg.MOUSEWHEEL:
             PYCO.mouse_wheel = (head.x, head.y)
-        elif head.type == synth.NEEDSAMPLE:
-            synth.next_samples()
         return head.type == pg.QUIT or is_done(tail)

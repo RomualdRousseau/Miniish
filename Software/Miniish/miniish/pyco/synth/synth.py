@@ -71,6 +71,24 @@ def generate_sample(note, oscillator, volume, effect, speed, on, off):
     return y.reshape(-1, 1)
 
 
+def generate_channel(n, i):
+    sound = PYCO.sounds[n]
+
+    note_on = True
+    if SYNTH.samples_curr > 0:
+        note_prev = sound[i - 1]
+        note_curr = sound[i]
+        note_on = note_prev != note_curr
+        
+    note_off = True
+    if SYNTH.samples_curr < SYNTH.samples_size - 1:
+        note_next = sound[i + 1]
+        note_curr = sound[i]
+        note_off = note_next != note_curr
+
+    return generate_sample(*sound[i], note_on, note_off)
+
+
 def get_sound(n):
     return PYCO.sounds[n]
 
@@ -79,41 +97,76 @@ def set_sound(n, sound):
     PYCO.sounds[n] = sound
 
 
-def play_sound(n, loop = False):
+def play_one_note(note, oscillator, volume, effect, speed):
     if is_playing():
         SYNTH.playing = False
-        SYNTH.channel.close()
-        if n == -1:
-            return
+        if SYNTH.channel is not None:
+            SYNTH.channel.close()
+            SYNTH.channel = None
 
     SYNTH.playing = True
-    SYNTH.loop = loop
-    
-    SYNTH.samples_size = len(PYCO.sounds[n])
+    SYNTH.loop = False
+   
+    SYNTH.sample_one_note = True
+    SYNTH.samples_size = max(SAMPLE_ONE_NOTE_SIZE / speed, 1)
     SYNTH.samples_curr = 0
 
     SYNTH.last_note = 0
     SYNTH.last_l = 0
 
-    speed = PYCO.sounds[n][0][4]
+    def callback(outdata, frames, time, status):
+        outdata[:] = generate_sample(note, oscillator, volume, effect, speed, False, False) 
+
+        SYNTH.samples_curr += 1
+        if SYNTH.samples_curr >= SYNTH.samples_size:
+            SYNTH.samples_curr = 0
+            SYNTH.playing = False
+            raise sd.CallbackStop()
+
+    try:
+        SYNTH.channel = sd.OutputStream(
+            device = None,
+            channels = 1,
+            callback = callback,
+            samplerate = SAMPLING_RATE,
+            blocksize = int(speed * TICK * SAMPLING_RATE))
+        SYNTH.channel.start()
+    except:
+        SYNTH.channel = None
+
+
+def play_sound(n, loop = False):
+    if is_playing():
+        SYNTH.playing = False
+        if SYNTH.channel is not None:
+            SYNTH.channel.close()
+            SYNTH.channel = None
+        if n == -1:
+            return
+
+    first = n[0] if type(n) is tuple else n
+    len_n = len(n) if type(n) is tuple else 1
+    speed = PYCO.sounds[first][0][4]
+    
+    SYNTH.playing = True
+    SYNTH.loop = loop
+    
+    SYNTH.sample_one_note = False
+    SYNTH.samples_size = len(PYCO.sounds[first])
+    SYNTH.samples_curr = 0
+
+    SYNTH.last_note = 0
+    SYNTH.last_l = 0
 
     def callback(outdata, frames, time, status):
-        sound = PYCO.sounds[n]
-
-        note_on = True
-        if SYNTH.samples_curr > 0:
-            note_prev = sound[SYNTH.samples_curr - 1]
-            note_curr = sound[SYNTH.samples_curr]
-            note_on = note_prev != note_curr
+        if type(n) is tuple:
+            channels = []
+            for m in n:
+                channels.append(generate_channel(m, SYNTH.samples_curr))
+            outdata[:] = np.array(channels).reshape(-1, len_n)
+        else:
+            outdata[:] = generate_channel(n, SYNTH.samples_curr) 
         
-        note_off = True
-        if SYNTH.samples_curr < SYNTH.samples_size - 1:
-            note_next = sound[SYNTH.samples_curr + 1]
-            note_curr = sound[SYNTH.samples_curr]
-            note_off = note_next != note_curr
-
-        outdata[:] = generate_sample(*sound[SYNTH.samples_curr], note_on, note_off) 
-
         SYNTH.samples_curr += 1
         if SYNTH.samples_curr >= SYNTH.samples_size:
             SYNTH.samples_curr = 0
@@ -121,17 +174,29 @@ def play_sound(n, loop = False):
                 SYNTH.playing = False
                 raise sd.CallbackStop()
 
-    SYNTH.channel = sd.OutputStream(
+    try:
+        SYNTH.channel = sd.OutputStream(
             device = None,
-            channels = 1,
+            channels = len_n,
             callback = callback,
             samplerate = SAMPLING_RATE,
             blocksize = int(speed * TICK * SAMPLING_RATE))
-    SYNTH.channel.start()
+        SYNTH.channel.start()
+    except:
+        SYNTH.channel = None
+
+
+def stop_sound():
+    if is_playing():
+        SYNTH.playing = False
+        if SYNTH.channel is not None:
+            SYNTH.channel.close()
+            SYNTH.channel = None
 
 
 def get_samples_index():
-    return SYNTH.samples_curr if is_playing() else -1
+    return SYNTH.samples_curr if not (hasattr(SYNTH, "sample_one_note") and SYNTH.sample_one_note) and is_playing() else -1
+
 
 def is_playing():
     return hasattr(SYNTH, "playing") and SYNTH.playing

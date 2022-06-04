@@ -481,6 +481,8 @@ def input():
             return "return"
         elif event.key == pg.K_BACKSPACE:
             return "backspace"
+        elif event.key == pg.K_DELETE:
+            return "delete"
         elif event.key == pg.K_ESCAPE:
             return "escape"
         elif event.key == pg.K_UP:

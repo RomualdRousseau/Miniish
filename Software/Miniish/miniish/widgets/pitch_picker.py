@@ -27,12 +27,12 @@ class PitchPicker(Widget):
             (x, y) = (m[0] - self.pos[0], m[1] - self.pos[1])
             i = int(x / w)
             if mbtn():
-                sound = synth.get_sound(self.parent.sound - 1)
+                sound = synth.get_sound(self.parent.sound)
                 (_, _, v, e, s) = sound[i]
                 p = max(0, 63 - int(y / h))
                 wa = self.parent.oscillator
                 sound[i] = (p, wa, v if v > 0 else 4, e, s)
-                synth.set_sound(self.parent.sound - 1, sound)
+                synth.set_sound(self.parent.sound, sound)
             self.last_note = i
         else:
             self.last_note = None
@@ -43,7 +43,7 @@ class PitchPicker(Widget):
         print(":pitch", (2, self.pos[1] - 8), INDIGO)
         rectfill(self._expand(self.pos + self.size, 1), BLACK)
         # Draw graph 
-        sound = synth.get_sound(self.parent.sound - 1)
+        sound = synth.get_sound(self.parent.sound)
         sample = synth.get_samples_index()
         for i in range(32):
             (p, wa, v, _, _) = sound[i]

@@ -9,7 +9,7 @@ class SoundEditor:
     name = "sound-editor"
 
     def __init__(self):
-        self.sound = 1
+        self.sound = 0
         self.oscillator = 0
         
     #
@@ -19,7 +19,7 @@ class SoundEditor:
     def init_ui(self):
         self.sound_up = Button(0, (0, 9), (61, 61), self._switch_sound)
         self.sound_down = Button(1, (21, 9), (62, 62), self._switch_sound)
-        self.speed_picker = TextSpinner(-1, (46, 10), (11, 7), 1, 16)
+        self.speed_picker = TextSpinner(-1, (46, 10), (11, 7), 1, 99, self._update_speed)
         self.oscillator_picker = ButtonGroup(-1, (45, 18), [
             Button(0, (1, 0), (46, 45), self._switch_oscillator),
             Button(1, (1, 0), (48, 47), self._switch_oscillator),
@@ -33,6 +33,10 @@ class SoundEditor:
         self.volume_picker = VolumePicker(-1, (0, 100), (128, 19))
         self.volume_picker.parent = self
 
+    def update_ui(self):
+        (_, _, _, _, s) = synth.get_sound(self.sound)[0]
+        self.speed_picker.set_value(s)
+
     def update(self):
         # Handle keyboard inputs
         c = input()
@@ -41,7 +45,7 @@ class SoundEditor:
                 return False
             elif c == " ":
                 if not synth.is_playing():
-                    synth.play_sound(self.sound - 1, False)
+                    synth.play_sound(self.sound, False)
                 else:
                     synth.play_sound(-1)
         # Update widgets
@@ -51,7 +55,6 @@ class SoundEditor:
         self.oscillator_picker.update()
         self.volume_picker.update()
         self.pitch_picker.update()
-        self._update_speed()
         return True
 
     def draw(self):
@@ -69,7 +72,7 @@ class SoundEditor:
     #
 
     def load(self, method):
-        pass
+        self.update_ui()
 
     def save(self, method):
         pass
@@ -78,21 +81,20 @@ class SoundEditor:
     # Privates
     #
 
-    def _update_speed(self):
-        sound = synth.get_sound(self.sound - 1)
+    def _update_speed(self, b):
+        sound = synth.get_sound(self.sound)
         for i in range(len(sound)):
             (p, wa, v, e, _) = sound[i]
-            s = self.speed_picker.get_value()
+            s = b.get_value()
             sound[i] = (p, wa, v, e, s)
-        synth.set_sound(self.sound - 1, sound)
+        synth.set_sound(self.sound, sound)
 
     def _switch_sound(self, b):
         if b.id == 0:
-            self.sound = max(1, self.sound - 1)
+            self.sound = max(0, self.sound - 1)
         elif b.id == 1:
-            self.sound = min(self.sound + 1, 64)
-        (_, _, _, _, s) = synth.get_sound(self.sound - 1)[0]
-        self.speed_picker.set_value(s)
+            self.sound = min(self.sound + 1, 63)
+        self.update_ui()
 
     def _switch_oscillator(self, b):
         self.oscillator = b.id

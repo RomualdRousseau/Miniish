@@ -37,10 +37,6 @@ class Button(Widget):
             self.toggle = not self.toggle
             if self.callback:
                 self.callback(self)
-        #if not pover and self.over:
-        #    mcur(2)
-        #elif pover and not self.over:
-        #    mcur()
 
     def draw(self):
         sys.use("SYSTEM")
