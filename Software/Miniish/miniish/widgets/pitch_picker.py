@@ -71,4 +71,3 @@ class PitchPicker(Widget):
     def _expand(self, r, o):
         (x, y, w, h) = r
         return (x - o, y - o, w + o * 2, h + o * 2) 
-

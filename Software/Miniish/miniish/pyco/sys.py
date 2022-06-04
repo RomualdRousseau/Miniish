@@ -21,6 +21,9 @@ def set_sources(sources):
     PYCO.sources = sources
 
 
+def get_music():
+    return PYCO.music
+
 def get_sound(n):
     return PYCO.sounds[n]
 
@@ -70,6 +73,11 @@ def load_cartdrige(file_name):
                         sound = PYCO.sounds[int(i)]
                         sound[int(j) - 1] = (p, w, v, e, speed)
                         PYCO.sounds[int(i)] = sound
+        elif part == "music":
+            reader = csv.reader(text)
+            for i, row in enumerate(reader):
+                for j, sound in enumerate(row):
+                    PYCO.music[i][j] = int(sound)
     with cartdrige.CartdrigeReader(file_name) as reader:
         reader.read(callback)
 
@@ -132,6 +140,16 @@ def save_cartdrige(file_name):
                     row.append(pack)
                 writer.writerow(row)
         writer.body_part_with_cb("sound", write_sound)
+
+        def write_music(txtfile):
+            writer = csv.writer(txtfile, lineterminator='\n')
+            for i in range(64):
+                m = PYCO.music[i]
+                row = []
+                for j in range(4):
+                    row.append(m[j])
+                writer.writerow(row)
+        writer.body_part_with_cb("music", write_music)
 
         writer.body_end()
 
@@ -303,6 +321,7 @@ def run():
     PYCO.mouse_wheel = (0, 0)
     PYCO.keybuf = []
     PYCO.sounds = [[(0, 0, 0, 0, 1) for j in range(32)] for i in range(64)]
+    PYCO.music = [[-1, -1, -1, -1] for i in range(64)]
     PYCO.sources= []
     PYCO.running = True
 

@@ -109,19 +109,25 @@ class ButtonGroup(Widget):
 
 class TextSpinner(Widget):
     
-    def __init__(self, id_, pos_, size_, min_, max_):
+    def __init__(self, id_, pos_, size_, min_, max_, callback_ = None):
         Widget.__init__(self, id_, pos_, size_)
         self.min = min_
         self.max = max_
         self.value = min_
+        self.callback = callback_
 
     def update(self):
         if self.inbounds(mxy()):
             if mbtn(0):
                 self.value += 1
+                self.value = max(self.min, min(self.value, self.max))
+                if self.callback:
+                    self.callback(self)
             elif mbtn(2):
                 self.value -= 1
-        self.value = max(self.min, min(self.value, self.max))
+                self.value = max(self.min, min(self.value, self.max))
+                if self.callback:
+                    self.callback(self)
 
     def draw(self):
         rectfill(self.pos + self.size, BLACK)

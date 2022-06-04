@@ -41,7 +41,7 @@ class SoundEditor:
                 return False
             elif c == " ":
                 if not synth.is_playing():
-                    synth.play_sound(self.sound - 1, True)
+                    synth.play_sound(self.sound - 1, False)
                 else:
                     synth.play_sound(-1)
         # Update widgets

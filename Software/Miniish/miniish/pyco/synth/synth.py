@@ -26,6 +26,10 @@ EFFECTS = [
         ]
 
 
+def to_pitch(n):
+    return PITCHES[n % 12]
+
+
 def to_chromatic(p, o):
     return PITCHES.index(p) + 12 * o
 

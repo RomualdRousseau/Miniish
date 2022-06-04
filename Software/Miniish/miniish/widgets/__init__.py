@@ -6,3 +6,4 @@ from .sprite_picker import *
 from .map_board import *
 from .pitch_picker import *
 from .volume_picker import *
+from .channel_editor import *
