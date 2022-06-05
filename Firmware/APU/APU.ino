@@ -5,32 +5,16 @@
 #define PIN_CLOCK      (1 << PORTB4)
 #define PIN_IRQ        (1 << PORTB5)
 
-
-#define FUNC_STATUS    0x00
-#define FUNC_CTRL      0x0A
-#define FUNC_CTRL_WAV0 0x01
-#define FUNC_CTRL_ENV0 0x02
-#define FUNC_CTRL_LEN0 0x03
-#define FUNC_CTRL_MOD0 0x04
-#define FUNC_NOTE0     0x05
-#define FUNC_CTRL_WAV1 0x11
-#define FUNC_CTRL_ENV1 0x12
-#define FUNC_CTRL_LEN1 0x13
-#define FUNC_CTRL_MOD1 0x14
-#define FUNC_NOTE1     0x15
-#define FUNC_CTRL_WAV2 0x21
-#define FUNC_CTRL_ENV2 0x22
-#define FUNC_CTRL_LEN2 0x23
-#define FUNC_CTRL_MOD2 0x24
-#define FUNC_NOTE2     0x25
-#define FUNC_CTRL_WAV3 0x31
-#define FUNC_CTRL_ENV3 0x32
-#define FUNC_CTRL_LEN3 0x33
-#define FUNC_CTRL_MOD3 0x34
-#define FUNC_NOTE3     0x35
-
+#define FUNC_CTRL      0x00
+#define FUNC_STATUS    0x01
+#define FUNC_MASK      0x02
+#define FUNC_PITCH     0x10
+#define FUNC_WAVE      0x11
+#define FUNC_EFFECT    0x13
 
 #define STATUS_READY   0b00000001
+
+#define TICK (60 / (16 * 450))
 
 synth edgar;
 
@@ -38,6 +22,9 @@ word commands[256];
 byte command_curr = 0;
 
 byte status = 0;
+
+byte voice_mask[] = {-1, -1, -1, -1};
+byte voice_curr = 0;
 
 void setup() {
 
@@ -157,49 +144,35 @@ void process_commands() {
 
     const byte ctrl = (commands[i] >> 8) & 0x3F;
     const byte data = commands[i];
-    const byte voice = (ctrl >> 4);
 
     // Exceute the command
 
     switch (ctrl) {
 
-      case FUNC_CTRL_WAV0:
-      case FUNC_CTRL_WAV1:
-      case FUNC_CTRL_WAV2:
-      case FUNC_CTRL_WAV3:
-        edgar.setWave(voice, data);
-        break;
-
-      case FUNC_CTRL_ENV0:
-      case FUNC_CTRL_ENV1:
-      case FUNC_CTRL_ENV2:
-      case FUNC_CTRL_ENV3:
-        edgar.setEnvelope(voice, data);
-        break;
-
-      case FUNC_CTRL_LEN0:
-      case FUNC_CTRL_LEN1:
-      case FUNC_CTRL_LEN2:
-      case FUNC_CTRL_LEN3:
-        edgar.setLength(voice, data);
-        break;
-
-      case FUNC_CTRL_MOD0:
-      case FUNC_CTRL_MOD1:
-      case FUNC_CTRL_MOD2:
-      case FUNC_CTRL_MOD3:
-        edgar.setMod(voice, data);
-        break;
-
-      case FUNC_NOTE0:
-      case FUNC_NOTE1:
-      case FUNC_NOTE2:
-      case FUNC_NOTE3:
-        edgar.mTrigger(voice, data);
-        break;
-
       case FUNC_CTRL:
-        delay(data * 10);
+        for (int i = 0; i < 4; i++) {
+          if (!voice_mask[i]) {
+            edgar.setTime(i, (float) data * TICK);
+            edgar.trigger(i);
+          }
+        }
+        delay(data * TICK);
+        break;
+        
+      case FUNC_MASK:
+        voice_curr = data;
+        voice_mask[data] = 0;
+        break;
+
+      case FUNC_PITCH:
+        edgar.setFrequency(voice_curr, 65.41 * pow(2, data / 12));
+        break;
+
+      case FUNC_WAVE:
+        edgar.setWave(voice_curr, data);
+        break;
+
+      case FUNC_EFFECT:
         break;
     }
   }

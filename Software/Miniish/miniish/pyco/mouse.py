@@ -13,6 +13,7 @@ def update():
     pos = pg.mouse.get_pos()
     PYCO.mouse_pos = (pos[0] / 4, pos[1] / 4) 
     PYCO.mouse_btn = pg.mouse.get_pressed()
+    PYCO.mouse_mod = pg.key.get_mods()
 
 
 def draw():

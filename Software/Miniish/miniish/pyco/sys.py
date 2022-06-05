@@ -305,7 +305,7 @@ def run():
     pg.key.set_repeat(500, 33)
     pg.mouse.set_visible(False)
     
-    PYCO.display = pg.display.set_mode((1024, 1024))
+    PYCO.display = pg.display.set_mode(DISPLAY_SIZE)
     PYCO.clock = pg.time.Clock()
     PYCO.screen = pg.Surface((128, 128))
     PYCO.font = subr.load_asset_png("miniish-font")
@@ -319,6 +319,7 @@ def run():
     PYCO.mouse_cursor = 0
     PYCO.mouse_btn = (False, False, False)
     PYCO.mouse_pos = (0, 0)
+    PYCO.mouse_mod = pg.key.get_mods()
     PYCO.mouse_mask = None
     PYCO.mouse_mask_pos = (0, 0)
     PYCO.mouse_wheel = (0, 0)

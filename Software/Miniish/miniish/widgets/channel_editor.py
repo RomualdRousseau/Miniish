@@ -146,7 +146,7 @@ class ChannelEditor(Widget):
                         v = min(n, 7)
                         self.last_volume = v
                     elif self.cursor == 4:
-                        e = min(n, 7)
+                        e = min(n, 5)
                     sound[self.note] = (p, wa, v, e, s)
                     synth.play_one_note(*sound[self.note])
                 elif KEYMAP_TO_PITCH_SCALE1.get(c, None) != None:
@@ -156,7 +156,7 @@ class ChannelEditor(Widget):
                         v = self.last_volume
                     sound[self.note] = (p, wa, v, e, s)
                     synth.play_one_note(*sound[self.note])
-                    self._move_selector_down()
+                    self.parent._move_selector_down()
                 elif KEYMAP_TO_PITCH_SCALE2.get(c, None) != None:
                     p = synth.to_chromatic(KEYMAP_TO_PITCH_SCALE2[c], self.last_octave)
                     if v == 0:
@@ -164,7 +164,7 @@ class ChannelEditor(Widget):
                         v = self.last_volume
                     sound[self.note] = (p, wa, v, e, s)
                     synth.play_one_note(*sound[self.note])
-                    self._move_selector_down()
+                    self.parent._move_selector_down()
                 self.select_start = -1
                 self.select_end = -1
 

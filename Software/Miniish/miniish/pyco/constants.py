@@ -3,6 +3,9 @@ Constants
 
 """
 
+# Size of the final window
+DISPLAY_SIZE = (512, 512)
+
 # Standard palette
 PALETTE = [
         (0, 0, 0, 255),

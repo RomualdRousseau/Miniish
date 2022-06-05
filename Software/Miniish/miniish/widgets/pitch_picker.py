@@ -30,6 +30,8 @@ class PitchPicker(Widget):
                 sound = synth.get_sound(self.parent.sound)
                 (_, _, v, e, s) = sound[i]
                 p = max(0, 63 - int(y / h))
+                if mmod() & pg.KMOD_SHIFT:
+                    p = synth.to_pentascale(p)
                 wa = self.parent.oscillator
                 sound[i] = (p, wa, v if v > 0 else 4, e, s)
                 synth.set_sound(self.parent.sound, sound)

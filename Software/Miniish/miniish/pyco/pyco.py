@@ -564,6 +564,11 @@ def mbtn(n = 0):
     return PYCO.mouse_btn[n]
 
 
+def mmod():
+    """Returns the mouse modifiers at this moment.
+    """
+    return PYCO.mouse_mod
+
 def flip():
     """Copies the graphics buffer to the screen, then synchronizes to i
     the next frame at 30 frames per second.
@@ -575,6 +580,6 @@ def flip():
     the 30-frames-per-second draw timer in carts that implement 
     their own custom game loop.
     """
-    PYCO.display.blit(pg.transform.scale(PYCO.screen, (1024, 1024)), (0, 0))            
+    PYCO.display.blit(pg.transform.scale(PYCO.screen, DISPLAY_SIZE), (0, 0))            
     pg.display.flip()
     PYCO.clock.tick(30)
