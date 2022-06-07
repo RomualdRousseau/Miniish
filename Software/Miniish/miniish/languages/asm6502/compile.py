@@ -37,12 +37,16 @@ def compile():
             s = PYCO.sounds[i]
             for j in range(8):
                 p, w, v, e, _ = s[j]
-                pack = ((w & 3) << 4) | ((e & 3) << 0)
-                writer.write(b'%c' % (pack & 0xFF))
-                writer.write(b'%c' % (p & 0xFF))
+                if v > 0:
+                    pack = (w << 4) | (e << 0)
+                    writer.write(b'%c' % (pack & 0xFF))
+                    writer.write(b'%c' % (p & 0xFF))
+                else:
+                    writer.write(b'%c' % (0xFF))
+                    writer.write(b'%c' % (0xFF))
  
     with open("work/music.dat", "wb") as writer:
-        for i in range(16):
+        for i in range(32):
                 m = PYCO.music[i]
                 flag = -1
                 for j in range(3):

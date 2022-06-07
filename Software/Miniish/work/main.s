@@ -9,10 +9,9 @@ inte_start = $ffea
  .dsect
  .org zero_start ; zero ========
 lcd_ptr   .word $0000
+apu_ptr   .word $0000
 src_ptr   .word $0000
 dst_ptr   .word $0000
-apu_ptr   .word $0000
-song_ptr  .word $0000
 retraces  .byte $00
 joypad    .byte $00
 timer     .byte $00
@@ -112,6 +111,7 @@ mem_set
  ; start ppu retrace
  lda #%11100000
  sta ppu_ctrl
+ ; sound init
  lda #0
  sta apu_ctrl
 
@@ -148,40 +148,40 @@ irq0_func
  pha
  lda r1
  pha
+ lda #>apu_snd0
+ sta apu_ptr+1
+ lda #<apu_snd0
+ sta apu_ptr
  lda timer
  and #%11111000
  lsr
  tax
  lda song,x
  cmp #-1
- bne irq0_func_1
+ bne load_channel_0
  lda #0
  sta timer
  tax
-irq0_func_1
- ; load channel 0
- lda #<apu_wav0
- sta apu_ptr
- lda #>apu_wav0
- sta apu_ptr+1
+load_channel_0
  lda song+1,x
+ cmp #-1
+ beq load_channel_1
+ ldy #0
  jsr sound_load
- ; load channel 1
- lda #<apu_wav1
- sta apu_ptr
- lda #>apu_wav1
- sta apu_ptr+1
+load_channel_1
  lda song+2,x
+ cmp #-1
+ beq load_channel_2
+ ldy #1
  jsr sound_load
- ; load channel 2
- ;lda #<apu_wav2
- ;sta apu_ptr
- ;lda #>apu_wav2
- ;sta apu_ptr+1
- ;lda song+3,x
- ;jsr sound_load
- ; play all channels
- lda #25
+load_channel_2
+ lda song+3,x
+ cmp #-1
+ beq play_channels
+ ldy #2
+ jsr sound_load
+play_channels
+ lda #24
  sta apu_ctrl
  inc timer
  pla

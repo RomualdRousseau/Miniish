@@ -1,30 +1,30 @@
-#include <synth.h>
+#include "synth.h"
+
+
 
 #define PIN_RW         (1 << PORTB1)
 #define PIN_ENABLE     (1 << PORTB2)
 #define PIN_CLOCK      (1 << PORTB4)
 #define PIN_IRQ        (1 << PORTB5)
 
-#define FUNC_CTRL      0x00
-#define FUNC_STATUS    0x01
-#define FUNC_MASK      0x02
-#define FUNC_PITCH     0x10
-#define FUNC_WAVE      0x11
-#define FUNC_EFFECT    0x13
+#define FUNC_CTRL       0x00
+#define FUNC_STATUS     0x01
+#define FUNC_SND0       0x10
+#define FUNC_SND1       0x11
+#define FUNC_SND2       0x12
+#define FUNC_SND3       0x13
 
 #define STATUS_READY   0b00000001
 
-#define TICK (60 / (16 * 450))
+Synth edgar;
 
-synth edgar;
+word voice_data[] = {0, 0, 0, 0};
+byte voice_mask[] = {0, 0, 0, 0};
 
 word commands[256];
 byte command_curr = 0;
 
 byte status = 0;
-
-byte voice_mask[] = {-1, -1, -1, -1};
-byte voice_curr = 0;
 
 void setup() {
 
@@ -46,22 +46,34 @@ void setup() {
 
   edgar.begin();
 
-  // A little note
+  // Play a little note
 
-  edgar.setupVoice(0,TRIANGLE,60,ENVELOPE1,127,64);
+  edgar.setSpeed(0, 16.0f);
+  edgar.setWave(0, TRIANGLE);
+  edgar.setEnvelope(0, ENVELOPE2);
+  edgar.setMod(0, 64);
+  edgar.setFrequency(0, 50.0f); 
+  edgar.trigger(0);
+  delay(floor(16.0f * TICK * 1000.f));
+  edgar.setFrequency(0, 60.0f);
+  edgar.trigger(0);
+  delay(floor(16.0f * TICK * 1000.f));
+  edgar.setFrequency(0, 440.0f);
+  edgar.trigger(0);
+  delay(floor(16.0f * TICK * 1000.f));
+  edgar.setFrequency(0, 1000.0f);
+  edgar.trigger(0);
+  delay(floor(16.0f * TICK * 1000.f));
 
-  edgar.setFrequency(0,50.0);
-  edgar.trigger(0);
-  delay(100);
-  edgar.setFrequency(0,60.0);
-  edgar.trigger(0);
-  delay(100);
-  edgar.setFrequency(0,440.0);
-  edgar.trigger(0);
-  delay(100);
-  edgar.setFrequency(0,1000.0);
-  edgar.trigger(0);
-  delay(100);
+  // Reset everything to known values
+
+  for( int i = 0; i < 4; i++) {
+    edgar.setWave(0, 0);
+    edgar.setEnvelope(0, 0);
+    edgar.setMod(0, 64);
+    edgar.setTime(0, 0.0f);
+    edgar.setFrequency(0, 0.0f);
+  }
 
   cli();
 
@@ -145,34 +157,72 @@ void process_commands() {
     const byte ctrl = (commands[i] >> 8) & 0x3F;
     const byte data = commands[i];
 
-    // Exceute the command
+    // Execute the command
 
     switch (ctrl) {
 
       case FUNC_CTRL:
-        for (int i = 0; i < 4; i++) {
-          if (!voice_mask[i]) {
-            edgar.setTime(i, (float) data * TICK);
-            edgar.trigger(i);
+        for (int i = 0; i < 4; i++) if (voice_mask[i]) {
+          const float speed = data;
+          const float pitch = (voice_data[i] >> 8) & 0x00FF;
+          const byte wave = (voice_data[i] >> 4) & 0x000F;
+          const byte effect = voice_data[i] & 0x000F; 
+          edgar.setWave(i, wave);
+          edgar.setPitch(i, pitch);
+          edgar.setSpeed(i, speed);
+          switch(effect) {
+            case 1: // FADE_IN
+              edgar.setEnvelope(i, ENVELOPE1);
+              edgar.setMod(i, 64);
+              break;
+            case 2: // FADE OUT
+              edgar.setEnvelope(i, ENVELOPE2);
+              edgar.setMod(i, 64);
+              break;
+            case 3: // DROP
+              edgar.setEnvelope(i, ENVELOPE0);
+              edgar.setMod(i, 0);
+              break;
+            case 4: // SLIDE
+              edgar.setEnvelope(i, ENVELOPE0);
+              edgar.setMod(i, 127);
+              break;
+            case 5: // VIBRATO
+              edgar.setEnvelope(i, ENVELOPE0);
+              edgar.setMod(i, 64);
+              break;
+            default: // NONE
+              edgar.setEnvelope(i, ENVELOPE0);
+              edgar.setMod(i, 64);
+              break;
           }
+          edgar.trigger(i);
         }
-        delay(data * TICK);
+        delay(floor(((float) data) * TICK * 1000.0f));
+        for (int i = 0; i < 4; i++) {
+          voice_data[i] = 0;
+          voice_mask[i] = 0;
+        }
+        break;
+
+      case FUNC_SND0:
+        voice_data[0] = (voice_data[0] << 8) + data;
+        voice_mask[0] = 1;
         break;
         
-      case FUNC_MASK:
-        voice_curr = data;
-        voice_mask[data] = 0;
+      case FUNC_SND1:
+        voice_data[1] = (voice_data[1] << 8) + data;
+        voice_mask[1] = 1;
         break;
 
-      case FUNC_PITCH:
-        edgar.setFrequency(voice_curr, 65.41 * pow(2, data / 12));
+      case FUNC_SND2:
+        voice_data[2] = (voice_data[2] << 8) + data;
+        voice_mask[2] = 1;
         break;
-
-      case FUNC_WAVE:
-        edgar.setWave(voice_curr, data);
-        break;
-
-      case FUNC_EFFECT:
+        
+      case FUNC_SND3:
+        voice_data[3] = (voice_data[3] << 8) + data;
+        voice_mask[3] = 1;
         break;
     }
   }

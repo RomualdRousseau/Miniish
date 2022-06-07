@@ -16,10 +16,9 @@ inte_start = $ffea
  .dsect
  .org zero_start ; zero ========
 lcd_ptr   .word $0000
+apu_ptr   .word $0000
 src_ptr   .word $0000
 dst_ptr   .word $0000
-apu_ptr   .word $0000
-song_ptr  .word $0000
 retraces  .byte $00
 joypad    .byte $00
 timer     .byte $00
@@ -119,6 +118,7 @@ mem_set
  ; start ppu retrace
  lda #%11100000
  sta ppu_ctrl
+ ; sound init
  lda #0
  sta apu_ctrl
 
@@ -155,40 +155,40 @@ irq0_func
  pha
  lda r1
  pha
+ lda #>apu_snd0
+ sta apu_ptr+1
+ lda #<apu_snd0
+ sta apu_ptr
  lda timer
  and #%11111000
  lsr
  tax
  lda song,x
  cmp #-1
- bne irq0_func_1
+ bne load_channel_0
  lda #0
  sta timer
  tax
-irq0_func_1
- ; load channel 0
- lda #<apu_wav0
- sta apu_ptr
- lda #>apu_wav0
- sta apu_ptr+1
+load_channel_0
  lda song+1,x
+ cmp #-1
+ beq load_channel_1
+ ldy #0
  jsr sound_load
- ; load channel 1
- lda #<apu_wav1
- sta apu_ptr
- lda #>apu_wav1
- sta apu_ptr+1
+load_channel_1
  lda song+2,x
+ cmp #-1
+ beq load_channel_2
+ ldy #1
  jsr sound_load
- ; load channel 2
- ;lda #<apu_wav2
- ;sta apu_ptr
- ;lda #>apu_wav2
- ;sta apu_ptr+1
- ;lda song+3,x
- ;jsr sound_load
- ; play all channels
- lda #25
+load_channel_2
+ lda song+3,x
+ cmp #-1
+ beq play_channels
+ ldy #2
+ jsr sound_load
+play_channels
+ lda #24
  sta apu_ctrl
  inc timer
  pla
@@ -291,28 +291,12 @@ ppu_dmaspr  = port_ppu + $10
 ppu_dmamap  = port_ppu + $11
 ppu_dmaoam  = port_ppu + $12
 
-apu_ctrl   = port_apu + $0a
-apu_status = port_apu + $00
-apu_wav0   = port_apu + $01
-apu_env0   = port_apu + $02
-apu_len0   = port_apu + $03
-apu_mod0   = port_apu + $04
-apu_not0   = port_apu + $05
-apu_wav1   = port_apu + $11
-apu_env1   = port_apu + $12
-apu_len1   = port_apu + $13
-apu_mod1   = port_apu + $14
-apu_not1   = port_apu + $15
-apu_wav2   = port_apu + $21
-apu_env2   = port_apu + $22
-apu_len2   = port_apu + $23
-apu_mod2   = port_apu + $24
-apu_not2   = port_apu + $25
-apu_wav3   = port_apu + $31
-apu_env3   = port_apu + $32
-apu_len3   = port_apu + $33
-apu_mod3   = port_apu + $34
-apu_not3   = port_apu + $35
+apu_ctrl   = port_apu + $00
+apu_status = port_apu + $01
+apu_snd0   = port_apu + $10
+apu_snd1   = port_apu + $11
+apu_snd2   = port_apu + $12
+apu_snd3   = port_apu + $13
 
 irq_func
  phx
@@ -515,8 +499,7 @@ Content-type: text
 ; audio.i
 
 sound_load
- cmp #-1
- beq sound_load_done
+ phx
  ; x = a * 16 + (timer % 8) * 2
  asl
  asl
@@ -528,36 +511,17 @@ sound_load
  asl
  ora r1
  tax
- lda sound+1,x
- cmp #0
- beq sound_load_done
- ; load wave
- ldy #0
  lda sound,x
- lsr
- lsr
- lsr
- lsr
- sta (apu_ptr),y
- ; load envelope
- ldy #1
- lda #1
- sta (apu_ptr),y
- ; load length
- ldy #2
- lda #127
- sta (apu_ptr),y
- ; load modulation
- ldy #3
- lda #64
- sta (apu_ptr),y
- ; load note
- ldy #4
+ cmp #-1
+ beq sound_load_done
+ ; load pitch
  lda sound+1,x
- clc
- adc #32
+ sta (apu_ptr),y
+ ; load wave and effect
+ lda sound,x
  sta (apu_ptr),y
 sound_load_done
+ plx
  rts
 ------1234567890
 Content-type: text
@@ -845,14 +809,14 @@ Content-type: map
 ------1234567890
 Content-type: sound
 
-24,20512,20512,20512,18464,20512,22048,15904,18464,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-24,15904,14368,16928,17952,17440,16928,15904,20512,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-24,22048,23072,21024,22048,20512,18464,19488,17952,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-24,22048,21536,21024,19488,20512,15904,16928,18464,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-24,6474,6490,6490,6474,0,0,6474,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-24,0,6474,0,0,6474,0,0,6474,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-24,0,0,6490,6490,6474,0,0,6474,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-24,6474,0,0,6474,0,0,6474,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,20514,20514,20514,18466,20514,22050,15906,18466,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,15906,14370,16930,17954,17442,16930,15906,20514,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,22050,23074,21026,22050,20514,18466,19490,17954,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,22050,21538,21026,19490,20514,15906,16930,18466,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,330,346,346,330,0,0,330,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,0,330,0,0,330,0,0,330,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,0,0,346,346,330,0,0,330,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+24,330,0,0,330,0,0,330,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3,7777,8289,9817,11857,14409,17993,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
