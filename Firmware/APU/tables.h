@@ -259,7 +259,6 @@ const PROGMEM char SinTable[]=
 	-6,	//254
 	-4,	//255
 };
-
 const PROGMEM char TriangleTable[]=
 {
 	0,	//0
@@ -519,7 +518,6 @@ const PROGMEM char TriangleTable[]=
 	-3,	//254
 	-2,	//255
 };
-
 const PROGMEM char  SquareTable[]=
 {
 	127,	//0

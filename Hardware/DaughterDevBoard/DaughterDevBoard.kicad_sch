@@ -6366,13 +6366,13 @@
       (reference "C17") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_0603_1608Metric")
     )
     (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/24f5d115-7545-4571-b63c-0b647e65c09d"
-      (reference "C18") (unit 1) (value "100uF") (footprint "")
+      (reference "C18") (unit 1) (value "100uF") (footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm")
     )
     (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/6a0a59b9-bbf9-43b8-ad98-380cde3b1911"
       (reference "C19") (unit 1) (value "10nF") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
     (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/b6a361aa-e021-4ebe-bb70-6a610f474f9d"
-      (reference "C20") (unit 1) (value "100uF") (footprint "")
+      (reference "C20") (unit 1) (value "100uF") (footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm")
     )
     (path "/e28705fe-a84e-4931-82de-894472437d2f"
       (reference "D1") (unit 1) (value "LED") (footprint "LED_THT:LED_D5.0mm")
@@ -6456,7 +6456,7 @@
       (reference "J18") (unit 1) (value "SD_CARD") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical")
     )
     (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/28342419-733a-44b4-b39d-76ab80270121"
-      (reference "Q1") (unit 1) (value "2N2222A") (footprint "digikey-footprints:TO-18-3")
+      (reference "Q1") (unit 1) (value "2N2222A") (footprint "Package_TO_SOT_THT:TO-18-3")
     )
     (path "/f0708b6a-7f3b-4253-a8dc-8ed0958b62d5"
       (reference "R1") (unit 1) (value "220") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
@@ -6507,7 +6507,7 @@
       (reference "U4") (unit 1) (value "SN74LVC2T45QDCURQ1") (footprint "Package_SO:VSSOP-8_2.3x2mm_P0.5mm")
     )
     (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/c7cd7e41-05d6-4c93-bfa1-439f1c2b93ee"
-      (reference "U5") (unit 1) (value "NE555P") (footprint "digikey-footprints:DIP-8_W7.62mm")
+      (reference "U5") (unit 1) (value "NE555P") (footprint "Package_DIP:DIP-8_W7.62mm")
     )
     (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/7438e7b3-8bcf-4f11-8561-cafbc54c8465"
       (reference "U6") (unit 1) (value "SN74LVC8T245DBQR") (footprint "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm")
