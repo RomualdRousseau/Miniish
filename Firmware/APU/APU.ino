@@ -145,20 +145,20 @@ void process_commands() {
       case FUNC_CTRL:
         for (int i = 0; i < 4; i++) if (voice_mask[i]) {
           const float pitch = (voice_data[i] >> 8) & 0x00FF;
-          const byte wave   = (voice_data[i] >> 4) & 0x000F;
-          const byte effect = voice_data[i] & 0x000F;
-          const byte volume = i == 1 ? 0 : 3;
+          const byte wave   = (voice_data[i] >> 5) & 0x0007;
+          const byte effect = (voice_data[i] >> 2) & 0x0007;
+          const byte volume = (voice_data[i] >> 0) & 0x0003;
           const float speed = data;
           synth.setWave(i, wave);
           synth.setPitch(i, pitch);
           synth.setSpeed(i, speed);
           switch(effect) {
             case 1: // FADE_IN
-              synth.setEnvelope(i, ENVELOPE0, volume);
+              synth.setEnvelope(i, ENVELOPE1, volume);
               synth.setModulation(i, 64);
               break;
             case 2: // FADE OUT
-              synth.setEnvelope(i, ENVELOPE1, volume);
+              synth.setEnvelope(i, ENVELOPE2, volume);
               synth.setModulation(i, 64);
               break;
             case 3: // DROP

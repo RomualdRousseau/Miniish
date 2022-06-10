@@ -38,7 +38,7 @@ def compile():
             for j in range(8):
                 p, w, v, e, _ = s[j]
                 if v > 0:
-                    pack = (w << 4) | (e << 0)
+                    pack = (w << 5) | (e << 2) | ((v >> 1) << 0)
                     writer.write(b'%c' % (pack & 0xFF))
                     writer.write(b'%c' % (p & 0xFF))
                 else:
