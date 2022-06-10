@@ -45,7 +45,7 @@ void setup() {
   // Play a little note as diagnostic
 
   synth.setWave(0, TRIANGLE);
-  synth.setEnvelope(0, ENVELOPE2);
+  synth.setEnvelope(0, ENVELOPE2, 3);
   synth.setSpeed(0, 16.0f);
   synth.setFrequency(0, 440.0f);
   synth.trigger(0);
@@ -147,33 +147,34 @@ void process_commands() {
           const float pitch = (voice_data[i] >> 8) & 0x00FF;
           const byte wave   = (voice_data[i] >> 4) & 0x000F;
           const byte effect = voice_data[i] & 0x000F;
-          const float speed = data; 
+          const byte volume = i == 1 ? 0 : 3;
+          const float speed = data;
           synth.setWave(i, wave);
           synth.setPitch(i, pitch);
           synth.setSpeed(i, speed);
           switch(effect) {
             case 1: // FADE_IN
-              synth.setEnvelope(i, ENVELOPE1);
+              synth.setEnvelope(i, ENVELOPE0, volume);
               synth.setModulation(i, 64);
               break;
             case 2: // FADE OUT
-              synth.setEnvelope(i, ENVELOPE2);
+              synth.setEnvelope(i, ENVELOPE1, volume);
               synth.setModulation(i, 64);
               break;
             case 3: // DROP
-              synth.setEnvelope(i, ENVELOPE3);
-              synth.setModulation(i, 64);
+              synth.setEnvelope(i, ENVELOPE2, volume);
+              synth.setModulation(i, 0);
               break;
             case 4: // SLIDE
-              synth.setEnvelope(i, ENVELOPE0);
+              synth.setEnvelope(i, ENVELOPE0, volume);
               synth.setModulation(i, 127);
               break;
             case 5: // VIBRATO
-              synth.setEnvelope(i, ENVELOPE0);
+              synth.setEnvelope(i, ENVELOPE3, volume);
               synth.setModulation(i, 64);
               break;
             default: // NONE
-              synth.setEnvelope(i, ENVELOPE0);
+              synth.setEnvelope(i, ENVELOPE0, volume);
               synth.setModulation(i, 64);
               break;
           }

@@ -108,7 +108,7 @@ class Synth
     void reset() {
       for ( int i = 0; i < 4; i++) {
         this->setWave(0, 0);
-        this->setEnvelope(0, 0);
+        this->setEnvelope(0, 0, 3);
         this->setModulation(0, 64);
         this->setTime(0, 0.0f);
         this->setFrequency(0, 0.0f);
@@ -145,21 +145,21 @@ class Synth
       }
     }
 
-    void setEnvelope(byte voice, byte env)
+    void setEnvelope(byte voice, byte env, byte volume)
     {
       switch (env)
       {
         case ENVELOPE1:
-          envs[voice] = (word)Env1;
+          envs[voice] = (word)Env1[volume];
           break;
         case ENVELOPE2:
-          envs[voice] = (word)Env2;
+          envs[voice] = (word)Env2[volume];
           break;
         case ENVELOPE3:
-          envs[voice] = (word)Env3;
+          envs[voice] = (word)Env3[volume];
           break;
         default:
-          envs[voice] = (word)Env0;
+          envs[voice] = (word)Env0[volume];
           break;
       }
     }
