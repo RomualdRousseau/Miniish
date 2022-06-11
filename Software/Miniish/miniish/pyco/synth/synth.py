@@ -147,8 +147,9 @@ def play_sound(n, loop = False, last_sample = True):
         if SYNTH.samples_curr >= SYNTH.samples_size:
             outdata.fill(0)
         elif type(n) is tuple:
-            outdata[:] = np.array(
-                    [generate_channel(m, SYNTH.samples_curr) for m in n]).T
+            outdata[:] = np.average(
+                    [generate_channel(m, SYNTH.samples_curr) for m in n],
+                    axis = 0).reshape(-1, 1)
         else:
             outdata[:] = generate_channel(n, SYNTH.samples_curr).reshape(-1, 1)
         SYNTH.samples_curr += 1
@@ -159,7 +160,7 @@ def play_sound(n, loop = False, last_sample = True):
     try:
         SYNTH.channel = sd.OutputStream(
             device = None,
-            channels = channels,
+            channels = 1, #channels,
             callback = callback,
             finished_callback = finished_callback,
             samplerate = SAMPLING_RATE,
@@ -172,9 +173,9 @@ def play_sound(n, loop = False, last_sample = True):
 def stop_sound():
     if is_playing():
         SYNTH.playing = False
-        if SYNTH.channel is not None:
-            SYNTH.channel.close()
-            SYNTH.channel = None
+    if hasattr(SYNTH, "channel") and SYNTH.channel is not None:
+        SYNTH.channel.close()
+        SYNTH.channel = None
 
 
 def generate_sample(note, oscillator, volume, effect, speed, on = False, off = False):
