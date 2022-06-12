@@ -1,7 +1,7 @@
 from importlib import reload
 from miniish.pyco import *
 
-def compile():
+def compile(args, out):
 
     # Compile
 

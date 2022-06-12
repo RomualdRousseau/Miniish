@@ -51,8 +51,8 @@ def _draw():
     SKETCH.draw()
 
 
-def _run():
-    program = SKETCH.language.compile()
+def _run(args, out):
+    program = SKETCH.language.compile(args, out)
     if program is None:
         return
 

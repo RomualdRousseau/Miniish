@@ -23,7 +23,7 @@ def generates_tables(n, y, ymin = 0, ymax = 255):
 def generates_tables_with_volumes(n, y, ymin = 0, ymax = 255):
     writer.write("const PROGMEM char %s[4][256]=\n"%n);
     writer.write("{\n");
-    for j, v in enumerate((0.25, 0.5, 0.75, 1)):
+    for j, v in enumerate((0.2, 0.6, 0.8, 1)):
         writer.write("\t{\n");
         for i, e in enumerate(y):
             ev = min(max(ymin, e * v), ymax)

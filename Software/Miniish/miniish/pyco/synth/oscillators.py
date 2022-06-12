@@ -1,6 +1,6 @@
 from .locals import *
 
-noise_buffer = np.random.uniform(-1, 1, 10000)
+noise_buffer = np.random.uniform(-1, 1, int(SAMPLING_RATE / 8))
 noise_buffer_x = np.linspace(0, TWO_PI, noise_buffer.shape[0], False)
 
 def sin(x):

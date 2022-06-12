@@ -1,8 +1,9 @@
 import os
+import subprocess
 
 from miniish.pyco import *
 
-def compile():
+def compile(args, out):
     for i, text in enumerate(PYCO.sources):
         if len(text) > 0:
             line = text[0]
@@ -56,6 +57,10 @@ def compile():
                 for j in range(3):
                     writer.write(b'%c' % (m[j] & 0xFF))
 
-    os.system("make -C work burn")
+    result = subprocess.run(["make", "-C", "work", "burn"], capture_output=True, text = True)
+    if result.returncode == 0:
+        out.print(result.stdout.lower())
+    else:
+        out.print(result.stderr.lower())
 
     return None

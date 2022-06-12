@@ -4,6 +4,7 @@ Various system routines
 """
 
 import csv
+import os.path as path
 
 from .globals import *
 from . import pyco
@@ -40,6 +41,8 @@ def load_cartdrige(file_name):
     file_name : file name to load the data from.
     """
     file_name = file_name + ".miniish" if ".miniish" not in file_name else file_name 
+    if not path.exists(file_name):
+        return False
     PYCO.sources = []
     def callback(headers, text):
         part = headers["Content-type"]
@@ -80,6 +83,7 @@ def load_cartdrige(file_name):
                     PYCO.music[i][j] = int(sound)
     with cartdrige.CartdrigeReader(file_name) as reader:
         reader.read(callback)
+    return True
 
 
 def save_cartdrige(file_name):

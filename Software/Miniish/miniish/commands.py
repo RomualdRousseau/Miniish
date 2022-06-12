@@ -29,10 +29,12 @@ def load_(args, out):
         SKETCH.last_loaded = args[1]
         for app in APPS:
             app.load("PRE")
-        sys.load_cartdrige(SKETCH.last_loaded)
-        for app in APPS:
-            app.load("POST")
-        out.print("loaded")
+        if sys.load_cartdrige(SKETCH.last_loaded):
+            for app in APPS:
+                app.load("POST")
+            out.print("loaded")
+        else:
+            out.print("file not found")
 
 
 def save_(args,out):
@@ -55,7 +57,7 @@ def shutdown_(args, out):
 
 
 def run_(args, out):
-    _run()
+    _run(args, out)
 
 
 def lang_(args, out):
