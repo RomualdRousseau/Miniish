@@ -1,5 +1,5 @@
 import numpy as np
-from pygame.locals import *
+
 from ..globals import *
 
 ONE_PI = np.pi

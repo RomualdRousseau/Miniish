@@ -176,7 +176,7 @@ class Synth
 
     void setTime(byte voice, float t)
     {
-      EFTW[voice] = (1.0f / t) / (FS / 32767.5f);
+      EFTW[voice] = (1.0f / t) / (FS / (32767.5f * 4.0f));
       time_to_wait = t;
     }
 

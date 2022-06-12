@@ -6455,6 +6455,18 @@
     (path "/94765c74-1ed9-4556-aaed-5115f8ca4553"
       (reference "J18") (unit 1) (value "SD_CARD") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical")
     )
+    (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/5ae553b5-caa4-4706-804c-2b4a63b62d0f"
+      (reference "J19") (unit 1) (value "BANK_A") (footprint "4UCON:4UCON_2x25_P0.50mm_Vertical")
+    )
+    (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/5302655e-adcd-494d-9861-53f4df5616e5"
+      (reference "J20") (unit 1) (value "BANK_C") (footprint "4UCON:4UCON_2x25_P0.50mm_Vertical")
+    )
+    (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/58a6c43a-6226-425f-b993-1ea2f22ee88e"
+      (reference "J21") (unit 1) (value "BANK_B") (footprint "4UCON:4UCON_2x25_P0.50mm_Vertical")
+    )
+    (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/7bfbbc5f-3758-4a9b-ae23-8507aae1abe4"
+      (reference "J22") (unit 1) (value "BANK_D") (footprint "4UCON:4UCON_2x25_P0.50mm_Vertical")
+    )
     (path "/44b3dba6-c922-4b00-a6a9-2bdfde93ac86/28342419-733a-44b4-b39d-76ab80270121"
       (reference "Q1") (unit 1) (value "2N2222A") (footprint "Package_TO_SOT_THT:TO-18-3")
     )
