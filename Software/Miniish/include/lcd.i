@@ -1,5 +1,3 @@
-; lcd.i
-
 lcd_en		= %10000000
 lcd_rw		= %01000000
 lcd_rs		= %00100000
@@ -19,6 +17,9 @@ lcd_init
  jsr lcd_send_cmd
  ; shift: right
  lda #%00000110
+ jsr lcd_send_cmd
+ ; clear display
+ lda #%00000001
  jsr lcd_send_cmd
  rts
 

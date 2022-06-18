@@ -1,16 +1,23 @@
-.PHONY: burn all clean
+.PHONY: burn all clean distclean
 
 default: all
 
-main.s: *.i *.dat
+ASM = vasm6502_oldstyle -quiet -c02 -I../include -Fbin -dotdir
+BURN = minipro -p AT28C256 -w
 
-rom.bin: main.s
-	vasm6502_oldstyle -quiet -c02 -Fbin -dotdir -o rom.bin main.s
+%.bin: %.s ../include/*.i *.i *.dat
+	$(ASM) -o $@ $< 
 
-burn: rom.bin
-	minipro -p AT28C256 -w rom.bin
+burn: main.bin
+	$(BURN) $<
 	
-all: rom.bin
+all: main.bin
 
 clean:
+	rm -f *.bin
+
+distclean:
+	rm -f *.i
+	rm -f *.s
+	rm -f *.dat
 	rm -f *.bin

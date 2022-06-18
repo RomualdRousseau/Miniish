@@ -1,5 +1,3 @@
-; joypad.i
-
 jpad_dat	= %00000100
 jpad_lat	= %00000010
 jpad_clk	= %00000001
