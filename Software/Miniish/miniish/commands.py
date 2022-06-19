@@ -59,6 +59,8 @@ def shutdown_(args, out):
 def run_(args, out):
     _run(args, out)
 
+def check_(args, out):
+    SKETCH.language.compile(args, out, checkonly = True)
 
 def lang_(args, out):
     if len(args) != 2:
@@ -76,5 +78,6 @@ __all__ = {
         "save": save_,
         "shutdown": shutdown_,
         "run": run_,
+        "check": check_,
         "lang": lang_
         }

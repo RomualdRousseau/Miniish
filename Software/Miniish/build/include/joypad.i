@@ -1,6 +1,6 @@
-jpad_dat	= %00000100
-jpad_lat	= %00000010
-jpad_clk	= %00000001
+jpad_dat = %00000100
+jpad_lat = %00000010
+jpad_clk = %00000001
 
 joypad_init
  ; setup i/o
@@ -53,3 +53,5 @@ joypad_read_3
  lda r1
  sta joypad
  rts
+
+; vim:syntax=asmM6502

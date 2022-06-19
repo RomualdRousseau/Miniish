@@ -6,9 +6,9 @@ apu_snd2   = port_apu+$12
 apu_snd3   = port_apu+$13
 
 apu_init
- ; set timer to 0
+ ; set apu_tmr to 0
  lda #0
- sta timer
+ sta apu_tmr
  ; set channel array
  lda #>apu_snd0
  sta apu_ptr+1
@@ -33,7 +33,7 @@ irq0_func
  lda r1
  pha
  ; load current song pattern in x
- lda timer
+ lda apu_tmr
  and #%11111000
  lsr
  tax
@@ -42,7 +42,7 @@ irq0_func
  cmp #-1
  bne load_channel_0
  lda #0
- sta timer
+ sta apu_tmr
  tax
 load_channel_0
  lda song+1,x
@@ -65,7 +65,7 @@ load_channel_2
 play_channels
  lda #24
  sta apu_ctrl
- inc timer
+ inc apu_tmr
  pla
  sta r1
  pla
@@ -76,13 +76,13 @@ play_channels
 apu_load_snd
  phx
  ; load current note in x
- ; x = a * 16 + (timer % 8) * 2
+ ; x = a * 16 + (apu_tmr % 8) * 2
  asl
  asl
  asl
  asl
  sta r1
- lda timer
+ lda apu_tmr
  and #%00000111
  asl
  ora r1
@@ -99,3 +99,5 @@ apu_load_snd
 apu_load_snd_done
  plx
  rts
+
+; vim:syntax=asmM6502

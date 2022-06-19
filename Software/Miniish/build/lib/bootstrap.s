@@ -1,45 +1,38 @@
-zero_start = $0000
-stck_start = $0100
-oam_start  = $1000
-code_start = $8000
-data_start = $a000
-inte_start = $ffea
+ .include "sym.i"
 
  .dsect
  .org zero_start ; zero ========
-lcd_ptr   .word $0000
-apu_ptr   .word $0000
-src_ptr   .word $0000
-dst_ptr   .word $0000
-retraces  .byte $00
-timer     .byte $00
-joypad    .byte $00
+r0        .byte $00
 r1        .byte $00
 r2        .byte $00
 r3        .byte $00
 r4        .byte $00
 r5        .byte $00
-
- .org oam_start ; oam ==================
-hero      .byte $00,$00,$00,$00
-coin      .byte $00,$00,$00,$00
+r6        .byte $00
+r7        .byte $00
+apu_ptr   .word $0000
+apu_tmr   .byte $00
+ppu_retr  .byte $00
+joypad    .byte $00
  .dend
 
  .org code_start ; code ========
-main
+rst_func
  ldx #$ff ; stack size
  txs
  jmp setup
 
- ; includes =====================
+irq_func
+ phx
+ ldx port_irq
+ jmp (table_irq,x)
+
  .include "sys.i"
  .include "ppu.i"
  .include "apu.i"
  .include "lcd.i"
  .include "joypad.i"
- .include "map.i"
- .include "hero.i"
- .include "sketch.i"
+ .include "float.i"
 
 setup
  ; init all libraries
@@ -54,23 +47,22 @@ setup
  cli
 
 loop
+ ; update game states
  jsr joypad_read
+ jsr update
+ ; wait vertical retrace
+ jsr ppu_wait_nmi
+ ; call draw at 5Hz
+ lda ppu_retr
+ and #15
+ bne loop
+ jsr draw
  jmp loop
-
- .org data_start ; data ========
-sprites
- .incbin "sprites.dat"
-map
- .incbin "map.dat"
-song
- .incbin "music.dat"
-sound
- .incbin "sound.dat"
-
+ 
  .org inte_start ; int vectors =
 table_irq
  .word irq0_func
- .word $0000
+ .word irq1_func
  .word $0000
  .word $0000
  .word $0000
@@ -79,5 +71,7 @@ table_irq
  .word $0000
 table_vec
  .word nmi_func
- .word main
+ .word rst_func
  .word irq_func
+
+; vim:syntax=asmM6502

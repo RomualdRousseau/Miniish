@@ -1,3 +1,14 @@
+zero_start = $0000
+stck_start = $0100
+oam_start  = $0200
+code_start = $8000
+inte_start = $ffea
+
+zero_user  = $0010
+bss_user   = $0300
+code_user  = $9000
+data_user  = $a000
+
 port_irq = $d000
 port_ppu = $d100
 port_apu = $d200
@@ -17,31 +28,4 @@ acr   = port_io+$0b
 ifr   = port_io+$0d
 ier   = port_io+$0e
 
-irq_func
- phx
- ldx port_irq
- jmp (table_irq,x)
-
-delay
- jsr delay_1ms
- sbc #1
- bne delay
- rts
-
-delay_1ms
- pha
- lda #100
-delay_1ms_loop
- nop
- nop
- nop
- sbc #1
- bne delay_1ms_loop
- pla
- rts
- 
-mem_set
- sta (src_ptr),y
- dey
- bpl mem_set
- rts
+; vim:syntax=asmM6502

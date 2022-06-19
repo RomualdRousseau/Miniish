@@ -1,8 +1,18 @@
-lcd_en		= %10000000
-lcd_rw		= %01000000
-lcd_rs		= %00100000
+lcd_en = %10000000
+lcd_rw = %01000000
+lcd_rs = %00100000
 
 lcd_init
+; Initialize and clear the LCD display.
+;
+; args
+; ----
+; N/A
+; 
+; notes
+; -----
+; N/A
+;
  ; setup i/o
  lda ddra
  ora #(lcd_en | lcd_rw | lcd_rs)
@@ -24,19 +34,49 @@ lcd_init
  rts
 
 lcd_clear
+; Clear the LCD display.
+;
+; args
+; ----
+; N/A
+; 
+; notes
+; -----
+; N/A
+;
  lda #%00000001
  jsr lcd_send_cmd
  rts
 
 lcd_home
+; Set the cursor to th ehome posiiton (0,0).
+;
+; args
+; ----
+; N/A
+; 
+; notes
+; -----
+; N/A
+;
  lda #%00000010
  jsr lcd_send_cmd
  rts
 
 lcd_print
+; Print a message to LCD display at the cursor position.
+;
+; args
+; ----
+; r0:r1: The pointer to the message in memory
+; 
+; notes
+; -----
+; N/A
+;
  ldy #0
 lcd_print_loop
- lda (lcd_ptr), y
+ lda (r0), y
  beq lcd_print_end
  jsr lcd_send_char
  iny
@@ -45,6 +85,16 @@ lcd_print_end
  rts
 
 lcd_print_byte
+; Print a byte contained in A as a binary of 8 bits.
+;
+; args
+; ----
+; A: The byte to print.
+; 
+; notes
+; -----
+; N/A
+;
  sta r2
  lda #%10000000
  sta r1
@@ -109,3 +159,5 @@ lcd_wait_loop
  sta ddrb
  pla
  rts
+
+; vim:syntax=asmM6502

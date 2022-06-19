@@ -5,51 +5,27 @@ Boundary: ------1234567890
 ------1234567890
 Content-type: text
 
-zero_start = $0000
-stck_start = $0100
-code_start = $8000
-data_start = $a000
-inte_start = $ffea
+ .include "sym.i"
 
  .dsect
- .org zero_start ; zero ========
-lcd_ptr   .word $0000
-joypad    .byte $00
-timer     .byte $00
-r1        .byte $00
-r2        .byte $00
-r3        .byte $00
-r4        .byte $00
-r5        .byte $00
+ .org zero_user ; zero ========
+timer .byte $00
  .dend
 
- .org code_start ; code ========
-main
- ldx #$ff ; stack size
- txs
- jmp setup
+ .org code_user ; code ========
 
- ; includes =====================
- .include "sys.i"
- .include "lcd.i"
- .include "joypad.i"
-
-setup
- ; init variables
- lda #0
- sta timer
- ; init all libraries
- jsr lcd_init
- jsr joypad_init
+init
  ; print message1 at (0, 1)
  lda #%10010100
  jsr lcd_send_cmd
  lda #<message1
- sta lcd_ptr
+ sta r0
  lda #>message1
- sta lcd_ptr+1
+ sta r0+1
  jsr lcd_print
- ; install timer
+ ; init and install timer
+ lda #0
+ sta timer
  lda #%11000000
  sta ier
  lda #%01000000
@@ -59,9 +35,9 @@ setup
  lda #$ff
  sta t1ch
  cli
+ rts
 
-loop
- jsr joypad_read
+update
  ; print joypad and timer values
  jsr lcd_home
  lda joypad
@@ -73,50 +49,40 @@ loop
  ; check if start pressed
  lda joypad
  and #%00010000
- beq loop
+ beq update_done
  ; print message2 at (0, 3)
  lda #%11010100
  jsr lcd_send_cmd
  lda #<message2
- sta lcd_ptr
+ sta r0
  lda #>message2
- sta lcd_ptr+1
+ sta r0+1
  jsr lcd_print
- jmp loop
+update_done
+ rts
 
-irq0_func
- plx
- rti
+draw
+ rts
 
 irq1_func
  bit t1cl
  inc timer
  plx
  rti
-
-nmi_func
- rti
-
- .org data_start ; data ========
+ 
+ .org data_user ; data ========
+sprites
+ .incbin "sprites.dat"
+map
+ .incbin "map.dat"
+song
+ .incbin "music.dat"
+sound
+ .incbin "sound.dat"
 message1
  .asciiz "i am xiaoniuniu"
 message2
  .asciiz "wo ai ni (521 1314)"
-
- .org inte_start ; int vectors =
-table_irq
- .word irq0_func
- .word irq1_func
- .word $0000
- .word $0000
- .word $0000
- .word $0000
- .word $0000
- .word $0000
-table_vec
- .word nmi_func
- .word main
- .word irq_func
 ------1234567890
 Content-type: spritesheet
 

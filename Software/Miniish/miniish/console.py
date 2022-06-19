@@ -61,8 +61,17 @@ class Console:
                 del self.buffer[0]
             self.buffer.append(s)
         # Add multi-lines in the buffer 
-        for line in s.split('\n'):
+        for line in self.split_for_console(s):
             badd(line)
+
+    def split_for_console(self, s):
+        result = []
+        for line in s.split('\n'):
+            while len(line) > 32:
+                result.append(line[:32])
+                line = line[32:]
+            result.append(line)
+        return result
 
     #
     # Privates
