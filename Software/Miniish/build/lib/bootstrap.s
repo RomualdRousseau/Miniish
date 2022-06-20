@@ -19,7 +19,9 @@ r13       .byte $00
 r14       .byte $00
 r15       .byte $00
 apu_ptr   .word $0000
-apu_tmr   .byte $00
+apu_tmr1  .byte $00
+apu_tmr2  .byte $00
+apu_sfx   .byte $00
 ppu_retr  .byte $00
 joypad    .byte $00
  .dend
