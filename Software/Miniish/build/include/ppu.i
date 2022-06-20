@@ -1,5 +1,7 @@
 ppu_ctrl   = port_ppu+$00
 ppu_status = port_ppu+$01
+ppu_mapadr = port_ppu+$02
+ppu_mapdat = port_ppu+$03
 ppu_scroll = port_ppu+$04
 ppu_dmaspr = port_ppu+$10
 ppu_dmamap = port_ppu+$11
@@ -67,9 +69,11 @@ ppu_wait_nmi:
 not_yet
  cmp ppu_retr
  beq not_yet
- ; update OAM
+ ; update OAM and MAP
  lda #>oam_start
  sta ppu_dmaoam
+ ;lda #>map_start
+ ;sta ppu_dmamap
  rts
 
 nmi_func
@@ -81,11 +85,7 @@ nmi_func
 ; 
 ; notes
 ; -----
-; The handler will be called at each vertical retrace (60Hz). We
-; then call the update function each 2 frames and the draw function each 
-; 16 frames.
-; 
-; The OAM data are also updated to the PPU.
+; The handler will be called at each vertical retrace (60Hz)
 ;
  inc ppu_retr
  rti

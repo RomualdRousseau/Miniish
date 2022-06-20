@@ -2,6 +2,15 @@ jpad_dat = %00000100
 jpad_lat = %00000010
 jpad_clk = %00000001
 
+jpad_buta  = %10000000
+jpad_butb  = %01000000
+jpad_butx  = %00100000
+jpad_buty  = %00010000
+jpad_up    = %00001000
+jpad_down  = %00000100
+jpad_left  = %00000010
+jpad_right = %00000001
+
 joypad_init
  ; setup i/o
  lda ddra

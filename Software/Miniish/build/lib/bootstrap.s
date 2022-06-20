@@ -10,6 +10,14 @@ r4        .byte $00
 r5        .byte $00
 r6        .byte $00
 r7        .byte $00
+r8        .byte $00
+r9        .byte $00
+r10       .byte $00
+r11       .byte $00
+r12       .byte $00
+r13       .byte $00
+r14       .byte $00
+r15       .byte $00
 apu_ptr   .word $0000
 apu_tmr   .byte $00
 ppu_retr  .byte $00
@@ -33,6 +41,8 @@ irq_func
  .include "lcd.i"
  .include "joypad.i"
  .include "float.i"
+ .include "graphic.i"
+ .include "physic.i"
 
 setup
  ; init all libraries
@@ -54,7 +64,7 @@ loop
  jsr ppu_wait_nmi
  ; call draw at 5Hz
  lda ppu_retr
- and #15
+ and #%00011111
  bne loop
  jsr draw
  jmp loop

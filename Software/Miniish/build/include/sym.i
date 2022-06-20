@@ -4,7 +4,7 @@ oam_start  = $0200
 code_start = $8000
 inte_start = $ffea
 
-zero_user  = $0010
+zero_user  = $0020
 bss_user   = $0300
 code_user  = $9000
 data_user  = $a000

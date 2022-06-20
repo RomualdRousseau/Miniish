@@ -3,8 +3,8 @@ clock clk 100MHz;
 
 pin rst_n RESET;
 
-pin debug[0] B46;
-pin debug[1] B43;
+pin debug[0] C46;
+pin debug[1] C43;
 
 pin led[0] LED0;
 pin led[1] LED1;
@@ -19,35 +19,35 @@ pin port_enb A42;
 pin port_rw A36;
 pin port_clk A39;
 
-pin port_nmib A45;
+pin port_address[0] B3;
+pin port_address[1] B6;
+pin port_address[2] B9;
+pin port_address[3] B12;
+pin port_address[4] B15;
+pin port_address[5] B18;
+pin port_address[6] B21;
+pin port_address[7] B24;
+pin port_address[8] B2;
+pin port_address[9] B5;
+pin port_address[10] B8;
+pin port_address[11] B11;
+pin port_address[12] B14;
+pin port_address[13] B17;
+pin port_address[14] B20;
+pin port_address[15] B23;
+
+pin port_data[0] B48;
+pin port_data[1] B45;
+pin port_data[2] B42;
+pin port_data[3] B39;
+pin port_data[4] B36;
+pin port_data[5] B33;
+pin port_data[6] B30;
+pin port_data[7] B27;
+
 pin port_dmab A48;
 pin port_data_rw A33;
-
-pin port_address[0] C24;
-pin port_address[1] C21;
-pin port_address[2] C18;
-pin port_address[3] C15;
-pin port_address[4] C12;
-pin port_address[5] C9;
-pin port_address[6] C6;
-pin port_address[7] C3;
-pin port_address[8] C23;
-pin port_address[9] C20;
-pin port_address[10] C17;
-pin port_address[11] C14;
-pin port_address[12] C11;
-pin port_address[13] C8;
-pin port_address[14] C5;
-pin port_address[15] C2;
-
-pin port_data[0] C48;
-pin port_data[1] C45;
-pin port_data[2] C42;
-pin port_data[3] C39;
-pin port_data[4] C36;
-pin port_data[5] C33;
-pin port_data[6] C30;
-pin port_data[7] C27;
+pin port_nmib A45;
 
 pin hsync A20;
 pin vsync A23;

@@ -14,21 +14,29 @@ hero_dy .byte $00
 hero_fl .byte $00
  .dend
 
+ .dsect
+ .org bss_user ; bss ===========
+anims_cnt .byte $00
+anims_ptr .blk 256
+score     .byte $00
+ .dend
+
  .org code_user ; code =========
  .include "map.i"
  .include "hero.i"
- .include "util.i"
 
 init
- ; load assets in ppu
+ ;load sprites and map in ppu
  lda #>sprites
  sta ppu_dmaspr
  lda #>map
  sta ppu_dmamap
- ; init entities
+ ;init entities
  jsr map_init
  jsr hero_init
- ; play music
+ lda #0
+ sta score
+ ;play music
  jsr apu_play
  rts
 
@@ -40,6 +48,14 @@ update
 draw
  jsr map_draw
  jsr hero_draw
+ jsr lcd_home
+ lda #<scr_str
+ sta r0
+ lda #>scr_str
+ sta r0+1
+ jsr lcd_print
+ lda score
+ jsr lcd_print_byte
  rts
 
 irq1_func:
@@ -47,33 +63,87 @@ irq1_func:
  rti
 
  .org data_user ; data =========
-sprites
- .incbin "sprites.dat"
-map
- .incbin "map.dat"
-flags
- .incbin "flags.dat"
-song
- .incbin "music.dat"
-sound
- .incbin "sound.dat"
+sprites .binary "sprites.dat"
+map     .binary "map.dat"
+flags   .binary "flags.dat"
+song    .binary "music.dat"
+sound   .binary "sound.dat"
+scr_str .asciiz "score: "
 
  .dsect
  .org oam_start ; oam ==========
 hero .byte $00,$00,$00,$00
-coin .byte $00,$00,$00,$00
  .dend
 ------1234567890
 Content-type: text
 
 ; map.i
 
+;tile flags
+solid = %00000001
+anim  = %00000010
+coin  = %00000100
+
 map_init
+ ;anims_cnt=0
+ lda #0
+ sta anims_cnt
+ ;for(y=0;y<32;y++){
+ ldy #0
+mapt_init_for00
+ ;r1=y*8
+ tya
+ asl
+ asl
+ asl
+ sta r1
+ ;for(x=0;x<32;x++){
+ ldx #0
+mapt_init_for01
+ ;r0=x*8
+ txa
+ asl
+ asl
+ asl
+ sta r0
+ ;y=mget(r0,r1)
+ jsr mget
+ phy
+ tay
+ ;if(flags[y]==anim){
+ lda flags,y
+ and #anim
+ beq map_init_if00
+ ;y=anims_cnt*2
+ lda anims_cnt
+ asl
+ tay
+ ;anims_ptr[y]=r0
+ lda r0
+ sta anims_ptr+0,y
+ ;anims_ptr[y+1]=r1
+ lda r1
+ sta anims_ptr+1,y
+ ;anims_cnt++
+ inc anims_cnt
+ ;}
+map_init_if00
+ ply
+ ;for(x=0;x<32;x++)
+ inx
+ cpx #32
+ bne mapt_init_for01
+ ;}
+ ;for(y=0;y<32;y++)
+ iny
+ cpy #32
+ bne mapt_init_for00
+ ;}
  rts
 
 map_update
- lda hero+1
- clc
+ lda hero_x
+ sec
  sbc #3*8
  sta ppu_scroll
  lda #0
@@ -81,6 +151,48 @@ map_update
  rts
 
 map_draw
+ ldy #0
+ ;for(x=0;x<anims_cnt;x++) {
+ ldx #0
+map_draw_for00
+ ;r0=anim_ptr[y]
+ lda anims_ptr+0,y
+ sta r0
+ ;r1=anim_ptr[y+1]
+ lda anims_ptr+1,y
+ sta r1
+ ;r2=mget(r0,r1)
+ jsr mget
+ sta r2
+ phy
+ tay
+ ;if(flags[y]==anim){
+ lda flags,y
+ and #anim
+ beq draw_map_if00
+ ;r3=r2&%11111110
+ lda r2
+ and #%11111110
+ sta r3
+ ;r2=~(r2&1)|r3
+ lda r2
+ and #1
+ eor #1
+ ora r3
+ sta r2
+ ;mset(r0,r1,r2)
+ jsr mset
+ ;}
+draw_map_if00
+ ply
+ ;y+=2
+ iny
+ iny
+ ;for(x=0;x<anims_cnt;x++)
+ inx
+ cpx anims_cnt
+ bne map_draw_for00
+ ;}
  rts
 ------1234567890
 Content-type: text
@@ -95,6 +207,7 @@ gravity  = 1
 boost    = 16
 traction = 8
 
+; hero flags
 jump = %00000001
 run  = %00000010
 
@@ -120,16 +233,16 @@ hero_update
  lda hero_fl
  and #~run
  sta hero_fl
- ;if(joypad<>0) {
+ ;if(joypad<>0){
  lda joypad
  beq hero_update_if00
  ;if(hero_fl<>jump
  lda hero_fl
  and #jump
  bne hero_update_if10
- ;  && joypad=but1) {
+ ;  && joypad=buta){
  lda joypad
- and #but1
+ and #jpad_buta
  beq hero_update_if10
  ;hero_fl|=jump
  lda hero_fl
@@ -142,9 +255,9 @@ hero_update
  sta hero_dy
  ;}
 hero_update_if10
- ;if(joypad=left) {
+ ;if(joypad=left){
  lda joypad
- and #left
+ and #jpad_left
  beq hero_update_if11
  ;hero_fl|=run
  lda hero_fl
@@ -157,7 +270,7 @@ hero_update_if10
  sta hero_dx
  ;}
 hero_update_if11
- ;if(joypad=right) {
+ ;if(joypad=jpad_right){
  lda joypad
  and #right
  beq hero_update_if00
@@ -192,12 +305,18 @@ hero_update_if00
  lda #0
  cmp hero_dy
  bpl hero_update_if01
- ;  &&coll_dn(hero_x,hero_y)) {
+ ;  &&collide_bottom(hero_x,hero_y,6,7,solid)) {
  lda hero_x
  sta r0
  lda hero_y
  sta r1
- jsr coll_dn
+ lda #6
+ sta r2
+ lda #7
+ sta r3
+ lda #solid
+ sta r4
+ jsr collide_bottom
  beq hero_update_if01
  ;hero_y=(result/8)*8
  lda hero_y
@@ -222,16 +341,24 @@ hero_update_if01
  lda #0
  cmp #hero_dx
  bpl hero_update_if02
- ;  && coll_rt(hero_x,hero_y)) {
+ ;  && collide_right(hero_x,hero_y,6,7,solid)) {
  lda hero_x
  sta r0
  lda hero_y
  sta r1
- jsr coll_rt
+ lda #6
+ sta r2
+ lda #7
+ sta r3
+ lda #solid
+ sta r4
+ jsr collide_right
  beq hero_update_if02
- ;hero_x=(hero_x/8)*8
+ ;hero_x=(hero_x/8)*8+1
  lda hero_x
  and #%11111000
+ clc
+ adc #1
  sta hero_x
  ;hero_dx=0
  lda #0
@@ -241,15 +368,21 @@ hero_update_if02
  ;elif(hero_dx < 0
  lda hero_dx
  cmp #0
- bpl hero_update_done
- ;  && coll_lt(hero_x,hero_y)) {
+ bpl hero_update_if03
+ ;  && collide_left(hero_x,hero_y,6,7,solid)) {
  lda hero_x
  sta r0
  lda hero_y
  sta r1
- jsr coll_lt
- beq hero_update_done
- ;hero_x=(hero_x/8)*8
+ lda #6
+ sta r2
+ lda #7
+ sta r3
+ lda #solid
+ sta r4
+ jsr collide_left
+ beq hero_update_if03
+ ;hero_x=(hero_x/8)*8+8
  lda hero_x
  and #%11111000
  clc
@@ -258,6 +391,34 @@ hero_update_if02
  ;hero_dx=0
  lda #0
  sta hero_dx
+ ;}
+hero_update_if03
+ ;if(collide(hero_x,hero_y,6,7,c{))mio
+ lda hero_x
+ sta r0
+ lda hero_y
+ sta r1
+ lda #6
+ sta r2
+ lda #7
+ sta r3
+ lda #coin
+ sta r4
+ jsr collide
+ beq hero_update_done
+ ;mset(hero_x+3,hero_y+3,1)
+ lda hero_x
+ clc
+ adc #3
+ sta r0
+ lda hero_y
+ clc
+ adc #3
+ sta r1
+ lda #1
+ sta r2
+ jsr mset
+ inc score
  ;}
 hero_update_done
  rts
@@ -278,165 +439,6 @@ hero_draw_if00
  inc hero_s
  rts
  ;}
-------1234567890
-Content-type: text
-
-; util.i
-
-mget
-; args
-; ----
-; r0: x
-; r1: y
- ;r3=r0/8
- lda r0
- lsr
- lsr
- lsr
- sta r3
- ;r4=r1/8
- lda r1
- lsr
- lsr
- lsr
- sta r4
- ;r5:r6=map+r4*32
- lda r4
- asl
- asl
- asl
- asl
- asl
- sta r5
- lda r4
- lsr
- lsr
- lsr
- clc
- adc #>map
- sta r6
- ; return map[r5:r6][r3]
- ldy r3
- lda (r5),y
- rts
-
-coll_rt
-; args
-; ----
-; r0: x
-; r1: y
- ;r0+=7
- lda r0
- clc
- adc #7
- sta r0
- ;if(mget(r0,r1)<>1) {
- jsr mget
- tax
- lda flags,x
- and #%00000001
- beq coll_rt_if00
- ;return -1
- lda #-1
- rts
- ;}
-coll_rt_if00
- ;r1+=7
- lda r1
- clc
- adc #7
- sta r1
- ;if(mget(r0,r1)<>1) {
- jsr mget
- tax
- lda flags,x
- and #%00000001
- beq coll_rt_done
- ;return -1
- lda #-1
- rts
- ;}
-coll_rt_done
- ;return 0
- lda #0
- rts
-
-coll_lt
-; args
-; ----
-; r0: x
-; r1: y
- ;if(mget(r0,r1)<>1) {
- jsr mget
- tax
- lda flags,x
- and #%00000001
- beq coll_lt_if00
- ;return 1
- lda #1
- rts
- ;}
-coll_lt_if00
- ;r1+=7
- lda r1
- clc
- adc #7
- sta r1
- ;if(mget(r0,r1)<>1) {
- jsr mget
- tax
- lda flags,x
- and #%00000001
- beq coll_lt_done
- ;return 1
- lda #1
- rts
- ;}
-coll_lt_done
- ;return 0
- lda #0
- rts
-
-coll_dn
-; args
-; ----
-; r0: x
-; r1: y
- ;r1+=7
- lda r1
- clc
- adc #7
- sta r1
- ;if(mget(r0,r1)<>1) {
- jsr mget
- tax
- lda flags,x
- and #%00000001
- beq coll_dn_if00
- ;return -1
- lda #-1
- rts
- ; }
-coll_dn_if00
- ;r0+=7
- lda r0
- clc
- adc #6
- sta r0
- ;if(mget(r0,r1)<>1) {
- jsr mget
- tax
- lda flags,x
- and #%00000001
- beq coll_dn_done
- ;return -1
- lda #-1
- rts
- ;}
-coll_dn_done
- ;return 0
- lda #0
- rts
 ------1234567890
 Content-type: spritesheet
 
@@ -572,7 +574,7 @@ Content-type: spritesheet
 Content-type: spriteflag
 
 0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0
-3,3,2,2,0,0,0,0,2,2,2,2,0,0,0,0
+0,0,6,6,0,0,0,0,2,2,2,2,0,0,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -605,7 +607,7 @@ Content-type: map
 1,1,1,1,1,1,1,1,18,1,1,1,1,1,4,4,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 2,1,1,1,1,1,1,4,4,1,1,1,1,1,1,1,1,1,4,1,1,1,2,18,1,1,1,1,22,23,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,1,2,3,2,1,18,1,1,24,26,2,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-3,3,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,3,2,2,3,3,3,2,2,2,2,2,2,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+3,3,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,3,2,2,3,3,3,2,2,2,2,2,2,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1

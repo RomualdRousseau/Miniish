@@ -211,7 +211,8 @@ module cu_top (
     this_spr_ram.raddr = this_ppu.spr_addr;
     this_spr_ram.waddr = this_spr_address.q;
     
-    this_map_ram.raddr = this_ppu.map_addr;
+    this_map_ram.raddr = (this_state.q == this_state.MAP_READ_DATA) ?  this_map_address.q : this_ppu.map_addr;
+    //this_map_ram.raddr = this_ppu.map_addr;
     this_map_ram.waddr = this_map_address.q;
     
     this_oam_ram.raddr = this_ppu.oam_addr;
