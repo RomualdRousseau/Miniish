@@ -20,6 +20,7 @@ clean:
 	rm -f *.bin
 	
 burn: main.bin
+	cp main.bin $(MINIISH_ROOT)/rom.bin
 	$(BURN) $<
 	
 %.o: %.s $(INCLUDES) $(DATA)

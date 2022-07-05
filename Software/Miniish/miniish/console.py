@@ -16,7 +16,8 @@ class Console:
         self.timer = 0
         self.buffer = ["", ""]
         self.lastcmd = ""
-        self.history = ""
+        self.history = []
+        self.history_idx = 0
 
     #
     # App interface
@@ -61,10 +62,18 @@ class Console:
                 del self.buffer[0]
             self.buffer.append(s)
         # Add multi-lines in the buffer 
-        for line in self.split_for_console(s):
+        for line in self._split_strings(s):
             badd(line)
 
-    def split_for_console(self, s):
+    def execute(self, s):
+        self._exec(s.split(' '))
+        self.print(PROMPT)
+
+    #
+    # Privates
+    #
+
+    def _split_strings(self, s):
         result = []
         for line in s.split('\n'):
             while len(line) > 32:
@@ -73,10 +82,6 @@ class Console:
             result.append(line)
         return result
 
-    #
-    # Privates
-    #
-
     def _parse(self, c):
         # Very basic editings; backspace and return
         # and basic history
@@ -84,15 +89,21 @@ class Console:
             if not self._exec(self.lastcmd.split(' ')):
                 self.print("syntax error")
             self.print(PROMPT)
-            self.history = self.lastcmd
+            self.history.append(self.lastcmd)
             self.lastcmd = ""
+            self.history_idx = 0
         elif c == "backspace":
             if len(self.lastcmd) > 0:
                 self.lastcmd = self.lastcmd[:-1]
                 self.buffer[-1] = self.buffer[-1][:-1]
         elif c == "up":
-            self.lastcmd = self.history
-            self.buffer[-1] = PROMPT + self.history
+            self.history_idx = max(0, min(self.history_idx + 1, len(self.history)))
+            self.lastcmd = self.history[-self.history_idx]
+            self.buffer[-1] = PROMPT + self.history[-self.history_idx]
+        elif c == "down":
+            self.history_idx = max(1, min(self.history_idx - 1, len(self.history) - 1))
+            self.lastcmd = self.history[-self.history_idx]
+            self.buffer[-1] = PROMPT + self.history[-self.history_idx]
         elif len(c) == 1:
             self.lastcmd += c
             self.buffer[-1] += c

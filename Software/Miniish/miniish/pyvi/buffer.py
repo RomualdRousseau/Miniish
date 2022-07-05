@@ -18,8 +18,10 @@ class Buffer:
         self.repeat = []
         self.paste_full_line = False
         self.command = ""
+        self.command_func = None
         self.search = []
         self.search_curr = 0
+        self.selblock = 0
 
 
 def fix_zero_buffer(buffer):

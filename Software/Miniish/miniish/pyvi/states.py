@@ -29,13 +29,23 @@ def execute_one_step(buffer, c):
     fix_zero_buffer(buffer)
 
 
+def repeat_func(buffer, func):
+    if buffer.selblock <= 1:
+        func()
+    else:
+        for n in range(buffer.selblock):
+            func()
+    buffer.selblock = 0
+
+
 def state_command(buffer, c):
     global command
     if c == "return":
         buffer.state = "NORMAL"
-        record_start_step(buffer)
-        execute_command(buffer)
-        buffer.command = ""
+        if len(buffer.command) > 0:
+            record_start_step(buffer)
+            execute_command(buffer)
+            buffer.command = ""
         return True
     elif c == "backspace":
         buffer.command = buffer.command[:-1]
@@ -57,23 +67,31 @@ def state_normal_action(buffer, c):
     if c in (':', '/'):
         buffer.state = "COMMAND"
         buffer.command = c
+        buffer.selblock = 0
         return True
     elif c == 'u':
         do_undo(buffer)
+        buffer.selblock = 0
         return True
     elif c == "control-r":
         do_redo(buffer)
+        buffer.selblock = 0
         return True
     elif c == '.':
         # do repeat
         for c in buffer.repeat:
             execute_one_step(buffer, c)
+        buffer.selblock = 0
         return True
-    elif c == '*' and len(buffer.search) > 0:
+    elif (c == '*' or c == 'n') and len(buffer.search) > 0:
         location = buffer.search[buffer.search_curr]
         move_cursor_goto(buffer, location)
         buffer.search_curr = (buffer.search_curr + 1) % len(buffer.search)
+        buffer.selblock = 0
+    elif c in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'):
+        buffer.selblock = buffer.selblock * 10 + int(c)
     else:
+        buffer.selblock = 0
         return False
 
 
@@ -82,7 +100,7 @@ def state_normal_navigation(buffer, c):
         move_cursor_left(buffer)
         return True
     elif c == 'l' or c == "right":
-        move_cursor_right(buffer)
+        repeat_func(buffer, lambda: move_cursor_right(buffer))
         return True
     elif c == 'k' or c == "up":
         move_cursor_up(buffer)

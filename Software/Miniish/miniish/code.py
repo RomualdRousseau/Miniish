@@ -1,6 +1,8 @@
 from math import ceil
+
 from miniish.pyco import *
 from miniish.widgets import *
+
 import miniish.pyvi as vi
 
 
@@ -122,7 +124,9 @@ class CodeEditor:
             return f"buffer{i}.i"
 
     def _create_buffer(self):
-        return vi.create_empty_buffer((int(128 / 4), ceil(113 / 6)))
+        buf = vi.create_empty_buffer((int(128 / 4), ceil(113 / 6)))
+        buf.command_func = self._command_func
+        return buf
 
     def _add_buffer(self, b):
         if len(self.buffers) < 8:
@@ -151,3 +155,7 @@ class CodeEditor:
         self.ui_tabs.remove(-1)
         self.ui_plus.pos = (2 + len(self.ui_tabs.buttons) * 9, 0)
 
+    def _command_func(self, command):
+        if command == ":w":
+            from miniish.sketch import CONSOLE
+            CONSOLE.execute("save")

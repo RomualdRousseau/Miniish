@@ -37,7 +37,7 @@ def load_(args, out):
             out.print("file not found")
 
 
-def save_(args,out):
+def save_(args, out):
     if len(args) != 2 and SKETCH.last_loaded is None:
         out.print("usage: save <filename>")
     else:
