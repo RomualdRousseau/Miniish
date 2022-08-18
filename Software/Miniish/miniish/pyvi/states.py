@@ -29,12 +29,9 @@ def execute_one_step(buffer, c):
     fix_zero_buffer(buffer)
 
 
-def repeat_func(buffer, func):
-    if buffer.selblock <= 1:
+def repeat_n_func(buffer, func):
+    for n in range(buffer.selblock):
         func()
-    else:
-        for n in range(buffer.selblock):
-            func()
     buffer.selblock = 0
 
 
@@ -88,25 +85,26 @@ def state_normal_action(buffer, c):
         move_cursor_goto(buffer, location)
         buffer.search_curr = (buffer.search_curr + 1) % len(buffer.search)
         buffer.selblock = 0
-    elif c in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'):
+        return True
+    elif c.isnumeric():
         buffer.selblock = buffer.selblock * 10 + int(c)
+        return buffer.selblock > 0
     else:
-        buffer.selblock = 0
         return False
 
 
 def state_normal_navigation(buffer, c):
     if c == 'h' or c == "left":
-        move_cursor_left(buffer)
+        repeat_n_func(buffer, lambda: move_cursor_left(buffer))
         return True
     elif c == 'l' or c == "right":
-        repeat_func(buffer, lambda: move_cursor_right(buffer))
+        repeat_n_func(buffer, lambda: move_cursor_right(buffer))
         return True
     elif c == 'k' or c == "up":
-        move_cursor_up(buffer)
+        repeat_n_func(buffer, lambda: move_cursor_up(buffer))
         return True
     elif c == 'j' or c == "down":
-        move_cursor_down(buffer)
+        repeat_n_func(buffer, lambda: move_cursor_down(buffer))
         return True
     elif c == '0':
         move_cursor_start_of_line(buffer, False)
@@ -118,16 +116,16 @@ def state_normal_navigation(buffer, c):
         move_cursor_end_of_line(buffer)
         return True
     elif c == 'w':
-        move_cursor_next_word(buffer, True)
+        repeat_n_func(buffer, lambda: move_cursor_next_word(buffer, True))
         return True
     elif c == 'W':
-        move_cursor_next_word(buffer, False)
+        repeat_n_func(buffer, lambda: move_cursor_next_word(buffer, False))
         return True
     elif c == 'b':
-        move_cursor_previous_word(buffer, True)
+        repeat_n_func(buffer, move_cursor_previous_word(buffer, True))
         return True
     elif c == 'B':
-        move_cursor_previous_word(buffer, False)
+        repeat_n_func(buffer, move_cursor_previous_word(buffer, False))
         return True
     elif c == 'g':
         buffer.state = "GOTO"
@@ -208,8 +206,9 @@ def state_normal_enter_insert(buffer, c):
 def state_normal_enter_delete(buffer, c):
     if c == 'x' and len(buffer.buf) > 0:
         record_start_step(buffer)
-        record_current_step(buffer, c)
-        delete_character(buffer)
+        repeat_n_func(buffer, lambda: (f() for f in [
+            record_current_step(buffer, c),
+            delete_character(buffer)]))
         return True
     elif c == 'd':
         buffer.state = "DELETE"
@@ -301,8 +300,9 @@ def state_replace(buffer, c):
 def state_delete(buffer, c):
     if c == 'd':
         buffer.state = "NORMAL"
-        record_current_step(buffer, c)
-        delete_current_line(buffer)
+        repeat_n_func(buffer, lambda: (f() for f in [
+            record_current_step(buffer, c),
+            delete_current_line(buffer)]))
     elif c == '$':
         buffer.state = "NORMAL"
         record_current_step(buffer, c)
