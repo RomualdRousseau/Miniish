@@ -1,7 +1,8 @@
 from math import ceil
 
-from miniish.pyco import *
-from miniish.widgets import *
+from miniish.pyco import sys, rectfill, color
+from miniish.widgets import ButtonGroup, Button
+from miniish.widgets import MAX_BUFFERS, COLOR_STAT_BG, COLOR_MAIN_BG, COLOR_MAIN_FG, COLOR_STAT_FG, COLOR_CURSOR
 
 import miniish.pyvi as vi
 
@@ -22,6 +23,7 @@ class CodeEditor:
         self.buffer = self.buffers[0]
         self.buffer_id = 0
         self.timer = 0
+        self.language = None
     
     #
     # App interface
@@ -41,7 +43,7 @@ class CodeEditor:
         c = input()
         if c is not None:
             if c == "escape" and vi.get_state(self.buffer) != "INSERT":
-                return False;
+                return False
             vi.update_buffer(self.buffer, c)
         # Timer for the blinking cursor
         self.timer += 1
