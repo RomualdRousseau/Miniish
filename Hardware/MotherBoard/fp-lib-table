@@ -1,2 +1,4 @@
 (fp_lib_table
+  (version 7)
+  (lib (name "NESConnector")(type "KiCad")(uri "/home/romuald/Projects/Kicad/library/NES_Library/NESConnector.pretty")(options "")(descr ""))
 )

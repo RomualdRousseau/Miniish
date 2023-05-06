@@ -8,23 +8,21 @@ Assembly   None;
 Location   None;
 Device     g22v10;
 
-Pin 1 = Clock;
+Pin 1        = Clock;
+Pin [2..9]   = [A15, A14, A13, A12, A11, A10, A9, A8];
 Pin [10..11] = [!RW, !DMA];
-Pin [2..9]= [A15, A14, A13, A12, A11, A10, A9, A8];
 Pin [17..23] = [DMARW, !ROM, !RAM, !IRQ, !PPU, !APU, !IO];
 
-DMARW	= (RW & DMA) # (!RW & !DMA);
+DMARW = (RW & DMA) # (!RW & !DMA);
 
-ROM	= (A15 & !A14) # (A15 & A13) # (A15 & !A12);
+ROM	  = (A15 & !A14) # (A15 & A13) # (A15 & !A12);
 		
-RAM	= (!A15 & Clock) # (!A15 & DMA);
+RAM	  = (!A15 & Clock) # (!A15 & DMA);
 		
-IRQ	= A15 & A14 & !A13 & A12 & !A11 & !A10 & !A9 & !A8;
+IRQ	  = A15 & A14 & !A13 & A12 & !A11 & !A10 & !A9 & !A8;
 
-PPU	= A15 & A14 & !A13 & A12 & !A11 & !A10 & !A9 & A8 # DMA;
+PPU	  = A15 & A14 & !A13 & A12 & !A11 & !A10 & !A9 & A8 # DMA;
 
-APU	= A15 & A14 & !A13 & A12 & !A11 & !A10 & A9 & !A8;
+APU	  = A15 & A14 & !A13 & A12 & !A11 & !A10 & A9 & !A8;
      
-IO	= A15 & A14 & !A13 & A12 & !A11 & !A10 & A9 & A8;
-
-
+IO	  = A15 & A14 & !A13 & A12 & !A11 & !A10 & A9 & A8;

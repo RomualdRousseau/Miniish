@@ -27,8 +27,8 @@ APU =>
     !A8 & A9 & !A10 & !A11 & A12 & !A13 & A14 & A15
 
 DMARW =>
-    !DMA & !RW
-  # DMA & RW
+    DMA & RW
+  # !DMA & !RW
 
 IO =>
     A8 & A9 & !A10 & !A11 & A12 & !A13 & A14 & A15
@@ -38,36 +38,15 @@ IRQ =>
 
 PPU =>
     A8 & !A9 & !A10 & !A11 & A12 & !A13 & A14 & A15
-  # !DMA
+  # DMA
 
 RAM =>
     !A15 & Clock
-  # !A15 & !DMA
+  # !A15 & DMA
 
 ROM =>
     !A14 & A15
   # A13 & A15
   # !A12 & A15
-
-APU.oe  =>
-    1 
-
-DMARW.oe  =>
-    1 
-
-IO.oe  =>
-    1 
-
-IRQ.oe  =>
-    1 
-
-PPU.oe  =>
-    1 
-
-RAM.oe  =>
-    1 
-
-ROM.oe  =>
-    1 
 
 %END

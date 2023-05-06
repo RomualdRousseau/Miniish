@@ -1,10 +1,30 @@
 CSIM(WM): CUPL Simulation Program
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-CREATED Sun Jun 27 16:23:54 2021
+CREATED Sun Apr 23 15:07:12 2023
 
 LISTING FOR SIMULATION FILE: NORTHBRIDGE.si
 
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbers
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbers
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA8
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA9
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA10
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA11
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA12
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA13
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA14
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersA15
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersAPU
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersClock
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersDMA
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersDMARW
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersIO
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersIRQ
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersPPU
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersRAM
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersROM
+[0033sa] Please note: jedec vectors cannot be created with undefined pin numbersRW
    1: Name     NorthBridge;
    2: PartNo   00001;
    3: Date     27/06/21;

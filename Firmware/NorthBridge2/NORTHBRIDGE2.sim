@@ -1,0 +1,84 @@
+%SIGNAL
+PIN   9 =  A8 
+PIN   8 =  A9 
+PIN   7 =  A10 
+PIN   6 =  A11 
+PIN   5 =  A12 
+PIN   4 =  A13 
+PIN   3 =  A14 
+PIN   2 =  A15 
+PIN  20 = !CIA1 
+PIN  21 = !CIA2 
+PIN   1 =  Clock 
+PIN  10 = !DMA 
+PIN  23 = !IRQ 
+PIN  17 = !PORT1 
+PIN  18 = !PORT2 
+PIN  19 = !PORT3 
+PIN  15 = !RAM 
+PIN  16 = !ROM 
+PIN  22 = !USR 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+CIA1 =>
+    !A8 & !A9 & A10 & A11 & A12 & !A13 & A14 & A15
+
+CIA2 =>
+    A8 & !A9 & A10 & A11 & A12 & !A13 & A14 & A15
+
+IRQ =>
+    A8 & A9 & A10 & A11 & A12 & !A13 & A14 & A15
+
+PORT1 =>
+    !A10 & !A11 & A12 & !A13 & A14 & A15
+  # !DMA
+
+PORT2 =>
+    A10 & !A11 & A12 & !A13 & A14 & A15
+
+PORT3 =>
+    !A10 & A11 & A12 & !A13 & A14 & A15
+
+RAM =>
+    !A15 & Clock
+
+ROM =>
+    !A14 & A15
+  # A13 & A15
+  # !A12 & A15
+
+USR =>
+    !A8 & A9 & A10 & A11 & A12 & !A13 & A14 & A15
+
+CIA1.oe  =>
+    1 
+
+CIA2.oe  =>
+    1 
+
+IRQ.oe  =>
+    1 
+
+PORT1.oe  =>
+    1 
+
+PORT2.oe  =>
+    1 
+
+PORT3.oe  =>
+    1 
+
+RAM.oe  =>
+    1 
+
+ROM.oe  =>
+    1 
+
+USR.oe  =>
+    1 
+
+%END

@@ -1,0 +1,24 @@
+Name       NorthBridge2;
+Partno     00001;
+Date       23/04/2023;
+Revision   01;
+Designer   R. ROUSSEAU;
+Company    None;
+Assembly   None;
+Location   None;
+Device     g22v10;
+
+Pin 1        = Clock;
+Pin [2..10]  = [A15, A14, A13, A12, A11, A10, A9, A8, !DMA];
+Pin [15..23] = [!RAM, !ROM, !PORT1, !PORT2, !PORT3, !CIA1, !CIA2, !USR, !IRQ];
+
+RAM	= (!A15 & Clock);
+ROM	= (A15 & !A14) # (A15 & A13) # (A15 & !A12);
+
+PORT1 = A15 & A14 & !A13 & A12 & !A11 & !A10 # DMA;
+PORT2 = A15 & A14 & !A13 & A12 & !A11 &  A10;
+PORT3 = A15 & A14 & !A13 & A12 &  A11 & !A10;
+CIA1  = A15 & A14 & !A13 & A12 &  A11 &  A10 & !A9 & !A8;
+CIA2  = A15 & A14 & !A13 & A12 &  A11 &  A10 & !A9 &  A8;
+USR   = A15 & A14 & !A13 & A12 &  A11 &  A10 &  A9 & !A8;
+IRQ   = A15 & A14 & !A13 & A12 &  A11 &  A10 &  A9 &  A8;
