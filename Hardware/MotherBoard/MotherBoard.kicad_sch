@@ -6,7 +6,7 @@
 
   (title_block
     (title "Miniish")
-    (date "2020-10-10")
+    (date "2023-05-19")
     (rev "v1.3")
     (company "Romuald Rousseau")
   )
@@ -2860,7 +2860,7 @@
     (property "Reference" "J11" (at 102.87 92.71 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "CLOCK_DIV" (at 102.87 95.25 0)
+    (property "Value" "CLOCK_SPD" (at 102.87 95.25 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Button_Switch_THT:SW_DIP_SPSTx05_Slide_6.7x14.26mm_W7.62mm_P2.54mm_LowProfile" (at 102.87 104.14 0)

@@ -6,7 +6,7 @@
 
   (title_block
     (title "Miniish")
-    (date "2020-10-10")
+    (date "2023-05-19")
     (rev "v1.3")
     (company "Romuald Rousseau")
   )
@@ -4078,7 +4078,7 @@
     (property "Reference" "J17" (at 172.72 29.21 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "PORT2" (at 172.72 31.75 0)
+    (property "Value" "PORT3" (at 172.72 31.75 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "NESConnector:NES_Cartdrige" (at 171.45 69.85 0)
@@ -4666,7 +4666,7 @@
     (property "Reference" "J18" (at 228.6 29.21 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "PORT3" (at 228.6 31.75 0)
+    (property "Value" "PORT4/ROM" (at 228.6 31.75 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "NESConnector:NES_Cartdrige" (at 227.33 69.85 0)
