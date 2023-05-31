@@ -1,0 +1,19 @@
+SECTIONS
+{
+	.seg8000 0x8000:
+	{
+		bootstrap.o(seg8000)
+	}
+	.seg9000 0x9000:
+	{
+		*.o(seg9000)
+	}
+	.sega000 0xa000:
+	{
+		*.o(sega000)
+	}
+	.segffea 0xffea:
+	{
+		bootstrap.o(segffea)
+	}
+}

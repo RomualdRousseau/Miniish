@@ -12,6 +12,8 @@ PIN  21 = !CIA2
 PIN   1 =  Clock 
 PIN  10 = !DMA 
 PIN  23 = !IRQ 
+PIN  11 =  NC 
+PIN  13 = !OE 
 PIN  17 = !PORT1 
 PIN  18 = !PORT2 
 PIN  19 = !PORT3 
@@ -21,38 +23,81 @@ PIN  22 = !USR
 %END
 
 %FIELD
+FIELD ADDRESS = A8,A9,A10,A11,A12,A13,A14,A15
 %END
 
 %EQUATION
-CIA1 =>
-    !A8 & !A9 & A10 & A11 & A12 & !A13 & A14 & A15
+!CIA1 =>
+    A8
+  # A9
+  # !A10
+  # !A11
+  # !A12
+  # A13
+  # !A14
+  # !A15
 
-CIA2 =>
-    A8 & !A9 & A10 & A11 & A12 & !A13 & A14 & A15
+!CIA2 =>
+    !A8
+  # A9
+  # !A10
+  # !A11
+  # !A12
+  # A13
+  # !A14
+  # !A15
 
-IRQ =>
-    A8 & A9 & A10 & A11 & A12 & !A13 & A14 & A15
+!IRQ =>
+    !A8
+  # !A9
+  # !A10
+  # !A11
+  # !A12
+  # A13
+  # !A14
+  # !A15
 
-PORT1 =>
-    !A10 & !A11 & A12 & !A13 & A14 & A15
-  # !DMA
+!PORT1 =>
+    A10 & DMA
+  # A11 & DMA
+  # !A12 & DMA
+  # A13 & DMA
+  # !A14 & DMA
+  # !A15 & DMA
 
-PORT2 =>
-    A10 & !A11 & A12 & !A13 & A14 & A15
+!PORT2 =>
+    !A10
+  # A11
+  # !A12
+  # A13
+  # !A14
+  # !A15
 
-PORT3 =>
-    !A10 & A11 & A12 & !A13 & A14 & A15
+!PORT3 =>
+    A10
+  # !A11
+  # !A12
+  # A13
+  # !A14
+  # !A15
 
-RAM =>
-    !A15 & Clock
+!RAM =>
+    A15
+  # !Clock
 
-ROM =>
-    !A14 & A15
-  # A13 & A15
-  # !A12 & A15
+!ROM =>
+    !A15
+  # A12 & !A13 & A14 & A15
 
-USR =>
-    !A8 & A9 & A10 & A11 & A12 & !A13 & A14 & A15
+!USR =>
+    A8
+  # !A9
+  # !A10
+  # !A11
+  # !A12
+  # A13
+  # !A14
+  # !A15
 
 CIA1.oe  =>
     1 

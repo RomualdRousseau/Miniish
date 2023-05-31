@@ -1,0 +1,47 @@
+Name       NorthBridge2;
+Partno     00001;
+Date       23/04/2023;
+Revision   01;
+Designer   R. ROUSSEAU;
+Company    None;
+Assembly   None;
+Location   None;
+Device     p22v10;
+
+/** Inputs **/
+
+PIN 1      = Clock;
+PIN [9..2] = [A8..15];
+PIN 10     = !DMA;
+PIN 11     = NC;
+PIN 13     = !OE;
+
+/** Outputs **/
+
+PIN 15     = !RAM;
+PIN 16     = !ROM;
+PIN 17     = !PORT1;
+PIN 18     = !PORT2;
+PIN 19     = !PORT3;
+PIN 20     = !CIA1;
+PIN 21     = !CIA2;
+PIN 22     = !USR;
+PIN 23     = !IRQ;
+
+/** Declarations and Intermediate Variable Definitions **/
+
+FIELD ADDRESS = [A8..15];
+
+/** Logic Equations **/
+
+RAM   = !A15 & Clock;
+ROM   = A15 & !(ADDRESS:DXXX);
+
+PORT1 = ADDRESS:[D000..D3FF] # DMA;
+PORT2 = ADDRESS:[D400..D7FF];
+PORT3 = ADDRESS:[D800..DBFF];
+CIA1  = ADDRESS:[DC00..DCFF];
+CIA2  = ADDRESS:[DD00..DDFF];
+USR   = ADDRESS:[DE00..DEFF];
+IRQ   = ADDRESS:[DF00..DFFF];
+
