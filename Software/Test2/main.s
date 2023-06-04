@@ -22,28 +22,22 @@ r15       .byte $00
 
     .org code_start
 init:
-    lda #%00000010
-    sta io_port1
-
-    lda #%00000000
-    sta io_port1
-    
-    lda #%00000001
-    sta io_port1
-wait:
-    lda io_port1
-    beq wait
-
-    lda #%00000000
-    sta io_port1
-
-    lda #%00000010
-    sta io_port1
+    jsr lcd_init
+    lda #%10010100
+    jsr lcd_send_cmd
+    lda #<message
+    sta r0
+    lda #>message
+    sta r0+1
+    jsr lcd_print
 
 loop:
     jmp loop
 
-    .include "sys.i"
+    .include "lcd.i"
+
+    .org data_user
+message .asciiz "I am xiaoniuniu"
 
     .org inte_start
     .word $0000

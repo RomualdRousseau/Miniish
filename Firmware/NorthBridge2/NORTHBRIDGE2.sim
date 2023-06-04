@@ -9,10 +9,9 @@ PIN   3 =  A14
 PIN   2 =  A15 
 PIN  20 = !CIA1 
 PIN  21 = !CIA2 
-PIN   1 =  Clock 
+PIN   1 =  CLK 
 PIN  10 = !DMA 
 PIN  23 = !IRQ 
-PIN  11 =  NC 
 PIN  13 = !OE 
 PIN  17 = !PORT1 
 PIN  18 = !PORT2 
@@ -23,81 +22,111 @@ PIN  22 = !USR
 %END
 
 %FIELD
-FIELD ADDRESS = A8,A9,A10,A11,A12,A13,A14,A15
+FIELD ADDRESS = A15,A14,A13,A12,A11,A10,A9,A8
 %END
 
 %EQUATION
 !CIA1 =>
-    A8
-  # A9
-  # !A10
-  # !A11
-  # !A12
-  # A13
+    !A15
   # !A14
-  # !A15
+  # A13
+  # !A12
+  # !A11
+  # !A10
+  # A9
+  # A8
+
+CIA1_ADDRESSES =>
+    !A8 & !A9 & A10 & A11 & A12 & !A13 & A14 & A15
 
 !CIA2 =>
-    !A8
-  # A9
-  # !A10
-  # !A11
-  # !A12
-  # A13
+    !A15
   # !A14
-  # !A15
+  # A13
+  # !A12
+  # !A11
+  # !A10
+  # A9
+  # !A8
+
+CIA2_ADDRESSES =>
+    A8 & !A9 & A10 & A11 & A12 & !A13 & A14 & A15
+
+IO_ADDRESSES =>
+    A12 & !A13 & A14 & A15
 
 !IRQ =>
-    !A8
-  # !A9
-  # !A10
-  # !A11
-  # !A12
-  # A13
+    !A15
   # !A14
-  # !A15
+  # A13
+  # !A12
+  # !A11
+  # !A10
+  # !A9
+  # !A8
+
+IRQ_ADDRESSES =>
+    A8 & A9 & A10 & A11 & A12 & !A13 & A14 & A15
 
 !PORT1 =>
-    A10 & DMA
-  # A11 & DMA
-  # !A12 & DMA
-  # A13 & DMA
+    !A15 & DMA
   # !A14 & DMA
-  # !A15 & DMA
+  # A13 & DMA
+  # !A12 & DMA
+  # A11 & DMA
+  # A10 & DMA
+
+PORT1_ADDRESSES =>
+    !A10 & !A11 & A12 & !A13 & A14 & A15
 
 !PORT2 =>
-    !A10
-  # A11
-  # !A12
-  # A13
+    !A15
   # !A14
-  # !A15
+  # A13
+  # !A12
+  # A11
+  # !A10
+
+PORT2_ADDRESSES =>
+    A10 & !A11 & A12 & !A13 & A14 & A15
 
 !PORT3 =>
-    A10
-  # !A11
-  # !A12
-  # A13
+    !A15
   # !A14
-  # !A15
+  # A13
+  # !A12
+  # !A11
+  # A10
+
+PORT3_ADDRESSES =>
+    !A10 & A11 & A12 & !A13 & A14 & A15
 
 !RAM =>
     A15
-  # !Clock
+  # !CLK
+
+RAM_ADDRESSES =>
+    !A15
 
 !ROM =>
     !A15
   # A12 & !A13 & A14 & A15
 
+ROM_ADDRESSES =>
+    A15
+
 !USR =>
-    A8
-  # !A9
-  # !A10
-  # !A11
-  # !A12
-  # A13
+    !A15
   # !A14
-  # !A15
+  # A13
+  # !A12
+  # !A11
+  # !A10
+  # !A9
+  # A8
+
+USR_ADDRESSES =>
+    !A8 & A9 & A10 & A11 & A12 & !A13 & A14 & A15
 
 CIA1.oe  =>
     1 

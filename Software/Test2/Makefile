@@ -7,13 +7,11 @@ BURN = minipro -p AT28C256 -w
 INCLUDES = $(wildcard ./*.i)
 DATA = $(wildcard ./*.dat)
 
-.PHONY: all build clean burn
+.PHONY: all clean burn
 
 default: all
 
-all: build burn
-
-build: main.bin
+all: main.bin
 
 clean:
 	rm -f *.o

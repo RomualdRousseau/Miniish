@@ -1,47 +1,107 @@
 Name       NorthBridge2;
-Partno     00001;
 Date       23/04/2023;
 Revision   01;
-Designer   R. ROUSSEAU;
-Company    None;
-Assembly   None;
-Location   None;
 Device     p22v10;
+
+/*************************************************************************************************************
+ Function table
+
+ CLK  !DMA  A8  A9  A10  A11  A12  A13  A14  A15  !RAM  !ROM  !PORT1  !PORT2  !PORT3  !CIA1  !CIA2  !USR  !IRQ
+ -------------------------------------------------------------------------------------------------------------
+  0    0     X   X   X    X    X    X    X    X     H     X      L       X       X      X      X      X     X
+  1    0     X   X   X    X    X    X    X    X     X     X      L       X       X      X      X      X     X
+  0    1     X   X   X    X    X    X    X    0     H     H      H       H       H      H      H      H     H
+  1    1     X   X   X    X    X    X    X    0     L     H      H       H       H      H      H      H     H
+  0    1     X   X   X    X    X    X    X    1     H     X      X       X       X      X      X      X     X
+  1    1     X   X   X    X    X    X    X    1     H     X      X       X       X      X      X      X     X
+  0    1     X   X   X    X    X    X    0    1     H     L      H       H       H      H      H      H     H
+  1    1     X   X   X    X    X    X    0    1     H     L      H       H       H      H      H      H     H
+  0    1     X   X   X    X    X    1    X    1     H     L      H       H       H      H      H      H     H
+  1    1     X   X   X    X    X    1    X    1     H     L      H       H       H      H      H      H     H
+  0    1     X   X   X    X    0    X    X    1     H     L      H       H       H      H      H      H     H
+  1    1     X   X   X    X    0    X    X    1     H     L      H       H       H      H      H      H     H
+  0    1     X   X   0    0    1    0    1    1     H     H      L       H       H      H      H      H     H
+  1    1     X   X   0    0    1    0    1    1     H     H      L       H       H      H      H      H     H
+  0    1     X   X   1    0    1    0    1    1     H     H      H       L       H      H      H      H     H
+  1    1     X   X   1    0    1    0    1    1     H     H      H       L       H      H      H      H     H
+  0    1     X   X   0    1    1    0    1    1     H     H      H       H       L      H      H      H     H
+  1    1     X   X   0    1    1    0    1    1     H     H      H       H       L      H      H      H     H
+  0    1     0   0   1    1    1    0    1    1     H     H      H       H       H      L      H      H     H
+  1    1     0   0   1    1    1    0    1    1     H     H      H       H       H      L      H      H     H
+  0    1     1   0   1    1    1    0    1    1     H     H      H       H       H      H      L      H     H
+  1    1     1   0   1    1    1    0    1    1     H     H      H       H       H      H      L      H     H
+  0    1     0   1   1    1    1    0    1    1     H     H      H       H       H      H      H      L     H
+  1    1     0   1   1    1    1    0    1    1     H     H      H       H       H      H      H      L     H
+  0    1     1   1   1    1    1    0    1    1     H     H      H       H       H      H      H      H     L
+  1    1     1   1   1    1    1    0    1    1     H     H      H       H       H      H      H      H     L
+
+**************************************************************************************************************/
+
+/*
+                               ______________
+                              |   Counter    |
+                      CLK x---|1           24|---x Vcc                      
+                      A15 x---|2           23|---x !IRQ                       
+                      A14 x---|3           22|---x !USR                       
+                      A13 x---|4           21|---x !CIA2                       
+                      A12 x---|5           20|---x !CIA1                       
+                      A11 x---|6           19|---x !PORT3                       
+                      A10 x---|7           18|---x !PORT2                       
+                       A9 x---|8           17|---x !PORT1                       
+                       A8 x---|9           16|---x !ROM                       
+                     !DMA x---|10          15|---x !RAM                      
+                        X x---|11          14|---x X                       
+                      GND x---|12          13|---x !OE                      
+                              |______________|
+
+*/
 
 /** Inputs **/
 
-PIN 1      = Clock;
-PIN [9..2] = [A8..15];
-PIN 10     = !DMA;
-PIN 11     = NC;
-PIN 13     = !OE;
+Pin 1      = CLK;
+Pin [2..9] = [A15..8];
+Pin 10     = !DMA;
+Pin 13     = !OE;
 
 /** Outputs **/
 
-PIN 15     = !RAM;
-PIN 16     = !ROM;
-PIN 17     = !PORT1;
-PIN 18     = !PORT2;
-PIN 19     = !PORT3;
-PIN 20     = !CIA1;
-PIN 21     = !CIA2;
-PIN 22     = !USR;
-PIN 23     = !IRQ;
+Pin 15     = !RAM;
+Pin 16     = !ROM;
+Pin 17     = !PORT1;
+Pin 18     = !PORT2;
+Pin 19     = !PORT3;
+Pin 20     = !CIA1;
+Pin 21     = !CIA2;
+Pin 22     = !USR;
+Pin 23     = !IRQ;
 
 /** Declarations and Intermediate Variable Definitions **/
 
-FIELD ADDRESS = [A8..15];
+Field ADDRESS = [A15..8];
+
+RAM_ADDRESSES = ADDRESS:[0000..7FFF];
+ROM_ADDRESSES = ADDRESS:[8000..FFFF];
+IO_ADDRESSES  = ADDRESS:DXXX;
+
+PORT1_ADDRESSES = ADDRESS:[D000..D3FF];
+PORT2_ADDRESSES = ADDRESS:[D400..D7FF];
+PORT3_ADDRESSES = ADDRESS:[D800..DBFF];
+
+CIA1_ADDRESSES = ADDRESS:[DC00..DCFF];
+CIA2_ADDRESSES = ADDRESS:[DD00..DDFF];
+
+USR_ADDRESSES  = ADDRESS:[DE00..DEFF];
+IRQ_ADDRESSES  = ADDRESS:[DF00..DFFF];
 
 /** Logic Equations **/
 
-RAM   = !A15 & Clock;
-ROM   = A15 & !(ADDRESS:DXXX);
-
-PORT1 = ADDRESS:[D000..D3FF] # DMA;
-PORT2 = ADDRESS:[D400..D7FF];
-PORT3 = ADDRESS:[D800..DBFF];
-CIA1  = ADDRESS:[DC00..DCFF];
-CIA2  = ADDRESS:[DD00..DDFF];
-USR   = ADDRESS:[DE00..DEFF];
-IRQ   = ADDRESS:[DF00..DFFF];
+RAM   = RAM_ADDRESSES & CLK;
+ROM   = ROM_ADDRESSES & !IO_ADDRESSES;
+PORT1 = PORT1_ADDRESSES # DMA;
+PORT2 = PORT2_ADDRESSES;
+PORT3 = PORT3_ADDRESSES;
+CIA1  = CIA1_ADDRESSES;
+CIA2  = CIA2_ADDRESSES;
+USR   = USR_ADDRESSES;
+IRQ   = IRQ_ADDRESSES;
 

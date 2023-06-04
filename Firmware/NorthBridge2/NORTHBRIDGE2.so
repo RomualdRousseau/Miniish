@@ -1,0 +1,77 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# 
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Fri Jun 02 14:03:34 2023
+
+LISTING FOR SIMULATION FILE: NORTHBRIDGE2.si
+
+   1: Name     NorthBridge2;
+   2: PartNo   ;
+               ^
+[0025sa] Please note: inconsistent header information
+
+   3: Date     23/04/2023;
+   4: Revision 01;
+   5: Designer ;
+               ^
+[0025sa] Please note: inconsistent header information
+
+   6: Company  ;
+               ^
+[0025sa] Please note: inconsistent header information
+
+   7: Assembly ;
+               ^
+[0025sa] Please note: inconsistent header information
+
+   8: Location ;
+               ^
+[0025sa] Please note: inconsistent header information
+
+   9: Device   g22v10;
+  10: 
+  11: 
+  12: FIELD ADDRESS = [A15,A14,A13,A12,A11,A10,A9,A8];
+  13:
+  14: ORDER: CLK, !DMA, A8, A9, A10, A11, A12, A13, A14, A15, !RAM, !ROM, !PORT1, !PORT2, !PORT3, !CIA1, !CIA2, !USR, !IRQ; 
+  15: 
+  16: 
+
+============================
+                  !!!       
+                  PPP!!     
+       !        !!OOOCC!!   
+      CD  AAAAAARRRRRIIUI   
+      LMAA111111AOTTTAASR   
+      KA89012345MM12312RQ   
+============================
+0001: 01XXXXXXX0HHHHHHHHH
+0002: 11XXXXXXX0LHHHHHHHH
+0003: 01XXXXXXX1HXXXXXXXX
+0004: 11XXXXXXX1HXXXXXXXX
+0005: 01XXXXXX01HLHHHHHHH
+0006: 11XXXXXX01HLHHHHHHH
+0007: 01XXXXX1X1HLHHHHHHH
+0008: 11XXXXX1X1HLHHHHHHH
+0009: 01XXXX0XX1HLHHHHHHH
+0010: 11XXXX0XX1HLHHHHHHH
+0011: 01XXXX1011HHXXXXXXX
+0012: 11XXXX1011HHXXXXXXX
+0013: 01XX001011HHLHHHHHH
+0014: 11XX001011HHLHHHHHH
+0015: 01XX101011HHHLHHHHH
+0016: 11XX101011HHHLHHHHH
+0017: 01XX011011HHHHLHHHH
+0018: 11XX011011HHHHLHHHH
+0019: 01XX111011HHHHHXXXX
+0020: 11XX111011HHHHHXXXX
+0021: 0100111011HHHHHLHHH
+0022: 1100111011HHHHHLHHH
+0023: 0110111011HHHHHHLHH
+0024: 1110111011HHHHHHLHH
+0025: 0101111011HHHHHHHLH
+0026: 1101111011HHHHHHHLH
+0027: 0111111011HHHHHHHHL
+0028: 1111111011HHHHHHHHL
+0029: 00XXXXXXXXHXLXXXXXX
+0030: 10XXXXXXXXXXLXXXXXX
