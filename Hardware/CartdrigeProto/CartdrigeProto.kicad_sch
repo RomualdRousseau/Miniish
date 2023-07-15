@@ -527,7 +527,7 @@
       (property "Datasheet" "" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_keywords" "power-flag" (at 0 0 0)
+      (property "ki_keywords" "global power" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
       (property "ki_description" "Power symbol creates a global label with name \"+5V\"" (at 0 0 0)
@@ -579,7 +579,7 @@
       (property "Datasheet" "" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_keywords" "power-flag" (at 0 0 0)
+      (property "ki_keywords" "global power" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
       (property "ki_description" "Power symbol creates a global label with name \"GND\" , ground" (at 0 0 0)
@@ -606,8 +606,54 @@
         )
       )
     )
+    (symbol "power:PWR_FLAG" (power) (pin_numbers hide) (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
+      (property "Reference" "#FLG" (at 0 1.905 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Value" "PWR_FLAG" (at 0 3.81 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "~" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_keywords" "flag power" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Special symbol for telling ERC where power comes from" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "PWR_FLAG_0_0"
+        (pin power_out line (at 0 0 90) (length 0)
+          (name "pwr" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+      )
+      (symbol "PWR_FLAG_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 1.27)
+            (xy -1.016 1.905)
+            (xy 0 2.54)
+            (xy 1.016 1.905)
+            (xy 0 1.27)
+          )
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+      )
+    )
   )
 
+  (junction (at 30.48 105.41) (diameter 0) (color 0 0 0 0)
+    (uuid 862abd91-f3da-46dc-8208-a0ab93095cb5)
+  )
+  (junction (at 30.48 69.85) (diameter 0) (color 0 0 0 0)
+    (uuid a563c50f-67a6-4a22-a6f8-e76af774be12)
+  )
 
   (no_connect (at 160.02 96.52) (uuid 02cc0a9a-b5d7-4d4a-910d-be51eb9b6995))
   (no_connect (at 160.02 101.6) (uuid 096baed0-2ace-401d-9668-5f5d3f7e6394))
@@ -1649,6 +1695,9 @@
     (property "Datasheet" "~" (at 57.15 67.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "Sim.Enable" "0" (at 57.15 67.31 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid e8cbb901-a39a-4d40-b800-8b0a4b67ee96))
     (pin "10" (uuid 7f5f7b79-ce49-4d82-8638-0ead7afd5104))
     (pin "11" (uuid 0e6aa00f-6e6e-4802-9f40-91f476a4562d))
@@ -1710,7 +1759,7 @@
     (pin "8" (uuid 11d68182-a9c3-424e-887d-ff65dc735e48))
     (pin "9" (uuid 9b696aad-98df-44a4-97a7-c5108599a6e4))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "J1") (unit 1)
         )
@@ -1735,7 +1784,7 @@
     )
     (pin "1" (uuid 9fad318c-a83d-494c-b5fb-b0d640fae9f8))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR02") (unit 1)
         )
@@ -1765,7 +1814,7 @@
     )
     (pin "1" (uuid f717dfff-a068-476e-8233-b6637c7de72a))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR08") (unit 1)
         )
@@ -1773,6 +1822,31 @@
       (project "MotherBoard"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/6cbd16f3-a1f6-4857-8623-5a6775377a9a"
           (reference "#PWR040") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:PWR_FLAG") (at 30.48 105.41 180) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid 4566a522-9c9a-4aa3-9186-b093fe6b0f63)
+    (property "Reference" "#FLG02" (at 30.48 107.315 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "PWR_FLAG" (at 25.4 103.505 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 30.48 105.41 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 30.48 105.41 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid ea21250f-78f9-40c7-b1ae-5f5413ad7a07))
+    (instances
+      (project "CartdrigeProto"
+        (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
+          (reference "#FLG02") (unit 1)
         )
       )
     )
@@ -1795,7 +1869,7 @@
     )
     (pin "1" (uuid 7ec733d5-617d-4e2a-8ef5-0204aa8e16d7))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR011") (unit 1)
         )
@@ -1817,10 +1891,13 @@
     (property "Value" "PORT1" (at 153.67 27.94 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "NESConnector:NES_PCBEdge" (at 152.4 66.04 0)
+    (property "Footprint" "Connector_NES:NES_PCBEdge" (at 152.4 66.04 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 152.4 66.04 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Sim.Enable" "0" (at 152.4 66.04 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid b78a8fde-1df6-4564-b178-eb14d10de1a7))
@@ -1884,7 +1961,7 @@
     (pin "8" (uuid 68589f6d-3e63-4ee9-b223-a342bfd2c6d3))
     (pin "9" (uuid d4732cd1-6271-4fc6-8b25-1168c4b7b9af))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "J2") (unit 1)
         )
@@ -1914,7 +1991,7 @@
     )
     (pin "1" (uuid d31274a4-266b-4f65-b6bc-3bbc8b6c814e))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR010") (unit 1)
         )
@@ -1944,7 +2021,7 @@
     )
     (pin "1" (uuid baeeea5a-a55c-4582-9f4c-9a1439c082e1))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR09") (unit 1)
         )
@@ -1974,7 +2051,7 @@
     )
     (pin "1" (uuid 497a5662-2960-4b0f-a1a6-6430c91065f6))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR04") (unit 1)
         )
@@ -1982,6 +2059,31 @@
       (project "MotherBoard"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/6cbd16f3-a1f6-4857-8623-5a6775377a9a"
           (reference "#PWR043") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:PWR_FLAG") (at 30.48 69.85 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid cef529a9-8b05-4d5d-85fc-5c1f0738ed9b)
+    (property "Reference" "#FLG01" (at 30.48 67.945 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "PWR_FLAG" (at 30.48 64.77 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 30.48 69.85 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 30.48 69.85 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 60f083eb-4491-4eb7-a5f8-d152f4397c45))
+    (instances
+      (project "CartdrigeProto"
+        (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
+          (reference "#FLG01") (unit 1)
         )
       )
     )
@@ -2004,7 +2106,7 @@
     )
     (pin "1" (uuid 57a5c480-9c3c-4677-99b1-2555580e11a3))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR03") (unit 1)
         )
@@ -2034,7 +2136,7 @@
     )
     (pin "1" (uuid 5eaea0e4-52a8-4eec-b38f-93333c145722))
     (instances
-      (project "CartdrigeDev"
+      (project "CartdrigeProto"
         (path "/37e9d49f-81bc-4d5c-bab0-7c054d57d038"
           (reference "#PWR01") (unit 1)
         )

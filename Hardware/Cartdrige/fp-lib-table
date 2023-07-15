@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Connector_NES")(type "KiCad")(uri "/home/romuald/Projects/Kicad/library/nes-library/Connector_NES.pretty")(options "")(descr ""))
+  (lib (name "Cow")(type "KiCad")(uri "/home/romuald/Projects/Kicad/library/nes-library/Cow.pretty")(options "")(descr ""))
+)
