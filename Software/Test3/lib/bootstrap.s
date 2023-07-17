@@ -22,10 +22,22 @@ no_irq_func:
 no_nmi_func:
     rti
 
+get_func_ptr:
+    ldy r2
+    lda (r0), y
+    sta r4
+    iny
+    lda (r0), y
+    sta r5
+    rts
+
+call_func_ptr:
+    jmp (r4)
+
     .include "sys.s"
     .include "lcd.s"
     .include "uart.s"
-    
+
     .org inte_start
 table_irq:
     .word no_irq_func

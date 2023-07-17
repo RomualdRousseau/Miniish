@@ -2,7 +2,7 @@ INCLUDE_DIR = ./include
 DATA_DIR = ./data
 LIB_DIR = ./lib
 
-VASM = vasm6502_oldstyle -c02 -dotdir -Fvobj -autoexp -I$(INCLUDE_DIR)
+VASM = vasm6502_oldstyle -c02 -dotdir -Fvobj -autoexp -esc -I$(INCLUDE_DIR)
 LINK = vlink -brawbin1 -T$(LIB_DIR)/bootstrap.lnk $(LIB_DIR)/bootstrap.o
 BURN = minipro -p AT28C256 -w
 
@@ -31,12 +31,15 @@ clean: ## Clean this package
 	rm -f *.bin
 
 build: main.bin ## Build this package
-
+	
 burn: main.bin ## Burn this package
 	$(BURN) $<
-	
+
 %.o: %.s $(INCLUDES) $(DATA)
 	$(VASM) -o $@ $<
 
-%.bin: %.o
+%.bin: %.o $(LIB_DIR)/bootstrap.o
 	$(LINK) -o $@ $<
+
+bootstrap.o: $(LIB_DIR)/bootstrap.s $(LIB_DIR)/bootstrap.lnk
+	make -C lib build

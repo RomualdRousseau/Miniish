@@ -5,6 +5,12 @@ uart_command_reg = uart_port + $02
 uart_control_reg = uart_port + $03
 uart_status_tde  = zero_start + $10
 
+uart_vtable:
+    .word $0000
+    .word uart_put_char
+    .word uart_get_char
+    .word $0000
+
 uart_init:
 ; Initialize and the uart port.
 ;

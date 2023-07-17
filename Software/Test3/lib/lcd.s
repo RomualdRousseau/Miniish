@@ -2,6 +2,12 @@ lcd_en = %10000000
 lcd_rw = %01000000
 lcd_rs = %00100000
 
+lcd_vtable:
+    .word lcd_send_cmd
+    .word lcd_put_char
+    .word $0000
+    .word $0000
+
 lcd_init:
 ; Initialize and clear the LCD display.
 ;
@@ -142,9 +148,17 @@ lcd_put_char:
     sta porta
     rts
 
-; private functions
-
 lcd_send_cmd:
+; Send a command to the LCD display.
+;
+; args
+; ----
+; A: The command to send.
+; 
+; notes
+; -----
+; N/A
+;
     jsr lcd_wait
     sta portb
     lda #0
@@ -154,6 +168,8 @@ lcd_send_cmd:
     lda #0
     sta porta
     rts
+
+; private functions
 
 lcd_wait:
     pha

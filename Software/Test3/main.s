@@ -1,4 +1,5 @@
     .include "sym.s"
+    .include "io.s"
 
     .org code_user
 setup:
@@ -11,22 +12,34 @@ setup:
     lda #>prompt
     sta r1
     jsr uart_print
+
+    ; Print lcd prompt
+    lda #<lcd_vtable
+    sta r0
+    lda #>lcd_vtable
+    sta r1
+    lda #put_char
+    sta r2
+    jsr get_func_ptr
+
+    lda #'['
+    jsr call_func_ptr
     rts
 
 loop:
     jsr uart_get_char
 retkey:
-    cmp #$0d
+    cmp #'\r'
     bne delkey
     jsr uart_put_char
-    lda #$0a
+    lda #'\n'
     jmp echo
 delkey:
     cmp #$7f
     bne echo
     lda #$08
     jsr uart_put_char
-    lda #$1B
+    lda #'\e'
     jsr uart_put_char
     lda #'['
     jsr uart_put_char
@@ -37,9 +50,9 @@ echo:
 
     .org data_user
 prompt:
-    .byte $1B,"[2J",$1B,"[H",$1B
-    .byte "[1;32m","*** MINIISH V1.4 ***",$0D,$0A
-    .byte $1B,"[0m","64K RAM SYSTEM",$0D,$0A
-    .byte "READY.",$0D,$0A,0
+    .byte "\e[2J\e[H"
+    .byte "\e[1;32m","*** MINIISH V1.4 ***\e[0m\r\n"
+    .byte "64K RAM SYSTEM\r\n"
+    .byte "READY.\r\n",0
 
 ; vim:syntax=asm
