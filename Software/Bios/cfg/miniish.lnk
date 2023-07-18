@@ -1,0 +1,32 @@
+MEMORY
+{
+	ZEROPAGE: ORIGIN = 0x0000, LENGTH = 256
+	STACK:    ORIGIN = 0x0100, LENGTH = 256
+	BSS:      ORIGIN = 0x0200, LENGTH = 256
+	DATA:     ORIGIN = 0x8000, LENGTH = 16384
+	TEXT:     ORIGIN = 0xb000, LENGTH = 8192
+	IO:       ORIGIN = 0xd000, LENGTH = 4096
+	KERNEL:   ORIGIN = 0xe000, LENGTH = 4074
+	VECTORS:  ORIGIN = 0xFFEA, LENGTH = 22
+}
+
+SECTIONS
+{
+	.data 0x8000:
+	{
+		*.o(data)
+	} > DATA
+	.text 0xb000:
+	{
+		*.o(text)
+	} > TEXT
+	.kernel 0xe000:
+	{
+		startup.o(kernel)
+		*.o(kernel)
+	} > KERNEL
+	.vectors 0xffea:
+	{
+		vectors.o(vectors)
+	} > VECTORS
+}

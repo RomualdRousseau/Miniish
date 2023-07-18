@@ -4,7 +4,7 @@ code_start = $8000
 inte_start = $ffea
 
 zero_user  = $0020
-bss_user   = $0300
+bss_user   = $0200
 code_user  = $9000
 data_user  = $a000
 
@@ -46,5 +46,9 @@ r12 = zero_start + $0c
 r13 = zero_start + $0d
 r14 = zero_start + $0e
 r15 = zero_start + $0f
+
+dev_table = zero_start + $10
+dev_lcd   = $00
+dev_uart  = $08
 
 ; vim:syntax=asm

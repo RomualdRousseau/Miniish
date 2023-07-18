@@ -1,13 +1,18 @@
-INCLUDE_DIR = ./include
-DATA_DIR = ./data
-LIB_DIR = ./lib
+SOURCE_DIR = ./src
+DATA_DIR   = ./data
+BIN_DIR    = ./bin
 
-VASM = vasm6502_oldstyle -c02 -dotdir -Fvobj -autoexp -esc -I$(INCLUDE_DIR)
-LINK = vlink -brawbin1 -T$(LIB_DIR)/bootstrap.lnk $(LIB_DIR)/bootstrap.o
-BURN = minipro -p AT28C256 -w
+INCLUDE_DIR = ../Bios/include
+LIB_DIR     = ../Bios/lib
+CFG_LIB     = ../Bios/cfg
 
-INCLUDES = $(wildcard $(INCLUDE_DIR)/*.s)
-DATA = $(wildcard $(DATA_DIR)/*.dat)
+INCLUDES = $(wildcard $(INCLUDE_DIR)/*.inc)
+LIBS     = $(wildcard $(LIB_DIR)/*.o)
+DATA     = $(wildcard $(DATA_DIR)/*.dat)
+
+VASM  = vasm6502_oldstyle -c02 -dotdir -autoexp -Fvobj -esc -I$(INCLUDE_DIR)
+VLINK = vlink -brawbin1 -T$(CFG_LIB)/miniish.lnk $(LIBS)
+BURN  = minipro -p AT28C256 -w
 
 HELP_HEADER = "Test3 - Test DigitalProtoBoard"
 
@@ -22,24 +27,17 @@ help: ## Show this help
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2}'
 	@echo
 
-.PHONY: all
-all: build burn
-
 .PHONY: clean
 clean: ## Clean this package
-	rm -f *.o
-	rm -f *.bin
+	rm -f $(BIN_DIR)/*
 
-build: main.bin ## Build this package
+build: $(BIN_DIR)/main.prg ## Build this package
 	
-burn: main.bin ## Burn this package
+burn: $(BIN_DIR)/main.prg ## Burn this package
 	$(BURN) $<
 
-%.o: %.s $(INCLUDES) $(DATA)
+$(BIN_DIR)/%.o: $(SOURCE_DIR)/%.asm $(INCLUDES) $(DATA)
 	$(VASM) -o $@ $<
 
-%.bin: %.o $(LIB_DIR)/bootstrap.o
-	$(LINK) -o $@ $<
-
-bootstrap.o: $(LIB_DIR)/bootstrap.s $(LIB_DIR)/bootstrap.lnk
-	make -C lib build
+$(BIN_DIR)/%.prg: $(BIN_DIR)/%.o $(LIBS)
+	$(VLINK) -o $@ $<

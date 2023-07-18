@@ -1,12 +1,12 @@
-lcd_en = %10000000
-lcd_rw = %01000000
-lcd_rs = %00100000
+    .include "miniish.inc"
+    .include "conio.inc"
 
-lcd_vtable:
-    .word lcd_send_cmd
-    .word lcd_put_char
-    .word $0000
-    .word $0000
+lcd_en     = %10000000
+lcd_rw     = %01000000
+lcd_rs     = %00100000
+lcd_vtable = dev_table + dev_lcd
+
+    .section kernel
 
 lcd_init:
 ; Initialize and clear the LCD display.
@@ -20,6 +20,19 @@ lcd_init:
 ; N/A
 ;
     sei
+    ; load dev vtable
+    lda #<lcd_send_cmd
+    sta lcd_vtable+ioctl
+    lda #>lcd_send_cmd
+    sta lcd_vtable+ioctl+1
+    lda #<lcd_put_char
+    sta lcd_vtable+put_char
+    lda #>lcd_put_char
+    sta lcd_vtable+put_char+1
+    lda #0
+    sta lcd_vtable+get_char
+    lda #0
+    sta lcd_vtable+get_char+1
     ; setup i/o
     lda ddra
     ora #(lcd_en | lcd_rw | lcd_rs)

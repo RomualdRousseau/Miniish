@@ -1,15 +1,15 @@
+    .include "miniish.inc"
+    .include "conio.inc"
+
 uart_port        = io_port3
 uart_data_reg    = uart_port + $00
 uart_status_reg  = uart_port + $01
 uart_command_reg = uart_port + $02
 uart_control_reg = uart_port + $03
 uart_status_tde  = zero_start + $10
+uart_vtable      = dev_table + dev_uart
 
-uart_vtable:
-    .word $0000
-    .word uart_put_char
-    .word uart_get_char
-    .word $0000
+    .section kernel
 
 uart_init:
 ; Initialize and the uart port.
@@ -23,6 +23,19 @@ uart_init:
 ; N/A
 ;
     sei
+    ; load dev vtable
+    lda #0
+    sta uart_vtable+ioctl
+    lda #0
+    sta uart_vtable+ioctl+1
+    lda #<uart_put_char
+    sta uart_vtable+put_char
+    lda #>uart_put_char
+    sta uart_vtable+put_char+1
+    lda #<uart_get_char
+    sta uart_vtable+get_char
+    lda #>uart_get_char
+    sta uart_vtable+get_char+1
     ; soft reset
     lda #0
     sta uart_status_reg

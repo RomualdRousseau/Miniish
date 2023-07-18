@@ -1,3 +1,7 @@
+    .include "miniish.inc"
+
+    .section kernel
+
 delay:
 ; Delay by A milliseconds
 ;
