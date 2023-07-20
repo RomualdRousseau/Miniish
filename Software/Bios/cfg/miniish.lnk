@@ -2,8 +2,9 @@ MEMORY
 {
 	ZEROPAGE: ORIGIN = 0x0000, LENGTH = 256
 	STACK:    ORIGIN = 0x0100, LENGTH = 256
-	BSS:      ORIGIN = 0x0200, LENGTH = 256
-	DATA:     ORIGIN = 0x8000, LENGTH = 16384
+	DATA:     ORIGIN = 0x0200, LENGTH = 15872
+	BSS:      ORIGIN = 0x4000, LENGTH = 16384
+	RODATA:   ORIGIN = 0x8000, LENGTH = 16384
 	TEXT:     ORIGIN = 0xb000, LENGTH = 8192
 	IO:       ORIGIN = 0xd000, LENGTH = 4096
 	KERNEL:   ORIGIN = 0xe000, LENGTH = 4074
@@ -12,10 +13,10 @@ MEMORY
 
 SECTIONS
 {
-	.data 0x8000:
+	.rodata 0x8000:
 	{
-		*.o(data)
-	} > DATA
+		*.o(rodata)
+	} > RODATA
 	.text 0xb000:
 	{
 		*.o(text)

@@ -7,10 +7,10 @@ LIB_DIR     = ../Bios/lib
 CFG_LIB     = ../Bios/cfg
 
 INCLUDES = $(wildcard $(INCLUDE_DIR)/*.inc)
-LIBS     = $(wildcard $(LIB_DIR)/*.o)
+LIBS     = $(wildcard $(LIB_DIR)/*.o) $(wildcard $(LIB_DIR)/*/*.o) $(BIN_DIR)/setup.o $(BIN_DIR)/loop.o
 DATA     = $(wildcard $(DATA_DIR)/*.dat)
 
-VASM  = vasm6502_oldstyle -c02 -dotdir -autoexp -Fvobj -esc -I$(INCLUDE_DIR)
+VASM  = vasm6502_oldstyle -c02 -dotdir -Fvobj -esc -ldots -I$(INCLUDE_DIR)
 VLINK = vlink -brawbin1 -T$(CFG_LIB)/miniish.lnk $(LIBS)
 BURN  = minipro -p AT28C256 -w
 

@@ -1,5 +1,8 @@
     .include "miniish.inc"
+    .include "stdio.inc"
     .include "conio.inc"
+
+    .global print
 
     .section kernel
 
@@ -17,14 +20,13 @@ print:
 ;
     lda r0
     clc
-    adc #put_char
+    adc #device.put_char
     tax
+    
     ldy #0
-print_loop:
-    lda (r1), y
-    beq print_end
-    jsr call_dev_func
+L1: lda (r1), y
+    beq L2
+    jsr call_ptr
     iny
-    jmp print_loop
-print_end:
-    rts
+    jmp L1
+L2: rts

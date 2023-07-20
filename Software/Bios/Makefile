@@ -3,19 +3,33 @@ INCLUDE_DIR = ./include
 LIB_DIR     = ./lib
 CFG_LIB     = ./cfg
 
-VASM = vasm6502_oldstyle -c02 -dotdir -autoexp -Fvobj -esc -I$(INCLUDE_DIR)
+VASM = vasm6502_oldstyle -c02 -dotdir -Fvobj -esc -ldots -I$(INCLUDE_DIR)
 
 INCLUDES = \
 	$(INCLUDE_DIR)/miniish.inc \
 	$(INCLUDE_DIR)/conio.inc
 
 LIBS = \
-	$(LIB_DIR)/startup.o \
-	$(LIB_DIR)/vectors.o \
-	$(LIB_DIR)/sys.o  \
-	$(LIB_DIR)/lcd.o \
-	$(LIB_DIR)/uart.o \
-	$(LIB_DIR)/conio.o
+	$(LIB_DIR)/runtime/rst_func.o \
+	$(LIB_DIR)/runtime/irq_func.o \
+	$(LIB_DIR)/runtime/call_ptr.o \
+	$(LIB_DIR)/runtime/delay.o \
+	$(LIB_DIR)/runtime/memset.o \
+	$(LIB_DIR)/runtime/vectors.o \
+	$(LIB_DIR)/runtime/devices.o \
+	$(LIB_DIR)/lcd/init.o \
+	$(LIB_DIR)/lcd/clear.o \
+	$(LIB_DIR)/lcd/home.o \
+	$(LIB_DIR)/lcd/put_char.o \
+	$(LIB_DIR)/lcd/send_cmd.o \
+	$(LIB_DIR)/lcd/wait.o \
+	$(LIB_DIR)/uart/init.o \
+	$(LIB_DIR)/uart/put_char.o \
+	$(LIB_DIR)/uart/get_char.o \
+	$(LIB_DIR)/uart/wait_rx.o \
+	$(LIB_DIR)/uart/wait_tx.o \
+	$(LIB_DIR)/conio/print.o \
+	$(LIB_DIR)/conio/print_byte.o
 
 HELP_HEADER = "Build BIOS"
 
@@ -35,8 +49,9 @@ build: $(LIBS) ## Build this package
 
 .PHONY: clean
 clean: ## Clean this package
-	rm -f $(LIB_DIR)/*
+	rm -rf $(LIB_DIR)/*
 
 $(LIB_DIR)/%.o: $(SOURCE_DIR)/%.asm $(INCLUDES)
+	mkdir -p $(shell dirname $@)
 	$(VASM) -o $@ $<
 

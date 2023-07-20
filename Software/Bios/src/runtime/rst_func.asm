@@ -1,5 +1,7 @@
     .include "miniish.inc"
 
+    .global rst_func
+    
     .section kernel
 
 rst_func:
@@ -7,14 +9,6 @@ rst_func:
     txs
     cld
     cli
+    jsr lcd_init
+    jsr uart_init
     jmp main
-
-get_dev_func_offset:
-    lda r0
-    clc
-    adc r1
-    tax
-    rts
-
-call_dev_func:
-    jmp (dev_table, x)
