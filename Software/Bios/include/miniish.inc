@@ -1,12 +1,12 @@
 zero_start = $0000
 stck_start = $0100
-code_start = $8000
+code_start = $e000
 inte_start = $ffea
 
-zero_user  = $0020
+zero_user  = $0080
 bss_user   = $0200
-code_user  = $9000
-data_user  = $a000
+code_user  = $b000
+data_user  = $8000
 
 io_port1 = $d000
 io_port2 = $d400

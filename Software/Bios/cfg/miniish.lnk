@@ -19,11 +19,13 @@ SECTIONS
 	} > RODATA
 	.text 0xb000:
 	{
+		main.o(text)
 		*.o(text)
 	} > TEXT
 	.kernel 0xe000:
 	{
-		startup.o(kernel)
+		rst_func.o(kernel)
+		irq_func.o(kernel)
 		*.o(kernel)
 	} > KERNEL
 	.vectors 0xffea:

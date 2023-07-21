@@ -21,22 +21,17 @@ uart_init:
     ; load dev vtable
     ldx #dev_uart
     lda #0
-    sta (dev_table, x)
-    inx
+    sta dev_table + 0, x
     lda #0
-    sta (dev_table, x)
-    inx
+    sta dev_table + 1, x
     lda #<uart_put_char
-    sta (dev_table, x)
-    inx
+    sta dev_table + 2, x
     lda #>uart_put_char
-    sta (dev_table, x)
-    inx
+    sta dev_table + 3, x
     lda #<uart_get_char
-    sta (dev_table, x)
-    inx
+    sta dev_table + 4, x
     lda #>uart_get_char
-    sta (dev_table, x)
+    sta dev_table + 5, x
     ; soft reset
     lda #0
     sta uart_status_reg

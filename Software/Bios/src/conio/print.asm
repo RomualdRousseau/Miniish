@@ -22,7 +22,7 @@ print:
     clc
     adc #device.put_char
     tax
-    
+ 
     ldy #0
 L1: lda (r1), y
     beq L2

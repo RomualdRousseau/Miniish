@@ -21,22 +21,17 @@ lcd_init:
     ; load dev vtable
     ldx #dev_lcd
     lda #<lcd_send_cmd  
-    sta (dev_table, x)
-    inx
+    sta dev_table + 0, x
     lda #>lcd_send_cmd
-    sta (dev_table, x)
-    inx
+    sta dev_table + 1, x
     lda #<lcd_put_char
-    sta (dev_table, x)
-    inx
+    sta dev_table + 2, x
     lda #>lcd_put_char
-    sta (dev_table, x)
-    inx
+    sta dev_table + 3, x
     lda #0
-    sta (dev_table, x)
-    inx
+    sta dev_table + 4, x
     lda #0
-    sta (dev_table, x)
+    sta dev_table + 5, x
     ; setup i/o
     lda ddra
     ora #(lcd_en | lcd_rw | lcd_rs)
