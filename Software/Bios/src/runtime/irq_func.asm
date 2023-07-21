@@ -5,7 +5,7 @@
     .global no_nmi_func
     
     .section kernel
-    
+
 irq_func:
     phx
     ldx io_irq

@@ -15,21 +15,21 @@ SECTIONS
 {
 	.rodata 0x8000:
 	{
-		*.o(rodata)
+		*(rodata)
 	} > RODATA
 	.text 0xb000:
 	{
 		main.o(text)
-		*.o(text)
+		*(text)
 	} > TEXT
 	.kernel 0xe000:
 	{
-		rst_func.o(kernel)
-		irq_func.o(kernel)
-		*.o(kernel)
+		*rst_func*(kernel)
+		*irq_func*(kernel)
+		*(kernel)
 	} > KERNEL
 	.vectors 0xffea:
 	{
-		vectors.o(vectors)
+		*(vectors)
 	} > VECTORS
 }

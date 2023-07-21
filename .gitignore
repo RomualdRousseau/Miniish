@@ -11,4 +11,6 @@ work
 tags
 
 # Binaries
+bin/
+binx/
 rom.bin

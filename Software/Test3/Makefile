@@ -3,15 +3,16 @@ DATA_DIR   = ./data
 BIN_DIR    = ./bin
 
 INCLUDE_DIR = ../Bios/include
-LIB_DIR     = ../Bios/lib
+LIB_DIR     = ../Bios/bin
 CFG_LIB     = ../Bios/cfg
 
 INCLUDES = $(wildcard $(INCLUDE_DIR)/*.inc)
-LIBS     = $(wildcard $(LIB_DIR)/*.o) $(wildcard $(LIB_DIR)/*/*.o) $(BIN_DIR)/setup.o $(BIN_DIR)/loop.o
 DATA     = $(wildcard $(DATA_DIR)/*.dat)
+OBJS     = $(BIN_DIR)/setup.o \
+           $(BIN_DIR)/loop.o
 
 VASM  = vasm6502_oldstyle -c02 -dotdir -Fvobj -esc -ldots -I$(INCLUDE_DIR)
-VLINK = vlink -brawbin1 -T$(CFG_LIB)/miniish.lnk $(LIBS)
+VLINK = vlink -brawbin1 -T$(CFG_LIB)/miniish.lnk -L$(LIB_DIR) -Bforcearchive -lbios
 BURN  = minipro -p AT28C256 -w
 
 HELP_HEADER = "Test3 - Test DigitalProtoBoard"
@@ -39,5 +40,5 @@ burn: $(BIN_DIR)/main.prg ## Burn this package
 $(BIN_DIR)/%.o: $(SOURCE_DIR)/%.asm $(INCLUDES) $(DATA)
 	$(VASM) -o $@ $<
 
-$(BIN_DIR)/%.prg: $(BIN_DIR)/%.o $(LIBS)
-	$(VLINK) -o $@ $<
+$(BIN_DIR)/%.prg: $(BIN_DIR)/%.o $(OBJS)
+	$(VLINK) -o $@ $< $(OBJS)

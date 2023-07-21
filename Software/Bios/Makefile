@@ -1,13 +1,16 @@
 SOURCE_DIR  = ./src
 INCLUDE_DIR = ./include
-LIB_DIR     = ./lib
+LIB_DIR     = ./bin
 CFG_LIB     = ./cfg
 
 VASM = vasm6502_oldstyle -c02 -dotdir -Fvobj -esc -ldots -I$(INCLUDE_DIR)
 
 INCLUDES = \
 	$(INCLUDE_DIR)/miniish.inc \
-	$(INCLUDE_DIR)/conio.inc
+	$(INCLUDE_DIR)/stdio.inc \
+	$(INCLUDE_DIR)/conio.inc \
+	$(INCLUDE_DIR)/lcd.inc \
+	$(INCLUDE_DIR)/uart.inc
 
 LIBS = \
 	$(LIB_DIR)/runtime/rst_func.o \
@@ -45,7 +48,7 @@ help: ## Show this help
 	@echo
 
 .PHONY: build
-build: $(LIBS) ## Build this package
+build: $(LIB_DIR)/libbios.a ## Build this package
 
 .PHONY: clean
 clean: ## Clean this package
@@ -54,4 +57,7 @@ clean: ## Clean this package
 $(LIB_DIR)/%.o: $(SOURCE_DIR)/%.asm $(INCLUDES)
 	mkdir -p $(shell dirname $@)
 	$(VASM) -o $@ $<
+
+$(LIB_DIR)/%.a: $(LIBS)
+	ar crPs $@ $(LIBS)
 
