@@ -5,8 +5,8 @@ inte_start = $ffea
 
 zero_user  = $0080
 bss_user   = $0200
-code_user  = $b000
 data_user  = $8000
+code_user  = $b000
 
 io_port1 = $d000
 io_port2 = $d400

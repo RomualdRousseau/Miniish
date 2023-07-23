@@ -16,6 +16,7 @@ delay:
 ; -----
 ; N/A
 ;
+    sec
     jsr delay_1ms
     sbc #1
     bne delay

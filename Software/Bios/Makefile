@@ -31,8 +31,10 @@ LIBS = \
 	$(LIB_DIR)/uart/get_char.o \
 	$(LIB_DIR)/uart/wait_rx.o \
 	$(LIB_DIR)/uart/wait_tx.o \
+	$(LIB_DIR)/conio/put_char.o \
 	$(LIB_DIR)/conio/print.o \
-	$(LIB_DIR)/conio/print_byte.o
+	$(LIB_DIR)/conio/print_byte.o \
+	$(LIB_DIR)/conio/print_hex.o
 
 HELP_HEADER = "Build BIOS"
 

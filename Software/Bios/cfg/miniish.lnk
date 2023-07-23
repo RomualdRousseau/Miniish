@@ -13,21 +13,34 @@ MEMORY
 
 SECTIONS
 {
+	.data 0x0200 (NOLOAD):
+	{
+		*(data)
+	} > DATA
+
+	.bss 0x4000 (NOLOAD):
+	{
+		*(bss)
+	} > BSS
+
 	.rodata 0x8000:
 	{
 		*(rodata)
 	} > RODATA
+
 	.text 0xb000:
 	{
 		main.o(text)
 		*(text)
 	} > TEXT
+
 	.kernel 0xe000:
 	{
 		*rst_func*(kernel)
 		*irq_func*(kernel)
 		*(kernel)
 	} > KERNEL
+	
 	.vectors 0xffea:
 	{
 		*(vectors)
