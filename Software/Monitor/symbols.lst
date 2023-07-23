@@ -3,29 +3,31 @@ Files:
   ../Bios/bin/libbios.a (.):  kernel e000(e) hex
   ../Bios/bin/libbios.a (.):  kernel e00e(d) hex
   ../Bios/bin/libbios.a (.):  kernel e01b(3) hex
-  ../Bios/bin/libbios.a (.):  kernel e01e(14) hex
-  ../Bios/bin/libbios.a (.):  kernel e032(6) hex
+  ../Bios/bin/libbios.a (.):  kernel e01e(15) hex
+  ../Bios/bin/libbios.a (.):  kernel e033(6) hex
   ../Bios/bin/libbios.a (.):  vectors ffea(16) hex
-  ../Bios/bin/libbios.a (.):   b2f0(0) hex
-  ../Bios/bin/libbios.a (.):  kernel e038(44) hex
-  ../Bios/bin/libbios.a (.):  kernel e07c(6) hex
-  ../Bios/bin/libbios.a (.):  kernel e082(6) hex
-  ../Bios/bin/libbios.a (.):  kernel e088(16) hex
-  ../Bios/bin/libbios.a (.):  kernel e09e(16) hex
-  ../Bios/bin/libbios.a (.):  kernel e0b4(23) hex
-  ../Bios/bin/libbios.a (.):  kernel e0d7(32) hex
-  ../Bios/bin/libbios.a (.):  kernel e109(7) hex
-  ../Bios/bin/libbios.a (.):  kernel e110(7) hex
-  ../Bios/bin/libbios.a (.):  kernel e117(f) hex
-  ../Bios/bin/libbios.a (.):  kernel e126(20) hex
-  ../Bios/bin/libbios.a (.):  kernel e146(c) hex
-  ../Bios/bin/libbios.a (.):  kernel e152(14) hex
-  ../Bios/bin/libbios.a (.):  kernel e166(28) hex
-  ../Bios/bin/libbios.a (.):  kernel e18e(2f) hex
-  main.o:  rodata 8000(57), text b000(4b) hex
-  util.o:  text b04b(5d) hex
-  get_new_line.o:  data 200(82), text b0a8(53) hex
-  on_new_line.o:  data 282(6), text b0fb(1f5) hex
+  ../Bios/bin/libbios.a (.):   b2bf(0) hex
+  ../Bios/bin/libbios.a (.):  kernel e039(44) hex
+  ../Bios/bin/libbios.a (.):  kernel e07d(6) hex
+  ../Bios/bin/libbios.a (.):  kernel e083(6) hex
+  ../Bios/bin/libbios.a (.):  kernel e089(16) hex
+  ../Bios/bin/libbios.a (.):  kernel e09f(16) hex
+  ../Bios/bin/libbios.a (.):  kernel e0b5(23) hex
+  ../Bios/bin/libbios.a (.):  kernel e0d8(32) hex
+  ../Bios/bin/libbios.a (.):  kernel e10a(7) hex
+  ../Bios/bin/libbios.a (.):  kernel e111(7) hex
+  ../Bios/bin/libbios.a (.):  kernel e118(f) hex
+  ../Bios/bin/libbios.a (.):  kernel e127(20) hex
+  ../Bios/bin/libbios.a (.):  kernel e147(c) hex
+  ../Bios/bin/libbios.a (.):  kernel e153(14) hex
+  ../Bios/bin/libbios.a (.):  kernel e167(28) hex
+  ../Bios/bin/libbios.a (.):  kernel e18f(2f) hex
+  ../Bios/bin/libbios.a (.):  kernel e1be(a) hex
+  ../Bios/bin/libbios.a (.):  kernel e1c8(f) hex
+  main.o:  rodata 8000(57), text b000(34) hex
+  util.o:  text b034(5d) hex
+  get_new_line.o:  data 200(82), text b091(56) hex
+  on_new_line.o:  data 282(6), text b0e7(1d8) hex
 
 
 Section mapping (numbers in hex):
@@ -37,34 +39,36 @@ Section mapping (numbers in hex):
   00008000 .rodata  (size 57, allocated 56)
            00008000 - 00008057 main.o(rodata)
 ------------------------------
-  0000b000 .text  (size 2f0)
-           0000b000 - 0000b04b main.o(text)
-           0000b04b - 0000b0a8 util.o(text)
-           0000b0a8 - 0000b0fb get_new_line.o(text)
-           0000b0fb - 0000b2f0 on_new_line.o(text)
-           0000b2f0 - 0000b2f0 .()
+  0000b000 .text  (size 2bf)
+           0000b000 - 0000b034 main.o(text)
+           0000b034 - 0000b091 util.o(text)
+           0000b091 - 0000b0e7 get_new_line.o(text)
+           0000b0e7 - 0000b2bf on_new_line.o(text)
+           0000b2bf - 0000b2bf .()
 ------------------------------
-  0000e000 .kernel  (size 1bd)
+  0000e000 .kernel  (size 1d7)
            0000e000 - 0000e00e .(kernel)
            0000e00e - 0000e01b .(kernel)
            0000e01b - 0000e01e .(kernel)
-           0000e01e - 0000e032 .(kernel)
-           0000e032 - 0000e038 .(kernel)
-           0000e038 - 0000e07c .(kernel)
-           0000e07c - 0000e082 .(kernel)
-           0000e082 - 0000e088 .(kernel)
-           0000e088 - 0000e09e .(kernel)
-           0000e09e - 0000e0b4 .(kernel)
-           0000e0b4 - 0000e0d7 .(kernel)
-           0000e0d7 - 0000e109 .(kernel)
-           0000e109 - 0000e110 .(kernel)
-           0000e110 - 0000e117 .(kernel)
-           0000e117 - 0000e126 .(kernel)
-           0000e126 - 0000e146 .(kernel)
-           0000e146 - 0000e152 .(kernel)
-           0000e152 - 0000e166 .(kernel)
-           0000e166 - 0000e18e .(kernel)
-           0000e18e - 0000e1bd .(kernel)
+           0000e01e - 0000e033 .(kernel)
+           0000e033 - 0000e039 .(kernel)
+           0000e039 - 0000e07d .(kernel)
+           0000e07d - 0000e083 .(kernel)
+           0000e083 - 0000e089 .(kernel)
+           0000e089 - 0000e09f .(kernel)
+           0000e09f - 0000e0b5 .(kernel)
+           0000e0b5 - 0000e0d8 .(kernel)
+           0000e0d8 - 0000e10a .(kernel)
+           0000e10a - 0000e111 .(kernel)
+           0000e111 - 0000e118 .(kernel)
+           0000e118 - 0000e127 .(kernel)
+           0000e127 - 0000e147 .(kernel)
+           0000e147 - 0000e153 .(kernel)
+           0000e153 - 0000e167 .(kernel)
+           0000e167 - 0000e18f .(kernel)
+           0000e18f - 0000e1be .(kernel)
+           0000e1be - 0000e1c8 .(kernel)
+           0000e1c8 - 0000e1d7 .(kernel)
 ------------------------------
   0000ffea .vectors  (size 16)
            0000ffea - 00010000 .(vectors)
@@ -270,49 +274,52 @@ Symbols of .text:
   0xb000 main: global reloc, size 0
   0xb000 code_user: local abs, size 0
   0xb000 code_user: local abs, size 0
-  0xb026 main_loop: local reloc, size 0
-  0xb04b xtob: global reloc, size 0
-  0xb051 L0: local reloc, size 0
-  0xb059 L1: local reloc, size 0
-  0xb05f L2: local reloc, size 0
-  0xb067 L3: local reloc, size 0
-  0xb06c L4: local reloc, size 0
-  0xb072 L5: local reloc, size 0
-  0xb073 asl_16: global reloc, size 0
-  0xb073 L6: local reloc, size 0
-  0xb081 adc_16: global reloc, size 0
-  0xb08f inc_16: global reloc, size 0
-  0xb09d cmp_16: global reloc, size 0
-  0xb0a7 L7: local reloc, size 0
-  0xb0a8 get_new_line: global reloc, size 0
-  0xb0ab ret_key: local reloc, size 0
-  0xb0b2 del_key: local reloc, size 0
-  0xb0d7 echo: local reloc, size 0
-  0xb0e4 L0: local reloc, size 0
-  0xb0f0 return: local reloc, size 0
-  0xb0fb on_new_line: global reloc, size 0
-  0xb10a state_switch: local reloc, size 0
-  0xb118 state_0: local reloc, size 0
-  0xb135 L00: local reloc, size 0
-  0xb13d state_1: local reloc, size 0
-  0xb14a L10: local reloc, size 0
-  0xb159 L11: local reloc, size 0
-  0xb170 L12: local reloc, size 0
-  0xb17f L13: local reloc, size 0
-  0xb18e L14: local reloc, size 0
-  0xb1bb state_2: local reloc, size 0
-  0xb1c8 L20: local reloc, size 0
-  0xb1d7 L21: local reloc, size 0
-  0xb1fe state_3: local reloc, size 0
-  0xb20b L30: local reloc, size 0
-  0xb21a L31: local reloc, size 0
-  0xb232 state_4: local reloc, size 0
-  0xb23c L40: local reloc, size 0
-  0xb2af L41: local reloc, size 0
-  0xb2bf L42: local reloc, size 0
-  0xb2c0 state_5: local reloc, size 0
-  0xb2ec L50: local reloc, size 0
-  0xb2ed state_6: local reloc, size 0
+  0xb00f main_loop: local reloc, size 0
+  0xb034 xtob: global reloc, size 0
+  0xb03a L0: local reloc, size 0
+  0xb042 L1: local reloc, size 0
+  0xb048 L2: local reloc, size 0
+  0xb050 L3: local reloc, size 0
+  0xb055 L4: local reloc, size 0
+  0xb05b L5: local reloc, size 0
+  0xb05c asl_16: global reloc, size 0
+  0xb05c L6: local reloc, size 0
+  0xb06a adc_16: global reloc, size 0
+  0xb078 inc_16: global reloc, size 0
+  0xb086 cmp_16: global reloc, size 0
+  0xb090 L7: local reloc, size 0
+  0xb091 get_new_line: global reloc, size 0
+  0xb098 ret_key: local reloc, size 0
+  0xb09f del_key: local reloc, size 0
+  0xb0cc echo: local reloc, size 0
+  0xb0d9 L0: local reloc, size 0
+  0xb0e7 on_new_line: global reloc, size 0
+  0xb0f6 state_switch: local reloc, size 0
+  0xb104 state_0: local reloc, size 0
+  0xb121 L00: local reloc, size 0
+  0xb129 state_1: local reloc, size 0
+  0xb136 L10: local reloc, size 0
+  0xb13f L11: local reloc, size 0
+  0xb150 L12: local reloc, size 0
+  0xb159 L13: local reloc, size 0
+  0xb162 L14: local reloc, size 0
+  0xb18b L15: local reloc, size 0
+  0xb194 state_2: local reloc, size 0
+  0xb1a1 L20: local reloc, size 0
+  0xb1aa L21: local reloc, size 0
+  0xb1cd L22: local reloc, size 0
+  0xb1d6 state_3: local reloc, size 0
+  0xb1e3 L30: local reloc, size 0
+  0xb1ec L31: local reloc, size 0
+  0xb200 L32: local reloc, size 0
+  0xb209 state_4: local reloc, size 0
+  0xb217 L40: local reloc, size 0
+  0xb22c L41: local reloc, size 0
+  0xb277 L42: local reloc, size 0
+  0xb28e L43: local reloc, size 0
+  0xb28f state_5: local reloc, size 0
+  0xb2bb L50: local reloc, size 0
+  0xb2bc state_6: local reloc, size 0
   0xd000 io_port1: local abs, size 0
   0xd000 io_port1: local abs, size 0
   0xd000 io_port1: local abs, size 0
@@ -433,6 +440,16 @@ Symbols of .kernel:
   0x0000 r0: local abs, size 0
   0x0000 dev_lcd: local abs, size 0
   0x0000 device.ioctl: local abs, size 0
+  0x0000 zero_start: local abs, size 0
+  0x0000 r0: local abs, size 0
+  0x0000 dev_lcd: local abs, size 0
+  0x0000 device.ioctl: local abs, size 0
+  0x0000 zero_start: local abs, size 0
+  0x0000 r0: local abs, size 0
+  0x0000 dev_lcd: local abs, size 0
+  0x0000 device.ioctl: local abs, size 0
+  0x0001 r1: local abs, size 0
+  0x0001 r1: local abs, size 0
   0x0001 r1: local abs, size 0
   0x0001 r1: local abs, size 0
   0x0001 r1: local abs, size 0
@@ -479,6 +496,12 @@ Symbols of .kernel:
   0x0002 r2: local abs, size 0
   0x0002 device.put_char: local abs, size 0
   0x0002 r2: local abs, size 0
+  0x0002 device.put_char: local abs, size 0
+  0x0002 r2: local abs, size 0
+  0x0002 device.put_char: local abs, size 0
+  0x0002 r2: local abs, size 0
+  0x0003 r3: local abs, size 0
+  0x0003 r3: local abs, size 0
   0x0003 r3: local abs, size 0
   0x0003 r3: local abs, size 0
   0x0003 r3: local abs, size 0
@@ -525,6 +548,12 @@ Symbols of .kernel:
   0x0004 r4: local abs, size 0
   0x0004 device.get_char: local abs, size 0
   0x0004 r4: local abs, size 0
+  0x0004 device.get_char: local abs, size 0
+  0x0004 r4: local abs, size 0
+  0x0004 device.get_char: local abs, size 0
+  0x0004 r4: local abs, size 0
+  0x0005 r5: local abs, size 0
+  0x0005 r5: local abs, size 0
   0x0005 r5: local abs, size 0
   0x0005 r5: local abs, size 0
   0x0005 r5: local abs, size 0
@@ -577,6 +606,14 @@ Symbols of .kernel:
   0x0006 dev_uart: local abs, size 0
   0x0006 device: local abs, size 0
   0x0006 r6: local abs, size 0
+  0x0006 dev_uart: local abs, size 0
+  0x0006 device: local abs, size 0
+  0x0006 r6: local abs, size 0
+  0x0006 dev_uart: local abs, size 0
+  0x0006 device: local abs, size 0
+  0x0006 r6: local abs, size 0
+  0x0007 r7: local abs, size 0
+  0x0007 r7: local abs, size 0
   0x0007 r7: local abs, size 0
   0x0007 r7: local abs, size 0
   0x0007 r7: local abs, size 0
@@ -617,6 +654,10 @@ Symbols of .kernel:
   0x0008 r8: local abs, size 0
   0x0008 r8: local abs, size 0
   0x0008 r8: local abs, size 0
+  0x0008 r8: local abs, size 0
+  0x0008 r8: local abs, size 0
+  0x0009 r9: local abs, size 0
+  0x0009 r9: local abs, size 0
   0x0009 r9: local abs, size 0
   0x0009 r9: local abs, size 0
   0x0009 r9: local abs, size 0
@@ -657,6 +698,10 @@ Symbols of .kernel:
   0x000a r10: local abs, size 0
   0x000a r10: local abs, size 0
   0x000a r10: local abs, size 0
+  0x000a r10: local abs, size 0
+  0x000a r10: local abs, size 0
+  0x000b r11: local abs, size 0
+  0x000b r11: local abs, size 0
   0x000b r11: local abs, size 0
   0x000b r11: local abs, size 0
   0x000b r11: local abs, size 0
@@ -697,6 +742,10 @@ Symbols of .kernel:
   0x000c r12: local abs, size 0
   0x000c r12: local abs, size 0
   0x000c r12: local abs, size 0
+  0x000c r12: local abs, size 0
+  0x000c r12: local abs, size 0
+  0x000d r13: local abs, size 0
+  0x000d r13: local abs, size 0
   0x000d r13: local abs, size 0
   0x000d r13: local abs, size 0
   0x000d r13: local abs, size 0
@@ -737,6 +786,10 @@ Symbols of .kernel:
   0x000e r14: local abs, size 0
   0x000e r14: local abs, size 0
   0x000e r14: local abs, size 0
+  0x000e r14: local abs, size 0
+  0x000e r14: local abs, size 0
+  0x000f r15: local abs, size 0
+  0x000f r15: local abs, size 0
   0x000f r15: local abs, size 0
   0x000f r15: local abs, size 0
   0x000f r15: local abs, size 0
@@ -800,6 +853,10 @@ Symbols of .kernel:
   0x0080 zero_user: local abs, size 0
   0x0080 zero_user: local abs, size 0
   0x0080 zero_user: local abs, size 0
+  0x0080 zero_user: local abs, size 0
+  0x0080 zero_user: local abs, size 0
+  0x0100 stck_start: local abs, size 0
+  0x0100 stck_start: local abs, size 0
   0x0100 stck_start: local abs, size 0
   0x0100 stck_start: local abs, size 0
   0x0100 stck_start: local abs, size 0
@@ -840,6 +897,10 @@ Symbols of .kernel:
   0x0200 bss_user: local abs, size 0
   0x0200 bss_user: local abs, size 0
   0x0200 bss_user: local abs, size 0
+  0x0200 bss_user: local abs, size 0
+  0x0200 bss_user: local abs, size 0
+  0x8000 data_user: local abs, size 0
+  0x8000 data_user: local abs, size 0
   0x8000 data_user: local abs, size 0
   0x8000 data_user: local abs, size 0
   0x8000 data_user: local abs, size 0
@@ -880,6 +941,8 @@ Symbols of .kernel:
   0xb000 code_user: local abs, size 0
   0xb000 code_user: local abs, size 0
   0xb000 code_user: local abs, size 0
+  0xb000 code_user: local abs, size 0
+  0xb000 code_user: local abs, size 0
   0xd000 io_port1: local abs, size 0
   0xd000 io_port1: local abs, size 0
   0xd000 io_port1: local abs, size 0
@@ -900,6 +963,10 @@ Symbols of .kernel:
   0xd000 io_port1: local abs, size 0
   0xd000 io_port1: local abs, size 0
   0xd000 io_port1: local abs, size 0
+  0xd000 io_port1: local abs, size 0
+  0xd000 io_port1: local abs, size 0
+  0xd400 io_port2: local abs, size 0
+  0xd400 io_port2: local abs, size 0
   0xd400 io_port2: local abs, size 0
   0xd400 io_port2: local abs, size 0
   0xd400 io_port2: local abs, size 0
@@ -946,6 +1013,8 @@ Symbols of .kernel:
   0xd800 uart_data_reg: local abs, size 0
   0xd800 io_port3: local abs, size 0
   0xd800 uart_port: local abs, size 0
+  0xd800 io_port3: local abs, size 0
+  0xd800 io_port3: local abs, size 0
   0xd800 io_port3: local abs, size 0
   0xd800 io_port3: local abs, size 0
   0xd800 io_port3: local abs, size 0
@@ -1005,6 +1074,12 @@ Symbols of .kernel:
   0xdc00 io_cia1: local abs, size 0
   0xdc00 portb: local abs, size 0
   0xdc00 io_cia1: local abs, size 0
+  0xdc00 portb: local abs, size 0
+  0xdc00 io_cia1: local abs, size 0
+  0xdc00 portb: local abs, size 0
+  0xdc00 io_cia1: local abs, size 0
+  0xdc01 porta: local abs, size 0
+  0xdc01 porta: local abs, size 0
   0xdc01 porta: local abs, size 0
   0xdc01 porta: local abs, size 0
   0xdc01 porta: local abs, size 0
@@ -1045,6 +1120,10 @@ Symbols of .kernel:
   0xdc02 ddrb: local abs, size 0
   0xdc02 ddrb: local abs, size 0
   0xdc02 ddrb: local abs, size 0
+  0xdc02 ddrb: local abs, size 0
+  0xdc02 ddrb: local abs, size 0
+  0xdc03 ddra: local abs, size 0
+  0xdc03 ddra: local abs, size 0
   0xdc03 ddra: local abs, size 0
   0xdc03 ddra: local abs, size 0
   0xdc03 ddra: local abs, size 0
@@ -1085,6 +1164,10 @@ Symbols of .kernel:
   0xdc04 t1cl: local abs, size 0
   0xdc04 t1cl: local abs, size 0
   0xdc04 t1cl: local abs, size 0
+  0xdc04 t1cl: local abs, size 0
+  0xdc04 t1cl: local abs, size 0
+  0xdc05 t1ch: local abs, size 0
+  0xdc05 t1ch: local abs, size 0
   0xdc05 t1ch: local abs, size 0
   0xdc05 t1ch: local abs, size 0
   0xdc05 t1ch: local abs, size 0
@@ -1125,6 +1208,10 @@ Symbols of .kernel:
   0xdc06 t1ll: local abs, size 0
   0xdc06 t1ll: local abs, size 0
   0xdc06 t1ll: local abs, size 0
+  0xdc06 t1ll: local abs, size 0
+  0xdc06 t1ll: local abs, size 0
+  0xdc07 t1lh: local abs, size 0
+  0xdc07 t1lh: local abs, size 0
   0xdc07 t1lh: local abs, size 0
   0xdc07 t1lh: local abs, size 0
   0xdc07 t1lh: local abs, size 0
@@ -1185,6 +1272,12 @@ Symbols of .kernel:
   0xdc08 t2cl: local abs, size 0
   0xdc08 t2ch: local abs, size 0
   0xdc08 t2cl: local abs, size 0
+  0xdc08 t2ch: local abs, size 0
+  0xdc08 t2cl: local abs, size 0
+  0xdc08 t2ch: local abs, size 0
+  0xdc08 t2cl: local abs, size 0
+  0xdc0b acr: local abs, size 0
+  0xdc0b acr: local abs, size 0
   0xdc0b acr: local abs, size 0
   0xdc0b acr: local abs, size 0
   0xdc0b acr: local abs, size 0
@@ -1225,6 +1318,10 @@ Symbols of .kernel:
   0xdc0d ifr: local abs, size 0
   0xdc0d ifr: local abs, size 0
   0xdc0d ifr: local abs, size 0
+  0xdc0d ifr: local abs, size 0
+  0xdc0d ifr: local abs, size 0
+  0xdc0e ier: local abs, size 0
+  0xdc0e ier: local abs, size 0
   0xdc0e ier: local abs, size 0
   0xdc0e ier: local abs, size 0
   0xdc0e ier: local abs, size 0
@@ -1265,6 +1362,8 @@ Symbols of .kernel:
   0xdd00 io_cia2: local abs, size 0
   0xdd00 io_cia2: local abs, size 0
   0xdd00 io_cia2: local abs, size 0
+  0xdd00 io_cia2: local abs, size 0
+  0xdd00 io_cia2: local abs, size 0
   0xde00 io_usr: local abs, size 0
   0xde00 io_usr: local abs, size 0
   0xde00 io_usr: local abs, size 0
@@ -1285,6 +1384,10 @@ Symbols of .kernel:
   0xde00 io_usr: local abs, size 0
   0xde00 io_usr: local abs, size 0
   0xde00 io_usr: local abs, size 0
+  0xde00 io_usr: local abs, size 0
+  0xde00 io_usr: local abs, size 0
+  0xdf00 io_irq: local abs, size 0
+  0xdf00 io_irq: local abs, size 0
   0xdf00 io_irq: local abs, size 0
   0xdf00 io_irq: local abs, size 0
   0xdf00 io_irq: local abs, size 0
@@ -1326,43 +1429,49 @@ Symbols of .kernel:
   0xe000 code_start: local abs, size 0
   0xe000 code_start: local abs, size 0
   0xe000 code_start: local abs, size 0
+  0xe000 code_start: local abs, size 0
+  0xe000 code_start: local abs, size 0
   0xe00e irq_func: global reloc, size 0
   0xe019 no_irq_func: global reloc, size 0
   0xe01a no_nmi_func: global reloc, size 0
   0xe01b call_ptr: global reloc, size 0
   0xe01e delay: global reloc, size 0
-  0xe026 delay_1ms: global reloc, size 0
-  0xe029 L1: local reloc, size 0
-  0xe032 memset: global reloc, size 0
-  0xe038 lcd_init: global reloc, size 0
-  0xe07c lcd_clear: global reloc, size 0
-  0xe082 lcd_home: global reloc, size 0
-  0xe088 lcd_put_char: global reloc, size 0
-  0xe09e lcd_send_cmd: global reloc, size 0
-  0xe0b4 lcd_wait: global reloc, size 0
-  0xe0ba L1: local reloc, size 0
-  0xe0d7 uart_init: global reloc, size 0
-  0xe109 uart_put_char: global reloc, size 0
-  0xe110 uart_get_char: global reloc, size 0
-  0xe117 uart_wait_rx: global reloc, size 0
-  0xe11f L1: local reloc, size 0
-  0xe126 uart_wait_tx: global reloc, size 0
-  0xe130 L1: local reloc, size 0
-  0xe136 uart_int_func: global reloc, size 0
-  0xe146 put_char: global reloc, size 0
-  0xe152 print: global reloc, size 0
-  0xe15a L1: local reloc, size 0
-  0xe165 L2: local reloc, size 0
-  0xe166 print_byte: global reloc, size 0
-  0xe172 L1: local reloc, size 0
-  0xe180 L4: local reloc, size 0
-  0xe185 L2: local reloc, size 0
-  0xe18d L3: local reloc, size 0
-  0xe18e print_hex: global reloc, size 0
-  0xe196 L0: local reloc, size 0
-  0xe1a8 L1: local reloc, size 0
-  0xe1ab L2: local reloc, size 0
-  0xe1bc L4: local reloc, size 0
+  0xe027 delay_1ms: global reloc, size 0
+  0xe02a L1: local reloc, size 0
+  0xe033 memset: global reloc, size 0
+  0xe039 lcd_init: global reloc, size 0
+  0xe07d lcd_clear: global reloc, size 0
+  0xe083 lcd_home: global reloc, size 0
+  0xe089 lcd_put_char: global reloc, size 0
+  0xe09f lcd_send_cmd: global reloc, size 0
+  0xe0b5 lcd_wait: global reloc, size 0
+  0xe0bb L1: local reloc, size 0
+  0xe0d8 uart_init: global reloc, size 0
+  0xe10a uart_put_char: global reloc, size 0
+  0xe111 uart_get_char: global reloc, size 0
+  0xe118 uart_wait_rx: global reloc, size 0
+  0xe120 L1: local reloc, size 0
+  0xe127 uart_wait_tx: global reloc, size 0
+  0xe131 L1: local reloc, size 0
+  0xe137 uart_int_func: global reloc, size 0
+  0xe147 put_char: global reloc, size 0
+  0xe153 print: global reloc, size 0
+  0xe15b L1: local reloc, size 0
+  0xe166 L2: local reloc, size 0
+  0xe167 print_byte: global reloc, size 0
+  0xe173 L1: local reloc, size 0
+  0xe181 L4: local reloc, size 0
+  0xe186 L2: local reloc, size 0
+  0xe18e L3: local reloc, size 0
+  0xe18f print_hex: global reloc, size 0
+  0xe197 L0: local reloc, size 0
+  0xe1a9 L1: local reloc, size 0
+  0xe1ac L2: local reloc, size 0
+  0xe1bd L4: local reloc, size 0
+  0xe1be get_char: global reloc, size 0
+  0xe1c8 print_ln: global reloc, size 0
+  0xffea inte_start: local abs, size 0
+  0xffea inte_start: local abs, size 0
   0xffea inte_start: local abs, size 0
   0xffea inte_start: local abs, size 0
   0xffea inte_start: local abs, size 0

@@ -18,12 +18,14 @@ buf_end:
     .section text
 
 get_new_line:
-    jsr uart_get_char
+    lda #dev_uart
+    sta r0
+    jsr get_char
 
 ret_key:
     cmp #'\r'
     bne del_key
-    jmp return
+    jmp print_ln
 
 del_key:
     cmp #$7f
@@ -32,30 +34,29 @@ del_key:
     cmp #0
     beq get_new_line
     dec buf_end
+    ; delete the last on the terminal
     lda #$08
-    jsr uart_put_char
+    sta r1
+    jsr put_char
     lda #'\e'
-    jsr uart_put_char
+    sta r1
+    jsr put_char
     lda #'['
-    jsr uart_put_char
+    sta r1
+    jsr put_char
     lda #'K'
-    jsr uart_put_char 
+    sta r1
+    jsr put_char
     jmp get_new_line
 
 echo:
     ldy buf_end
     cpy #128            ; check if buffer overflow
     bne L0
-    jsr return          ; if overflow, cancel line and start a new one
+    jsr print_ln        ; if overflow, cancel line and start a new one
     jmp get_new_line
 L0: sta buf_data, y
     inc buf_end
-    jsr uart_put_char
+    sta r1
+    jsr put_char
     jmp get_new_line
-
-return:
-    lda #'\r'           
-    jsr uart_put_char
-    lda #'\n'
-    jsr uart_put_char
-    rts

@@ -1,14 +1,17 @@
     .org $0300
 loop:
-    lda #$55
+    lda $D000
     sta $D000
     lda #$FF
     jsr $E01E
-    lda #$AA
+    lda $D000
+    eor #$FF
     sta $D000
     lda #$FF
     jsr $E01E
-    rts
+    jmp loop
 
-; A9 55 8D 00 D0 A9 FF 20 1E E0 A9 AA 8D 00 D0 A9 FF 20 1E E0 60
-; A9 55 8D 00 D0 A9 FF 20 1E E0 A9 AA 8D 00 D0 A9 FF 20 1E E0 4C 00 03
+; AD 00 D0 8D 00 D0 A9 FF
+; 20 1E E0 AD 00 D0 49 FF
+; 8D 00 D0 A9 FF 20 1E E0
+; 4C 00 03

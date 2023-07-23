@@ -6,16 +6,11 @@
     .section text
 
 main:
-    lda #0
-    
-    sta buf_start
-    sta buf_end
-
-    sta mem_start
-    sta mem_start + 1
-    sta mem_end
-    sta mem_end + 1
-    sta mem_val
+    ; lda #0
+    ; sta mem_start
+    ; sta mem_start + 1
+    ; sta mem_end
+    ; sta mem_end + 1
 
     lda #dev_uart
     sta r0
