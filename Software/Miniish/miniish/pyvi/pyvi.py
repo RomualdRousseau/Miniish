@@ -9,8 +9,7 @@ from .states import *
 
 
 def create_empty_buffer(view_size):
-    buffer = Buffer(view_size)
-    return buffer
+    return Buffer(view_size)
 
 
 def update_buffer(buffer, c):
@@ -45,10 +44,12 @@ def get_height_in_lines(buffer):
 
 
 def get_line_in_view(buffer, i):
-    if i <= get_last_line_pos(buffer):
-        return get_buffer_line(buffer, i)
-    else:
-        return None
+    return get_buffer_line(buffer, i) if i <= get_last_line_pos(buffer) else None
+
+
+def get_current_line_offset(buffer):
+    return buffer.line_pos
+
 
 def is_buffer_empty(buffer):
     return len(buffer.buf) == 0 or len(buffer.buf) == 1 and len(buffer.buf[0]) == 0

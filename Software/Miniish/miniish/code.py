@@ -1,8 +1,9 @@
 from math import ceil
 
-from miniish.pyco import sys, rectfill, color
+from miniish.pyco import rectfill, color, input, print
+from miniish.pyco.sys import get_sources, set_sources
 from miniish.widgets import ButtonGroup, Button
-from miniish.widgets import MAX_BUFFERS, COLOR_STAT_BG, COLOR_MAIN_BG, COLOR_MAIN_FG, COLOR_STAT_FG, COLOR_CURSOR
+from miniish.widgets import MAX_BUFFERS, COLOR_STAT_BG, COLOR_MAIN_FG, COLOR_STAT_FG, COLOR_CURSOR
 
 import miniish.pyvi as vi
 
@@ -61,7 +62,8 @@ class CodeEditor:
         for i in range(vi.get_height_in_lines(self.buffer)):
             line = vi.get_line_in_view(self.buffer, i)
             if line is not None:
-                self.language.colorize(line, (0, y))
+                x = -4 * vi.get_current_line_offset(self.buffer)
+                self.language.colorize(line, (x, y))
             else:
                 print("~", (0, y), COLOR_MAIN_FG)
             y += 6
@@ -96,7 +98,7 @@ class CodeEditor:
             self.buffers = []
             self.ui_tabs.buttons = []
         elif method == "POST":
-            for source in sys.get_sources():
+            for source in get_sources():
                 buffer = self._create_buffer()
                 buffer.buf = source
                 self.buffers.append(buffer)
@@ -111,7 +113,7 @@ class CodeEditor:
             sources = []
             for i in range(len(self.buffers)):
                 sources.append(vi.get_text(self.buffers[i]))
-            sys.set_sources(sources)
+            set_sources(sources)
 
     #
     # Privates

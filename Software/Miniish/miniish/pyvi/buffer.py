@@ -12,6 +12,7 @@ class Buffer:
         self.height_in_lines = view_size[1]
         self.buf = [""]
         self.buf_pos = 0
+        self.line_pos = 0
         self.cursor = (0, 0)
         self.undo = []
         self.redo = []

@@ -1,5 +1,4 @@
 import logging
-import pygame
 
 from miniish.constants import *
 from miniish.pyco import *
