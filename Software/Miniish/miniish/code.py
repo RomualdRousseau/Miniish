@@ -14,7 +14,7 @@ class CodeEditor:
     Notes
     -----
     Mimic the beloved VI :)
-    Syntax color for 6501 ASM
+    Syntax color for 6502 ASM and Python
     """
 
     name = "code-editor"
