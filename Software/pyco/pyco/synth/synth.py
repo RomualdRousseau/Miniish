@@ -160,7 +160,7 @@ def play_sound(n, loop = False, last_sample = True):
     try:
         SYNTH.channel = sd.OutputStream(
             device = None,
-            channels = 1, #channels,
+            channels = channels,
             callback = callback,
             finished_callback = finished_callback,
             samplerate = SAMPLING_RATE,

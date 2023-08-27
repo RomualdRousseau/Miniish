@@ -1,13 +1,11 @@
 import logging
 
 from miniish.constants import *
-from miniish.pyco import *
 from miniish.widgets import *
 
 
 class Console:
-    """The Console.
-    """
+    """The Console."""
 
     name = "console"
 
@@ -25,7 +23,7 @@ class Console:
     def init_ui(self):
         cls(COLOR_CONS_BG)
         blit(sys.load_png("miniish-logo"))
-        self.print(BANNER) 
+        self.print(BANNER)
         self.print(PROMPT)
 
     def update(self):
@@ -37,7 +35,7 @@ class Console:
             else:
                 self._parse(c)
         # timer for the blinking cursor
-        self.timer +=1
+        self.timer += 1
         return True
 
     def draw(self):
@@ -60,12 +58,13 @@ class Console:
                 self._partial_cls()
                 del self.buffer[0]
             self.buffer.append(s)
-        # Add multi-lines in the buffer 
+
+        # Add multi-lines in the buffer
         for line in self._split_strings(s):
             badd(line)
 
     def execute(self, s):
-        self._exec(s.split(' '))
+        self._exec(s.split(" "))
         self.print(PROMPT)
 
     #
@@ -74,7 +73,7 @@ class Console:
 
     def _split_strings(self, s):
         result = []
-        for line in s.split('\n'):
+        for line in s.split("\n"):
             while len(line) > 32:
                 result.append(line[:32])
                 line = line[32:]
@@ -85,7 +84,7 @@ class Console:
         # Very basic editings; backspace and return
         # and basic history
         if c == "return":
-            if not self._exec(self.lastcmd.split(' ')):
+            if not self._exec(self.lastcmd.split(" ")):
                 self.print("syntax error")
             self.print(PROMPT)
             self.history.append(self.lastcmd)
@@ -108,8 +107,8 @@ class Console:
             self.buffer[-1] += c
 
     def _exec(self, args):
-        from . import commands
-        cmd = commands.__all__.get(args[0])
+        import miniish.commands
+        cmd = miniish.commands.COMMANDS.get(args[0])
         if cmd is not None:
             cmd(args, self)
             flush()

@@ -9,9 +9,9 @@ import os.path as path
 from .globals import *
 from . import pyco
 from . import subr
-from . import synth
 from . import mouse
 from . import cartdrige
+from . import synth
 
 
 def get_sources():
@@ -330,6 +330,7 @@ def run():
     PYCO.keybuf = []
     PYCO.sounds = [[(0, 0, 0, 0, 1) for j in range(32)] for i in range(64)]
     PYCO.music = [[-1, -1, -1, -1] for i in range(64)]
+    PYCO.music_playing = -1
     PYCO.sources= []
     PYCO.running = True
 
@@ -342,6 +343,11 @@ def run():
         PYCO.draw()
         mouse.draw()
         pyco.flip()
+        
+        # TODO: refactor
+        if not synth.is_playing() and PYCO.music_playing >= 0:
+            n = PYCO.music_playing
+            synth.play_sound(tuple([p for p in PYCO.music[n] if p >= 0]), True)
 
     #pg.mixer.quit()
     pg.quit()

@@ -1,23 +1,28 @@
-from miniish.widgets import *
+from pyco import *
+
+from .widgets import *
 
 
 class FlagPicker(Widget):
-    """Widget to pick a flag for a given sprite
-    """
+    """Widget to pick a flag for a given sprite"""
 
     def __init__(self, id_, pos_, size_):
         Widget.__init__(self, id_, pos_, size_)
         self.sprite_selected = -1
         self.init_ui()
+
     #
     # Widget interface
     #
 
     def init_ui(self):
         (x, y) = self.pos
-        self.flags = ButtonGroup(-1, (x, y), [
-            Button(i, (-2, 0), (14 + i, 13), self._switch_flag) for i in range(8)
-            ], True)
+        self.flags = ButtonGroup(
+            -1,
+            (x, y),
+            [Button(i, (-2, 0), (14 + i, 13), self._switch_flag) for i in range(8)],
+            True,
+        )
 
     def update(self):
         # The sprite changed

@@ -1,4 +1,4 @@
-from miniish.pyco import *
+from pyco import *
 
 # main
 
@@ -6,6 +6,7 @@ def ball(): pass
 
 
 def _init():
+ music(0)
  ball_init(ball)
 
 

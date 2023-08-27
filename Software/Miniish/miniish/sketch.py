@@ -1,5 +1,3 @@
-from miniish.pyco import *
-from miniish.pyco import sys
 from miniish.widgets import *
 from miniish.code import *
 from miniish.sprite import *
@@ -11,26 +9,21 @@ from miniish.console import *
 import miniish.languages.python as lang_python
 import miniish.languages.asm6502 as lang_asm6502
 
-LANGUAGES = {
-        "python" : lang_python,
-        "asm6502": lang_asm6502
-        }
+LANGUAGES = {"python": lang_python, "asm6502": lang_asm6502}
 
-APPS = [
-        CodeEditor(),
-        SpriteEditor(),
-        MapEditor(),
-        SoundEditor(),
-        MusicEditor()
-        ]
+APPS = [CodeEditor(), SpriteEditor(), MapEditor(), SoundEditor(), MusicEditor()]
 
 CONSOLE = Console()
 
-class SKETCH: pass
+
+class SKETCH:
+    pass
+
 
 #
 # PYCO interface
 #
+
 
 def _init():
     SKETCH.console = CONSOLE
@@ -40,7 +33,7 @@ def _init():
     SKETCH.console_screen = None
     SKETCH.language = LANGUAGES["asm6502"]
     SKETCH.last_loaded = None
-    _init_ui() 
+    _init_ui()
 
 
 def _update():
@@ -63,6 +56,7 @@ def _run(args, out):
             SKETCH.update = _update_console
             SKETCH.draw = _draw_console
             flush()
+            music(-1)
         program._update()
 
     SKETCH.update = update_run
@@ -76,11 +70,16 @@ def _run(args, out):
 # Privates
 #
 
+
 def _init_ui():
     # Init APPS selector
-    SKETCH.bar = ButtonGroup(-1, (128 - len(APPS) * 8, 0), [
-            Button(i, (0, 0), (i * 2, i * 2 + 1), _switch_app) for i in range(len(APPS))    
-            ], False, [0])
+    SKETCH.bar = ButtonGroup(
+        -1,
+        (128 - len(APPS) * 8, 0),
+        [Button(i, (0, 0), (i * 2, i * 2 + 1), _switch_app) for i in range(len(APPS))],
+        False,
+        [0],
+    )
     # Init all APPS and CONSOLE
     for app in APPS:
         app.language = SKETCH.language
@@ -92,10 +91,10 @@ def _update_console():
     if not SKETCH.console.update():
         SKETCH.update = _update_app
         SKETCH.draw = _draw_app
-        SKETCH.console_screen = sys.screenshot()
+        SKETCH.console_screen = screenshot()
         flush()
 
- 
+
 def _draw_console():
     SKETCH.console.draw()
 

@@ -1,13 +1,14 @@
-from miniish.widgets import *
+from pyco import *
+
+from .widgets import *
 
 
 class ColorPicker(Widget):
-    """Widget to pick a color from PYCO palette.
-    """
+    """Widget to pick a color from PYCO palette."""
 
     def __init__(self, id_, pos_, size_):
         Widget.__init__(self, id_, pos_, size_)
-        self.cell_size = (int((size_[0] - 2) / 4),int((size_[1] - 2) / 4))
+        self.cell_size = (int((size_[0] - 2) / 4), int((size_[1] - 2) / 4))
         self.selected = 0
         self.init_ui()
 

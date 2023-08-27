@@ -1,15 +1,13 @@
-from miniish.pyco import *
 from miniish.widgets import *
 
 
 class SpriteEditor:
-    """The sprite editor.
-    """
+    """The sprite editor."""
 
     name = "sprite-editor"
 
     def __init__(self):
-        pass        
+        pass
 
     #
     # App interface
@@ -43,7 +41,7 @@ class SpriteEditor:
     #
     # Serialization interface
     #
-    
+
     def load(self, method):
         pass
 

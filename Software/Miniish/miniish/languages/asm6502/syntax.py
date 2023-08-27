@@ -1,5 +1,7 @@
+from pyco import *
+
 from miniish.constants import *
-from miniish.pyco import *
+
 
 KEYWORDS1 = (
         "ADC",

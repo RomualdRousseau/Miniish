@@ -1,4 +1,4 @@
-pygame
-numpy
-pyperclip
-sounddevice
+pyco
+pyvi
+matplotlib
+pyserial

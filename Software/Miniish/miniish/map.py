@@ -1,10 +1,8 @@
-from miniish.pyco import *
 from miniish.widgets import *
 
 
 class MapEditor:
-    """The Map editor.
-    """
+    """The Map editor."""
 
     name = "map-editor"
 

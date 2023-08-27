@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./Software/pyco"
+    ],
+    "python.analysis.typeCheckingMode": "basic"
+}

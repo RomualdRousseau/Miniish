@@ -1,11 +1,8 @@
 from math import ceil
 
-from miniish.pyco import rectfill, color, input, print
-from miniish.pyco.sys import get_sources, set_sources
-from miniish.widgets import ButtonGroup, Button
-from miniish.widgets import MAX_BUFFERS, COLOR_STAT_BG, COLOR_MAIN_FG, COLOR_STAT_FG, COLOR_CURSOR
+import pyvi as vi
 
-import miniish.pyvi as vi
+from miniish.widgets import *
 
 
 class CodeEditor:
@@ -25,7 +22,7 @@ class CodeEditor:
         self.buffer_id = 0
         self.timer = 0
         self.language = None
-    
+
     #
     # App interface
     #
@@ -49,12 +46,12 @@ class CodeEditor:
         # Timer for the blinking cursor
         self.timer += 1
         return True
-    
+
     def draw(self):
         # Draw the buffers with labels
         self.ui_tabs.draw()
         for b in range(len(self.buffers)):
-            print("%d"%(b), (b * 9 + 6, 2), COLOR_STAT_BG)
+            print("%d" % (b), (b * 9 + 6, 2), COLOR_STAT_BG)
         if len(self.buffers) < MAX_BUFFERS:
             self.ui_plus.draw()
         # Draw the text
@@ -63,7 +60,7 @@ class CodeEditor:
             line = vi.get_line_in_view(self.buffer, i)
             if line is not None:
                 x = -4 * vi.get_current_line_offset(self.buffer)
-                self.language.colorize(line, (x, y))
+                self.language.colorize(line, (x, y)) # type: ignore
             else:
                 print("~", (0, y), COLOR_MAIN_FG)
             y += 6
@@ -71,10 +68,10 @@ class CodeEditor:
         color(COLOR_STAT_FG)
         if vi.get_state(self.buffer) != "COMMAND":
             # Draw line statistics
-            linestat = "%d/%d"%(
-                    vi.get_current_line_number(self.buffer),
-                    vi.get_count_of_lines(self.buffer)
-                    )
+            linestat = "%d/%d" % (
+                vi.get_current_line_number(self.buffer),
+                vi.get_count_of_lines(self.buffer),
+            )
             print(vi.get_state(self.buffer).lower(), (1, 122))
             print(linestat, (128 - len(linestat) * 4, 122))
             # Draw the blinking cursor
@@ -98,7 +95,7 @@ class CodeEditor:
             self.buffers = []
             self.ui_tabs.buttons = []
         elif method == "POST":
-            for source in get_sources():
+            for source in sys.get_sources():
                 buffer = self._create_buffer()
                 buffer.buf = source
                 self.buffers.append(buffer)
@@ -113,7 +110,7 @@ class CodeEditor:
             sources = []
             for i in range(len(self.buffers)):
                 sources.append(vi.get_text(self.buffers[i]))
-            set_sources(sources)
+            sys.set_sources(sources)
 
     #
     # Privates
@@ -122,14 +119,13 @@ class CodeEditor:
     def _guess_file_name(self, i, line):
         if i == 0:
             return "main.s"
-        elif line[0] == ';':
+        elif line[0] == ";":
             return line[1:].strip()
         else:
             return f"buffer{i}.i"
 
     def _create_buffer(self):
-        buf = vi.create_empty_buffer((int(128 / 4), ceil(113 / 6)))
-        buf.command_func = self._command_func
+        buf = vi.create_empty_buffer((int(128 / 4), ceil(113 / 6)), self._command_func)
         return buf
 
     def _add_buffer(self, b):
@@ -162,4 +158,5 @@ class CodeEditor:
     def _command_func(self, command):
         if command == ":w":
             from miniish.sketch import CONSOLE
+
             CONSOLE.execute("save")

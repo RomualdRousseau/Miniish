@@ -1,20 +1,19 @@
-from miniish.constants import *
-from miniish.widgets import *
+from .widgets import *
+
 
 class DrawBoard(Widget):
-    """Widget to draw a sprite.
-    """
+    """Widget to draw a sprite."""
 
     def __init__(self, id_, pos_, size_):
         Widget.__init__(self, id_, pos_, size_)
         self.cell_size = (int((size_[0] - 2) / 8), int((size_[1] - 2) / 8))
         self.tool_funcs = [
-                self.tool_pen,
-                self.tool_paste,
-                self.tool_select,
-                self.tool_pan,
-                self.tool_paint
-                ]
+            self.tool_pen,
+            self.tool_paste,
+            self.tool_select,
+            self.tool_pan,
+            self.tool_paint,
+        ]
         self.tool_func = None
         self.selected_tool = -1
         self.selected_sprite = -1
@@ -64,7 +63,7 @@ class DrawBoard(Widget):
             pos = self._brd_to_scr(self.select_start)
             siz = (self.select_size[0] * w, self.select_size[1] * h)
             rect(pos + siz, WHITE)
-       
+
     def tool_pen(self, pos):
         if mbtn():
             pixel = self.color_picker.selected
@@ -72,7 +71,7 @@ class DrawBoard(Widget):
 
     def tool_paste(self, pos):
         if mbtn() and self.clipboard is not None:
-           self._paste(pos) 
+            self._paste(pos)
 
     def tool_select(self, pos):
         if mbtn():
@@ -81,9 +80,9 @@ class DrawBoard(Widget):
                 self.select_size = (0, 0)
             else:
                 self.select_size = (
-                        pos[0] - self.select_start[0] + 1,
-                        pos[1] - self.select_start[1] + 1
-                        )
+                    pos[0] - self.select_start[0] + 1,
+                    pos[1] - self.select_start[1] + 1,
+                )
         elif self.select_start is not None:
             self.clipboard = self._copy(self.select_start, self.select_size)
             self.select_start = None
@@ -94,11 +93,13 @@ class DrawBoard(Widget):
 
     def tool_paint(self, pos):
         DIRS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
         def fill(x, y, c1, c2):
             if c1 != c2 and 0 <= x < 8 and 0 <= y < 8 and self.canvas[y][x] == c1:
                 self._draw_pixel((x, y), c2)
                 for i in range(len(DIRS)):
                     fill(x + DIRS[i][0], y + DIRS[i][1], c1, c2)
+
         if mbtn():
             col1 = self.canvas[pos[1]][pos[0]]
             col2 = self.color_picker.selected
@@ -106,7 +107,7 @@ class DrawBoard(Widget):
 
     #
     # Privates
-    # 
+    #
 
     def _copy(self, pos, size):
         (x, y), (w, h) = self._brd_to_sps(pos), size

@@ -1,10 +1,10 @@
-from miniish.pyco import synth
-from miniish.widgets import *
+from pyco import *
+
+from .widgets import *
 
 
 class PitchPicker(Widget):
-    """Widget to draw a pitch.
-    """
+    """Widget to draw a pitch."""
 
     def __init__(self, id_, pos_, size_):
         Widget.__init__(self, id_, pos_, size_)
@@ -44,7 +44,7 @@ class PitchPicker(Widget):
         # Draw background
         print(":pitch", (2, self.pos[1] - 8), INDIGO)
         rectfill(self._expand(self.pos + self.size, 1), BLACK)
-        # Draw graph 
+        # Draw graph
         sound = synth.get_sound(self.parent.sound)
         sample = synth.get_samples_index()
         for i in range(32):
@@ -52,24 +52,18 @@ class PitchPicker(Widget):
             if v > 0:
                 b = self.pos[1] + self.size[1]
                 c = LIGHT_GRAY if i == sample else DARK_BLUE
-                rectfill((
-                    self.pos[0] + i * w + 1,
-                    b - int(p * h + 2),
-                    2,
-                    int(p * h + 2)), c)
-                rectfill((
-                    self.pos[0] + i * w + 1,
-                    b - p * h - 2,
-                    2,
-                    2), RED + wa)
+                rectfill(
+                    (self.pos[0] + i * w + 1, b - int(p * h + 2), 2, int(p * h + 2)), c
+                )
+                rectfill((self.pos[0] + i * w + 1, b - p * h - 2, 2, 2), RED + wa)
         # Draw status line
         if self.last_note is not None:
-            print("note: %d"%(self.last_note), (0, 122), COLOR_STAT_FG)
+            print("note: %d" % (self.last_note), (0, 122), COLOR_STAT_FG)
 
     #
     # Privates
-    # 
+    #
 
     def _expand(self, r, o):
         (x, y, w, h) = r
-        return (x - o, y - o, w + o * 2, h + o * 2) 
+        return (x - o, y - o, w + o * 2, h + o * 2)

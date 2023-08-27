@@ -1,10 +1,8 @@
-from miniish.pyco import *
 from miniish.widgets import *
 
 
 class MusicEditor:
-    """The Music editor.
-    """
+    """The Music editor."""
 
     name = "music-editor"
 
@@ -22,11 +20,11 @@ class MusicEditor:
         self.pattern_up = Button(0, (28, 9), (61, 61), self._switch_pattern)
         self.pattern_down = Button(1, (83, 9), (62, 62), self._switch_pattern)
         self.channel_editors = [
-                ChannelEditor(0, (2, 27), (28, 91)),
-                ChannelEditor(1, (34, 27), (28, 91)),
-                ChannelEditor(2, (66, 27), (28, 91)),
-                ChannelEditor(3, (98, 27), (28, 91))
-                ]
+            ChannelEditor(0, (2, 27), (28, 91)),
+            ChannelEditor(1, (34, 27), (28, 91)),
+            ChannelEditor(2, (66, 27), (28, 91)),
+            ChannelEditor(3, (98, 27), (28, 91)),
+        ]
         for channel_editor in self.channel_editors:
             channel_editor.parent = self
 
@@ -40,7 +38,7 @@ class MusicEditor:
             self._move_selector_up()
         elif c == " ":
             if not synth.is_playing():
-                pattern = sys.get_music()[self.pattern_selector] 
+                pattern = sys.get_music()[self.pattern_selector]
                 synth.play_sound(tuple([p for p in pattern if p >= 0]), False)
             else:
                 synth.play_sound(-1)
@@ -62,7 +60,7 @@ class MusicEditor:
                 rectfill((38 + i * 12 - 1, 10, 9, 7), WHITE)
             else:
                 rectfill((38 + i * 12 - 1, 10, 9, 7), LIGHT_GRAY)
-            print("%02d"%(self.top + i), (38 + i * 12, 11), DARK_GRAY)
+            print("%02d" % (self.top + i), (38 + i * 12, 11), DARK_GRAY)
         # Draw widgets
         self.pattern_up.draw()
         self.pattern_down.draw()

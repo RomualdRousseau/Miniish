@@ -1,13 +1,15 @@
-from miniish.pyco import *
-from miniish.pyco import sys
+from pyco import *
+from pyco import sys
+
+from miniish.constants import *
+
 
 class Widget:
-
     def __init__(self, id_, pos_, size_):
         self.id = id_
         self.opos = pos_
         self.pos = pos_
-        self.size= size_
+        self.size = size_
 
     def inbounds(self, p):
         a = self.pos[0] <= p[0] < self.pos[0] + self.size[0]
@@ -16,7 +18,6 @@ class Widget:
 
 
 class Button(Widget):
-
     def __init__(self, id_, pos_, frames_, callback_):
         Widget.__init__(self, id_, pos_, (8, 8))
         self.frames = frames_
@@ -28,7 +29,7 @@ class Button(Widget):
         self.toggle_mode = False
 
     def update(self):
-        #pover = self.over
+        # pover = self.over
         self.over = self.inbounds(mxy())
         self.press = self.over and mbtn()
         self.click = self.click or self.press
@@ -47,8 +48,7 @@ class Button(Widget):
 
 
 class ButtonGroup(Widget):
-
-    def __init__(self, id_, pos_, buttons_, toggle_mode_ = False, select_ = None):
+    def __init__(self, id_, pos_, buttons_, toggle_mode_=False, select_=None):
         Widget.__init__(self, id_, pos_, (len(buttons_) * 8, 8))
         self.buttons = buttons_
         self.last_selected = None
@@ -59,7 +59,7 @@ class ButtonGroup(Widget):
             if select_ is not None:
                 for b in select_:
                     self.buttons[b].toggle = True
-        
+
         if select_ is not None:
             self.last_selected = self.buttons[select_[-1]]
 
@@ -74,7 +74,7 @@ class ButtonGroup(Widget):
                 self.last_selected = button
             if self.last_selected is not None:
                 self.last_selected.press = True
-       
+
     def draw(self):
         for button in self.buttons:
             button.draw()
@@ -103,9 +103,9 @@ class ButtonGroup(Widget):
             button.pos = (button.opos[0] + off[0], button.opos[1] + off[1])
             off = (button.opos[0] + off[0] + 8, off[1])
 
+
 class TextSpinner(Widget):
-    
-    def __init__(self, id_, pos_, size_, min_, max_, callback_ = None):
+    def __init__(self, id_, pos_, size_, min_, max_, callback_=None):
         Widget.__init__(self, id_, pos_, size_)
         self.min = min_
         self.max = max_
@@ -127,7 +127,7 @@ class TextSpinner(Widget):
 
     def draw(self):
         rectfill(self.pos + self.size, BLACK)
-        print("%02d"%(self.value), (self.pos[0] + 1, self.pos[1] + 1), WHITE)
+        print("%02d" % (self.value), (self.pos[0] + 1, self.pos[1] + 1), WHITE)
 
     def get_value(self):
         return self.value

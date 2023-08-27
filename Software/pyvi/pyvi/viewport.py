@@ -124,7 +124,7 @@ def keep_cursor_inbounds(buffer):
             0,
             min(
                 buffer.cursor[0],
-                min(get_last_char_pos(buffer), buffer.width_in_chars - 1),
+                min(get_last_char_pos(buffer) + padding, buffer.width_in_chars - 1),
             ),
         ),
         buffer.cursor[1],

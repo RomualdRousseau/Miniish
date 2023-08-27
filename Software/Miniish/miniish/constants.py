@@ -1,4 +1,4 @@
-from miniish.pyco.constants import *
+from pyco.constants import *
 
 BANNER = """
 miniish 0.1
@@ -16,7 +16,7 @@ COLOR_MAIN_BG = DARK_GRAY
 COLOR_MAIN_FG = LIGHT_GRAY
 COLOR_STAT_BG = RED
 COLOR_STAT_FG = DARK_PURPLE
-COLOR_CURSOR  = RED
+COLOR_CURSOR = RED
 
 SYNTAX_TOKEN = LIGHT_GRAY
 SYNTAX_SYMBOL = WHITE

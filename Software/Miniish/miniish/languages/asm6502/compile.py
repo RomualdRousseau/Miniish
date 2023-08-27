@@ -3,7 +3,7 @@ import shutil
 import tempfile
 import subprocess
 
-from miniish.pyco import *
+from pyco import *
 
 def build_sources(workdir):
     for i, text in enumerate(PYCO.sources):

@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from miniish.pyco.synth.locals import *
-from miniish.pyco.synth.envelopes import *
-from miniish.pyco.synth.modulators import *
-from miniish.pyco.synth.oscillators import *
+from pyco.synth.locals import *
+from pyco.synth.envelopes import *
+from pyco.synth.modulators import *
+from pyco.synth.oscillators import *
 
 def generates_tables(n, y, ymin = 0, ymax = 255):
     writer.write("const PROGMEM char %s[256]=\n"%n)

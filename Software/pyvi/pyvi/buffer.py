@@ -6,7 +6,7 @@ Functions to deal with buffer operations; insert a block, delete a line, ...
 import re
 
 class Buffer:
-    def __init__(self, view_size):
+    def __init__(self, view_size, command_func=None):
         self.state = "NORMAL"
         self.width_in_chars = view_size[0]
         self.height_in_lines = view_size[1]
@@ -19,7 +19,7 @@ class Buffer:
         self.repeat = []
         self.paste_full_line = False
         self.command = ""
-        self.command_func = None
+        self.command_func = command_func
         self.search = []
         self.search_curr = 0
         self.selblock = 0

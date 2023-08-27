@@ -4,7 +4,6 @@ Various sub routines
 """
 
 from .globals import *
-from . import synth
 
 
 def get_palette_exact(col):

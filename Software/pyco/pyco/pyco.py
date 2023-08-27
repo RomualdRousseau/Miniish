@@ -7,7 +7,6 @@ The interface is inspired by the PICO API.
 from .globals import *
 from . import subr
 from . import synth
-from . import mouse
 
 def sfx(n):
     """Play a sound.
@@ -20,7 +19,28 @@ def sfx(n):
     -----
 
     """
-    synth.play_sound(n)
+    if n == -1:
+        synth.stop_sound()
+    else:
+        synth.play_sound(n)
+
+
+def music(n):
+    """Play a music.
+
+    Parameters
+    ----------
+    n : The music to play
+
+    Notes
+    -----
+
+    """
+    PYCO.music_playing = n
+    if n == -1:
+        synth.stop_sound()
+    else:
+        synth.play_sound(tuple([p for p in PYCO.music[n] if p >= 0]), True)
 
 
 def map(pos, cels):
@@ -248,7 +268,7 @@ def pget(pos):
     """
     if 0 <= pos[0] < 128 and 0 <= pos[1] < 128:
         col = PYCO.screen.get_at(pos)
-        return get_palette_exact(col)
+        return subr.get_palette_exact(col)
     return BLACK
 
 

@@ -8,8 +8,8 @@ from .viewport import *
 from .states import *
 
 
-def create_empty_buffer(view_size):
-    return Buffer(view_size)
+def create_empty_buffer(view_size, command_func=None):
+    return Buffer(view_size, command_func)
 
 
 def update_buffer(buffer, c):
