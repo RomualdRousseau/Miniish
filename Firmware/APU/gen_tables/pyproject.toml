@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "gen_tables"
+version = "0.1.0"
+description = ""
+authors = ["Romuald Rousseau <romualdrousseau@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+matplotlib = "^3.7.2"
+pyco = "^0.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
