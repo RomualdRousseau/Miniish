@@ -7,15 +7,15 @@ from miniish.sketch import SKETCH, _update_console, _draw_console
 
 
 class SCREEN:
-    serial: serial.Serial
-    reader_worker: threading.Thread
-    reader_worker_terminated: bool
+    serial = None
+    reader_worker = None
+    reader_worker_terminated = False
     buffer = [""]
 
 
 def screen(args, out):
     SCREEN.serial = serial.Serial("/dev/ttyUSB0", 19200, timeout=0)
-    SCREEN.reader_worker = threading.Thread(target=screen_reader)
+    SCREEN.reader_worker = threading.Thread(target=screen_reader_worker)
     SCREEN.reader_worker_terminated = False
     SCREEN.reader_worker.start()
 
@@ -50,7 +50,7 @@ def screen_draw():
         y = y + 6
 
 
-def screen_reader():
+def screen_reader_worker():
     state = 0
     while not SCREEN.reader_worker_terminated:
         b = SCREEN.serial.read()
