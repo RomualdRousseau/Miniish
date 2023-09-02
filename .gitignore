@@ -10,6 +10,9 @@ work
 # Tags
 tags
 
+# VScode
+.vscode/
+
 # Binaries
 bin/
 dist/
