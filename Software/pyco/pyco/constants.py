@@ -4,7 +4,7 @@ Constants
 """
 
 # Size of the final window
-DISPLAY_SIZE = (512, 512)
+DISPLAY_SIZE = (1024, 1024)
 
 # Standard palette
 PALETTE = [

@@ -1,4 +1,4 @@
 from miniish.sketch import *
 
-def check(args, out):
-    SKETCH.language.compile(args, out, checkonly=True)
+def check(args, input, output):
+    SKETCH.language.compile(args, output, checkonly=True)

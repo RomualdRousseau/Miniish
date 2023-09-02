@@ -12,4 +12,6 @@ tags
 
 # Binaries
 bin/
-rom.bin
+dist/
+*.bin
+a.out

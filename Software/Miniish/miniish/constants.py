@@ -3,7 +3,6 @@ from pyco.constants import *
 BANNER = """
 miniish 0.1
 (c) 2022-24 romuald rousseau
-
 """
 
 PROMPT = "> "

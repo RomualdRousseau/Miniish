@@ -6,6 +6,7 @@ from .shutdown import *
 from .run import *
 from .check import *
 from .lang import *
+from .clrscr import *
 from .screen import *
 
 COMMANDS = {
@@ -17,5 +18,6 @@ COMMANDS = {
     "run": run_,
     "check": check,
     "lang": lang,
+    "clear": clrscr,
     "screen": screen
 }

@@ -1,8 +1,8 @@
 from miniish.sketch import *
 
-def lang(args, out):
+def lang(args, input, output):
     if len(args) != 2:
-        out.print("usage: lang <python | asm6502>")
+        output.print("usage: lang <python | asm6502>")
     else:
         SKETCH.language = LANGUAGES[args[1]]
         for app in APPS:

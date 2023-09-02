@@ -1,8 +1,8 @@
 from pyco import sys
 
-def export_png(args, out):
+def export_png(args, input, output):
     if len(args) != 2:
-        out.print("usage: export [FILE]")
+        output.print("usage: export [FILE]")
     else:
         sys.export_png(args[1])
-        out.print("exported")
+        output.print("exported")

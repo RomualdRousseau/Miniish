@@ -1,4 +1,4 @@
 from miniish.sketch import _run
 
-def run_(args, out):
-    _run(args, out)
+def run_(args, input, output):
+    _run(args, output)

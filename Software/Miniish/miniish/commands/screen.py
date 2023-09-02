@@ -1,78 +1,59 @@
 import serial
 import threading
 
-from pyco import *
+from miniish.constants import PROMPT
+from miniish.sketch import SKETCH, _update_console
 
-from miniish.sketch import SKETCH, _update_console, _draw_console
+def screen(args, input, output):
+    Screen(input, output, "/dev/ttyUSB0", 19200)
 
+class Screen:
+     
+    def __init__(self, input, output, port, baudrate):
+        self.input = input
+        self.output = output
+        self.serial = serial.Serial(port, baudrate, timeout=0)
+        self.reader_worker = threading.Thread(target=self.screen_reader_worker)
+        self.reader_worker_terminated = False
+        self.reader_worker.start()
+        self.input_buffer = []
+        self.input_buffer_lock = threading.Lock()
+        
+        self.output.disable_prompt()
+        SKETCH.update = self.update
+        
+    def close(self):
+        self.reader_worker_terminated = True
+        self.reader_worker.join()
+        self.serial.close()
+        
+        self.output.enable_prompt()
+        SKETCH.update = _update_console
+        
+    def update(self):
+        c = self.input.getchar()
+        if c is not None:
+            if c == "escape":
+                self.close()
+                return False
+            elif c == "return":
+                self.serial.write(b"\r\n")
+            elif c == "backspace":
+                self.serial.write(b"\x7f")
+            elif len(c) == 1:
+                self.serial.write(bytes(c.upper(), "ascii"))
+    
+        with self.input_buffer_lock:
+            while len(self.input_buffer) > 0:
+                c = self.input_buffer.pop(0)
+                self.output.putchar(c)
+    
+        return True
 
-class SCREEN:
-    serial = None
-    reader_worker = None
-    reader_worker_terminated = False
-    buffer = [""]
-
-
-def screen(args, out):
-    SCREEN.serial = serial.Serial("/dev/ttyUSB0", 19200, timeout=0)
-    SCREEN.reader_worker = threading.Thread(target=screen_reader_worker)
-    SCREEN.reader_worker_terminated = False
-    SCREEN.reader_worker.start()
-
-    SKETCH.update = screen_update
-    SKETCH.draw = screen_draw
-
-
-def screen_update():
-    c = input()
-    if c is not None:
-        if c == "escape":
-            SCREEN.reader_worker_terminated = True
-            SCREEN.reader_worker.join()
-            SCREEN.serial.close()
-
-            SKETCH.update = _update_console
-            SKETCH.draw = _draw_console
-            flush()
-        elif c == "return":
-            SCREEN.serial.write(b"\r\n")
-        elif c == "backspace":
-            SCREEN.serial.write(b"\x7f")
-        else:
-            SCREEN.serial.write(bytes(c.upper(), "ascii"))
-
-
-def screen_draw():
-    cls()
-    y = 0
-    for line in SCREEN.buffer:
-        print(line, (0, y))
-        y = y + 6
-
-
-def screen_reader_worker():
-    state = 0
-    while not SCREEN.reader_worker_terminated:
-        b = SCREEN.serial.read()
-        if len(b) > 0 and b[0] < 128:
-            c = b.decode("ascii")
-            if state == 0:
-                if c == "\n":
-                    state = 0
-                elif c == "\r":
-                    state = 1
-                elif c == "\x1b":
-                    state = 2
-                elif c == "\x08":
-                    SCREEN.buffer[-1] = SCREEN.buffer[-1][:-1]
-                else:
-                    SCREEN.buffer[-1] = SCREEN.buffer[-1] + c.lower()
-            elif state == 1:  # end of line
-                if c == "\n":
-                    if len(SCREEN.buffer) >= int(128 / 6):
-                        SCREEN.buffer.pop(0)
-                    SCREEN.buffer.append("")
-                state = 0
-            elif state == 2:  # filter ansi escape codes
-                if c == "K" or c == "m" or c == "\n":
-                    state = 0
+    def screen_reader_worker(self):
+        while not self.reader_worker_terminated:
+            b = self.serial.read()
+            if len(b) > 0 and b[0] < 128:
+                c = b.decode("ascii")
+                with self.input_buffer_lock:
+                    self.input_buffer.append(c)

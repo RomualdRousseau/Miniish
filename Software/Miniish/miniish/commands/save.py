@@ -1,8 +1,8 @@
 from miniish.sketch import *
 
-def save(args, out):
+def save(args, input, output):
     if len(args) != 2 and SKETCH.last_loaded is None:
-        out.print("usage: save <filename>")
+        output.print("usage: save <filename>")
     else:
         if len(args) == 2:
             SKETCH.last_loaded = args[1]
@@ -11,4 +11,4 @@ def save(args, out):
         sys.save_cartdrige(SKETCH.last_loaded)
         for app in APPS:
             app.save("POST")
-        out.print("saved")
+        output.print("saved")
