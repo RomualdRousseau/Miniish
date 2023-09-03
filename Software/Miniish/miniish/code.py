@@ -1,6 +1,6 @@
 from math import ceil
 
-import pyvi as vi
+from pyvi import pyvi as vi
 
 from miniish.widgets import *
 
