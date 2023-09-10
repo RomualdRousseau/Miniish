@@ -1,6 +1,7 @@
-from pyco import *
+import pyco
 
-from .widgets import *
+from miniish.editor.widgets.widgets import Widget, ButtonGroup, Button
+from miniish.editor.widgets.sprite_picker import SpritePicker
 
 
 class FlagPicker(Widget):
@@ -8,7 +9,8 @@ class FlagPicker(Widget):
 
     def __init__(self, id_, pos_, size_):
         Widget.__init__(self, id_, pos_, size_)
-        self.sprite_selected = -1
+        self.sprite_selected: int = -1
+        self.sprite_picker: SpritePicker | None = None
         self.init_ui()
 
     #
@@ -26,10 +28,11 @@ class FlagPicker(Widget):
 
     def update(self):
         # The sprite changed
-        if self.sprite_selected != self.sprite_picker.selected:
-            self.sprite_selected = self.sprite_picker.selected
-            for i in range(8):
-                self.flags.select(i, fget(self.sprite_selected, i))
+        if self.sprite_picker is not None:
+            if self.sprite_selected != self.sprite_picker.selected:
+                self.sprite_selected = self.sprite_picker.selected
+                for i in range(8):
+                    self.flags.select(i, pyco.fget(self.sprite_selected, i))
         # Update widgets
         self.flags.update()
 
@@ -41,4 +44,4 @@ class FlagPicker(Widget):
     #
 
     def _switch_flag(self, b):
-        fset(self.sprite_selected, b.toggle, b.id)
+         pyco.fset(self.sprite_selected, b.toggle, b.id)

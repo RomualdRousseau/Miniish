@@ -1,20 +1,20 @@
-from miniish.widgets import *
+import pyco
+import pyco.sys
+import pyco.synth
+
+from miniish.editor.widgets.channel_editor import ChannelEditor
+from miniish.editor.widgets.component import Component
+from miniish.editor.widgets.widgets import Button
 
 
-class MusicEditor:
+class MusicEditor(Component):
     """The Music editor."""
-
-    name = "music-editor"
 
     def __init__(self):
         self.top = 0
         self.pattern_selector = 0
         self.sound_selector = 0
         self.copy_buffer = (0, 0, 0, 0, 1)
-
-    #
-    # App interface
-    #
 
     def init_ui(self):
         self.pattern_up = Button(0, (28, 9), (61, 61), self._switch_pattern)
@@ -29,7 +29,7 @@ class MusicEditor:
             channel_editor.parent = self
 
     def update(self):
-        c = input()
+        c = pyco.input()
         if c is not None and c == "escape":
             return False
         if c == "down":
@@ -37,16 +37,16 @@ class MusicEditor:
         elif c == "up":
             self._move_selector_up()
         elif c == " ":
-            if not synth.is_playing():
-                pattern = sys.get_music()[self.pattern_selector]
-                synth.play_sound(tuple([p for p in pattern if p >= 0]), False)
+            if not pyco.synth.is_playing():
+                pattern = pyco.sys.get_music()[self.pattern_selector]
+                pyco.synth.play_sound(tuple([p for p in pattern if p >= 0]), False)
             else:
-                synth.play_sound(-1)
+                pyco.synth.play_sound(-1)
         # Update widgets
         self.pattern_up.update()
         self.pattern_down.update()
         for channel_editor in self.channel_editors:
-            pattern = sys.get_music()[self.pattern_selector]
+            pattern = pyco.sys.get_music()[self.pattern_selector]
             channel_editor.sound = pattern[channel_editor.id]
             channel_editor.note = self.sound_selector
             channel_editor.update(c)
@@ -54,28 +54,18 @@ class MusicEditor:
 
     def draw(self):
         # Draw pattern selector
-        print("pattern", (3, 11), WHITE)
+        pyco.print("pattern", (3, 11), pyco.WHITE)
         for i in range(4):
             if self.pattern_selector == self.top + i:
-                rectfill((38 + i * 12 - 1, 10, 9, 7), WHITE)
+                pyco.rectfill((38 + i * 12 - 1, 10, 9, 7), pyco.WHITE)
             else:
-                rectfill((38 + i * 12 - 1, 10, 9, 7), LIGHT_GRAY)
-            print("%02d" % (self.top + i), (38 + i * 12, 11), DARK_GRAY)
+                pyco.rectfill((38 + i * 12 - 1, 10, 9, 7), pyco.LIGHT_GRAY)
+            pyco.print("%02d" % (self.top + i), (38 + i * 12, 11), pyco.DARK_GRAY)
         # Draw widgets
         self.pattern_up.draw()
         self.pattern_down.draw()
         for channel_editor in self.channel_editors:
             channel_editor.draw()
-
-    #
-    # Serialization interface
-    #
-
-    def load(self):
-        pass
-
-    def save(self):
-        pass
 
     #
     # Privates

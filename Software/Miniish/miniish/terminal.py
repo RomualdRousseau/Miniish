@@ -12,18 +12,12 @@ from miniish.constants import BANNER, COLOR_CONS_BG, PROMPT
 class Terminal(Process):
     """The Terminal."""
 
-    name = "terminal"
-
     def __init__(self) -> None:
         self.apps_init: bool = False
         self.lastcmd: str = ""
         self.history: list[str] = []
         self.history_idx: int = 0
         self.child_is_running: bool = False
-
-    #
-    # Process interface
-    #
 
     def init(self, args: list[str] = []) -> None:
         cls(COLOR_CONS_BG)

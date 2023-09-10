@@ -1,17 +1,15 @@
-from miniish.widgets import *
+import pyco
+
+from miniish.editor.widgets.component import Component
+from miniish.editor.widgets.map_board import MapBoard
+from miniish.editor.widgets.sprite_picker import SpritePicker
 
 
-class MapEditor:
+class MapEditor(Component):
     """The Map editor."""
-
-    name = "map-editor"
 
     def __init__(self):
         pass
-
-    #
-    # App interface
-    #
 
     def init_ui(self):
         self.sprite_picker = SpritePicker(1, (0, 87), (128, 34))
@@ -20,7 +18,7 @@ class MapEditor:
         pass
 
     def update(self):
-        c = input()
+        c = pyco.input()
         if c is not None and c == "escape":
             return False
         self.sprite_picker.update()
@@ -30,13 +28,3 @@ class MapEditor:
     def draw(self):
         self.sprite_picker.draw()
         self.map_board.draw()
-
-    #
-    # Serialization interface
-    #
-
-    def load(self):
-        pass
-
-    def save(self):
-        pass

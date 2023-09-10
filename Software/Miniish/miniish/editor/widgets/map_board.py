@@ -1,10 +1,13 @@
 import sys
 from math import ceil
 
-from pyco import *
-from pyco.sys import *
+import pyco
+import pyco.sys
+import pyco.globals
 
-from .widgets import *
+from miniish.constants import COLOR_STAT_FG
+from miniish.editor.widgets.widgets import Widget
+from miniish.editor.widgets.sprite_picker import SpritePicker
 
 
 class MapBoard(Widget):
@@ -29,6 +32,7 @@ class MapBoard(Widget):
         self.clipboard = None
         self.pmouse = None
         self.origin = (0, 0)
+        self.sprite_picker: SpritePicker | None = None
         self.init_ui()
 
     #
@@ -39,24 +43,26 @@ class MapBoard(Widget):
         pass
 
     def update(self):
-        # The tool changed
-        if self.selected_tool != self.sprite_picker.tool:
-            self.selected_tool = self.sprite_picker.tool
-            self.tool_func = self.tool_funcs[self.selected_tool]
-        # The sprite changed
-        if self.selected_sprite != self.sprite_picker.selected:
-            self.selected_sprite = self.sprite_picker.selected
-        m = mxy()
+        if self.sprite_picker is not None:
+            # The tool changed
+            if self.selected_tool != self.sprite_picker.tool:
+                self.selected_tool = self.sprite_picker.tool
+                self.tool_func = self.tool_funcs[self.selected_tool]
+            # The sprite changed
+            if self.selected_sprite != self.sprite_picker.selected:
+                self.selected_sprite = self.sprite_picker.selected
+        m = pyco.mxy()
         if self.inbounds(m):
             (x, y) = self._scr_to_brd(m)
             # Call the tool func and change the mouse cursor
-            if 0 <= x < 128 and 0 <= y < 64:
-                self.tool_func((x, y), m)
-                self.selected_tile = (x, y)
-            elif self.tool_func == self.tool_pan:
-                self.tool_func((x, y), m)
+            if self.tool_func is not None:
+                if 0 <= x < 128 and 0 <= y < 64:
+                    self.tool_func((x, y), m)
+                    self.selected_tile = (x, y)
+                elif self.tool_func == self.tool_pan:
+                    self.tool_func((x, y), m)
             # Handle zoom
-            wheel = -PYCO.mouse_wheel[1]
+            wheel = -pyco.globals.PYCO.mouse_wheel[1]  # type: ignore
             if wheel != 0:
                 self.tool_zoom((x, y), m, wheel)
         else:
@@ -65,13 +71,13 @@ class MapBoard(Widget):
     def draw(self):
         (x, y), (w, h), (px, py) = self.pos, self.cell_size, self.origin
         (px, py) = (int(px), int(py))
-        clip(self.pos + self.size)
+        pyco.clip(self.pos + self.size)
         # Draw the background
-        use("SYSTEM")
+        pyco.sys.use("SYSTEM")
         for i in range(9):
             for j in range(16):
-                spr(44, (x + j * 8, y + i * 8))
-        use()
+                pyco.spr(44, (x + j * 8, y + i * 8))
+        pyco.sys.use()
         # Draw the board
         r = (px, py) + (ceil(128 / w), ceil(72 / h))
         self._map(self.pos, r)
@@ -80,32 +86,32 @@ class MapBoard(Widget):
             self._grid(self.pos, r)
         else:
             r = (x - px * w, y - py * h, w * 128, h * 64)
-            rect(self._expand(r, 2), WHITE)
-            rect(self._expand(r, 1), BLACK)
-        clip()
+            pyco.rect(self._expand(r, 2), pyco.WHITE)
+            pyco.rect(self._expand(r, 1), pyco.BLACK)
+        pyco.clip()
         # Draw the selection
-        if self.select_start is not None:
+        if self.select_start is not None and self.select_size is not None:
             p = self._brd_to_scr(self.select_start)
             s = (self.select_size[0] * w, self.select_size[1] * h)
-            rect(p + s, WHITE)
+            pyco.rect(p + s, pyco.WHITE)
         elif self.selected_tile is not None:
             # Draw the current tile selection
             if self.tool_func != self.tool_pan:
                 r = self._brd_to_scr(self.selected_tile) + (w, h)
-                rect(self._expand(r, 1), WHITE)
+                pyco.rect(self._expand(r, 1), pyco.WHITE)
             # Draw the status
-            print("view x: %03d y: %03d" % self.selected_tile, (0, 122), COLOR_STAT_FG)
+            pyco.print("view x: %03d y: %03d" % self.selected_tile, (0, 122), COLOR_STAT_FG)
 
     def tool_pen(self, p, m):
-        if mbtn():
-            mset(p, self.selected_sprite)
+        if pyco.mbtn():
+            pyco.mset(p, self.selected_sprite)
 
     def tool_paste(self, p, m):
-        if mbtn() and self.clipboard is not None:
+        if pyco.mbtn() and self.clipboard is not None:
             self._paste(p)
 
     def tool_select(self, p, m):
-        if mbtn():
+        if pyco.mbtn():
             if self.select_start is None:
                 self.select_start = p
                 self.select_size = (0, 0)
@@ -120,7 +126,7 @@ class MapBoard(Widget):
             self.select_size = None
 
     def tool_pan(self, p, m):
-        if mbtn():
+        if pyco.mbtn():
             if self.pmouse is None:
                 self.pmouse = m
             else:
@@ -136,13 +142,13 @@ class MapBoard(Widget):
         DIRS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
         def fill(x, y, t1, t2):
-            if t1 != t2 and 0 <= x < 128 and 0 <= y < 64 and mget((x, y)) == t1:
-                mset((x, y), t2)
+            if t1 != t2 and 0 <= x < 128 and 0 <= y < 64 and pyco.mget((x, y)) == t1:
+                pyco.mset((x, y), t2)
                 for i in range(len(DIRS)):
                     fill(x + DIRS[i][0], y + DIRS[i][1], t1, t2)
 
-        if mbtn():
-            tile1 = mget(p)
+        if pyco.mbtn():
+            tile1 = pyco.mget(p)
             tile2 = self.selected_sprite
             sys.setrecursionlimit(8000)
             fill(p[0], p[1], tile1, tile2)
@@ -165,12 +171,13 @@ class MapBoard(Widget):
 
     def _copy(self, p, s):
         (x, y), (w, h) = p, s
-        return [[mget((x + j, y + i)) for j in range(w)] for i in range(h)]
+        return [[pyco.mget((x + j, y + i)) for j in range(w)] for i in range(h)]
 
     def _paste(self, p):
-        for i in range(len(self.clipboard)):
-            for j in range(len(self.clipboard[i])):
-                mset((p[0] + j, p[1] + i), self.clipboard[i][j])
+        if self.clipboard is not None:
+            for i in range(len(self.clipboard)):
+                for j in range(len(self.clipboard[i])):
+                    pyco.mset((p[0] + j, p[1] + i), self.clipboard[i][j])
 
     def _scr_to_brd(self, p):
         (x, y), (w, h), (px, py) = self.pos, self.cell_size, self.origin
@@ -192,11 +199,11 @@ class MapBoard(Widget):
             sx, sy = p[0], p[1] + i * h
             for j in range(celw):
                 if 0 <= cx < 128 and 0 <= cy < 64:
-                    tile = PYCO.map[cy][cx]
+                    tile = pyco.globals.PYCO.map[cy][cx]  # type: ignore
                     if tile > 0:
-                        sspr(tile, (sx, sy), (w, h))
+                        pyco.sspr(tile, (sx, sy), (w, h))
                     else:
-                        rectfill((sx, sy) + (w, h), BLACK)
+                        pyco.rectfill((sx, sy) + (w, h), pyco.BLACK)
                 cx += 1
                 sx += w
 
@@ -208,10 +215,10 @@ class MapBoard(Widget):
             sx, sy = p[0], p[1] + i * h
             for j in range(celw):
                 if 0 <= cx < 128 and 0 <= cy < 64:
-                    rect((sx - 1, sy - 1) + (w + 1, h + 1), DARK_BLUE)
+                    pyco.rect((sx - 1, sy - 1) + (w + 1, h + 1), pyco.DARK_BLUE)
                 if 0 <= cx <= 128 and 0 <= cy <= 64:
                     if (cx % 16) == 0 and (cy % 16) == 0:
-                        rect((sx - 3, sy - 3) + (5, 5), DARK_BLUE)
-                        rectfill((sx - 2, sy - 2) + (3, 3), LIGHT_GRAY)
+                        pyco.rect((sx - 3, sy - 3) + (5, 5), pyco.DARK_BLUE)
+                        pyco.rectfill((sx - 2, sy - 2) + (3, 3), pyco.LIGHT_GRAY)
                 cx += 1
                 sx += w

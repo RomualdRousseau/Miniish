@@ -1,7 +1,5 @@
-from pyco import *
-from pyco import sys
-
-from miniish.constants import *
+import pyco
+import pyco.sys
 
 
 class Widget:
@@ -30,21 +28,21 @@ class Button(Widget):
 
     def update(self):
         # pover = self.over
-        self.over = self.inbounds(mxy())
-        self.press = self.over and mbtn()
+        self.over = self.inbounds(pyco.mxy())
+        self.press = self.over and pyco.mbtn()
         self.click = self.click or self.press
-        if self.click and not mbtn():
+        if self.click and not pyco.mbtn():
             self.click = False
             self.toggle = not self.toggle
             if self.callback:
                 self.callback(self)
 
     def draw(self):
-        sys.use("SYSTEM")
+        pyco.sys.use("SYSTEM")
         toggle = self.toggle_mode and self.toggle
         press = not self.toggle_mode and self.press
-        spr(self.frames[0 if toggle or press else 1], self.pos)
-        sys.use()
+        pyco.spr(self.frames[0 if toggle or press else 1], self.pos)
+        pyco.sys.use()
 
 
 class ButtonGroup(Widget):
@@ -113,21 +111,23 @@ class TextSpinner(Widget):
         self.callback = callback_
 
     def update(self):
-        if self.inbounds(mxy()):
-            if mbtn(0):
+        if self.inbounds(pyco.mxy()):
+            if pyco.mbtn(0):
                 self.value += 1
                 self.value = max(self.min, min(self.value, self.max))
                 if self.callback:
                     self.callback(self)
-            elif mbtn(2):
+            elif pyco.mbtn(2):
                 self.value -= 1
                 self.value = max(self.min, min(self.value, self.max))
                 if self.callback:
                     self.callback(self)
 
     def draw(self):
-        rectfill(self.pos + self.size, BLACK)
-        print("%02d" % (self.value), (self.pos[0] + 1, self.pos[1] + 1), WHITE)
+        pyco.rectfill(self.pos + self.size, pyco.BLACK)
+        pyco.print(
+            "%02d" % (self.value), (self.pos[0] + 1, self.pos[1] + 1), pyco.WHITE
+        )
 
     def get_value(self):
         return self.value

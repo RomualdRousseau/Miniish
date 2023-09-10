@@ -1,18 +1,19 @@
-from miniish.widgets import *
 
+import pyco
+import pyco.sys
+import pyco.synth
 
-class SoundEditor:
+from miniish.editor.widgets.component import Component
+from miniish.editor.widgets.widgets import Button, ButtonGroup, TextSpinner
+from miniish.editor.widgets.pitch_picker import PitchPicker
+from miniish.editor.widgets.volume_picker import VolumePicker
+
+class SoundEditor(Component):
     """The Sound editor."""
-
-    name = "sound-editor"
 
     def __init__(self):
         self.sound = 0
         self.oscillator = 0
-
-    #
-    # App interface
-    #
 
     def init_ui(self):
         self.sound_up = Button(0, (0, 9), (61, 61), self._switch_sound)
@@ -38,20 +39,20 @@ class SoundEditor:
         self.volume_picker.parent = self
 
     def update_ui(self):
-        (_, _, _, _, s) = synth.get_sound(self.sound)[0]
+        (_, _, _, _, s) = pyco.synth.get_sound(self.sound)[0]
         self.speed_picker.set_value(s)
 
     def update(self):
         # Handle keyboard inputs
-        c = input()
+        c = pyco.input()
         if c is not None:
             if c == "escape":
                 return False
             elif c == " ":
-                if not synth.is_playing():
-                    synth.play_sound(self.sound, False)
+                if not pyco.synth.is_playing():
+                    pyco.synth.play_sound(self.sound, False)
                 else:
-                    synth.play_sound(-1)
+                    pyco.synth.play_sound(-1)
         # Update widgets
         self.sound_down.update()
         self.sound_up.update()
@@ -62,8 +63,8 @@ class SoundEditor:
         return True
 
     def draw(self):
-        print("spd", (32, 11), LIGHT_GRAY)
-        print("%02d" % (self.sound), (11, 11), WHITE)
+        pyco.print("spd", (32, 11), pyco.LIGHT_GRAY)
+        pyco.print("%02d" % (self.sound), (11, 11), pyco.WHITE)
         self.sound_down.draw()
         self.sound_up.draw()
         self.speed_picker.draw()
@@ -71,22 +72,15 @@ class SoundEditor:
         self.volume_picker.draw()
         self.pitch_picker.draw()
 
-    #
-    # Serialization interface
-    #
-
     def load(self):
         self.update_ui()
-
-    def save(self):
-        pass
 
     #
     # Privates
     #
 
     def _update_speed(self, b):
-        sound = synth.get_sound(self.sound)
+        sound = pyco.synth.get_sound(self.sound)
         for i in range(len(sound)):
             (p, wa, v, e, _) = sound[i]
             s = b.get_value()
@@ -102,8 +96,8 @@ class SoundEditor:
 
     def _switch_oscillator(self, b):
         self.oscillator = b.id
-        if mmod() & pg.KMOD_SHIFT:
-            sound = synth.get_sound(self.sound)
+        if pyco.mmod() & pyco.pg.KMOD_SHIFT:
+            sound = pyco.synth.get_sound(self.sound)
             for i in range(len(sound)):
                 (p, _, v, e, s) = sound[i]
                 wa = self.oscillator

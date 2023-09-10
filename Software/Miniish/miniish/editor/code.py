@@ -1,15 +1,23 @@
 from math import ceil
 
 import pyco
-import pyco.sys
 import pyvi
+import pyco.sys
 
 from miniish.kernel import disk
-from miniish.constants import COLOR_CURSOR, COLOR_MAIN_FG, COLOR_STAT_BG, COLOR_STAT_FG
-from miniish.widgets.widgets import ButtonGroup, Button, MAX_BUFFERS
+from miniish.languages import get_current_language
+from miniish.editor.widgets.widgets import ButtonGroup, Button
+from miniish.editor.widgets.component import Component
+from miniish.constants import (
+    COLOR_CURSOR,
+    COLOR_MAIN_FG,
+    COLOR_STAT_BG,
+    COLOR_STAT_FG,
+    MAX_BUFFERS,
+)
 
 
-class CodeEditor:
+class CodeEditor(Component):
     """The Code editor.
 
     Notes
@@ -18,25 +26,18 @@ class CodeEditor:
     Syntax color for 6502 ASM and Python
     """
 
-    name = "code-editor"
-
     def __init__(self):
         self.buffers = [self._create_buffer()]
         self.buffer = self.buffers[0]
         self.buffer_id = 0
         self.timer = 0
-        self.language = None
 
-    #
-    # App interface
-    #
-
-    def init_ui(self):
+    def init_ui(self) -> None:
         self.ui_tabs = ButtonGroup(-1, (2, 0), [])
         self.ui_plus = Button(-1, (2, 0), (12, 12), self._add_buffer)
         self._create_tab(0)
 
-    def update(self):
+    def update(self) -> bool:
         # Handle buffers management
         self.ui_tabs.update()
         if len(self.buffers) < MAX_BUFFERS:
@@ -51,7 +52,7 @@ class CodeEditor:
         self.timer += 1
         return True
 
-    def draw(self):
+    def draw(self) -> None:
         # Draw the buffers with labels
         self.ui_tabs.draw()
         for b in range(len(self.buffers)):
@@ -64,7 +65,7 @@ class CodeEditor:
             line = pyvi.get_line_in_view(self.buffer, i)
             if line is not None:
                 x = -4 * pyvi.get_current_line_offset(self.buffer)
-                self.language.colorize(line, (x, y))  # type: ignore
+                get_current_language().colorize(line, (x, y))
             else:
                 pyco.print("~", (0, y), COLOR_MAIN_FG)
             y += 6
@@ -90,30 +91,28 @@ class CodeEditor:
                 x = len(pyvi.get_command(self.buffer))
                 pyco.rectfill((x * 4, 121, 4, 6))
 
-    #
-    # Serialization interface
-    #
-
-    def load(self):
+    def load(self) -> None:
+        self.ui_tabs = ButtonGroup(-1, (2, 0), [])
+        self.ui_plus = Button(-1, (2, 0), (12, 12), self._add_buffer)
         self.buffers = []
         self.ui_tabs.buttons = []
-        
+
         for source in pyco.sys.get_sources():
             buffer = self._create_buffer()
             buffer.buf = source
             self.buffers.append(buffer)
             self._create_tab(len(self.buffers) - 1)
-            
+
         if len(self.buffers) == 0:
             self.buffers.append(self._create_buffer())
             self._create_tab(len(self.buffers) - 1)
-            
+
         # Set the first buffer as default
         self.buffer = self.buffers[0]
         self.buffer_id = 0
         self.ui_tabs.select(0, True)
 
-    def save(self,):
+    def save(self) -> None:
         sources = []
         for i in range(len(self.buffers)):
             sources.append(pyvi.get_text(self.buffers[i]))
@@ -132,7 +131,9 @@ class CodeEditor:
             return f"buffer{i}.i"
 
     def _create_buffer(self):
-        buf = pyvi.create_empty_buffer((int(128 / 4), ceil(113 / 6)), self._command_func)
+        buf = pyvi.create_empty_buffer(
+            (int(128 / 4), ceil(113 / 6)), self._command_func
+        )
         return buf
 
     def _add_buffer(self, b):

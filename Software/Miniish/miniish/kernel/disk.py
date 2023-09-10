@@ -1,5 +1,3 @@
-import pyco.sys
-
 from miniish.kernel.process import Process
 
 
