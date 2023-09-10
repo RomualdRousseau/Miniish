@@ -1,4 +1,9 @@
-from miniish.sketch import *
+from miniish.kernel import console
+from miniish.kernel.scheduler import exit
+from miniish.kernel.process import Process
 
-def clrscr(args, input, output):
-    output.clrscr()
+
+class Clrscr(Process):
+    def init(self, args: list[str] = []) -> None:
+        console.clrscr()
+        exit()

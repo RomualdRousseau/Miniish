@@ -1,11 +1,16 @@
-from pyco.constants import *
+from pyco.constants import BLACK, BLUE, DARK_GRAY, DARK_PURPLE, GREEN, INDIGO, LIGHT_GRAY, PINK, RED, WHITE
+
 
 BANNER = """
+
+
 miniish 0.1
 (c) 2022-24 romuald rousseau
 """
 
-PROMPT = "> "
+PROMPT = "\r> "
+
+DEFAULT_LANGUAGE = "asm6502"
 
 MAX_BUFFERS = 8
 

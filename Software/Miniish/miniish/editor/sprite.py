@@ -42,8 +42,8 @@ class SpriteEditor:
     # Serialization interface
     #
 
-    def load(self, method):
+    def load(self):
         pass
 
-    def save(self, method):
+    def save(self):
         pass

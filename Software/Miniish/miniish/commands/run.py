@@ -1,4 +1,9 @@
-from miniish.sketch import _run
+from miniish.kernel import disk
+from miniish.kernel.process import Process
+from miniish.kernel.scheduler import exec
 
-def run_(args, input, output):
-    _run(args, output)
+class Run(Process):
+    def init(self, args: list[str] = []) -> None:
+        sketch = disk.open("sketch")
+        if sketch is not None:
+            exec(sketch)

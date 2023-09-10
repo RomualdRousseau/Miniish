@@ -1,23 +1,24 @@
-from .import_png import *
-from .export_png import *
-from .load import *
-from .save import *
-from .shutdown import *
-from .run import *
-from .check import *
-from .lang import *
-from .clrscr import *
-from .screen import *
+from miniish.editor import Editor
+from miniish.sketch import Sketch
+from miniish.commands.load import Load
+from miniish.commands.save import Save
+from miniish.commands.shutdown import Shutdown
+from miniish.commands.run import Run
+from miniish.commands.lang import Lang
+from miniish.commands.clrscr import Clrscr
+from miniish.commands.screen import Screen
 
 COMMANDS = {
-    "import": import_png,
-    "export": export_png,
-    "load": load,
-    "save": save,
-    "shutdown": shutdown_,
-    "run": run_,
-    "check": check,
-    "lang": lang,
-    "clear": clrscr,
-    "screen": screen
+    "sketch": Sketch(),
+    "editor": Editor(),
+    # "import": import_png,
+    # "export": export_png,
+    "load": Load(),
+    "save": Save(),
+    "shutdown": Shutdown(),
+    "run": Run(),
+    # "check": check,
+    "lang": Lang(),
+    "clear": Clrscr(),
+    "screen": Screen(),
 }

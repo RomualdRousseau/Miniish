@@ -1,14 +1,6 @@
-import sys
-
-import pyco.sys as psys
-
-import miniish.sketch as sketch
-
-
-def _main():
-    psys.set_callbacks(sketch._init, sketch._update, sketch._draw)
-    psys.run()
+from miniish.terminal import Terminal
+from miniish.kernel import scheduler
 
 
 if __name__ == "__main__":
-    sys.exit(_main())
+    scheduler.start(Terminal())

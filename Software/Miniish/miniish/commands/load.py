@@ -1,15 +1,20 @@
-from miniish.sketch import *
+import pyco.sys
 
-def load(args, input, output):
-    if len(args) != 2:
-        output.print("usage: load <filename>")
-    else:
-        SKETCH.last_loaded = args[1]
-        for app in APPS:
-            app.load("PRE")
-        if sys.load_cartdrige(SKETCH.last_loaded):
-            for app in APPS:
-                app.load("POST")
-            output.print("loaded")
+from miniish.kernel import console, disk
+from miniish.kernel.process import Process
+from miniish.kernel.scheduler import exit
+
+class Load(Process):   
+    def init(self, args: list[str] = []) -> None:
+        if len(args) != 2:
+            console.print("usage: load <filename>")
         else:
-            output.print("file not found")
+            path = args[1]
+            sketch = disk.open(path)
+            editor = disk.open("editor")
+            if sketch is not None and editor is not None:
+                editor.load()  # type: ignore
+                console.print("loaded")
+            else:
+                console.print("Error: could not load")
+        exit()

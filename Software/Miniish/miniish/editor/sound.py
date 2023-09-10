@@ -75,10 +75,10 @@ class SoundEditor:
     # Serialization interface
     #
 
-    def load(self, method):
+    def load(self):
         self.update_ui()
 
-    def save(self, method):
+    def save(self):
         pass
 
     #

@@ -1,8 +1,12 @@
 from math import ceil
 
-from pyvi import pyvi as vi
+import pyco
+import pyco.sys
+import pyvi
 
-from miniish.widgets import *
+from miniish.kernel import disk
+from miniish.constants import COLOR_CURSOR, COLOR_MAIN_FG, COLOR_STAT_BG, COLOR_STAT_FG
+from miniish.widgets.widgets import ButtonGroup, Button, MAX_BUFFERS
 
 
 class CodeEditor:
@@ -38,11 +42,11 @@ class CodeEditor:
         if len(self.buffers) < MAX_BUFFERS:
             self.ui_plus.update()
         # Handle inputs and tranfer to vi
-        c = input()
+        c = pyco.input()
         if c is not None:
-            if c == "escape" and vi.get_state(self.buffer) != "INSERT":
+            if c == "escape" and pyvi.get_state(self.buffer) != "INSERT":
                 return False
-            vi.update_buffer(self.buffer, c)
+            pyvi.update_buffer(self.buffer, c)
         # Timer for the blinking cursor
         self.timer += 1
         return True
@@ -51,66 +55,69 @@ class CodeEditor:
         # Draw the buffers with labels
         self.ui_tabs.draw()
         for b in range(len(self.buffers)):
-            print("%d" % (b), (b * 9 + 6, 2), COLOR_STAT_BG)
+            pyco.print("%d" % (b), (b * 9 + 6, 2), COLOR_STAT_BG)
         if len(self.buffers) < MAX_BUFFERS:
             self.ui_plus.draw()
         # Draw the text
         y = 8
-        for i in range(vi.get_height_in_lines(self.buffer)):
-            line = vi.get_line_in_view(self.buffer, i)
+        for i in range(pyvi.get_height_in_lines(self.buffer)):
+            line = pyvi.get_line_in_view(self.buffer, i)
             if line is not None:
-                x = -4 * vi.get_current_line_offset(self.buffer)
-                self.language.colorize(line, (x, y)) # type: ignore
+                x = -4 * pyvi.get_current_line_offset(self.buffer)
+                self.language.colorize(line, (x, y))  # type: ignore
             else:
-                print("~", (0, y), COLOR_MAIN_FG)
+                pyco.print("~", (0, y), COLOR_MAIN_FG)
             y += 6
         # Draw the status line
-        color(COLOR_STAT_FG)
-        if vi.get_state(self.buffer) != "COMMAND":
+        pyco.color(COLOR_STAT_FG)
+        if pyvi.get_state(self.buffer) != "COMMAND":
             # Draw line statistics
             linestat = "%d/%d" % (
-                vi.get_current_line_number(self.buffer),
-                vi.get_count_of_lines(self.buffer),
+                pyvi.get_current_line_number(self.buffer),
+                pyvi.get_count_of_lines(self.buffer),
             )
-            print(vi.get_state(self.buffer).lower(), (1, 122))
-            print(linestat, (128 - len(linestat) * 4, 122))
+            pyco.print(pyvi.get_state(self.buffer).lower(), (1, 122))
+            pyco.print(linestat, (128 - len(linestat) * 4, 122))
             # Draw the blinking cursor
             if int(self.timer / 8) % 2 == 0:
-                (x, y) = vi.get_cursor(self.buffer)
-                rectfill((x * 4, y * 6 + 8, 4, 6), COLOR_CURSOR)
+                (x, y) = pyvi.get_cursor(self.buffer)
+                pyco.rectfill((x * 4, y * 6 + 8, 4, 6), COLOR_CURSOR)
         else:
             # Draw the command
-            print(vi.get_command(self.buffer), (1, 122))
+            pyco.print(pyvi.get_command(self.buffer), (1, 122))
             # Draw the blinking cursor
             if int(self.timer / 8) % 2 == 0:
-                x = len(vi.get_command(self.buffer))
-                rectfill((x * 4, 121, 4, 6))
+                x = len(pyvi.get_command(self.buffer))
+                pyco.rectfill((x * 4, 121, 4, 6))
 
     #
     # Serialization interface
     #
 
-    def load(self, method):
-        if method == "PRE":
-            self.buffers = []
-            self.ui_tabs.buttons = []
-        elif method == "POST":
-            for source in sys.get_sources():
-                buffer = self._create_buffer()
-                buffer.buf = source
-                self.buffers.append(buffer)
-                self._create_tab(len(self.buffers) - 1)
-            # Set the first buffer as default
-            self.buffer = self.buffers[0]
-            self.buffer_id = 0
-            self.ui_tabs.select(0, True)
+    def load(self):
+        self.buffers = []
+        self.ui_tabs.buttons = []
+        
+        for source in pyco.sys.get_sources():
+            buffer = self._create_buffer()
+            buffer.buf = source
+            self.buffers.append(buffer)
+            self._create_tab(len(self.buffers) - 1)
+            
+        if len(self.buffers) == 0:
+            self.buffers.append(self._create_buffer())
+            self._create_tab(len(self.buffers) - 1)
+            
+        # Set the first buffer as default
+        self.buffer = self.buffers[0]
+        self.buffer_id = 0
+        self.ui_tabs.select(0, True)
 
-    def save(self, method):
-        if method == "PRE":
-            sources = []
-            for i in range(len(self.buffers)):
-                sources.append(vi.get_text(self.buffers[i]))
-            sys.set_sources(sources)
+    def save(self,):
+        sources = []
+        for i in range(len(self.buffers)):
+            sources.append(pyvi.get_text(self.buffers[i]))
+        pyco.sys.set_sources(sources)
 
     #
     # Privates
@@ -125,7 +132,7 @@ class CodeEditor:
             return f"buffer{i}.i"
 
     def _create_buffer(self):
-        buf = vi.create_empty_buffer((int(128 / 4), ceil(113 / 6)), self._command_func)
+        buf = pyvi.create_empty_buffer((int(128 / 4), ceil(113 / 6)), self._command_func)
         return buf
 
     def _add_buffer(self, b):
@@ -142,7 +149,7 @@ class CodeEditor:
             self.buffer_id = b.id
 
     def _cleanup_buffer(self):
-        if len(self.buffers) > 1 and vi.is_buffer_empty(self.buffer):
+        if len(self.buffers) > 1 and pyvi.is_buffer_empty(self.buffer):
             del self.buffers[self.buffer_id]
             self._remove_last_tab()
 
@@ -157,6 +164,8 @@ class CodeEditor:
 
     def _command_func(self, command):
         if command == ":w":
-            from miniish.sketch import CONSOLE
-
-            CONSOLE.execute("save")
+            editor = disk.open("editor")
+            sketch = disk.open("sketch")
+            if editor is not None and sketch is not None and sketch.last_loaded is not None:  # type: ignore
+                editor.save()  # type: ignore
+                pyco.sys.save_cartdrige(sketch.last_loaded)  # type: ignore

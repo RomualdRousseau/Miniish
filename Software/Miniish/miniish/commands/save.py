@@ -1,14 +1,20 @@
-from miniish.sketch import *
+from miniish.kernel import console, disk
+from miniish.kernel.process import Process
+from miniish.kernel.scheduler import exit
 
-def save(args, input, output):
-    if len(args) != 2 and SKETCH.last_loaded is None:
-        output.print("usage: save <filename>")
-    else:
-        if len(args) == 2:
-            SKETCH.last_loaded = args[1]
-        for app in APPS:
-            app.save("PRE")
-        sys.save_cartdrige(SKETCH.last_loaded)
-        for app in APPS:
-            app.save("POST")
-        output.print("saved")
+
+class Save(Process):
+    def init(self, args: list[str] = []) -> None:
+        if len(args) > 2:
+            console.print("usage: save <filename>")
+        else:
+            path = args[1] if len(args) == 2 else sketch.last_loaded  # type: ignore
+            sketch = disk.open("sketch")
+            editor = disk.open("editor")
+            if sketch is not None and editor is not None and path is not None:
+                sketch.save(path)  # type: ignore
+                editor.save()  # type: ignore
+                console.print("saved")
+            else:
+                console.print("Error: could not save")
+        exit()
