@@ -1,7 +1,7 @@
 import logging
 
-from pyco.sys import load_png
-from pyco.pyco import blit, cls
+import pyco
+import pyco.sys
 
 from miniish.kernel import console, disk
 from miniish.kernel.scheduler import fork, exec, resume
@@ -17,41 +17,45 @@ class Terminal(Process):
         self.lastcmd: str = ""
         self.history: list[str] = []
         self.history_idx: int = 0
-        self.child_is_running: bool = False
+        self.state: int = 0
 
     def init(self, args: list[str] = []) -> None:
-        cls(COLOR_CONS_BG)
-        blit(load_png("miniish-logo"))
+        pyco.cls(COLOR_CONS_BG)
+        # pyco.blit(pyco.sys.load_png("miniish-logo"))
         console.print(BANNER)
         console.print(PROMPT, end="")
 
     def update(self) -> None:
-        if self.child_is_running:
-            console.print(PROMPT, end="")
-            self.child_is_running = False
-            
-        c = console.getchar()
+        match self.state:
+            case 0:
+                self._handle_input(console.getchar())
+
+            case 1:
+                console.print(PROMPT, end="")
+                self.state = 0
+
+            case 2:
+                pyco.blit(self.img)
+                self.state = 0
+
+    def _handle_input(self, c: str | None) -> None:
         match c:
             case None:
                 return
-            
+
             case "escape":
-                process = resume()
-                if process is None:
-                    editor = disk.open("editor")
-                    if editor is not None:
-                        exec(fork(editor))
-                        
+                self._switch_editor()
+                self.img = pyco.sys.screenshot()
+                self.state = 2
+
             case "return":
                 console.print()
-                command = self.lastcmd
-                if len(command) > 0:
+                if len(self.lastcmd) > 0:
                     self.history.append(self.lastcmd)
+                    self._run_command(self.lastcmd.split(" "))
                     self.lastcmd = ""
                     self.history_idx = 0
-                    self._execute_command(command.split(" "))
-                if not self.child_is_running:
-                    console.print(PROMPT, end="")
+                    self.state = 1
 
             case "backspace":
                 if len(self.lastcmd) > 0:
@@ -77,11 +81,17 @@ class Terminal(Process):
                     self.lastcmd += c
                     console.putchar(c)
 
-    def _execute_command(self, args: list[str]) -> None:  
+    def _switch_editor(self) -> None:
+        process = resume()
+        if process is None:
+            process = disk.open("editor")
+            if process is not None:
+                exec(fork(process))
+
+    def _run_command(self, args: list[str]) -> None:
         process = disk.open(args[0])
         if process is not None:
             exec(fork(process), args)
-            self.child_is_running = True
         else:
             try:
                 result = eval(" ".join(args))

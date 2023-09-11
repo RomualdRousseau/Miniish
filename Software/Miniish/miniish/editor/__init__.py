@@ -3,9 +3,9 @@ import pyco.sys
 
 from miniish.kernel.process import Process
 from miniish.kernel.scheduler import pause
-from miniish.widgets.widgets import Button, ButtonGroup
 from miniish.constants import COLOR_STAT_BG, COLOR_MAIN_BG
-from miniish.widgets.component import Component
+from miniish.editor.widgets.component import Component
+from miniish.editor.widgets.widgets import Button, ButtonGroup
 from miniish.editor.code import CodeEditor
 from miniish.editor.map import MapEditor
 from miniish.editor.music import MusicEditor
@@ -36,10 +36,14 @@ class Editor(Process):
             [0],
         )
         self.tab_curr = TABS[0]
+        self.initialized = False
 
     def init(self, args: list[str] = []) -> None:
+        if self.initialized:
+            return
         for tab in TABS:
             tab.init_ui()
+        self.initialized = True
 
     def update(self) -> None:
         self.tabs.update()
@@ -54,6 +58,7 @@ class Editor(Process):
         self.tab_curr.draw()
 
     def load(self) -> None:
+        self.init()
         for tab in TABS:
             tab.load()
 

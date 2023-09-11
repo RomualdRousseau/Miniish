@@ -1,8 +1,15 @@
-from pyco import sys
+import pyco.sys
 
-def import_png(args, input, output):
-    if len(args) != 2:
-        output.print("usage: import [FILE]")
-    else:
-        sys.import_png(args[1])
-        output.print("imported")
+from miniish.kernel import console
+from miniish.kernel.scheduler import exit
+from miniish.kernel.process import Process
+
+
+class ImportPng(Process):
+    def init(self, args: list[str] = []) -> None:
+        if len(args) != 2:
+            console.print("usage: import [FILE]")
+        else:
+            pyco.sys.import_png(args[1])
+            console.print("imported")
+        exit()

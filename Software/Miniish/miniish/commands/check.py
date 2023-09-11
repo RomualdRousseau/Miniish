@@ -1,4 +1,9 @@
-from miniish.sketch import *
+from miniish.kernel.scheduler import exit
+from miniish.kernel.process import Process
+from miniish.languages import get_current_language
 
-def check(args, input, output):
-    SKETCH.language.compile(args, output, checkonly=True)
+
+class Check(Process):
+    def init(self, args: list[str] = []) -> None:
+        get_current_language().compile(checkonly=True)
+        exit()
