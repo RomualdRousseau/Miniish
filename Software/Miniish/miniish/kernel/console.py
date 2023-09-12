@@ -1,12 +1,21 @@
+from typing import Callable
+
 import pyco
 
 from miniish.constants import COLOR_CONS_BG, COLOR_CONS_FG
+
+NO_FILTER = lambda x: x
 
 
 class CONSOLE:
     timer: int = 0
     buffer: list[str] = [""]
     state: int = 0
+    filter: Callable[[str], str] = NO_FILTER
+
+
+def set_filter(filter: Callable[[str], str] = NO_FILTER):
+    CONSOLE.filter = filter
 
 
 def render() -> None:
@@ -21,8 +30,11 @@ def render() -> None:
 
     # Draw the blinking cursor
     if int(CONSOLE.timer / 8) % 2 == 0:
-        cursor_pos = (len(CONSOLE.buffer[-1]) * 4, y - 6)
-        pyco.rectfill(cursor_pos + (4, 6))
+        pyco.color(COLOR_CONS_FG)
+    else:
+        pyco.color(COLOR_CONS_BG)
+    cursor_pos = (len(CONSOLE.buffer[-1]) * 4, y - 6)
+    pyco.rectfill(cursor_pos + (4, 6))
 
     # timer for the blinking cursor
     CONSOLE.timer += 1
@@ -37,32 +49,35 @@ def getchar() -> str | None:
 
 
 def putchar(c: str) -> None:
-    if CONSOLE.state == 0:
-        if c == "\n":
+    match CONSOLE.state:
+        case 0:
+            if c == "\n":
+                CONSOLE.state = 0
+            elif c == "\r": # start new line
+                CONSOLE.state = 1
+            elif c == "\x1b": # start ansi escape code
+                CONSOLE.state = 2
+            elif c == "\x08": # backspace
+                CONSOLE.buffer[-1] = CONSOLE.buffer[-1][:-1]
+            else:
+                CONSOLE.buffer[-1] += CONSOLE.filter(c)
+                
+        case 1: # new line
+            if c == "\n":
+                _print_newline()
+            else:
+                CONSOLE.buffer[-1] = CONSOLE.filter(c)
             CONSOLE.state = 0
-        elif c == "\r":
-            CONSOLE.state = 1
-        elif c == "\x1b":
-            CONSOLE.state = 2
-        elif c == "\x08":
-            CONSOLE.buffer[-1] = CONSOLE.buffer[-1][:-1]
-        else:
-            CONSOLE.buffer[-1] = CONSOLE.buffer[-1] + c
-    elif CONSOLE.state == 1:  # end of line
-        if c == "\n":
-            _print_newline()
-        else:
-            CONSOLE.buffer[-1] = c
-        CONSOLE.state = 0
-    elif CONSOLE.state == 2:  # parse ansi escape codes
-        if c == "J":
-            pyco.cls()
-            CONSOLE.state = 0
-        elif c == "H":
-            CONSOLE.buffer = [""]
-            CONSOLE.state = 0
-        elif not (c in ("[", ";") or c.isdigit()):
-            CONSOLE.state = 0
+            
+        case 2: # ansi escape codes
+            if c == "J":
+                pyco.cls()
+                CONSOLE.state = 0
+            elif c == "H":
+                CONSOLE.buffer = [""]
+                CONSOLE.state = 0
+            elif not (c in ("[", ";") or c.isdigit()):
+                CONSOLE.state = 0
 
 
 def print(s: str = "", end: str = "\n") -> None:
@@ -75,7 +90,7 @@ def _cls_partial() -> None:
     pyco.color(COLOR_CONS_BG)
     for line in CONSOLE.buffer:
         if len(line) > 0:
-            pyco.rectfill((0, y, 128, 6))
+            pyco.rectfill((0, y, len(line) * 4 + 8, 6))
         y += 6
 
 

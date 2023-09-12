@@ -10,6 +10,9 @@ class ExportPng(Process):
         if len(args) != 2:
             console.print("usage: export [FILE]")
         else:
-            pyco.sys.export_png(args[1])
-            console.print("exported")
+            try:
+                pyco.sys.export_png(args[1])
+                console.print("exported")
+            except:
+                console.print("i/o error: export failed")
         exit()

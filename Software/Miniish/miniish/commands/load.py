@@ -16,5 +16,5 @@ class Load(Process):
                 editor.load()  # type: ignore
                 console.print("loaded")
             else:
-                console.print("Error: could not load")
+                console.print("i/o error: file not found")
         exit()

@@ -10,6 +10,9 @@ class ImportPng(Process):
         if len(args) != 2:
             console.print("usage: import [FILE]")
         else:
-            pyco.sys.import_png(args[1])
-            console.print("imported")
+            try:
+                pyco.sys.import_png(args[1])
+                console.print("imported")
+            except:
+                console.print("i/o error: file not found")
         exit()
