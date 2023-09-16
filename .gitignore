@@ -3,6 +3,7 @@
 
 # Python caches
 __pycache__
+.python-version
 
 # Alchitry work
 work
@@ -18,3 +19,4 @@ bin/
 dist/
 *.bin
 a.out
+program.py
