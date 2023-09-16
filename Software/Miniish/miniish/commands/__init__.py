@@ -10,6 +10,7 @@ from miniish.commands.screen import Screen
 from miniish.commands.verify import Verify
 from miniish.commands.export_png import ExportPng
 from miniish.commands.import_png import ImportPng
+from miniish.commands.listdir import ListDir
 
 COMMANDS = {
     "sketch": Sketch(),
@@ -25,4 +26,5 @@ COMMANDS = {
     "lang": Lang(),
     "clear": Clrscr(),
     "screen": Screen(),
+    "ls": ListDir()
 }

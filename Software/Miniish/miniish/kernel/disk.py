@@ -1,5 +1,23 @@
+import os
+
+from miniish.commands import COMMANDS
 from miniish.kernel.process import Process
 
+
+def listdir(path: str | None = None) -> list[str]:
+    match path:
+        case None | "/":
+            return ["bin/", "examples/"]
+            
+        case "bin" | "/bin" | "bin/" | "/bin/":
+            return list(map(lambda x: x, COMMANDS.keys()))
+        
+        case "examples" | "/examples" | "examples/" | "/examples/":
+            return os.listdir("examples")
+        
+        case _:
+            return []
+            
 
 def open(path: str) -> Process | None:
     p = get_process(path)
@@ -15,5 +33,4 @@ def open(path: str) -> Process | None:
 
 
 def get_process(path: str) -> Process | None:
-    from miniish.commands import COMMANDS
     return COMMANDS.get(path)

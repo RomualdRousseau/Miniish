@@ -6,4 +6,4 @@ class Run(Process):
     def init(self, args: list[str] = []) -> None:
         sketch = disk.open("sketch")
         if sketch is not None:
-            exec(sketch)
+            exec(sketch, args[1:])

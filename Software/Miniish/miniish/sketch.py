@@ -12,7 +12,8 @@ class Sketch(Process):
         self.program = None
 
     def init(self, args: list[str] = []) -> None:
-        self.program = get_current_language().compile()
+        verify = len(args) == 1 and args[0] == "verify"
+        self.program = get_current_language().compile(verify)
         if self.program is not None:
             self.program._init()
         else:

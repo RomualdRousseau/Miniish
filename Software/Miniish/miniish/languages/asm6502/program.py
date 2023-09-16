@@ -22,6 +22,6 @@ class Program:
         console.render()
 
     def _worker(self):
-        compile.compile()
+        compile.compile(self.verify)
         if not self.verify:
             upload.upload()
