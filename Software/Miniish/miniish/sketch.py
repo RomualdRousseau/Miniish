@@ -15,6 +15,8 @@ class Sketch(Process):
         self.program = get_current_language().compile()
         if self.program is not None:
             self.program._init()
+        else:
+            exit()
 
     def update(self) -> None:
         c = pyco.input()
@@ -28,13 +30,14 @@ class Sketch(Process):
         if self.program is not None:
             self.program._draw()
 
-    def load(self, path: str) -> bool:
-        if pyco.sys.load_cartdrige(path):
+    def load(self, path: str | None = None) -> bool:
+        if path is not None and pyco.sys.load_cartdrige(path):
             self.last_loaded = path
             return True
         else:
             return False
 
-    def save(self, path: str) -> None:
-        self.last_loaded = path
-        pyco.sys.save_cartdrige(self.last_loaded)
+    def save(self, path: str | None = None) -> None:
+        self.last_loaded = path if path is not None else self.last_loaded
+        if self.last_loaded is not None:
+            pyco.sys.save_cartdrige(self.last_loaded)

@@ -9,19 +9,27 @@ class SERIAL:
     input_buffer: list[str]
     input_buffer_lock: threading.Lock
 
+    def __enter__(self):
+        return SERIAL
 
-def open(port: str, baudrate: int = 19200) -> None:
+    def __exit__(self, *args):
+        close()
+
+
+def open(port: str, baudrate: int = 19200) -> SERIAL:
     SERIAL.serial = serial.Serial(port, baudrate, timeout=0)
     SERIAL.reader_worker = threading.Thread(target=_reader_worker)
     SERIAL.reader_worker_terminated = False
     SERIAL.reader_worker.start()
     SERIAL.input_buffer = []
     SERIAL.input_buffer_lock = threading.Lock()
+    return SERIAL()
 
 
 def close() -> None:
     SERIAL.reader_worker_terminated = True
     SERIAL.reader_worker.join()
+    SERIAL.input_buffer = []
     SERIAL.serial.close()
 
 

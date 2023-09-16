@@ -10,3 +10,9 @@ class Process:
 
     def draw(self) -> None:
         console.render()
+        
+    def load(self, path: str | None = None) -> bool:
+        return False
+
+    def save(self, path: str | None = None) -> None:
+        pass

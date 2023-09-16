@@ -167,6 +167,7 @@ class CodeEditor(Component):
         if command == ":w":
             editor = disk.open("editor")
             sketch = disk.open("sketch")
-            if editor is not None and sketch is not None and sketch.last_loaded is not None:  # type: ignore
-                editor.save()  # type: ignore
-                pyco.sys.save_cartdrige(sketch.last_loaded)  # type: ignore
+            if editor is not None and sketch is not None:
+                editor.save()
+                sketch.save()
+

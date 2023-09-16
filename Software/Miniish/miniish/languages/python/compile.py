@@ -3,11 +3,14 @@ from importlib import reload
 from pyco.globals import PYCO
 
 
-def compile(checkonly = False):
+def compile(verify = False):
 
     # Compile
+    
+    with open("target/__init__.py", "w"):
+        pass
 
-    with open("program.py", "w") as srcfile:
+    with open("target/program.py", "w") as srcfile:
         srcfile.write("from pyco import *\n\n")
         for source in PYCO.sources:  # type: ignore
             for line in source:
@@ -15,6 +18,6 @@ def compile(checkonly = False):
 
     # Load
 
-    import program  # type: ignore
-    program = reload(program)
+    from target import program  # type: ignore
+    program = reload(program)  # type: ignore
     return program

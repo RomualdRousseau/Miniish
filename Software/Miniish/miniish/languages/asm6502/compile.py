@@ -9,17 +9,16 @@ from pyco.globals import PYCO
 from miniish.kernel import console
 
 
-def compile(checkonly=False):
+def compile(verify=False):
     with tempfile.TemporaryDirectory() as workdir:
-        result = build_all(workdir, checkonly)
-        if result.returncode == 0:
-            console.print(result.stdout.lower())
-        else:
-            console.print(result.stderr.lower())
-    return None
+        console.print("compiling...")
+        result = _build_all(workdir, verify)
+        if result.returncode != 0:
+            console.print(result.stderr.lower(), end="")
+        console.print("done compiling.")
 
 
-def build_sources(workdir):
+def _build_sources(workdir):
     for i, text in enumerate(PYCO.sources):  # type: ignore
         if len(text) > 0:
             line = text[0]
@@ -33,7 +32,7 @@ def build_sources(workdir):
                     writer.write(line + "\n")
 
 
-def build_sprites(workdir):
+def _build_sprites(workdir):
     with open(workdir + "/sprites.dat", "wb") as writer:
         acc = 0
         for y in range(16):
@@ -48,21 +47,21 @@ def build_sprites(workdir):
                             writer.write(b"%c" % acc)
 
 
-def build_flags(workdir):
+def _build_flags(workdir):
     with open(workdir + "/flags.dat", "wb") as writer:
         for n in range(256):
             flag = pyco.fget(n)
             writer.write(b"%c" % flag)
 
 
-def build_map(workdir):
+def _build_map(workdir):
     with open(workdir + "/map.dat", "wb") as writer:
         for i in range(32):
             for j in range(32):
                 writer.write(b"%c" % pyco.mget((j, i)))
 
 
-def build_sound(workdir):
+def _build_sound(workdir):
     with open(workdir + "/sound.dat", "wb") as writer:
         for i in range(16):
             s = PYCO.sounds[i]  # type: ignore
@@ -77,7 +76,7 @@ def build_sound(workdir):
                     writer.write(b"%c" % (0xFF))
 
 
-def build_music(workdir):
+def _build_music(workdir):
     with open(workdir + "/music.dat", "wb") as writer:
         for i in range(32):
             m = PYCO.music[i]  # type: ignore
@@ -90,18 +89,18 @@ def build_music(workdir):
                 writer.write(b"%c" % (m[j] & 0xFF))
 
 
-def build_all(workdir, checkonly):
-    build_sources(workdir)
-    build_sprites(workdir)
-    build_flags(workdir)
-    build_map(workdir)
-    build_sound(workdir)
-    build_music(workdir)
+def _build_all(workdir, verify):
+    _build_sources(workdir)
+    _build_sprites(workdir)
+    _build_flags(workdir)
+    _build_map(workdir)
+    _build_sound(workdir)
+    _build_music(workdir)
     # Prepare project build tool
-    shutil.copy("build/Makefile", workdir + "/Makefile")
+    shutil.copy("hardware/asm6502/Makefile", workdir + "/Makefile")
     my_env = os.environ.copy()
     my_env["MINIISH_ROOT"] = os.getcwd()
-    action = "all" if checkonly else "burn"
+    action = "verify" if verify else "upload"
     return subprocess.run(
         ["make", "-C", workdir, action], env=my_env, capture_output=True, text=True
     )

@@ -8,7 +8,7 @@ def open(path: str) -> Process | None:
 
     sketch = get_process("sketch")
     if sketch is not None:
-        if sketch.load(path):  # type: ignore
+        if sketch.load(path):
             return sketch
 
     return None

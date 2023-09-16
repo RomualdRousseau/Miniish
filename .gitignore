@@ -15,8 +15,8 @@ tags
 .vscode/
 
 # Binaries
+target/
 bin/
 dist/
 *.bin
 a.out
-program.py

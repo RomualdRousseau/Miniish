@@ -22,6 +22,8 @@ class Screen(Process):
             exit()
             
         console.set_filter(str.lower)
+        console.print("\\ ", end="")
+        
 
     def update(self) -> None:
         c = console.getchar()

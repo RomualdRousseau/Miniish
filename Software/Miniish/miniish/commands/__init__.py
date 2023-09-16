@@ -7,7 +7,7 @@ from miniish.commands.run import Run
 from miniish.commands.lang import Lang
 from miniish.commands.clrscr import Clrscr
 from miniish.commands.screen import Screen
-from miniish.commands.check import Check
+from miniish.commands.verify import Verify
 from miniish.commands.export_png import ExportPng
 from miniish.commands.import_png import ImportPng
 
@@ -20,7 +20,8 @@ COMMANDS = {
     "save": Save(),
     "shutdown": Shutdown(),
     "run": Run(),
-    "check": Check(),
+    "upload": Run(),
+    "verify": Verify(),
     "lang": Lang(),
     "clear": Clrscr(),
     "screen": Screen(),

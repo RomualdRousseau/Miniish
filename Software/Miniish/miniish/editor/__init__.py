@@ -57,12 +57,13 @@ class Editor(Process):
         self.tabs.draw()
         self.tab_curr.draw()
 
-    def load(self) -> None:
+    def load(self, path: str | None = None) -> bool:
         self.init()
         for tab in TABS:
             tab.load()
+        return True
 
-    def save(self) -> None:
+    def save(self, path: str | None = None) -> None:
         for tab in TABS:
             tab.save()
 

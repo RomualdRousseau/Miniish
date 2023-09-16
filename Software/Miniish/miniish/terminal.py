@@ -32,11 +32,11 @@ class Terminal(Process):
                 if c is not None:
                     self._handle_input(c)
 
-            case 1: # Command is running
+            case 1:  # Command is running
                 console.print(PROMPT, end="")
                 self.state = 0
 
-            case 2: # Editor is running
+            case 2:  # Editor is running
                 pyco.blit(self.img)
                 self.state = 0
 
@@ -92,10 +92,13 @@ class Terminal(Process):
         if process is not None:
             exec(fork(process), args)
         else:
-            try:
-                result = eval(" ".join(args))
-                if result is not None:
-                    console.print(str(result))
-            except Exception as x:
-                logging.warning(x)
-                console.print("syntax error")
+            self._exec_python(" ".join(args))
+
+    def _exec_python(self, statement):
+        try:
+            result = eval(statement)
+            if result is not None:
+                console.print(str(result))
+        except Exception as x:
+            logging.warning(x)
+            console.print("syntax error")

@@ -7,8 +7,8 @@ class Python(Language):
     def get_name(self) -> str:
         return "python"
     
-    def compile(self, checkonly: bool = False) -> Any | None:
-        return compile.compile(checkonly)
+    def compile(self, verify: bool = False) -> Any:
+        return compile.compile(verify)
     
     def colorize(self, line: int, pos: tuple[int, int]) -> None:
         syntax.colorize(line, pos)
