@@ -10,13 +10,13 @@ from miniish.editor.widgets.widgets import Button
 class MusicEditor(Component):
     """The Music editor."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.top = 0
         self.pattern_selector = 0
         self.sound_selector = 0
         self.copy_buffer = (0, 0, 0, 0, 1)
 
-    def init_ui(self):
+    def init_ui(self) -> None:
         self.pattern_up = Button(0, (28, 9), (61, 61), self._switch_pattern)
         self.pattern_down = Button(1, (83, 9), (62, 62), self._switch_pattern)
         self.channel_editors = [
@@ -28,7 +28,7 @@ class MusicEditor(Component):
         for channel_editor in self.channel_editors:
             channel_editor.parent = self
 
-    def update(self):
+    def update(self) -> bool:
         c = pyco.input()
         if c is not None and c == "escape":
             return False
@@ -52,7 +52,7 @@ class MusicEditor(Component):
             channel_editor.update(c)
         return True
 
-    def draw(self):
+    def draw(self) -> None:
         # Draw pattern selector
         pyco.print("pattern", (3, 11), pyco.WHITE)
         for i in range(4):

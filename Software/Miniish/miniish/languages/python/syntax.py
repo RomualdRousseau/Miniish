@@ -1,7 +1,14 @@
-from pyco import *
+import pyco
 
-from miniish.constants import *
-
+from miniish.constants import (
+    SYNTAX_COMMENT,
+    SYNTAX_KEYWORD1,
+    SYNTAX_KEYWORD2,
+    SYNTAX_NUMBER,
+    SYNTAX_STRING,
+    SYNTAX_SYMBOL,
+    SYNTAX_TOKEN,
+)
 
 KEYWORDS1 = (
         "DEF",
@@ -28,7 +35,7 @@ KEYWORDS2 = (
         "SELF"
     )
 
-def colorize(line, pos):
+def colorize(line: str, pos: tuple[int, int]) -> None:
     token = ""
     state = 0
     
@@ -38,13 +45,13 @@ def colorize(line, pos):
    
     def emit_token(token, pos, next_token = ""):
         if state == 0:
-            print(token, pos, colorize_keyword(token))
+            pyco.print(token, pos, colorize_keyword(token))
         elif state == 1:
-            print(token, pos, SYNTAX_COMMENT)
+            pyco.print(token, pos, SYNTAX_COMMENT)
         elif state == 2:
-            print(token, pos, SYNTAX_NUMBER)
+            pyco.print(token, pos, SYNTAX_NUMBER)
         elif state == 3:
-            print(token, pos, SYNTAX_STRING)
+            pyco.print(token, pos, SYNTAX_STRING)
         return next_token, (pos[0] + len(token) * 4, pos[1])
     
     for c in line:
@@ -63,7 +70,7 @@ def colorize(line, pos):
                 state = 2
             elif _is_symbol(c):
                 token, pos = emit_token(token, pos)
-                print(c, pos, SYNTAX_SYMBOL)
+                pyco.print(c, pos, SYNTAX_SYMBOL)
                 pos = (pos[0] + 4, pos[1])
             else:
                 token += c
@@ -84,7 +91,7 @@ def colorize(line, pos):
                 state = 3
             elif _is_symbol(c):
                 token, pos = emit_token(token, pos)
-                print(c, pos, SYNTAX_SYMBOL)
+                pyco.print(c, pos, SYNTAX_SYMBOL)
                 pos = (pos[0] + 4, pos[1])
                 state = 0
             else:
@@ -100,25 +107,25 @@ def colorize(line, pos):
     emit_token(token, pos) 
 
 
-def _is_comment(token):
+def _is_comment(token: str) -> bool:
     return token == '#'
 
 
-def _is_string(token):
+def _is_string(token: str) -> bool:
     return token in ('"', "'")
 
 
-def _is_number(token):
+def _is_number(token: str) -> bool:
     return token.isnumeric() or token in ('%', '$')
 
 
-def _is_symbol(token):
+def _is_symbol(token: str) -> bool:
     return not (token.isalpha() or token.isnumeric() or token == '_')
 
 
-def _is_keyword1(token):
+def _is_keyword1(token: str) -> bool:
     return token.upper() in KEYWORDS1
 
 
-def _is_keyword2(token):
+def _is_keyword2(token: str) -> bool:
     return token.upper() in KEYWORDS2

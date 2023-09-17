@@ -83,18 +83,20 @@ class Terminal(Process):
     def _switch_to_editor(self) -> None:
         process = resume()
         if process is None:
-            process = disk.open("editor")
-            if process is not None:
-                exec(fork(process))
+            process = disk.open("/bin/editor")
+            exec(fork(process))
 
     def _exec_command(self, args: list[str]) -> None:
-        process = disk.open(args[0])
-        if process is not None:
+        if disk.exists(args[0]):
+            process = disk.open(args[0])
+            exec(fork(process), args)
+        elif disk.exists("/bin/" + args[0]):
+            process = disk.open("/bin/" + args[0])
             exec(fork(process), args)
         else:
             self._exec_python(" ".join(args))
 
-    def _exec_python(self, statement):
+    def _exec_python(self, statement: str) -> None:
         try:
             result = eval(statement)
             if result is not None:

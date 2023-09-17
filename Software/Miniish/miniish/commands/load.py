@@ -9,12 +9,16 @@ class Load(Process):
         if len(args) != 2:
             console.print("usage: load <filename>")
         else:
-            path = args[1]
-            sketch = disk.open(path)
-            editor = disk.open("editor")
-            if sketch is not None and editor is not None:
-                editor.load()  # type: ignore
+            try:
+                path = args[1] + ".miniish" if ".miniish" not in args[1] else args[1]
+                if not disk.exists(path):
+                    path = "/sketches/" + path
+                    
+                sketch = disk.open(path)
+                editor = disk.open("/bin/editor")
+                sketch.load(disk.get_real_path(path))
+                editor.load()
                 console.print("loaded")
-            else:
+            except:
                 console.print("i/o error: file not found")
         exit()

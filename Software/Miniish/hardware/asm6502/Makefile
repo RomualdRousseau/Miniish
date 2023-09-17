@@ -7,8 +7,6 @@ LINK = vlink -brawbin1
 
 .PHONY: verify upload build clean
 
-default: clean verify
-
 verify: clean build
 
 upload: clean build

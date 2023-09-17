@@ -1,9 +1,7 @@
+from miniish.constants import DEFAULT_PORT, DEFAULT_BAUD_RATE
 from miniish.kernel.process import Process
 from miniish.kernel.scheduler import exit
 from miniish.kernel import console, serial
-
-DEFAULT_PORT = "/dev/ttyUSB0"
-DEFAULT_BAUD_RATE = 19200
 
 
 class Screen(Process):
@@ -17,19 +15,18 @@ class Screen(Process):
 
         try:
             serial.open(port, baudrate)
+            console.set_filter(str.lower)
+            console.print("\\ ", end="")
         except:
             console.print("i/o error: could not open port")
             exit()
-            
-        console.set_filter(str.lower)
-        console.print("\\ ", end="")
         
 
     def update(self) -> None:
         c = console.getchar()
         match c:
             case None:
-                for c in serial.read() or "":
+                for c in serial.read():
                     console.putchar(c)
 
             case "escape":

@@ -87,7 +87,7 @@ KEYWORDS1 = (
 KEYWORDS2 = ("ORG", "ASCIIZ", "BYTE", "WORD", "DSECT", "DEND", "INCLUDE")
 
 
-def colorize(line, pos):
+def colorize(line: str, pos: tuple[int, int]) -> None:
     token = ""
     state = 0
 
@@ -164,25 +164,25 @@ def colorize(line, pos):
     emit_token(token, pos)
 
 
-def _is_comment(token):
+def _is_comment(token: str) -> bool:
     return token == ";"
 
 
-def _is_string(token):
+def _is_string(token: str) -> bool:
     return token in ('"', "'")
 
 
-def _is_number(token):
+def _is_number(token: str) -> bool:
     return token.isnumeric() or token in ("%", "$")
 
 
-def _is_symbol(token):
+def _is_symbol(token: str) -> bool:
     return not (token.isalpha() or token.isnumeric() or token == "_")
 
 
-def _is_keyword1(token):
+def _is_keyword1(token: str) -> bool:
     return token.upper() in KEYWORDS1
 
 
-def _is_keyword2(token):
+def _is_keyword2(token: str) -> bool:
     return token.upper() in KEYWORDS2

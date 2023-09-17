@@ -1,3 +1,5 @@
+import builtins
+
 from typing import Callable
 
 import pyco
@@ -12,6 +14,10 @@ class CONSOLE:
     buffer: list[str] = [""]
     state: int = 0
     filter: Callable[[str], str] = NO_FILTER
+
+
+def start() -> None:
+    builtins.print("Console: ok")
 
 
 def set_filter(filter: Callable[[str], str] = NO_FILTER):
@@ -53,23 +59,23 @@ def putchar(c: str) -> None:
         case 0:
             if c == "\n":
                 CONSOLE.state = 0
-            elif c == "\r": # start new line
+            elif c == "\r":  # start new line
                 CONSOLE.state = 1
-            elif c == "\x1b": # start ansi escape code
+            elif c == "\x1b":  # start ansi escape code
                 CONSOLE.state = 2
-            elif c == "\x08": # backspace
+            elif c == "\x08":  # backspace
                 CONSOLE.buffer[-1] = CONSOLE.buffer[-1][:-1]
             else:
                 CONSOLE.buffer[-1] += CONSOLE.filter(c)
-                
-        case 1: # new line
+
+        case 1:  # new line
             if c == "\n":
                 _print_newline()
             else:
                 CONSOLE.buffer[-1] = CONSOLE.filter(c)
             CONSOLE.state = 0
-            
-        case 2: # ansi escape codes
+
+        case 2:  # ansi escape codes
             if c == "J":
                 pyco.cls()
                 CONSOLE.state = 0

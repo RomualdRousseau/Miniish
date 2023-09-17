@@ -11,5 +11,5 @@ class Asm6502(Language):
     def compile(self, verify: bool = False) -> Any:
         return program.Program(verify)
 
-    def colorize(self, line: int, pos: tuple[int, int]) -> None:
+    def colorize(self, line: str, pos: tuple[int, int]) -> None:
         syntax.colorize(line, pos)

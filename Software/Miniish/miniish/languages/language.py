@@ -8,5 +8,5 @@ class Language:
     def compile(self, verify: bool = False) -> Any:
         return None
     
-    def colorize(self, line: int, pos: tuple[int, int]) -> None:
+    def colorize(self, line: str, pos: tuple[int, int]) -> None:
         pass

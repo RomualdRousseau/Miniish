@@ -16,6 +16,10 @@ class SERIAL:
         close()
 
 
+def start() -> None:
+    print("Serial: ok")
+
+
 def open(port: str, baudrate: int = 19200) -> SERIAL:
     SERIAL.serial = serial.Serial(port, baudrate, timeout=0)
     SERIAL.reader_worker = threading.Thread(target=_reader_worker)
@@ -33,13 +37,13 @@ def close() -> None:
     SERIAL.serial.close()
 
 
-def read() -> str | None:
+def read() -> str:
     with SERIAL.input_buffer_lock:
         if len(SERIAL.input_buffer) > 0:
             data = "".join(SERIAL.input_buffer)
             SERIAL.input_buffer = []
             return data
-        return None
+        return ""
 
 
 def write(s: str) -> None:

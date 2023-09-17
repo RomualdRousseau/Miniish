@@ -9,7 +9,7 @@ from pyco.globals import PYCO
 from miniish.kernel import console
 
 
-def compile(verify=False):
+def compile(verify: bool = False) -> None:
     with tempfile.TemporaryDirectory() as workdir:
         console.print("compiling...")
         result = _build_all(workdir, verify)
@@ -18,7 +18,7 @@ def compile(verify=False):
         console.print("done compiling.")
 
 
-def _build_sources(workdir):
+def _build_sources(workdir: str) -> None:
     for i, text in enumerate(PYCO.sources):  # type: ignore
         if len(text) > 0:
             line = text[0]
@@ -32,7 +32,7 @@ def _build_sources(workdir):
                     writer.write(line + "\n")
 
 
-def _build_sprites(workdir):
+def _build_sprites(workdir: str) -> None:
     with open(workdir + "/sprites.dat", "wb") as writer:
         acc = 0
         for y in range(16):
@@ -47,21 +47,21 @@ def _build_sprites(workdir):
                             writer.write(b"%c" % acc)
 
 
-def _build_flags(workdir):
+def _build_flags(workdir: str) -> None:
     with open(workdir + "/flags.dat", "wb") as writer:
         for n in range(256):
             flag = pyco.fget(n)
             writer.write(b"%c" % flag)
 
 
-def _build_map(workdir):
+def _build_map(workdir: str) -> None:
     with open(workdir + "/map.dat", "wb") as writer:
         for i in range(32):
             for j in range(32):
                 writer.write(b"%c" % pyco.mget((j, i)))
 
 
-def _build_sound(workdir):
+def _build_sound(workdir: str) -> None:
     with open(workdir + "/sound.dat", "wb") as writer:
         for i in range(16):
             s = PYCO.sounds[i]  # type: ignore
@@ -76,7 +76,7 @@ def _build_sound(workdir):
                     writer.write(b"%c" % (0xFF))
 
 
-def _build_music(workdir):
+def _build_music(workdir: str) -> None:
     with open(workdir + "/music.dat", "wb") as writer:
         for i in range(32):
             m = PYCO.music[i]  # type: ignore
@@ -89,7 +89,7 @@ def _build_music(workdir):
                 writer.write(b"%c" % (m[j] & 0xFF))
 
 
-def _build_all(workdir, verify):
+def _build_all(workdir: str, verify: bool) -> subprocess.CompletedProcess[str]:
     _build_sources(workdir)
     _build_sprites(workdir)
     _build_flags(workdir)

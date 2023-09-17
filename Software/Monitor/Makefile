@@ -2,9 +2,9 @@ SOURCE_DIR = ./src
 DATA_DIR   = ./data
 BIN_DIR    = ./bin
 
-INCLUDE_DIR = ../Bios/include
-LIB_DIR     = ../Bios/bin
-CFG_LIB     = ../Bios/cfg
+INCLUDE_DIR = $(MINIISH_ROOT)/../Bios/include
+LIB_DIR     = $(MINIISH_ROOT)/../Bios/bin
+CFG_LIB     = $(MINIISH_ROOT)/../Bios/cfg
 
 INCLUDES = $(wildcard $(INCLUDE_DIR)/*.inc)
 DATA     = $(wildcard $(DATA_DIR)/*.dat)
@@ -17,7 +17,7 @@ VASM  = vasm6502_oldstyle -c02 -dotdir -Fvobj -esc -ldots -I$(INCLUDE_DIR)
 VLINK = vlink -brawbin1 -T$(CFG_LIB)/miniish.lnk -L$(LIB_DIR) -Bforcearchive -lbios -Msymbols.lst
 BURN  = minipro -p AT28C256 -w
 
-HELP_HEADER = "Test3 - Test DigitalProtoBoard"
+HELP_HEADER = "Monitor"
 
 .DEFAULT_GOAL := help
 
@@ -29,6 +29,12 @@ help: ## Show this help
 	@echo -e "\033[1;93mAvailable targets:\033[0m"
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2}'
 	@echo
+
+.PHONY: verify
+verify: clean build
+
+.PHONY: upload
+upload: clean build burn
 
 .PHONY: clean
 clean: ## Clean this package

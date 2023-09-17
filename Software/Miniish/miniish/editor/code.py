@@ -26,7 +26,7 @@ class CodeEditor(Component):
     Syntax color for 6502 ASM and Python
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.buffers = [self._create_buffer()]
         self.buffer = self.buffers[0]
         self.buffer_id = 0

@@ -11,11 +11,11 @@ from miniish.editor.widgets.volume_picker import VolumePicker
 class SoundEditor(Component):
     """The Sound editor."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.sound = 0
         self.oscillator = 0
 
-    def init_ui(self):
+    def init_ui(self) -> None:
         self.sound_up = Button(0, (0, 9), (61, 61), self._switch_sound)
         self.sound_down = Button(1, (21, 9), (62, 62), self._switch_sound)
         self.speed_picker = TextSpinner(-1, (46, 10), (9, 7), 1, 99, self._update_speed)
@@ -38,11 +38,11 @@ class SoundEditor(Component):
         self.volume_picker = VolumePicker(-1, (0, 100), (128, 19))
         self.volume_picker.parent = self
 
-    def update_ui(self):
+    def update_ui(self) -> None:
         (_, _, _, _, s) = pyco.synth.get_sound(self.sound)[0]
         self.speed_picker.set_value(s)
 
-    def update(self):
+    def update(self) -> bool:
         # Handle keyboard inputs
         c = pyco.input()
         if c is not None:
@@ -62,7 +62,7 @@ class SoundEditor(Component):
         self.pitch_picker.update()
         return True
 
-    def draw(self):
+    def draw(self) -> None:
         pyco.print("spd", (32, 11), pyco.LIGHT_GRAY)
         pyco.print("%02d" % (self.sound), (11, 11), pyco.WHITE)
         self.sound_down.draw()
@@ -72,7 +72,7 @@ class SoundEditor(Component):
         self.volume_picker.draw()
         self.pitch_picker.draw()
 
-    def load(self):
+    def load(self) -> None:
         self.update_ui()
 
     #

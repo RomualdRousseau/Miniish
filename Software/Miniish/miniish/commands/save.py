@@ -8,14 +8,19 @@ class Save(Process):
         if len(args) > 2:
             console.print("usage: save <filename>")
         else:
-            sketch = disk.open("sketch")
-            if sketch is not None:
-                editor = disk.open("editor")
-                path = args[1] if len(args) == 2 else sketch.last_loaded  # type: ignore
-                if editor is not None and path is not None:
-                    editor.save()  # type: ignore
-                    sketch.save(path)  # type: ignore
-                    console.print("saved")
+            try:
+                if len(args) == 2:
+                    path = args[1] + ".miniish" if ".miniish" not in args[1] else args[1]
+                    if "sketches/" not in path:
+                        path = "/sketches/" + path
                 else:
-                    console.print("i/o error: save failed")
+                    path = None
+                    
+                sketch = disk.open("/bin/sketch")
+                editor = disk.open("/bin/editor")
+                editor.save()
+                sketch.save(disk.get_real_path(path) if path is not None else None)
+                console.print("saved")
+            except:
+                console.print("i/o error: save failed")
         exit()

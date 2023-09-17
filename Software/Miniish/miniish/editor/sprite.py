@@ -10,10 +10,10 @@ from miniish.editor.widgets.sprite_picker import SpritePicker
 class SpriteEditor(Component):
     """The sprite editor."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
-    def init_ui(self):
+    def init_ui(self) -> None:
         self.color_picker = ColorPicker(0, (78, 10), (42, 42))
         self.sprite_picker = SpritePicker(1, (0, 87), (128, 34))
         self.flag_picker = FlagPicker(3, (78, 67), (64, 8))
@@ -22,7 +22,7 @@ class SpriteEditor(Component):
         self.draw_board.sprite_picker = self.sprite_picker
         self.flag_picker.sprite_picker = self.sprite_picker
 
-    def update(self):
+    def update(self) -> bool:
         c = pyco.input()
         if c is not None and c == "escape":
             return False
@@ -32,7 +32,7 @@ class SpriteEditor(Component):
         self.flag_picker.update()
         return True
 
-    def draw(self):
+    def draw(self) -> None:
         self.draw_board.draw()
         self.color_picker.draw()
         self.sprite_picker.draw()

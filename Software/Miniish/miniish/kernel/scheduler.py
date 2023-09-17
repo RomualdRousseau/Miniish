@@ -11,9 +11,11 @@ class SCHEDULER:
 
 
 def start(process: Process) -> None:
+    print("Scheduler: launch " + str(process))
     SCHEDULER.curr = process
     pyco.sys.set_callbacks(_init, _update, _draw)
     pyco.sys.run()
+    print("Scheduler: shutdown.")
 
 
 def fork(process: Process) -> Process:
