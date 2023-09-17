@@ -30,7 +30,7 @@ class Terminal(Process):
             case 0:
                 c = console.getchar()
                 if c is not None:
-                    self._handle_input(c)
+                    self._parse_input(c)
 
             case 1:  # Command is running
                 console.print(PROMPT, end="")
@@ -40,7 +40,7 @@ class Terminal(Process):
                 pyco.blit(self.img)
                 self.state = 0
 
-    def _handle_input(self, c: str) -> None:
+    def _parse_input(self, c: str) -> None:
         match c:
             case "escape":
                 self.img = pyco.sys.screenshot()

@@ -57,7 +57,7 @@ class Editor(Process):
         self.tabs.draw()
         self.tab_curr.draw()
 
-    def load(self, path: str | None = None) -> bool:
+    def load(self, path: str) -> bool:
         self.init()
         for tab in TABS:
             tab.load()

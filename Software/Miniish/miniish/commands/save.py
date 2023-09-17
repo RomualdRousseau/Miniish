@@ -10,17 +10,19 @@ class Save(Process):
         else:
             try:
                 if len(args) == 2:
-                    path = args[1] + ".miniish" if ".miniish" not in args[1] else args[1]
-                    if "sketches/" not in path:
+                    path = (
+                        args[1] + ".miniish" if ".miniish" not in args[1] else args[1]
+                    )
+                    if "/" not in path:
                         path = "/sketches/" + path
                 else:
                     path = None
-                    
-                sketch = disk.open("/bin/sketch")
+
+                sketch = disk.create(path or "/bin/sketch")
                 editor = disk.open("/bin/editor")
-                editor.save()
-                sketch.save(disk.get_real_path(path) if path is not None else None)
+                editor.save(path)
+                sketch.save(path)
                 console.print("saved")
             except:
-                console.print("i/o error: save failed")
+                console.print("i/o error: no such file or dir")
         exit()

@@ -1,6 +1,7 @@
 import pyco
 import pyco.sys
 
+from miniish.kernel import disk
 from miniish.kernel.process import Process
 from miniish.kernel.scheduler import exit
 from miniish.languages import get_current_language
@@ -31,14 +32,18 @@ class Sketch(Process):
         if self.program is not None:
             self.program._draw()
 
-    def load(self, path: str | None = None) -> bool:
-        if path is not None and pyco.sys.load_cartdrige(path):
+    def load(self, path: str) -> bool:
+        if pyco.sys.load_cartdrige(disk.get_real_path(path)):
             self.last_loaded = path
             return True
         else:
             return False
 
-    def save(self, path: str | None = None) -> None:
-        self.last_loaded = path if path is not None else self.last_loaded
-        if self.last_loaded is not None:
-            pyco.sys.save_cartdrige(self.last_loaded)
+    def save(self, path: str | None = None) -> bool:
+        path = path or self.last_loaded
+        if path is not None:
+            pyco.sys.save_cartdrige(disk.get_real_path(path))
+            self.last_loaded = path
+            return True
+        else:
+            return False

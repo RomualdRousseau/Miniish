@@ -12,26 +12,20 @@ FS = [
 
 def start() -> None:
     print("Disk: preparing disk...")
-    _add_nodes(FS, FS[1], COMMANDS.keys())
+    _add_nodes(FS[1], COMMANDS.keys())
+    _add_nodes(FS[2], os.listdir(FS[2][4]))
     print("Disk: ok")
 
 
 def get_real_path(path: str) -> str:
-    try:
-        node, fs = _find_node(path)
-        return _get_real_path(fs, node)
-    except:
-        parent = os.path.dirname(path)
-        file = os.path.relpath(path, parent)
-        node, fs = _find_node(parent)
-        return os.path.join(_get_real_path(fs, node), file)
+    return _get_real_path(_find_node(path))
 
 
 def listdir(path: str = os.path.sep) -> list[str]:
-    node, fs = _find_node(path)
+    node = _find_node(path)
     if node[2] in ("d", "l"):
         return list(
-            map(_format_node, filter(lambda x: x[0] > 0 and x[1] == node[0], fs))
+            map(_format_node, filter(lambda x: x[0] > 0 and x[1] == node[0], FS))
         )
     return [node[3]]
 
@@ -44,39 +38,40 @@ def exists(path: str) -> bool:
         return False
 
 
+def create(path: str) -> Process:
+    if not exists(path):
+        parent = os.path.dirname(path)
+        file = os.path.relpath(path, parent)
+        node = _find_node(parent)
+        _add_nodes(node, [file])
+    return COMMANDS["sketch"]
+
+
 def open(path: str) -> Process:
-    node, _ = _find_node(path)
+    node = _find_node(path)
     p = COMMANDS.get(node[3])
     if p is not None:
         return p
     return COMMANDS["sketch"]
 
 
-def _get_real_path(fs, node):
-    return os.path.abspath(os.path.join(fs[node[1]][4], node[4]))
+def _get_real_path(node):
+    parent = FS[node[1]]
+    return os.path.abspath(os.path.join(parent[4], node[4]))
 
 
 def _find_node(path):
     segments = path.strip(os.path.sep).split(os.path.sep)
-
-    # Augment the FS with links
-
-    fs = FS.copy()
-    for node in filter(lambda x: x[2] == "l", FS):
-        _add_nodes(fs, node, os.listdir(node[4]))
-
-    # Find the node
-
-    node = fs[0]
+    node = FS[0]
     for segment in segments:
-        node = next(filter(lambda x: x[1] == node[0] and x[3] == segment, fs))
-    return node, fs
+        node = next(filter(lambda x: x[1] == node[0] and x[3] == segment, FS))
+    return node
 
 
-def _add_nodes(fs, parent, files):
-    inode = len(fs)
+def _add_nodes(parent, files):
+    inode = len(FS)
     for file in files:
-        fs.append((inode, parent[0], "f", file, file))
+        FS.append((inode, parent[0], "f", file, file))
         inode = inode + 1
 
 
