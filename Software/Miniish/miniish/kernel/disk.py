@@ -10,7 +10,7 @@ FS = [
 ]
 
 
-def start() -> None:
+def init() -> None:
     print("Disk: preparing disk...")
     _add_nodes(FS[1], COMMANDS.keys())
     _add_nodes(FS[2], os.listdir(FS[2][4]))

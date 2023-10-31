@@ -3,7 +3,7 @@ from miniish.kernel import scheduler, disk, console, serial
 
 
 if __name__ == "__main__":
-    disk.start()
-    console.start()
-    serial.start()
+    console.init()
+    serial.init()
+    disk.init()
     scheduler.start(Terminal())

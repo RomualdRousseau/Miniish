@@ -16,7 +16,7 @@ class CONSOLE:
     filter: Callable[[str], str] = NO_FILTER
 
 
-def start() -> None:
+def init() -> None:
     builtins.print("Console: ok")
 
 

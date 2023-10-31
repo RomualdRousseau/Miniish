@@ -16,7 +16,7 @@ class SERIAL:
         close()
 
 
-def start() -> None:
+def init() -> None:
     print("Serial: ok")
 
 
