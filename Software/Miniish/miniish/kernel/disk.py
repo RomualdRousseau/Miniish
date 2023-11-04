@@ -1,6 +1,6 @@
 import os
 
-from miniish.commands import COMMANDS
+from miniish.user import COMMANDS
 from miniish.kernel.process import Process
 
 FS = [
