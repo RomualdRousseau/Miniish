@@ -4,7 +4,7 @@ import pyco
 import pyvi
 import pyco.sys
 
-from miniish.kernel import disk
+from miniish.kernel import virtfs
 from miniish.languages import get_current_language
 from miniish.editor.widgets.widgets import ButtonGroup, Button
 from miniish.editor.widgets.component import Component
@@ -165,8 +165,8 @@ class CodeEditor(Component):
 
     def _command_func(self, command):
         if command == ":w":
-            editor = disk.open("/bin/editor")
-            sketch = disk.open("/bin/run")
+            editor = virtfs.open("/bin/.editor")
+            sketch = virtfs.open("/bin/run")
             if editor is not None and sketch is not None:
                 editor.save()
                 sketch.save()

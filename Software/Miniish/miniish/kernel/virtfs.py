@@ -11,10 +11,10 @@ VIRTFS = [
 
 
 def init() -> None:
-    print("Disk: preparing disk...")
+    print("VirtFS: preparing disk...")
     _add_nodes(VIRTFS[1], COMMANDS.keys())
     _add_nodes(VIRTFS[2], os.listdir(VIRTFS[2][4]))
-    print("Disk: ok")
+    print("VirtFS: ok")
 
 
 def get_real_path(path: str) -> str:
@@ -44,7 +44,7 @@ def create(path: str) -> Process:
         file = os.path.relpath(path, parent)
         node = _find_node(parent)
         _add_nodes(node, [file])
-    return COMMANDS["sketch"]
+    return COMMANDS[".sketch"]
 
 
 def open(path: str) -> Process:
@@ -52,7 +52,7 @@ def open(path: str) -> Process:
     p = COMMANDS.get(node[3])
     if p is not None:
         return p
-    return COMMANDS["sketch"]
+    return COMMANDS[".sketch"]
 
 
 def _get_real_path(node):

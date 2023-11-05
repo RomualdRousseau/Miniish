@@ -1,10 +1,12 @@
 from pyco.constants import BLACK, BLUE, DARK_GRAY, DARK_PURPLE, GREEN, INDIGO, LIGHT_GRAY, PINK, RED, WHITE
 
+OS_NAME = "miniish"
+OS_VERSION = "0.1"
 
-BANNER = """
+BANNER = f"""
 @logo                       
                             
-miniish 0.1
+{OS_NAME} {OS_VERSION}
 (c) 2022-24 romuald rousseau
 """
 

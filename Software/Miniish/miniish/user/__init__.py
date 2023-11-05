@@ -13,12 +13,12 @@ from miniish.user.import_png import ImportPng
 from miniish.user.listdir import ListDir
 
 COMMANDS = {
-    "editor": Editor(),
-    "sketch": Sketch(),
+    ".editor": Editor(),
+    ".sketch": Sketch(),
     "sh": Shell(),
-    "run": Alias("/bin/sketch"),
-    "upload": Alias("/bin/sketch"),
-    "verify": Alias("/bin/sketch", ["verify"]),
+    "run": Alias("/bin/.sketch"),
+    "upload": Alias("/bin/.sketch"),
+    "verify": Alias("/bin/.sketch", ["verify"]),
     "import": ImportPng(),
     "export": ExportPng(),
     "load": Load(),

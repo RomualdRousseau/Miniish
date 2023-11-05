@@ -3,7 +3,6 @@ import pyco.sys
 
 from miniish.kernel.process import Process
 
-
 class SCHEDULER:
     active: list[Process] = []
     paused: list[Process] = []
@@ -11,11 +10,15 @@ class SCHEDULER:
 
 
 def start(process: Process) -> None:
-    print("Scheduler: launch " + str(process))
+    print("Scheduler: start " + str(process))
     SCHEDULER.curr = process
     pyco.sys.set_callbacks(_init, _update, _draw)
     pyco.sys.run()
     print("Scheduler: shutdown.")
+    
+
+def shutdown() -> None:
+    pyco.sys.shutdown()
 
 
 def fork(process: Process) -> Process:
@@ -25,15 +28,17 @@ def fork(process: Process) -> Process:
 
 
 def exec(process: Process, args: list[str] = []) -> None:
+    print("Scheduler: exec " + str(process))
     SCHEDULER.curr = process
     pyco.flush()
     SCHEDULER.curr.init(args)
 
 
 def exit() -> None:
-    if len(SCHEDULER.active) == 0:
+    if len(SCHEDULER.active) == 1:
         pyco.sys.shutdown()
     else:
+        print("Scheduler: exit " + str(SCHEDULER.curr))
         SCHEDULER.curr = SCHEDULER.active.pop()
         pyco.flush()
 

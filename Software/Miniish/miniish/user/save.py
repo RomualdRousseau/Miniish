@@ -1,4 +1,4 @@
-from miniish.kernel import console, disk
+from miniish.kernel import console, virtfs
 from miniish.kernel.process import Process
 from miniish.kernel.scheduler import exit
 
@@ -18,8 +18,8 @@ class Save(Process):
                 else:
                     path = None
 
-                sketch = disk.create(path or "/bin/sketch")
-                editor = disk.open("/bin/editor")
+                sketch = virtfs.create(path or "/bin/.sketch")
+                editor = virtfs.open("/bin/.editor")
                 editor.save(path)
                 sketch.save(path)
                 console.print("saved")

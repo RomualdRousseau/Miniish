@@ -1,4 +1,4 @@
-from miniish.kernel import console, disk
+from miniish.kernel import console, virtfs
 from miniish.kernel.process import Process
 from miniish.kernel.scheduler import exit
 
@@ -10,11 +10,11 @@ class Load(Process):
         else:
             try:
                 path = args[1] + ".miniish" if ".miniish" not in args[1] else args[1]
-                if not disk.exists(path):
+                if not virtfs.exists(path):
                     path = "/sketches/" + path
 
-                sketch = disk.open(path)
-                editor = disk.open("/bin/editor")
+                sketch = virtfs.open(path)
+                editor = virtfs.open("/bin/.editor")
                 sketch.load(path)
                 editor.load(path)
                 console.print("loaded")

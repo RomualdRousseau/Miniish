@@ -3,8 +3,8 @@ import logging
 import pyco
 import pyco.sys
 
-from miniish.kernel import console, disk
-from miniish.kernel.scheduler import fork, exec, resume
+from miniish.kernel import console, virtfs
+from miniish.kernel.scheduler import fork, exec, resume, exit
 from miniish.kernel.process import Process
 from miniish.constants import BANNER, COLOR_CONS_BG, PROMPT
 
@@ -79,15 +79,17 @@ class Shell(Process):
     def _switch_to_editor(self) -> None:
         process = resume()
         if process is None:
-            process = disk.open("/bin/editor")
+            process = virtfs.open("/bin/.editor")
             exec(fork(process))
 
     def _exec_command(self, args: list[str]) -> None:
-        if disk.exists(args[0]):
-            process = disk.open(args[0])
+        if args[0] == "exit":
+            exit()
+        elif virtfs.exists(args[0]):
+            process = virtfs.open(args[0])
             exec(fork(process), args)
-        elif disk.exists("/bin/" + args[0]):
-            process = disk.open("/bin/" + args[0])
+        elif virtfs.exists("/bin/" + args[0]):
+            process = virtfs.open("/bin/" + args[0])
             exec(fork(process), args)
         else:
             self._exec_python(" ".join(args))

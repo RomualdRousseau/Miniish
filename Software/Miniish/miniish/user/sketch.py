@@ -1,7 +1,7 @@
 import pyco
 import pyco.sys
 
-from miniish.kernel import disk
+from miniish.kernel import virtfs
 from miniish.kernel.process import Process
 from miniish.kernel.scheduler import exit
 from miniish.languages import get_current_language
@@ -33,7 +33,7 @@ class Sketch(Process):
             self.program._draw()
 
     def load(self, path: str) -> bool:
-        if pyco.sys.load_cartdrige(disk.get_real_path(path)):
+        if pyco.sys.load_cartdrige(virtfs.get_real_path(path)):
             self.last_loaded = path
             return True
         else:
@@ -42,7 +42,7 @@ class Sketch(Process):
     def save(self, path: str | None = None) -> bool:
         path = path or self.last_loaded
         if path is not None:
-            pyco.sys.save_cartdrige(disk.get_real_path(path))
+            pyco.sys.save_cartdrige(virtfs.get_real_path(path))
             self.last_loaded = path
             return True
         else:
