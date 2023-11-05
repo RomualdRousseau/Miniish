@@ -3,6 +3,7 @@ import builtins
 from typing import Callable
 
 import pyco
+import pyco.sys
 
 from miniish.constants import COLOR_CONS_BG, COLOR_CONS_FG
 
@@ -31,7 +32,10 @@ def render() -> None:
     pyco.color(COLOR_CONS_FG)
     y = 0
     for line in CONSOLE.buffer:
-        pyco.print(line, (0, y))
+        if "@logo" in line:
+            pyco.blit(pyco.sys.load_png("miniish-logo"), pos=(0, y - 6))
+        else:
+            pyco.print(line, (0, y))
         y += 6
 
     # Draw the blinking cursor

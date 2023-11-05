@@ -3,7 +3,7 @@ import os
 from miniish.user import COMMANDS
 from miniish.kernel.process import Process
 
-FS = [
+VIRTFS = [
     (0, 0, "d", "", ""),
     (1, 0, "d", "bin", "bin"),
     (2, 0, "l", "sketches", "sketches"),
@@ -12,8 +12,8 @@ FS = [
 
 def init() -> None:
     print("Disk: preparing disk...")
-    _add_nodes(FS[1], COMMANDS.keys())
-    _add_nodes(FS[2], os.listdir(FS[2][4]))
+    _add_nodes(VIRTFS[1], COMMANDS.keys())
+    _add_nodes(VIRTFS[2], os.listdir(VIRTFS[2][4]))
     print("Disk: ok")
 
 
@@ -25,7 +25,7 @@ def listdir(path: str = os.path.sep) -> list[str]:
     node = _find_node(path)
     if node[2] in ("d", "l"):
         return list(
-            map(_format_node, filter(lambda x: x[0] > 0 and x[1] == node[0], FS))
+            map(_format_node, filter(lambda x: x[0] > 0 and x[1] == node[0], VIRTFS))
         )
     return [node[3]]
 
@@ -56,22 +56,22 @@ def open(path: str) -> Process:
 
 
 def _get_real_path(node):
-    parent = FS[node[1]]
+    parent = VIRTFS[node[1]]
     return os.path.abspath(os.path.join(parent[4], node[4]))
 
 
 def _find_node(path):
     segments = path.strip(os.path.sep).split(os.path.sep)
-    node = FS[0]
+    node = VIRTFS[0]
     for segment in segments:
-        node = next(filter(lambda x: x[1] == node[0] and x[3] == segment, FS))
+        node = next(filter(lambda x: x[1] == node[0] and x[3] == segment, VIRTFS))
     return node
 
 
 def _add_nodes(parent, files):
-    inode = len(FS)
+    inode = len(VIRTFS)
     for file in files:
-        FS.append((inode, parent[0], "f", file, file))
+        VIRTFS.append((inode, parent[0], "f", file, file))
         inode = inode + 1
 
 

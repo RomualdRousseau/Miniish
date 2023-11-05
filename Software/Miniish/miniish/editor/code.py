@@ -165,8 +165,8 @@ class CodeEditor(Component):
 
     def _command_func(self, command):
         if command == ":w":
-            editor = disk.open("editor")
-            sketch = disk.open("sketch")
+            editor = disk.open("/bin/editor")
+            sketch = disk.open("/bin/run")
             if editor is not None and sketch is not None:
                 editor.save()
                 sketch.save()

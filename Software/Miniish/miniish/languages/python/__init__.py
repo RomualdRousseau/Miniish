@@ -10,6 +10,8 @@ class Python(Language):
     
     def compile(self, verify: bool = False) -> Any:
         compile.compile(verify)
+        if verify:
+            return None
         from target import program  # type: ignore
         program = reload(program)  # type: ignore
         return program

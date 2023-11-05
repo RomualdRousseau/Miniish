@@ -9,11 +9,8 @@ from miniish.kernel.process import Process
 from miniish.constants import BANNER, COLOR_CONS_BG, PROMPT
 
 
-class Terminal(Process):
-    """The Terminal."""
-
+class Shell(Process):
     def __init__(self) -> None:
-        self.apps_init: bool = False
         self.lastcmd: str = ""
         self.history: list[str] = []
         self.history_idx: int = 0
@@ -21,7 +18,6 @@ class Terminal(Process):
 
     def init(self, args: list[str] = []) -> None:
         pyco.cls(COLOR_CONS_BG)
-        # pyco.blit(pyco.sys.load_png("miniish-logo"))
         console.print(BANNER)
         console.print(PROMPT, end="")
 

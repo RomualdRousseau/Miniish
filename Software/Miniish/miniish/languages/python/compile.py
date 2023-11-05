@@ -1,7 +1,7 @@
 from pyco.globals import PYCO
 
 
-def compile(verify: bool = False) -> None:
+def compile(verify: bool = False) -> None: 
     with open("target/__init__.py", "w"):
         pass
 

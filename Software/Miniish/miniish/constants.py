@@ -2,6 +2,8 @@ from pyco.constants import BLACK, BLUE, DARK_GRAY, DARK_PURPLE, GREEN, INDIGO, L
 
 
 BANNER = """
+@logo                       
+                            
 miniish 0.1
 (c) 2022-24 romuald rousseau
 """
