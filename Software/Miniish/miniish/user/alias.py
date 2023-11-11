@@ -6,7 +6,8 @@ from miniish.kernel.process import Process
 
 
 class Alias(Process):
-    def __init__(self, path: str, args: list[str] = []) -> None:
+    def __init__(self, name: str, path: str, args: list[str] = []) -> None:
+        super().__init__(name)
         self.path: str = path
         self.args: list[str] = args
         

@@ -10,7 +10,8 @@ from miniish.constants import BANNER, COLOR_CONS_BG, PROMPT
 
 
 class Shell(Process):
-    def __init__(self) -> None:
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
         self.lastcmd: str = ""
         self.history: list[str] = []
         self.history_idx: int = 0

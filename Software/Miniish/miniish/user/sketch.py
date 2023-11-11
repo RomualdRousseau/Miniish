@@ -8,7 +8,8 @@ from miniish.languages import get_current_language
 
 
 class Sketch(Process):
-    def __init__(self) -> None:
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
         self.last_loaded = None
         self.program = None
 

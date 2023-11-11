@@ -24,7 +24,8 @@ TABS: list[Component] = [
 class Editor(Process):
     """The Editor."""
 
-    def __init__(self) -> None:
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
         self.tabs = ButtonGroup(
             -1,
             (128 - len(TABS) * 8, 0),

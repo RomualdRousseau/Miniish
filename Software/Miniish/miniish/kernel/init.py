@@ -12,4 +12,7 @@ class Init(Process):
     def init(self, args: list[str] = []) -> None:
         process = virtfs.open("/bin/sh")
         exec(fork(process))
+        
+    def update(self):
+        pyco.sys.shutdown()
 

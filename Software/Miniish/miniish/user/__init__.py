@@ -11,21 +11,23 @@ from miniish.user.screen import Screen
 from miniish.user.export_png import ExportPng
 from miniish.user.import_png import ImportPng
 from miniish.user.listdir import ListDir
+from miniish.user.procstat import ProcStat
 
 COMMANDS = {
-    ".editor": Editor(),
-    ".sketch": Sketch(),
-    "sh": Shell(),
-    "run": Alias("/bin/.sketch"),
-    "upload": Alias("/bin/.sketch"),
-    "verify": Alias("/bin/.sketch", ["verify"]),
-    "import": ImportPng(),
-    "export": ExportPng(),
-    "load": Load(),
-    "save": Save(),
-    "shutdown": Shutdown(),
-    "lang": Lang(),
-    "clear": Clrscr(),
-    "screen": Screen(),
-    "ls": ListDir()
+    ".editor": Editor("editor"),
+    ".sketch": Sketch("sketch"),
+    "sh": Shell("sh"),
+    "run": Alias("run", "/bin/.sketch"),
+    "upload": Alias("upload", "/bin/.sketch"),
+    "verify": Alias("verify", "/bin/.sketch", ["verify"]),
+    "import": ImportPng("import"),
+    "export": ExportPng("export"),
+    "load": Load("load"),
+    "save": Save("save"),
+    "shutdown": Shutdown("shutdown"),
+    "lang": Lang("lang"),
+    "clear": Clrscr("clear"),
+    "screen": Screen("screen"),
+    "ls": ListDir("ls"),
+    "ps": ProcStat("ps")
 }
