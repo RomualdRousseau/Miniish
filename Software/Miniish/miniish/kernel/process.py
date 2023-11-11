@@ -1,12 +1,17 @@
 from miniish.kernel import console
 
-
 class Process:
     def __init__(self, name: str) -> None:
         self.name = name
+        self.pid = 0
+        self.args = []
+        self.status = 'r'
+        
+    def spawn(self, args: list[str] = []) -> None:
+        self.args = args if len(args) > 0 else [self.name]
+        self.init(args)
         
     def init(self, args: list[str] = []) -> None:
-        self.args = args
         pass
 
     def update(self) -> None:
@@ -20,6 +25,4 @@ class Process:
 
     def save(self, path: str | None = None) -> bool:
         return False
-    
-    def __str__(self) -> str:
-        return self.name
+

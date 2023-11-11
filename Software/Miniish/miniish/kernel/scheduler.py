@@ -5,21 +5,29 @@ from miniish.kernel.process import Process
 
 RUNNING = -1
 
+
 class SCHEDULER:
     active: list[Process] = []
     paused: list[Process] = []
+    next_pid = 0
 
 
 def start(process: Process) -> None:
     print(f"Scheduler: start {process}")
-    SCHEDULER.active.append(process)
+    SCHEDULER.active.append(assign_next_pid(process))
     pyco.sys.set_callbacks(_init, _update, _draw)
     pyco.sys.run()
     print("Scheduler: shutdown.")
-    
+
 
 def shutdown() -> None:
     pyco.sys.shutdown()
+
+
+def assign_next_pid(process: Process) -> Process:
+    process.pid = SCHEDULER.next_pid
+    SCHEDULER.next_pid += 1
+    return process
 
 
 def fork(process: Process) -> Process:
@@ -29,9 +37,9 @@ def fork(process: Process) -> Process:
 
 
 def exec(process: Process, args: list[str] = []) -> None:
-    SCHEDULER.active[RUNNING] = process
+    SCHEDULER.active[RUNNING] = assign_next_pid(process)
     pyco.flush()
-    SCHEDULER.active[RUNNING].init(args)
+    SCHEDULER.active[RUNNING].spawn(args)
 
 
 def exit() -> None:
@@ -42,7 +50,8 @@ def exit() -> None:
 
 def pause() -> None:
     if len(SCHEDULER.active) > 0:
-        SCHEDULER.paused.append(SCHEDULER.active[RUNNING])
+        SCHEDULER.active[RUNNING].status = 'p'
+        SCHEDULER.paused.append(SCHEDULER.active[RUNNING])  
         SCHEDULER.active.pop()
         pyco.flush()
 
@@ -52,6 +61,7 @@ def resume() -> Process | None:
         return None
     else:
         SCHEDULER.active.append(SCHEDULER.paused.pop())
+        SCHEDULER.active[RUNNING].status = 'r'
         pyco.flush()
         return SCHEDULER.active[RUNNING]
 
