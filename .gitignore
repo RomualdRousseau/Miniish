@@ -20,3 +20,6 @@ bin/
 dist/
 *.bin
 a.out
+*.elf
+*.hex
+*.o

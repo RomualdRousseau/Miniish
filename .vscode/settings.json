@@ -7,6 +7,5 @@
         "*.asm": "asm",
         "*.inc": "asm",
         "*.h": "c"
-    },
-    "C_Cpp.errorSquiggles": "disabled",
+    }
 }

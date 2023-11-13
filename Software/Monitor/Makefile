@@ -2,9 +2,9 @@ SOURCE_DIR = ./src
 DATA_DIR   = ./data
 BIN_DIR    = ./bin
 
-INCLUDE_DIR = $(MINIISH_ROOT)/../Bios/include
-LIB_DIR     = $(MINIISH_ROOT)/../Bios/bin
-CFG_LIB     = $(MINIISH_ROOT)/../Bios/cfg
+INCLUDE_DIR = ../Bios/include
+LIB_DIR     = ../Bios/bin
+CFG_LIB     = ../Bios/cfg
 
 INCLUDES = $(wildcard $(INCLUDE_DIR)/*.inc)
 DATA     = $(wildcard $(DATA_DIR)/*.dat)
@@ -30,23 +30,19 @@ help: ## Show this help
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2}'
 	@echo
 
-.PHONY: verify
-verify: clean build
 
-.PHONY: upload
-upload: clean build burn
+all: $(BIN_DIR)/main.prg ## Build this package
+	
+flash: $(BIN_DIR)/main.prg ## Upload this package
+	$(BURN) $<
 
-.PHONY: clean
 clean: ## Clean this package
 	rm -f $(BIN_DIR)/*
-
-build: $(BIN_DIR)/main.prg ## Build this package
-	
-burn: $(BIN_DIR)/main.prg ## Burn this package
-	$(BURN) $<
 
 $(BIN_DIR)/%.o: $(SOURCE_DIR)/%.asm $(INCLUDES) $(DATA)
 	$(VASM) -o $@ $<
 
 $(BIN_DIR)/%.prg: $(OBJS)
 	$(VLINK) -o $@ $(OBJS)
+
+.PHONY: help all flash clean

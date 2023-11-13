@@ -51,8 +51,8 @@ help: ## Show this help
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2}'
 	@echo
 
-.PHONY: build
-build: $(LIB_DIR)/libbios.a ## Build this package
+.PHONY: all
+all: $(LIB_DIR)/libbios.a ## Build this package
 
 .PHONY: clean
 clean: ## Clean this package
