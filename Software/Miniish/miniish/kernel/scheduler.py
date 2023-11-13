@@ -13,8 +13,8 @@ class SCHEDULER:
 
 
 def start(process: Process) -> None:
-    print(f"Scheduler: start {process}")
-    SCHEDULER.active.append(assign_next_pid(process))
+    print(f"Scheduler: start {process.name}")
+    SCHEDULER.active.append(_assign_next_pid(process))
     pyco.sys.set_callbacks(_init, _update, _draw)
     pyco.sys.run()
     print("Scheduler: shutdown.")
@@ -24,12 +24,6 @@ def shutdown() -> None:
     pyco.sys.shutdown()
 
 
-def assign_next_pid(process: Process) -> Process:
-    process.pid = SCHEDULER.next_pid
-    SCHEDULER.next_pid += 1
-    return process
-
-
 def fork(process: Process) -> Process:
     if len(SCHEDULER.active) > 0:
         SCHEDULER.active.append(SCHEDULER.active[RUNNING])
@@ -37,7 +31,7 @@ def fork(process: Process) -> Process:
 
 
 def exec(process: Process, args: list[str] = []) -> None:
-    SCHEDULER.active[RUNNING] = assign_next_pid(process)
+    SCHEDULER.active[RUNNING] = _assign_next_pid(process)
     pyco.flush()
     SCHEDULER.active[RUNNING].spawn(args)
 
@@ -50,32 +44,36 @@ def exit() -> None:
 
 def pause() -> None:
     if len(SCHEDULER.active) > 0:
-        SCHEDULER.active[RUNNING].status = 'p'
-        SCHEDULER.paused.append(SCHEDULER.active[RUNNING])  
+        SCHEDULER.active[RUNNING].status = "p"
+        SCHEDULER.paused.append(SCHEDULER.active[RUNNING])
         SCHEDULER.active.pop()
         pyco.flush()
 
 
 def resume() -> Process | None:
-    if len(SCHEDULER.paused) == 0:
-        return None
-    else:
+    if len(SCHEDULER.paused) != 0:
         SCHEDULER.active.append(SCHEDULER.paused.pop())
-        SCHEDULER.active[RUNNING].status = 'r'
+        SCHEDULER.active[RUNNING].status = "r"
         pyco.flush()
         return SCHEDULER.active[RUNNING]
 
 
-def _init() -> None:
+def _init():
     if len(SCHEDULER.active) > 0:
         SCHEDULER.active[RUNNING].init()
 
 
-def _update() -> None:
+def _update():
     if len(SCHEDULER.active) > 0:
         SCHEDULER.active[RUNNING].update()
 
 
-def _draw() -> None:
+def _draw():
     if len(SCHEDULER.active) > 0:
         SCHEDULER.active[RUNNING].draw()
+
+
+def _assign_next_pid(process):
+    process.pid = SCHEDULER.next_pid
+    SCHEDULER.next_pid += 1
+    return process
