@@ -11,7 +11,7 @@ VIRTFS = [
 
 
 def init() -> None:
-    print("VirtFS: preparing disk...")
+    print("VirtFS: preparing disk ...")
     _add_nodes(VIRTFS[1], COMMANDS.keys())
     _add_nodes(VIRTFS[2], os.listdir(VIRTFS[2][4]))
     print("VirtFS: ok")
@@ -69,6 +69,7 @@ def _find_node(path):
 
 
 def _add_nodes(parent, files):
+    print(f"VirtFS: add {parent[3]}")
     inode = len(VIRTFS)
     for file in files:
         VIRTFS.append((inode, parent[0], "f", file, file))
