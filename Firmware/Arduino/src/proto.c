@@ -2,6 +2,13 @@
 #include "util.h"
 #include "proto.h"
 
+void proto_init(uint16_t *channels)
+{
+    for (int i = 0; i < CHANNELS; i++) {
+        channels[i] = 1500;
+    }
+}
+
 const packet_t *proto_encode_packet(const uint16_t *channels, packet_t *packet)
 {
     packet->header = HEADER_MAGIC;

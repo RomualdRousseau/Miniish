@@ -13,6 +13,8 @@ typedef struct
     uint8_t footer;
 } packet_t;
 
+extern void proto_init(uint16_t *channels);
+
 extern const packet_t *proto_encode_packet(const uint16_t *channels, packet_t *packet);
 
 #endif
