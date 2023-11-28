@@ -9,9 +9,9 @@ void piso_init()
     PORTD |= PISO_LOAD | PISO_ENBL;
 }
 
-int piso_read()
+const uint8_t piso_read()
 {
-    int val = 0;
+    uint8_t val = 0;
 
     // Enable
     PORTB |= CLOCK_PIN;

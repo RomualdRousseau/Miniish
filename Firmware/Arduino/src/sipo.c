@@ -8,7 +8,7 @@ void sipo_init()
     PORTD &= ~(SIPO_SRST | SIPO_LTCH | SIPO_MISO);
 }
 
-void sipo_write(const int val)
+void sipo_write(const uint8_t val)
 {
 
     // Enable

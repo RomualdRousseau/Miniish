@@ -2,8 +2,8 @@
 # Project Directories
 
 SRC_DIR							= src
-INC_DIR							= include
 BIN_DIR							= bin
+LIB_DIR							= lib
 
 BINARY = $(BIN_DIR)/main
 
@@ -32,16 +32,27 @@ PROGRAMMER = -C /$(AVRDUDE_ETC_DIR)/avrdude.conf -c arduino -p $(MCU) -P /dev/tt
 ###############################################################################
 # C Flags
 
-CFLAGS = -Os -mmcu=$(MCU) -DF_CPU=$(F_CPU)
+CFLAGS = -Os -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Wno-misspelled-isr
 
 ###############################################################################
 # Source Files
+
+INCLUDES = \
+    -I$(LIB_DIR) \
+    -I$(SRC_DIR)
+
+LIBS = \
+    $(LIB_DIR)/spi.o \
+    $(LIB_DIR)/uart.o \
+    $(LIB_DIR)/nrf24l01.o \
 
 OBJS = \
 	$(SRC_DIR)/clock.o \
 	$(SRC_DIR)/sipo.o \
 	$(SRC_DIR)/piso.o \
 	$(SRC_DIR)/intr.o \
+    $(SRC_DIR)/util.o \
+    $(SRC_DIR)/proto.o \
 	$(SRC_DIR)/main.o
 
 ###############################################################################
@@ -72,10 +83,10 @@ clean: ## Clean this package
 %.hex: %.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-%.elf: $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
+%.elf: $(LIBS) $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(LIBS) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 .PHONY: help all flash clean

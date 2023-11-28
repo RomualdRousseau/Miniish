@@ -7,6 +7,6 @@
 
 extern void sipo_init();
 
-extern void sipo_write(const int val);
+extern void sipo_write(const uint8_t val);
 
 #endif

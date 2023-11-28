@@ -7,6 +7,6 @@
 
 extern void piso_init();
 
-extern int piso_read();
+extern const uint8_t piso_read();
 
 #endif
