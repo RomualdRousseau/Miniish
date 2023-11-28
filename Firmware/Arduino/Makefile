@@ -69,13 +69,14 @@ help: ## Show this help
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2}'
 	@echo
 
-all: $(BINARY).hex ## Compile this package
+all: $(BIN_DIR) $(BINARY).hex ## Compile this package
 
-flash: $(BINARY).hex ## Upload this package
+flash: $(BIN_DIR) $(BINARY).hex ## Flash this package to the Arduino board
 	$(AVRDUDE) $(PROGRAMMER) -U flash:w:$(BINARY).hex:i
 
 clean: ## Clean this package
-	rm -f $(OBJS) $(BIN_DIR)/$(BINARY).elf $(BIN_DIR)/$(BINARY).hex
+	rm -f $(OBJS) $(BINARY).elf $(BINARY).hex
+	rm -fd $(BIN_DIR)
 
 ###############################################################################
 # Rules
@@ -89,4 +90,7 @@ clean: ## Clean this package
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
-.PHONY: help all flash clean
+$(BIN_DIR):
+	mkdir $@
+
+.PHONY: help init all flash clean
