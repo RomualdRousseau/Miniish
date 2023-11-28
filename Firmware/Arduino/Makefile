@@ -75,7 +75,7 @@ flash: $(BIN_DIR) $(BINARY).hex ## Flash this package to the Arduino board
 	$(AVRDUDE) $(PROGRAMMER) -U flash:w:$(BINARY).hex:i
 
 clean: ## Clean this package
-	rm -f $(OBJS) $(BINARY).elf $(BINARY).hex
+	rm -f $(LIBS) $(OBJS) $(BINARY).elf $(BINARY).hex
 	rm -fd $(BIN_DIR)
 
 ###############################################################################
