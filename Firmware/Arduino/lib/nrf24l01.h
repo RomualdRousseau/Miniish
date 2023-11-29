@@ -3,12 +3,11 @@
 
 #include <avr/io.h>
 
-// TODO: Setup right pins
 // CE and CSN port definitions
-#define NRF24L01_DDR DDRB
-#define NRF24L01_PORT PORTB
-#define NRF24L01_CE PB0
-#define NRF24L01_CSN PB1
+#define NRF24L01_DDR DDRC
+#define NRF24L01_PORT PORTC
+#define NRF24L01_CE PC3
+#define NRF24L01_CSN PC4
 
 // CE and CSN functions
 #define nrf24l01_CSNhi NRF24L01_PORT |= (1 << NRF24L01_CSN);
