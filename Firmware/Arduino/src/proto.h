@@ -8,7 +8,7 @@
 typedef struct
 {
     uint8_t header;
-    uint8_t data[(CHANNELS * RESOLUTION) / sizeof(uint8_t)];
+    uint8_t data[(CHANNELS * RESOLUTION) / 8];
     uint8_t flag;
     uint8_t footer;
 } packet_t;

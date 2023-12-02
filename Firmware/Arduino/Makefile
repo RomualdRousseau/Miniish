@@ -27,7 +27,7 @@ F_CPU = 16000000UL
 CC = $(AVRGCC_BIN_DIR)/avr-gcc
 OBJCOPY = $(AVRGCC_BIN_DIR)/avr-objcopy
 AVRDUDE = $(AVRDUDE_BIN_DIR)/avrdude
-PROGRAMMER = -C /$(AVRDUDE_ETC_DIR)/avrdude.conf -c arduino -p $(MCU) -P /dev/ttyACM0 -b 115200 -D
+PROGRAMMER = -C /$(AVRDUDE_ETC_DIR)/avrdude.conf -c arduino -p $(MCU) -P /dev/ttyACM1 -b 115200 -D
 
 ###############################################################################
 # C Flags
@@ -44,7 +44,7 @@ INCLUDES = \
 LIBS = \
     $(LIB_DIR)/spi.o \
     $(LIB_DIR)/uart.o \
-    $(LIB_DIR)/nrf24l01.o \
+    $(LIB_DIR)/nrf24.o \
 
 OBJS = \
 	$(SRC_DIR)/clock.o \

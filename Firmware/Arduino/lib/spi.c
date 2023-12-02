@@ -1,26 +1,35 @@
+
+#include <avr/common.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+
 #include "spi.h"
 
-void spi_init()
+#define DDR_SPI DDRB
+#define DD_SS DDB2
+#define DD_MOSI DDB3
+#define DD_MISO DDB4
+#define DD_SCK DDB5
+
+void spi_init(void)
 {
-    SPI_DDR &= ~((1 << SPI_MOSI) | (1 << SPI_MISO) | (1 << SPI_SS) | (1 << SPI_SCK)); // input
-    SPI_DDR |= ((1 << SPI_MOSI) | (1 << SPI_SS) | (1 << SPI_SCK));                    // output
+    DDR_SPI &= ~_BV(DD_MISO);
+    DDR_SPI |= (_BV(DD_MOSI) | _BV(DD_SCK) | _BV(DD_SS));
 
-    SPCR = ((1 << SPE) |                // SPI Enable
-            (0 << SPIE) |               // SPI Interupt Enable
-            (0 << DORD) |               // Data Order (0:MSB first / 1:LSB first)
-            (1 << MSTR) |               // Master/Slave select
-            (0 << SPR1) | (1 << SPR0) | // SPI Clock Rate
-            (0 << CPOL) |               // Clock Polarity (0:SCK low / 1:SCK hi when idle)
-            (0 << CPHA));               // Clock Phase (0:leading / 1:trailing edge sampling)
+    SPCR = (1 << MSTR) |
+           (1 << SPE) |
+           (0 << SPIE) |
+           (0 << DORD) |
+           (0 << CPOL) |
+           (0 << SPR1) | (0 << SPR0);
 
-    SPSR = (1 << SPI2X); // Double SPI Speed Bit
+    SPSR |= _BV(SPI2X);
 }
 
-const uint8_t spi_writereadbyte(const uint8_t data)
+const uint8_t spi_transfer(const uint8_t data)
 {
     SPDR = data;
-    while ((SPSR & (1 << SPIF)) == 0);
+    asm volatile("nop");
+    while (!(SPSR & _BV(SPIF)));
     return SPDR;
 }

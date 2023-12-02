@@ -3,7 +3,7 @@
 #include "piso.h"
 #include "sipo.h"
 #include "intr.h"
-#include "nrf24l01.h"
+#include "nrf24.h"
 #include "uart.h"
 #include "util.h"
 #include "proto.h"
@@ -17,34 +17,29 @@ packet_t packet;
 int main(void)
 {
     uart_init(115200);
-    uart_puts(MESSAGE);
-
+    uart_set_stdout();
+    printf(MESSAGE);
     clock_init();
     piso_init();
     sipo_init();
     intr_init();
-
-    nrf24l01_init();
-    nrf24l01_set_pa_level(NRF24L01_RF24_PA_LOW);
-    nrf24l01_open_writing_pipe(ADDRESS);
-    nrf24l01_stop_listening();
-
+    nrf24_init(ADDRESS);
     proto_init(channels);
-
+    
     sei();
 
     while (1)
     {
-        if (intr_fired)
+        if (intr_is_interrupted())
         {
             const uint8_t val = piso_read();
-            channels[0] = map(val, 0, 255, 1000, 2000);
             sipo_write(val);
-            
-            proto_encode_packet(channels, &packet);
-            nrf24l01_write((const uint8_t *)&packet, sizeof(packet));
 
-            intr_fired = 0;
+            channels[0] = map(val, 0, 255, 1000, 2000);
+            proto_encode_packet(channels, &packet);
+            nrf24_write((const uint8_t *)&packet, sizeof(packet));
+
+            printf("Processed 1 byte: %02X\r\n", val);
         }
     }
 
