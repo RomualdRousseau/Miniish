@@ -10,7 +10,6 @@ void sipo_init()
 
 void sipo_write(const uint8_t val)
 {
-
     // Enable
     PORTB &= ~CLOCK_PIN;
 
