@@ -80,6 +80,24 @@ files = [
 pycparser = "*"
 
 [[package]]
+name = "miniish"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = "^3.11"
+files = []
+develop = false
+
+[package.dependencies]
+pyco = {path = "../pyco"}
+pyserial = "^3.5"
+pyvi = {path = "../pyvi"}
+
+[package.source]
+type = "directory"
+url = "Software/Miniish"
+
+[[package]]
 name = "numpy"
 version = "1.26.4"
 description = "Fundamental package for array computing in Python"
@@ -140,7 +158,7 @@ sounddevice = "^0.4.6"
 
 [package.source]
 type = "directory"
-url = "../pyco"
+url = "Software/pyco"
 
 [[package]]
 name = "pycparser"
@@ -260,7 +278,7 @@ pyperclip = "^1.8.2"
 
 [package.source]
 type = "directory"
-url = "../pyvi"
+url = "Software/pyvi"
 
 [[package]]
 name = "sounddevice"
@@ -285,4 +303,4 @@ numpy = ["NumPy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "494c646aa5777fcb8e0409c3b78a96795048ec0f71afb4249cf79d8d222d53a9"
+content-hash = "e7b474a75d8348a59bde23a7a217d7729d991487f13aa59985ab770ba898a8b9"

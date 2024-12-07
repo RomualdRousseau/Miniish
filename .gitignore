@@ -4,6 +4,7 @@
 # Python caches
 __pycache__
 .python-version
+.venv
 
 # Alchitry work
 work
@@ -12,7 +13,7 @@ work
 tags
 
 # VScode
-.vscode/
+.vscode
 
 # Binaries
 target/

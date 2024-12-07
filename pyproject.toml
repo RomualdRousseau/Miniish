@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "miniish-all"
+version = "0.1.0"
+description = ""
+authors = ["Romuald Rousseau <romualdrousseau@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+miniish = {path = "Software/Miniish"}
+pyco = {path = "Software/pyco"}
+pyvi = {path = "Software/pyvi"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
