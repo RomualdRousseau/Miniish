@@ -18,6 +18,6 @@ class Load(Process):
                 sketch.load(path)
                 editor.load(path)
                 console.print("loaded")
-            except:
+            except:  # noqa: E722
                 console.print("i/o error: no such file or dir")
         exit()

@@ -34,9 +34,9 @@ class SoundEditor(Component):
             [0],
         )
         self.pitch_picker = PitchPicker(-1, (0, 28), (128, 64))
-        self.pitch_picker.parent = self
+        self.pitch_picker.parent = self # type: ignore
         self.volume_picker = VolumePicker(-1, (0, 100), (128, 19))
-        self.volume_picker.parent = self
+        self.volume_picker.parent = self # type: ignore
 
     def update_ui(self) -> None:
         (_, _, _, _, s) = pyco.synth.get_sound(self.sound)[0]

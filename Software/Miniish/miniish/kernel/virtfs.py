@@ -34,7 +34,7 @@ def exists(path: str) -> bool:
     try:
         _find_node(path)
         return True
-    except:
+    except:  # noqa: E722
         return False
 
 

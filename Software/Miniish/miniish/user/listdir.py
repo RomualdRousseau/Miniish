@@ -10,6 +10,6 @@ class ListDir(Process):
             for file in sorted(virtfs.listdir(path)):
                 if not file.startswith('.'):
                     console.print(file)
-        except:
+        except:  # noqa: E722
             console.print("i/o error: no such file or dir")
         exit()

@@ -17,7 +17,7 @@ class Screen(Process):
             serial.open(port, baudrate)
             console.set_filter(str.lower)
             console.print("\\ ", end="")
-        except:
+        except:  # noqa: E722
             console.print("i/o error: could not open port")
             exit()
         

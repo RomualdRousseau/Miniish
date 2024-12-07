@@ -7,7 +7,7 @@ import pyco.sys
 
 from miniish.constants import COLOR_CONS_BG, COLOR_CONS_FG
 
-NO_FILTER = lambda x: x
+NO_FILTER = lambda x: x  # noqa: E731
 
 
 class CONSOLE:

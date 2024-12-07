@@ -19,7 +19,7 @@ class SpritePicker(Widget):
     #
 
     def init_ui(self) -> None:
-        (x, y), (w, h) = self.pos, self.size
+        (x, y), (w, _) = self.pos, self.size
         # Init the page selector
         self.tabs = ButtonGroup(
             -1,

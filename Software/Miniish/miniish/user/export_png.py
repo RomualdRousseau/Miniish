@@ -13,6 +13,6 @@ class ExportPng(Process):
             try:
                 pyco.sys.export_png(args[1])
                 console.print("exported")
-            except:
+            except:  # noqa: E722
                 console.print("i/o error: export failed")
         exit()

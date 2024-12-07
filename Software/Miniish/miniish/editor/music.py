@@ -26,7 +26,7 @@ class MusicEditor(Component):
             ChannelEditor(3, (98, 27), (28, 91)),
         ]
         for channel_editor in self.channel_editors:
-            channel_editor.parent = self
+            channel_editor.parent = self # type: ignore
 
     def update(self) -> bool:
         c = pyco.input()

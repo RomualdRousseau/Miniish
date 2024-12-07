@@ -1,5 +1,3 @@
-import pyco.sys
-
 from miniish.kernel import virtfs
 from miniish.kernel.scheduler import exec
 from miniish.kernel.process import Process

@@ -23,6 +23,6 @@ class Save(Process):
                 editor.save(path)
                 sketch.save(path)
                 console.print("saved")
-            except:
+            except:  # noqa: E722
                 console.print("i/o error: no such file or dir")
         exit()

@@ -163,7 +163,7 @@ class ChannelEditor(Widget):
                         e = min(n, 5)
                     sound[self.note] = (p, wa, v, e, s)
                     pyco.synth.play_one_note(*sound[self.note])
-                elif KEYMAP_TO_PITCH_SCALE1.get(c, None) != None:
+                elif KEYMAP_TO_PITCH_SCALE1.get(c) is not None:
                     p = pyco.synth.to_chromatic(
                         KEYMAP_TO_PITCH_SCALE1[c], max(0, self.last_octave - 1)
                     )
@@ -173,7 +173,7 @@ class ChannelEditor(Widget):
                     sound[self.note] = (p, wa, v, e, s)
                     pyco.synth.play_one_note(*sound[self.note])
                     self.parent._move_selector_down()
-                elif KEYMAP_TO_PITCH_SCALE2.get(c, None) != None:
+                elif KEYMAP_TO_PITCH_SCALE2.get(c) is not None:
                     p = pyco.synth.to_chromatic(KEYMAP_TO_PITCH_SCALE2[c], self.last_octave)
                     if v == 0:
                         wa = self.last_oscillator

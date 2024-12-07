@@ -13,6 +13,6 @@ class ImportPng(Process):
             try:
                 pyco.sys.import_png(args[1])
                 console.print("imported")
-            except:
+            except:  # noqa: E722
                 console.print("i/o error: file not found")
         exit()
