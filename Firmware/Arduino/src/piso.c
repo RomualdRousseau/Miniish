@@ -22,7 +22,7 @@ const uint8_t piso_read()
     _delay_us(CLOCK_SPEED);
     PORTD |= PISO_LOAD;
 
-    // Read on failing clock
+    // Read on falling clock
 
     for (int i = 0; i < 8; i++)
     {
