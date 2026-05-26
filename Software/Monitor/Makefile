@@ -15,7 +15,7 @@ OBJS     = $(BIN_DIR)/main.o \
 
 VASM  = vasm6502_oldstyle -c02 -dotdir -Fvobj -esc -ldots -I$(INCLUDE_DIR)
 VLINK = vlink -brawbin1 -T$(CFG_LIB)/miniish.lnk -L$(LIB_DIR) -Bforcearchive -lbios -Msymbols.lst
-BURN  = minipro -p AT28C256 -w
+BURN  = minipro -p AT28C256 -u -w
 
 HELP_HEADER = "Monitor"
 
